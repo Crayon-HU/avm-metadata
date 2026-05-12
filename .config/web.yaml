@@ -1,0 +1,47 @@
+# =============================================================================
+# AVM – Web domain
+#
+# Resource modules: App Service Plan, Web/Function App, Static Web App,
+#                   App Service Environment, API Connection
+# Pattern modules:  (moved to storage domain — Function App Storage PE)
+# Utility modules:  (none in scope)
+# =============================================================================
+
+domain: web
+description: App Service, Web apps, Function apps, and hosting environments
+
+modules:
+
+  # ---------------------------------------------------------------------------
+  # Resource modules
+  # ---------------------------------------------------------------------------
+
+  - name: terraform-azurerm-avm-res-web-serverfarm
+    type: res
+    url: https://github.com/Azure/terraform-azurerm-avm-res-web-serverfarm.git
+    branch: main
+    description: App Service Plan
+
+  - name: terraform-azurerm-avm-res-web-site
+    type: res
+    url: https://github.com/Azure/terraform-azurerm-avm-res-web-site.git
+    branch: main
+    description: Web App / Function App / Logic App
+
+  - name: terraform-azurerm-avm-res-web-staticsite
+    type: res
+    url: https://github.com/Azure/terraform-azurerm-avm-res-web-staticsite.git
+    branch: main
+    description: Static Web App
+
+  - name: terraform-azurerm-avm-res-web-hostingenvironment
+    type: res
+    url: https://github.com/Azure/terraform-azurerm-avm-res-web-hostingenvironment.git
+    branch: main
+    description: App Service Environment (ASE)
+
+  - name: terraform-azurerm-avm-res-web-connection
+    type: res
+    url: https://github.com/Azure/terraform-azurerm-avm-res-web-connection.git
+    branch: main
+    description: API Connection (Logic Apps connector)

@@ -1,0 +1,47 @@
+# BEGIN CATALOG
+# AVM Module — avm-ptn-alz-management
+# catalog: auto-generated from AVM upstream CSV. Run: ./avm.sh sync to refresh.
+# enrichment: hand-maintained — NEVER overwritten by sync.
+
+catalog:
+  name:         "avm-ptn-alz-management"
+  type:         ptn
+  domain:       platform-alz
+  provider:     azurerm
+  display_name: "ALZ Management"
+  alternative_names: "Azure Landing Zones - Management"
+  status:       "Available"
+  repo_url:     "https://github.com/Azure/terraform-azurerm-avm-ptn-alz-management"
+  registry_url: "https://registry.terraform.io/modules/Azure/avm-ptn-alz-management/azurerm/latest"
+  description:  "AVM Pattern Module that handles all aspects of the ALZ management resources"
+  first_published: "2023-12"
+  owners:
+    primary:
+      handle: "matt-FFFFFF"
+      name:   "Matt White"
+    secondary:
+      handle: ""
+      name:   ""
+# END CATALOG
+# BEGIN SCRAPED
+# END SCRAPED
+enrichment:
+  version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
+  terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"
+  provider_version: ""       # azurerm/azapi provider version tested with
+  use_cases: []              # short tags, e.g. ["alz", "hub-spoke", "landing-zone"]
+  known_issues: []
+  # known_issues item shape:
+  #   - title: "brief description"
+  #     status: open           # open | resolved | wontfix
+  #     severity: medium       # low | medium | high
+  #     workaround: ""         # optional workaround description
+  #     url: ""                # optional issue/PR/discussion URL
+  notes: []
+  # notes item shape:
+  #   - date: "YYYY-MM-DD"
+  #     author: "github-handle"
+  #     content: "free-text observation"
+
+
+

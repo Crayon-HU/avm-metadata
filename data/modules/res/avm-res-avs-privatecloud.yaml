@@ -1,0 +1,48 @@
+# BEGIN CATALOG
+# AVM Module — avm-res-avs-privatecloud
+# catalog: auto-generated from AVM upstream CSV. Run: ./avm.sh sync to refresh.
+# enrichment: hand-maintained — NEVER overwritten by sync.
+
+catalog:
+  name:         "avm-res-avs-privatecloud"
+  type:         res
+  domain:       other
+  provider:     azurerm
+  display_name: "AVS Private Cloud"
+  status:       "Available"
+  repo_url:     "https://github.com/Azure/terraform-azurerm-avm-res-avs-privatecloud"
+  registry_url: "https://registry.terraform.io/modules/Azure/avm-res-avs-privatecloud/azurerm/latest"
+  description:  "AVM Resource Module for AVS Private Cloud"
+  first_published: "2024-02"
+  provider_namespace: "Microsoft.AVS"
+  resource_type: "privateClouds"
+  owners:
+    primary:
+      handle: "jchancellor-ms"
+      name:   "Jon Chancellor"
+    secondary:
+      handle: ""
+      name:   ""
+# END CATALOG
+# BEGIN SCRAPED
+# END SCRAPED
+enrichment:
+  version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
+  terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"
+  provider_version: ""       # azurerm/azapi provider version tested with
+  use_cases: []              # short tags, e.g. ["alz", "hub-spoke", "landing-zone"]
+  known_issues: []
+  # known_issues item shape:
+  #   - title: "brief description"
+  #     status: open           # open | resolved | wontfix
+  #     severity: medium       # low | medium | high
+  #     workaround: ""         # optional workaround description
+  #     url: ""                # optional issue/PR/discussion URL
+  notes: []
+  # notes item shape:
+  #   - date: "YYYY-MM-DD"
+  #     author: "github-handle"
+  #     content: "free-text observation"
+
+
+

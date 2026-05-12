@@ -1,0 +1,46 @@
+# =============================================================================
+# AVM – Identity domain
+#
+# Resource modules: Key Vault, User Assigned Identity, Role Assignment
+# Pattern modules:  Ephemeral Credentials Generator
+# Utility modules:  Role Definitions
+# =============================================================================
+
+domain: identity
+description: Identity, secrets management, and access control
+
+modules:
+
+  # ---------------------------------------------------------------------------
+  # Resource modules
+  # ---------------------------------------------------------------------------
+
+  - name: terraform-azurerm-avm-res-keyvault-vault
+    type: res
+    url: https://github.com/Azure/terraform-azurerm-avm-res-keyvault-vault.git
+    branch: main
+    description: Key Vault
+
+  - name: terraform-azurerm-avm-res-managedidentity-userassignedidentity
+    type: res
+    url: https://github.com/Azure/terraform-azurerm-avm-res-managedidentity-userassignedidentity.git
+    branch: main
+    description: User Assigned Managed Identity
+
+  - name: terraform-azurerm-avm-res-authorization-roleassignment
+    type: res
+    url: https://github.com/Azure/terraform-azurerm-avm-res-authorization-roleassignment.git
+    branch: main
+    description: Role Assignment
+
+  # ---------------------------------------------------------------------------
+  # Pattern modules
+  # ---------------------------------------------------------------------------
+
+  - name: terraform-azurerm-avm-ptn-ephemeral-credential
+    type: ptn
+    url: https://github.com/Azure/terraform-azurerm-avm-ptn-ephemeral-credential.git
+    branch: main
+    description: Ephemeral Credentials Generator
+
+  # Role Definitions utility lives in the platform domain (platform.yaml).

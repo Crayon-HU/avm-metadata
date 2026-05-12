@@ -1,0 +1,47 @@
+# BEGIN CATALOG
+# AVM Module — avm-ptn-alz-connectivity-hub-and-spoke-vnet
+# catalog: auto-generated from AVM upstream CSV. Run: ./avm.sh sync to refresh.
+# enrichment: hand-maintained — NEVER overwritten by sync.
+
+catalog:
+  name:         "avm-ptn-alz-connectivity-hub-and-spoke-vnet"
+  type:         ptn
+  domain:       platform-alz
+  provider:     azurerm
+  display_name: "ALZ Connectivity Hub and Spoke"
+  alternative_names: "Azure Landing Zones - Hub and Spoke"
+  status:       "Available"
+  repo_url:     "https://github.com/Azure/terraform-azurerm-avm-ptn-alz-connectivity-hub-and-spoke-vnet"
+  registry_url: "https://registry.terraform.io/modules/Azure/avm-ptn-alz-connectivity-hub-and-spoke-vnet/azurerm/latest"
+  description:  "The ALZ Platform Landing Zone Connectivity with Hub and Spoke Virtual Networks Pattern Module"
+  first_published: "2025-03"
+  owners:
+    primary:
+      handle: "jaredfholgate"
+      name:   "Jared Holgate"
+    secondary:
+      handle: ""
+      name:   ""
+# END CATALOG
+# BEGIN SCRAPED
+# END SCRAPED
+enrichment:
+  version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
+  terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"
+  provider_version: ""       # azurerm/azapi provider version tested with
+  use_cases: []              # short tags, e.g. ["alz", "hub-spoke", "landing-zone"]
+  known_issues: []
+  # known_issues item shape:
+  #   - title: "brief description"
+  #     status: open           # open | resolved | wontfix
+  #     severity: medium       # low | medium | high
+  #     workaround: ""         # optional workaround description
+  #     url: ""                # optional issue/PR/discussion URL
+  notes: []
+  # notes item shape:
+  #   - date: "YYYY-MM-DD"
+  #     author: "github-handle"
+  #     content: "free-text observation"
+
+
+

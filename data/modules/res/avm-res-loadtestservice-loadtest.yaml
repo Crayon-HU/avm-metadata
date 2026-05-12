@@ -1,0 +1,47 @@
+# BEGIN CATALOG
+# AVM Module — avm-res-loadtestservice-loadtest
+# catalog: auto-generated from AVM upstream CSV. Run: ./avm.sh sync to refresh.
+# enrichment: hand-maintained — NEVER overwritten by sync.
+
+catalog:
+  name:         "avm-res-loadtestservice-loadtest"
+  type:         res
+  domain:       developer-tools
+  provider:     azurerm
+  display_name: "Load Testing Service"
+  status:       "Proposed"
+  repo_url:     "https://github.com/Azure/terraform-azurerm-avm-res-loadtestservice-loadtest"
+  registry_url: "https://registry.terraform.io/modules/Azure/avm-res-loadtestservice-loadtest/azurerm/latest"
+  description:  "AVM Resource Module for Load Testing Service"
+  provider_namespace: "Microsoft.LoadTestService"
+  resource_type: "loadTests"
+  owners:
+    primary:
+      handle: "pfayika1"
+      name:   "Philippe Fayika"
+    secondary:
+      handle: ""
+      name:   ""
+# END CATALOG
+# BEGIN SCRAPED
+# END SCRAPED
+enrichment:
+  version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
+  terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"
+  provider_version: ""       # azurerm/azapi provider version tested with
+  use_cases: []              # short tags, e.g. ["alz", "hub-spoke", "landing-zone"]
+  known_issues: []
+  # known_issues item shape:
+  #   - title: "brief description"
+  #     status: open           # open | resolved | wontfix
+  #     severity: medium       # low | medium | high
+  #     workaround: ""         # optional workaround description
+  #     url: ""                # optional issue/PR/discussion URL
+  notes: []
+  # notes item shape:
+  #   - date: "YYYY-MM-DD"
+  #     author: "github-handle"
+  #     content: "free-text observation"
+
+
+

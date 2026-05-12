@@ -1,0 +1,20 @@
+# Enforce LF line endings for shell scripts regardless of OS
+*.sh     text eol=lf
+
+# Terraform files — LF only
+*.tf     text eol=lf
+*.tfvars text eol=lf
+
+# YAML/JSON — LF only
+*.yaml   text eol=lf
+*.yml    text eol=lf
+*.json   text eol=lf
+
+# PowerShell — keep CRLF on Windows, LF elsewhere
+*.ps1    text eol=crlf
+
+# Binary files — no line ending conversion
+*.png    binary
+*.jpg    binary
+*.zip    binary
+*.gz     binary

@@ -1,0 +1,48 @@
+# BEGIN CATALOG
+# AVM Module — avm-res-logic-workflow
+# catalog: auto-generated from AVM upstream CSV. Run: ./avm.sh sync to refresh.
+# enrichment: hand-maintained — NEVER overwritten by sync.
+
+catalog:
+  name:         "avm-res-logic-workflow"
+  type:         res
+  domain:       web-app-services
+  provider:     azurerm
+  display_name: "Logic Apps (Workflow)"
+  status:       "Available"
+  repo_url:     "https://github.com/Azure/terraform-azurerm-avm-res-logic-workflow"
+  registry_url: "https://registry.terraform.io/modules/Azure/avm-res-logic-workflow/azurerm/latest"
+  description:  "AVM Resource Module for Logic Apps (Workflow)"
+  first_published: "2024-06"
+  provider_namespace: "Microsoft.Logic"
+  resource_type: "workflows"
+  owners:
+    primary:
+      handle: "bakrish"
+      name:   "Bala Krishnamoorthy"
+    secondary:
+      handle: ""
+      name:   ""
+# END CATALOG
+# BEGIN SCRAPED
+# END SCRAPED
+enrichment:
+  version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
+  terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"
+  provider_version: ""       # azurerm/azapi provider version tested with
+  use_cases: []              # short tags, e.g. ["alz", "hub-spoke", "landing-zone"]
+  known_issues: []
+  # known_issues item shape:
+  #   - title: "brief description"
+  #     status: open           # open | resolved | wontfix
+  #     severity: medium       # low | medium | high
+  #     workaround: ""         # optional workaround description
+  #     url: ""                # optional issue/PR/discussion URL
+  notes: []
+  # notes item shape:
+  #   - date: "YYYY-MM-DD"
+  #     author: "github-handle"
+  #     content: "free-text observation"
+
+
+

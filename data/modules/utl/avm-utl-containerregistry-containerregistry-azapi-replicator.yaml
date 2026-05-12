@@ -1,0 +1,45 @@
+# BEGIN CATALOG
+# AVM Module — avm-utl-containerregistry-containerregistry-azapi-replicator
+# catalog: auto-generated from AVM upstream CSV. Run: ./avm.sh sync to refresh.
+# enrichment: hand-maintained — NEVER overwritten by sync.
+
+catalog:
+  name:         "avm-utl-containerregistry-containerregistry-azapi-replicator"
+  type:         utl
+  domain:       containers
+  provider:     azure
+  display_name: "Container Registry AzRM to AzAPI Replicator"
+  status:       "Proposed"
+  repo_url:     "https://github.com/Azure/terraform-azure-avm-utl-containerregistry-containerregistry-azapi-replicator"
+  registry_url: "https://registry.terraform.io/modules/Azure/avm-utl-containerregistry-containerregistry-azapi-replicator/azure/latest"
+  description:  "This AVM utility module helps users to migrate their azurerm_container_registry resources to AzAPI provider."
+  owners:
+    primary:
+      handle: "lonegunmanb"
+      name:   "Zijie He"
+    secondary:
+      handle: ""
+      name:   ""
+# END CATALOG
+# BEGIN SCRAPED
+# END SCRAPED
+enrichment:
+  version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
+  terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"
+  provider_version: ""       # azurerm/azapi provider version tested with
+  use_cases: []              # short tags, e.g. ["alz", "hub-spoke", "landing-zone"]
+  known_issues: []
+  # known_issues item shape:
+  #   - title: "brief description"
+  #     status: open           # open | resolved | wontfix
+  #     severity: medium       # low | medium | high
+  #     workaround: ""         # optional workaround description
+  #     url: ""                # optional issue/PR/discussion URL
+  notes: []
+  # notes item shape:
+  #   - date: "YYYY-MM-DD"
+  #     author: "github-handle"
+  #     content: "free-text observation"
+
+
+

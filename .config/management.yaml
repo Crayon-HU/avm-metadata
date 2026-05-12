@@ -1,0 +1,122 @@
+# =============================================================================
+# AVM – Management & Governance domain
+#
+# Resource modules: Resource Group, Management Group, Maintenance Config,
+#                   Consumption Budget, Feature Registration, Resource Graph,
+#                   Portal Dashboard, Managed Services, Automation Account
+# Pattern modules:  ALZ Management, Policy Assignment, Cloud Shell VNet,
+#                   Subscription Service Health Alerts
+# Utility modules:  Resource Group AzAPI replicator
+#
+# NOTE: Monitoring/Alerting/Observability modules live in monitoring.yaml
+# =============================================================================
+
+domain: management
+description: Resource governance, policy, cost management, and resource organisation
+
+modules:
+
+  # ---------------------------------------------------------------------------
+  # Resource modules
+  # ---------------------------------------------------------------------------
+
+  - name: terraform-azurerm-avm-res-resources-resourcegroup
+    type: res
+    url: https://github.com/Azure/terraform-azurerm-avm-res-resources-resourcegroup.git
+    branch: main
+    description: Resource Group
+
+  - name: terraform-azurerm-avm-res-management-managementgroup
+    type: res
+    url: https://github.com/Azure/terraform-azurerm-avm-res-management-managementgroup.git
+    branch: main
+    description: Management Group
+
+  - name: terraform-azurerm-avm-res-management-servicegroup
+    type: res
+    url: https://github.com/Azure/terraform-azurerm-avm-res-management-servicegroup.git
+    branch: main
+    description: Service Group
+
+  - name: terraform-azurerm-avm-res-maintenance-maintenanceconfiguration
+    type: res
+    url: https://github.com/Azure/terraform-azurerm-avm-res-maintenance-maintenanceconfiguration.git
+    branch: main
+    description: Maintenance Configuration
+
+  - name: terraform-azurerm-avm-res-consumption-budget
+    type: res
+    url: https://github.com/Azure/terraform-azurerm-avm-res-consumption-budget.git
+    branch: main
+    description: Consumption Budget
+
+  - name: terraform-azurerm-avm-res-automation-automationaccount
+    type: res
+    url: https://github.com/Azure/terraform-azurerm-avm-res-automation-automationaccount.git
+    branch: main
+    description: Automation Account
+
+  # Non-core — uncomment when needed
+  # - name: terraform-azurerm-avm-res-features-feature
+  #   type: res
+  #   url: https://github.com/Azure/terraform-azurerm-avm-res-features-feature.git
+  #   branch: main
+  #   description: Subscription Feature Registration
+
+  # - name: terraform-azurerm-avm-res-managedservices-registrationdefinition
+  #   type: res
+  #   url: https://github.com/Azure/terraform-azurerm-avm-res-managedservices-registrationdefinition.git
+  #   branch: main
+  #   description: Managed Services Registration Definition (Lighthouse)
+
+  # - name: terraform-azurerm-avm-res-resourcegraph-query
+  #   type: res
+  #   url: https://github.com/Azure/terraform-azurerm-avm-res-resourcegraph-query.git
+  #   branch: main
+  #   description: Resource Graph Query
+
+  # - name: terraform-azurerm-avm-res-portal-dashboard
+  #   type: res
+  #   url: https://github.com/Azure/terraform-azurerm-avm-res-portal-dashboard.git
+  #   branch: main
+  #   description: Azure Portal Dashboard
+
+  # ---------------------------------------------------------------------------
+  # Pattern modules
+  # ---------------------------------------------------------------------------
+
+  - name: terraform-azurerm-avm-ptn-alz-management
+    type: ptn
+    url: https://github.com/Azure/terraform-azurerm-avm-ptn-alz-management.git
+    branch: main
+    description: ALZ Management baseline
+
+  - name: terraform-azurerm-avm-ptn-policyassignment
+    type: ptn
+    url: https://github.com/Azure/terraform-azurerm-avm-ptn-policyassignment.git
+    branch: main
+    description: Policy Assignment
+
+  # Non-core — uncomment when needed
+  # - name: terraform-azurerm-avm-ptn-cloudshell-vnet
+  #   type: ptn
+  #   url: https://github.com/Azure/terraform-azurerm-avm-ptn-cloudshell-vnet.git
+  #   branch: main
+  #   description: Cloud Shell VNet Integration
+
+  # - name: terraform-azurerm-avm-ptn-subscription-service-health-alerts
+  #   type: ptn
+  #   url: https://github.com/Azure/terraform-azurerm-avm-ptn-subscription-service-health-alerts.git
+  #   branch: main
+  #   description: Subscription Service Health Alerts
+
+  # ---------------------------------------------------------------------------
+  # Utility modules
+  # ---------------------------------------------------------------------------
+
+  # Not found as public GitHub repo (May 2026)
+  # - name: terraform-azurerm-avm-utl-resources-resourcegroup-azapi-replicator
+  #   type: utl
+  #   url: https://github.com/Azure/terraform-azurerm-avm-utl-resources-resourcegroup-azapi-replicator.git
+  #   branch: main
+  #   description: Resource Group AzRM → AzAPI replicator

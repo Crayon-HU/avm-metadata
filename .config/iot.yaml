@@ -1,0 +1,36 @@
+# =============================================================================
+# AVM – IoT & Edge domain
+#
+# Resource modules: Device Registry (AKRI), Digital Twins, IoT Operations
+#
+# All modules are commented out (non-core) as these are niche workloads.
+# Uncomment the modules relevant to your IoT project.
+# =============================================================================
+
+domain: iot
+description: IoT Operations, Edge, and Digital Twins
+
+modules:
+
+  # ---------------------------------------------------------------------------
+  # Resource modules
+  # ---------------------------------------------------------------------------
+
+  # Non-core — uncomment when needed
+  # - name: terraform-azurerm-avm-res-deviceregistry-assetendpointprofile
+  #   type: res
+  #   url: https://github.com/Azure/terraform-azurerm-avm-res-deviceregistry-assetendpointprofile.git
+  #   branch: main
+  #   description: Device Registry Asset Endpoint Profile (AKRI)
+
+  # - name: terraform-azurerm-avm-res-digitaltwins-digitaltwinsinstance
+  #   type: res
+  #   url: https://github.com/Azure/terraform-azurerm-avm-res-digitaltwins-digitaltwinsinstance.git
+  #   branch: main
+  #   description: Azure Digital Twins Instance
+
+  # - name: terraform-azurerm-avm-res-iotoperations-instance
+  #   type: res
+  #   url: https://github.com/Azure/terraform-azurerm-avm-res-iotoperations-instance.git
+  #   branch: main
+  #   description: Azure IoT Operations Instance

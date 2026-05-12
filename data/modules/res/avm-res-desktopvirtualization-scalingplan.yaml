@@ -1,0 +1,48 @@
+# BEGIN CATALOG
+# AVM Module — avm-res-desktopvirtualization-scalingplan
+# catalog: auto-generated from AVM upstream CSV. Run: ./avm.sh sync to refresh.
+# enrichment: hand-maintained — NEVER overwritten by sync.
+
+catalog:
+  name:         "avm-res-desktopvirtualization-scalingplan"
+  type:         res
+  domain:       avd
+  provider:     azurerm
+  display_name: "Azure Virtual Desktop (AVD) Scaling Plan"
+  status:       "Available"
+  repo_url:     "https://github.com/Azure/terraform-azurerm-avm-res-desktopvirtualization-scalingplan"
+  registry_url: "https://registry.terraform.io/modules/Azure/avm-res-desktopvirtualization-scalingplan/azurerm/latest"
+  description:  "AVM Resource Module for Azure Virtual Desktop (AVD) Scaling Plan"
+  first_published: "2023-12"
+  provider_namespace: "Microsoft.DesktopVirtualization"
+  resource_type: "scalingPlans"
+  owners:
+    primary:
+      handle: "jensheerin"
+      name:   "Jen Sheerin"
+    secondary:
+      handle: "sihbher"
+      name:   "Gerardo Reyes"
+# END CATALOG
+# BEGIN SCRAPED
+# END SCRAPED
+enrichment:
+  version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
+  terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"
+  provider_version: ""       # azurerm/azapi provider version tested with
+  use_cases: []              # short tags, e.g. ["alz", "hub-spoke", "landing-zone"]
+  known_issues: []
+  # known_issues item shape:
+  #   - title: "brief description"
+  #     status: open           # open | resolved | wontfix
+  #     severity: medium       # low | medium | high
+  #     workaround: ""         # optional workaround description
+  #     url: ""                # optional issue/PR/discussion URL
+  notes: []
+  # notes item shape:
+  #   - date: "YYYY-MM-DD"
+  #     author: "github-handle"
+  #     content: "free-text observation"
+
+
+

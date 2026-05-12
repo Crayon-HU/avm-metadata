@@ -1,0 +1,50 @@
+# BEGIN CATALOG
+# AVM Module — avm-res-compute-virtualmachine
+# catalog: auto-generated from AVM upstream CSV. Run: ./avm.sh sync to refresh.
+# enrichment: hand-maintained — NEVER overwritten by sync.
+
+catalog:
+  name:         "avm-res-compute-virtualmachine"
+  type:         res
+  domain:       compute
+  provider:     azurerm
+  display_name: "Virtual Machine"
+  alternative_names: "VM"
+  status:       "Available"
+  repo_url:     "https://github.com/Azure/terraform-azurerm-avm-res-compute-virtualmachine"
+  registry_url: "https://registry.terraform.io/modules/Azure/avm-res-compute-virtualmachine/azurerm/latest"
+  description:  "AVM Resource Module for Virtual Machine"
+  first_published: "2023-11"
+  provider_namespace: "Microsoft.Compute"
+  resource_type: "virtualMachines"
+  owners:
+    primary:
+      handle: "jchancellor-ms"
+      name:   "Jon Chancellor"
+    secondary:
+      handle: ""
+      name:   ""
+  comments: "TFVM location: https://github.com/Azure/terraform-azurerm-compute"
+# END CATALOG
+# BEGIN SCRAPED
+# END SCRAPED
+enrichment:
+  version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
+  terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"
+  provider_version: ""       # azurerm/azapi provider version tested with
+  use_cases: []              # short tags, e.g. ["alz", "hub-spoke", "landing-zone"]
+  known_issues: []
+  # known_issues item shape:
+  #   - title: "brief description"
+  #     status: open           # open | resolved | wontfix
+  #     severity: medium       # low | medium | high
+  #     workaround: ""         # optional workaround description
+  #     url: ""                # optional issue/PR/discussion URL
+  notes: []
+  # notes item shape:
+  #   - date: "YYYY-MM-DD"
+  #     author: "github-handle"
+  #     content: "free-text observation"
+
+
+

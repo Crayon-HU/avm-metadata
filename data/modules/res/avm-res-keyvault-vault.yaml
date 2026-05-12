@@ -1,0 +1,49 @@
+# BEGIN CATALOG
+# AVM Module — avm-res-keyvault-vault
+# catalog: auto-generated from AVM upstream CSV. Run: ./avm.sh sync to refresh.
+# enrichment: hand-maintained — NEVER overwritten by sync.
+
+catalog:
+  name:         "avm-res-keyvault-vault"
+  type:         res
+  domain:       identity-security
+  provider:     azurerm
+  display_name: "Key Vault"
+  alternative_names: "KV"
+  status:       "Available"
+  repo_url:     "https://github.com/Azure/terraform-azurerm-avm-res-keyvault-vault"
+  registry_url: "https://registry.terraform.io/modules/Azure/avm-res-keyvault-vault/azurerm/latest"
+  description:  "AVM Resource Module for Key Vault"
+  first_published: "2023-09"
+  provider_namespace: "Microsoft.KeyVault"
+  resource_type: "vaults"
+  owners:
+    primary:
+      handle: "matt-FFFFFF"
+      name:   "Matt White"
+    secondary:
+      handle: ""
+      name:   ""
+# END CATALOG
+# BEGIN SCRAPED
+# END SCRAPED
+enrichment:
+  version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
+  terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"
+  provider_version: ""       # azurerm/azapi provider version tested with
+  use_cases: []              # short tags, e.g. ["alz", "hub-spoke", "landing-zone"]
+  known_issues: []
+  # known_issues item shape:
+  #   - title: "brief description"
+  #     status: open           # open | resolved | wontfix
+  #     severity: medium       # low | medium | high
+  #     workaround: ""         # optional workaround description
+  #     url: ""                # optional issue/PR/discussion URL
+  notes: []
+  # notes item shape:
+  #   - date: "YYYY-MM-DD"
+  #     author: "github-handle"
+  #     content: "free-text observation"
+
+
+

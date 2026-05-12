@@ -1,0 +1,80 @@
+# BEGIN CATALOG
+# AVM Module — avm-res-network-virtualnetwork
+# catalog: auto-generated from AVM upstream CSV. Run: ./avm.sh sync to refresh.
+# enrichment: hand-maintained — NEVER overwritten by sync.
+
+catalog:
+  name:         "avm-res-network-virtualnetwork"
+  type:         res
+  domain:       networking
+  provider:     azurerm
+  display_name: "Virtual Network"
+  alternative_names: "VNET"
+  status:       "Available"
+  repo_url:     "https://github.com/Azure/terraform-azurerm-avm-res-network-virtualnetwork"
+  registry_url: "https://registry.terraform.io/modules/Azure/avm-res-network-virtualnetwork/azurerm/latest"
+  description:  "AVM Resource Module for Virtual Network"
+  first_published: "2023-10"
+  provider_namespace: "Microsoft.Network"
+  resource_type: "virtualNetworks"
+  owners:
+    primary:
+      handle: "jaredfholgate"
+      name:   "Jared Holgate"
+    secondary:
+      handle: ""
+      name:   ""
+  comments: "TFVM location : https://github.com/Azure/terraform-azurerm-network"
+# END CATALOG
+# BEGIN SCRAPED
+scraped:
+  at: "2026-05-12T19:38:25Z"
+  status: ok
+  errors: []
+  terraform_constraints:
+    required_version: ">= 1.9, < 2.0"
+    required_providers:
+      azapi:
+        source: "Azure/azapi"
+        version_constraint: "~> 2.4"
+      azurerm:
+        source: "hashicorp/azurerm"
+        version_constraint: "~> 4.0"
+      modtm:
+        source: "azure/modtm"
+        version_constraint: "~> 0.3"
+      random:
+        source: "hashicorp/random"
+        version_constraint: "~> 3.5"
+  resources_managed:
+    azapi:
+      - "azapi_resource"
+    azurerm:
+      - "azurerm_management_lock"
+      - "azurerm_monitor_diagnostic_setting"
+      - "azurerm_role_assignment"
+    modtm:
+      - "modtm_telemetry"
+    random:
+      - "random_uuid"
+# END SCRAPED
+enrichment:
+  version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
+  terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"
+  provider_version: ""       # azurerm/azapi provider version tested with
+  use_cases: []              # short tags, e.g. ["alz", "hub-spoke", "landing-zone"]
+  known_issues: []
+  # known_issues item shape:
+  #   - title: "brief description"
+  #     status: open           # open | resolved | wontfix
+  #     severity: medium       # low | medium | high
+  #     workaround: ""         # optional workaround description
+  #     url: ""                # optional issue/PR/discussion URL
+  notes: []
+  # notes item shape:
+  #   - date: "YYYY-MM-DD"
+  #     author: "github-handle"
+  #     content: "free-text observation"
+
+
+

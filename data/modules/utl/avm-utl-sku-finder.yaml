@@ -1,0 +1,47 @@
+# BEGIN CATALOG
+# AVM Module — avm-utl-sku-finder
+# catalog: auto-generated from AVM upstream CSV. Run: ./avm.sh sync to refresh.
+# enrichment: hand-maintained — NEVER overwritten by sync.
+
+catalog:
+  name:         "avm-utl-sku-finder"
+  type:         utl
+  domain:       compute
+  provider:     azapi
+  display_name: "AVM SKU Finder"
+  alternative_names: "Sku"
+  status:       "Available"
+  repo_url:     "https://github.com/Azure/terraform-azapi-avm-utl-sku-finder"
+  registry_url: "https://registry.terraform.io/modules/Azure/avm-utl-sku-finder/azapi/latest"
+  description:  "This AVM utility module finds sku's that match a set of filter conditions"
+  first_published: "2024-12"
+  owners:
+    primary:
+      handle: "jchancellor-ms"
+      name:   "Jon Chancellor"
+    secondary:
+      handle: ""
+      name:   ""
+# END CATALOG
+# BEGIN SCRAPED
+# END SCRAPED
+enrichment:
+  version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
+  terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"
+  provider_version: ""       # azurerm/azapi provider version tested with
+  use_cases: []              # short tags, e.g. ["alz", "hub-spoke", "landing-zone"]
+  known_issues: []
+  # known_issues item shape:
+  #   - title: "brief description"
+  #     status: open           # open | resolved | wontfix
+  #     severity: medium       # low | medium | high
+  #     workaround: ""         # optional workaround description
+  #     url: ""                # optional issue/PR/discussion URL
+  notes: []
+  # notes item shape:
+  #   - date: "YYYY-MM-DD"
+  #     author: "github-handle"
+  #     content: "free-text observation"
+
+
+
