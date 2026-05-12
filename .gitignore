@@ -25,6 +25,7 @@ terraform-azapi-avm-*/
 Thumbs.db
 __pycache__/
 *.pyc
+.mypy_cache/
 
 tests/
 

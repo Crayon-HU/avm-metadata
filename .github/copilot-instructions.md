@@ -16,7 +16,7 @@ Every directory whose name starts with `terraform-azurerm-avm-*` is a **cloned e
   modules.yaml                  GENERATED (gitignored) — merged from selected domains
 
 scripts/
-  generate_modules.sh/.ps1      Merges selected domains → .config/modules.yaml (called by avm.sh setup)
+  generate_config.py            Reads data/modules/ → writes .config/modules.yaml (called by avm.sh setup)
   clone_repos.sh/.ps1           Clones repos from modules.yaml (called by avm.sh clone)
   update_repos.sh/.ps1          Pulls latest changes in cloned repos (called by avm.sh update)
   sync_catalog.py               Fetches upstream AVM CSVs → refreshes data/modules/ catalog sections
@@ -78,31 +78,21 @@ When generating Terraform code that consumes AVM modules:
 
 ---
 
-## Domain YAML schema
+## modules.yaml schema
 
-Each `.config/{domain}.yaml` follows this structure:
+`.config/modules.yaml` is **auto-generated** by `generate_config.py` from `data/modules/` catalog data. Do not edit it manually. Each entry:
 
 ```yaml
-domain: networking
-description: "Human-readable description"
-
 modules:
   - name: terraform-azurerm-avm-res-network-virtualnetwork   # GitHub repo name = clone dir
-    type: res          # res | ptn | utl
+    domain: networking     # derived from catalog.domain
+    type: res              # res | ptn | utl
     url: https://github.com/Azure/terraform-azurerm-avm-res-network-virtualnetwork.git
     branch: main
     description: Virtual Network
-
-  # Non-core modules are commented out (not deleted) so they can be enabled later:
-  # - name: terraform-azurerm-avm-res-network-vpngateway
-  #   type: res
-  #   url: https://github.com/Azure/terraform-azurerm-avm-res-network-vpngateway.git
-  #   branch: main
-  #   description: VPN Gateway
 ```
 
-**`generate_modules.sh` injects one extra field** into each entry in `modules.yaml`:
-- `domain: {slug}` — set from the source domain file name
+`generate_config.py` reads `catalog.repo_url`, `catalog.domain`, `catalog.type`, `catalog.display_name` from `data/modules/{type}/*.yaml` catalog blocks. Modules with `status: Deprecated` are excluded by default (`--include-deprecated` to override).
 
 ---
 

@@ -21,8 +21,8 @@ The repo uses a layered architecture where `scripts/` is the single shared autom
 │                    scripts/   (shared layer)                    │
 │                                                                 │
 │   sync_catalog.py          Python  ← catalog/data ops          │
+│   generate_config.py       Python  ← catalog/data ops          │
 │   analyze_module.py        Python  ← catalog/data ops          │
-│   generate_modules.sh/.ps1 Bash/PS ← git-adjacent ops          │
 │   clone_repos.sh/.ps1      Bash/PS ← git ops                   │
 │   update_repos.sh/.ps1     Bash/PS ← git ops                   │
 └─────────────────────────────────────────────────────────────────┘
@@ -69,8 +69,8 @@ Operators run commands from a terminal using the top-level wrapper for their she
 
 | Command | Bash | PowerShell | Script |
 |---|---|---|---|
-| Generate modules.yaml | `./avm.sh setup --domains all` | `.\avm.ps1 setup -Domains all` | `scripts/generate_modules.sh/.ps1` |
-| Filter by domain/type | `./avm.sh setup --domains networking --types res` | `.\avm.ps1 setup -Domains networking -Types res` | `scripts/generate_modules.sh/.ps1` |
+| Generate modules.yaml | `./avm.sh setup --domains all` | `.\avm.ps1 setup --domains all` | `scripts/generate_config.py` |
+| Filter by domain/type | `./avm.sh setup --domains networking --types res` | `.\avm.ps1 setup --domains networking --types res` | `scripts/generate_config.py` |
 | Clone repos | `./avm.sh clone` | `.\avm.ps1 clone` | `scripts/clone_repos.sh/.ps1` |
 | Clone filtered | `./avm.sh clone --domain networking --type res` | `.\avm.ps1 clone -Domain networking -Type res` | `scripts/clone_repos.sh/.ps1` |
 | Update cloned repos | `./avm.sh update` | `.\avm.ps1 update` | `scripts/update_repos.sh/.ps1` |
@@ -172,10 +172,10 @@ Follow this checklist whenever you add a new `avm.sh` command (e.g., `validate`)
 
 ### Language policy
 
-| Script category | Language | Rationale |
+| Language | Used for | Scripts |
 |---|---|---|
-| Catalog / data ops | **Python 3** | Native stdlib for HTTP, JSON, CSV, YAML-adjacent work; no external deps unless unavoidable |
-| Git operations | **Bash + PowerShell pair** | Thin subprocess wrappers; dual implementation keeps cross-platform parity without a git library |
+| **Python 3** | Catalog / data ops | `sync_catalog.py`, `generate_config.py`, `analyze_module.py` |
+| **Bash + PowerShell pair** | Git operations | `clone_repos.sh/.ps1`, `update_repos.sh/.ps1` |
 
 New data-manipulation scripts → Python only (no `.sh` equivalent needed).  
 New git-wrapping scripts → Bash + PowerShell pair (both must be kept in sync).
@@ -213,6 +213,7 @@ bash -n avm.sh scripts/*.sh
 
 # Dry-run the Python catalog scripts
 python3 scripts/sync_catalog.py --dry-run
+python3 scripts/generate_config.py --domains networking --dry-run
 python3 scripts/analyze_module.py --dry-run --module avm-res-network-virtualnetwork
 ```
 

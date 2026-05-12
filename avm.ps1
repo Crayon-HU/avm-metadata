@@ -24,9 +24,11 @@ function Show-Usage {
     Write-Host "Usage: .\avm.ps1 <command> [options]"
     Write-Host ""
     Write-Host "Commands:"
-    Write-Host "  setup       Generate .config/modules.yaml."
-    Write-Host "              -Domains <list|all>  Comma-separated domains, or all"
-    Write-Host "              -Types   <list|all>  Comma-separated types: res,ptn,utl, or all"
+    Write-Host "  setup       Generate .config/modules.yaml from data/modules/ catalog."
+    Write-Host "              --domains <list|all>    Comma-separated domains, or all"
+    Write-Host "              --types   <list|all>    Comma-separated types: res,ptn,utl, or all"
+    Write-Host "              --include-deprecated    Include modules with status=Deprecated"
+    Write-Host "              --dry-run               Show output, do not write file"
     Write-Host ""
     Write-Host "  clone       Clone module repos from .config/modules.yaml."
     Write-Host "              -Domain <name>        Filter by a single domain"
@@ -68,8 +70,8 @@ function Show-Usage {
     Write-Host "  help        Show this message."
     Write-Host ""
     Write-Host "Examples:"
-    Write-Host "  .\avm.ps1 setup -Domains all"
-    Write-Host "  .\avm.ps1 setup -Domains networking,compute -Types res"
+    Write-Host "  .\avm.ps1 setup --domains all"
+    Write-Host "  .\avm.ps1 setup --domains networking,compute --types res"
     Write-Host "  .\avm.ps1 clone -Domain networking -Type res"
     Write-Host "  .\avm.ps1 update -Domain containers"
     Write-Host "  .\avm.ps1 sync"
@@ -163,8 +165,9 @@ function Invoke-WorkspaceScript {
 
 switch ($Command.ToLowerInvariant()) {
     'setup' {
-        $params = Convert-Arguments $RemainingArgs @('Domains', 'Types') @()
-        Invoke-WorkspaceScript (Join-Path $ScriptsDir 'generate_modules.ps1') $params
+        $pyArgs = $RemainingArgs
+        & python3 (Join-Path $ScriptsDir 'generate_config.py') @pyArgs
+        if (-not $?) { exit 1 }
     }
     'clone' {
         $params = Convert-Arguments $RemainingArgs @('Domain', 'Type', 'GitName', 'GitEmail') @('Full')
