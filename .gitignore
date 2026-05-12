@@ -14,6 +14,8 @@
 # Cloned AVM module repositories (all types: res, ptn, utl)
 # =============================================================================
 terraform-azurerm-avm-*/
+terraform-azure-avm-*/
+terraform-azapi-avm-*/
 
 # =============================================================================
 # Local tooling and OS artifacts
@@ -21,6 +23,8 @@ terraform-azurerm-avm-*/
 .venv/
 .DS_Store
 Thumbs.db
+__pycache__/
+*.pyc
 
 tests/
 

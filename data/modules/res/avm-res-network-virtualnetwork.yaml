@@ -26,9 +26,9 @@ catalog:
       name:   ""
   comments: "TFVM location : https://github.com/Azure/terraform-azurerm-network"
 # END CATALOG
-# BEGIN SCRAPED
-scraped:
-  at: "2026-05-12T19:38:25Z"
+# BEGIN ANALYSIS:terraform-metadata
+analysis_terraform_metadata:
+  checked_at: "2026-05-12T19:38:25Z"
   status: ok
   errors: []
   terraform_constraints:
@@ -57,7 +57,7 @@ scraped:
       - "modtm_telemetry"
     random:
       - "random_uuid"
-# END SCRAPED
+# END ANALYSIS:terraform-metadata
 enrichment:
   version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
   terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"

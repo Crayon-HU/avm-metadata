@@ -20,7 +20,7 @@ scripts/
   clone_repos.sh/.ps1           Clones repos from modules.yaml (called by avm.sh clone)
   update_repos.sh/.ps1          Pulls latest changes in cloned repos (called by avm.sh update)
   sync_catalog.py               Fetches upstream AVM CSVs → refreshes data/modules/ catalog sections
-  scrape_modules.py             Scrapes module repos → populates scraped block in data/modules/
+  analyze_module.py             Multi-dimensional analysis → populates analysis_* blocks in data/modules/
 
 avm.sh                          Unified operator entry point — delegates to scripts/
 .github/skills/                 Copilot skill procedures — also delegate to scripts/
@@ -119,8 +119,11 @@ modules:
 ./avm.sh update                                     # git pull --ff-only in all cloned repos
 ./avm.sh sync                                       # fetch upstream CSVs → refresh data/modules/{res,ptn,utl}/*.yaml catalog section
 ./avm.sh sync --dry-run                             # preview changes without writing
-./avm.sh scrape                                     # scrape module repos → populate scraped block
+./avm.sh scrape                                     # alias: check --dimension terraform-metadata (scrape all modules)
 ./avm.sh scrape --module avm-res-network-virtualnetwork  # scrape one module
+./avm.sh check --module avm-res-network-virtualnetwork   # full analysis (all 6 dimensions)
+./avm.sh check --dimension avm-interface-compliance      # one dimension, all modules
+./avm.sh check --dry-run                                 # preview analysis changes
 ```
 
 **Syntax validation** (run before committing any script change):

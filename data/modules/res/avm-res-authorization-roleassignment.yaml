@@ -24,8 +24,87 @@ catalog:
       handle: ""
       name:   ""
 # END CATALOG
-# BEGIN SCRAPED
-# END SCRAPED
+# BEGIN ANALYSIS:terraform-metadata
+analysis_terraform_metadata:
+  checked_at: "2026-05-12T20:51:14Z"
+  status: pass
+  errors: []
+  terraform_constraints:
+    required_version: "~> 1.6"
+    required_providers:
+      azapi:
+        source: "Azure/azapi"
+        version_constraint: "~> 2.4"
+      azuread:
+        source: "hashicorp/azuread"
+        version_constraint: ">= 2.46, < 4.0"
+      azurerm:
+        source: "hashicorp/azurerm"
+        version_constraint: ">= 3.71, < 5.0"
+      modtm:
+        source: "azure/modtm"
+        version_constraint: "~> 0.3"
+      random:
+        source: "hashicorp/random"
+        version_constraint: "~> 3.5"
+  resources_managed:
+    azuread:
+      - "azuread_directory_role"
+      - "azuread_directory_role_assignment"
+    azurerm:
+      - "azurerm_role_assignment"
+    modtm:
+      - "modtm_telemetry"
+    random:
+      - "random_uuid"
+# END ANALYSIS:terraform-metadata
+# BEGIN ANALYSIS:avm-interface-compliance
+analysis_avm_interface_compliance:
+  checked_at: "2026-05-12T20:51:14Z"
+  status: partial
+  checks:
+    lock: { status: missing, finding: "No variable \"lock\" found in root .tf files" }
+    role_assignments: { status: missing, finding: "No variable \"role_assignments\" found in root .tf files" }
+    private_endpoints: { status: missing, finding: "No variable \"private_endpoints\" found in root .tf files" }
+    diagnostic_settings: { status: missing, finding: "No variable \"diagnostic_settings\" found in root .tf files" }
+    managed_identities: { status: missing, finding: "No variable \"managed_identities\" found in root .tf files" }
+    tags: { status: missing, finding: "No variable \"tags\" found in root .tf files" }
+    enable_telemetry: { status: pass, evidence: "variables.telemetry.tf:1" }
+# END ANALYSIS:avm-interface-compliance
+# BEGIN ANALYSIS:security-hardening
+analysis_security_hardening:
+  checked_at: "2026-05-12T20:51:14Z"
+  status: partial
+  checks:
+    hardcoded_locations: { status: pass, evidence: "No hardcoded locations found" }
+    validation_blocks: { status: partial, finding: "No validation {} blocks found in any .tf file" }
+    sensitive_outputs: { status: pass, evidence: "All sensitive-named outputs declare sensitive = true (or none found)" }
+# END ANALYSIS:security-hardening
+# BEGIN ANALYSIS:test-coverage
+analysis_test_coverage:
+  checked_at: "2026-05-12T20:51:16Z"
+  status: partial
+  checks:
+    examples_dir: { status: pass, evidence: "examples/ contains 4 item(s)" }
+    test_files: { status: partial, finding: "tests/ exists but contains no .go or .tftest.hcl files" }
+# END ANALYSIS:test-coverage
+# BEGIN ANALYSIS:doc-quality
+analysis_doc_quality:
+  checked_at: "2026-05-12T20:51:17Z"
+  status: pass
+  checks:
+    readme_exists: { status: pass, evidence: "README.md found" }
+    readme_length: { status: pass, evidence: "66325 characters" }
+    required_sections: { status: pass, evidence: "All required sections present: ## Usage, ## Examples, ## Requirements" }
+# END ANALYSIS:doc-quality
+# BEGIN ANALYSIS:dependency-health
+analysis_dependency_health:
+  checked_at: "2026-05-12T20:51:17Z"
+  status: pass
+  checks:
+    terraform_version_upper_bound: { status: pass, evidence: "required_version = \"~> 1.6\"" }
+    provider_constraint_style: { status: pass, evidence: "All 5 provider(s) use upper-bounded constraints" }
+# END ANALYSIS:dependency-health
 enrichment:
   version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
   terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"

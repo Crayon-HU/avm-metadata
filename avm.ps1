@@ -37,6 +37,34 @@ function Show-Usage {
     Write-Host "              -Domain <name>        Filter by a single domain"
     Write-Host "              -Type   <type>        Filter by res, ptn, or utl"
     Write-Host ""
+    Write-Host "  sync        Fetch AVM CSV indexes → update data/modules/*.yaml."
+    Write-Host "              --dry-run              Show planned changes, no writes"
+    Write-Host ""
+    Write-Host "  scrape      Alias for: check --dimension terraform-metadata"
+    Write-Host "              Fetches each module's GitHub repo and populates"
+    Write-Host "              analysis_terraform_metadata in data/modules/{type}/*.yaml."
+    Write-Host "              Set GITHUB_TOKEN for higher rate limits (5000/hr vs 60/hr)."
+    Write-Host "              --dry-run              Show planned changes, no writes"
+    Write-Host "              --force                Re-analyze even if recently checked"
+    Write-Host "              --module NAME          Analyze a single module"
+    Write-Host "              --max-age DAYS         Skip if checked within N days (default: 7)"
+    Write-Host ""
+    Write-Host "  check       Run analysis dimensions on module(s)."
+    Write-Host "              Results written to # BEGIN ANALYSIS:{dim} blocks."
+    Write-Host "              Built-in dimensions:"
+    Write-Host "                terraform-metadata       TF constraints + resources"
+    Write-Host "                avm-interface-compliance Required AVM interface variables"
+    Write-Host "                security-hardening       Hardcoded values, validation, sensitive"
+    Write-Host "                test-coverage            examples/, tests/ file presence"
+    Write-Host "                doc-quality              README length + section headers"
+    Write-Host "                dependency-health        Version constraint style"
+    Write-Host "              Set GITHUB_TOKEN for higher rate limits (5000/hr vs 60/hr)."
+    Write-Host "              --module    NAME       Analyze a single module"
+    Write-Host "              --dimension DIM        Run only this dimension (repeat for multi)"
+    Write-Host "              --dry-run              Show planned changes, no writes"
+    Write-Host "              --force                Ignore --max-age; always re-analyze"
+    Write-Host "              --max-age   DAYS       Skip if checked within N days (default: 7)"
+    Write-Host ""
     Write-Host "  help        Show this message."
     Write-Host ""
     Write-Host "Examples:"
@@ -44,6 +72,11 @@ function Show-Usage {
     Write-Host "  .\avm.ps1 setup -Domains networking,compute -Types res"
     Write-Host "  .\avm.ps1 clone -Domain networking -Type res"
     Write-Host "  .\avm.ps1 update -Domain containers"
+    Write-Host "  .\avm.ps1 sync"
+    Write-Host "  .\avm.ps1 scrape --module avm-res-network-virtualnetwork"
+    Write-Host "  .\avm.ps1 check --module avm-res-network-virtualnetwork"
+    Write-Host "  .\avm.ps1 check --dimension test-coverage"
+    Write-Host "  .\avm.ps1 check --dry-run"
     Write-Host ""
 }
 
@@ -141,7 +174,22 @@ switch ($Command.ToLowerInvariant()) {
         $params = Convert-Arguments $RemainingArgs @('Domain', 'Type') @()
         Invoke-WorkspaceScript (Join-Path $ScriptsDir 'update_repos.ps1') $params
     }
-    { $_ -in @('help', '--help', '-h', '-?') } {
+    'sync' {
+        $pyArgs = $RemainingArgs
+        & python3 (Join-Path $ScriptsDir 'sync_catalog.py') @pyArgs
+        if (-not $?) { exit 1 }
+    }
+    'scrape' {
+        # Backward-compat alias for: check --dimension terraform-metadata
+        $pyArgs = @('--dimension', 'terraform-metadata') + $RemainingArgs
+        & python3 (Join-Path $ScriptsDir 'analyze_module.py') @pyArgs
+        if (-not $?) { exit 1 }
+    }
+    'check' {
+        $pyArgs = $RemainingArgs
+        & python3 (Join-Path $ScriptsDir 'analyze_module.py') @pyArgs
+        if (-not $?) { exit 1 }
+    }
         Show-Usage
     }
     '' {

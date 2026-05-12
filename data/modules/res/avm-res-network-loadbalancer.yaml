@@ -25,8 +25,8 @@ catalog:
       name:   ""
   comments: "TFVM location: https://github.com/Azure/terraform-azurerm-loadbalancer"
 # END CATALOG
-# BEGIN SCRAPED
-# END SCRAPED
+# BEGIN ANALYSIS:terraform-metadata
+# END ANALYSIS:terraform-metadata
 enrichment:
   version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
   terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"

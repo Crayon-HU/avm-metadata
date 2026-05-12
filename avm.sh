@@ -6,7 +6,8 @@
 #   clone       Clone module repos listed in .config/modules.yaml
 #   update      Pull latest changes in all already-cloned module repos
 #   sync        Fetch upstream AVM CSV indexes → update data/modules/*.yaml
-#   scrape      Scrape module repos → populate scraped block in data/modules/*.yaml
+#   scrape      Alias for: check --dimension terraform-metadata
+#   check       Run analysis dimensions on module(s) → populate analysis blocks
 #
 # Usage:
 #   ./avm.sh setup [--domains networking,compute] [--types res,ptn]
@@ -15,6 +16,7 @@
 #   ./avm.sh update [--domain networking] [--type res]
 #   ./avm.sh sync [--dry-run]
 #   ./avm.sh scrape [--dry-run] [--force] [--module NAME]
+#   ./avm.sh check [--module NAME] [--dimension DIM] [--dry-run] [--force] [--max-age DAYS]
 #   ./avm.sh help
 
 set -euo pipefail
@@ -61,15 +63,34 @@ _usage() {
 
       --dry-run              Show planned changes without writing files
 
-    scrape       Scrape each module's GitHub repo and populate the scraped
-                 block in data/modules/{type}/*.yaml with terraform_constraints
-                 and resources_managed / modules_called.
+    scrape       Convenience alias for: check --dimension terraform-metadata
+                 Fetches each module's GitHub repo and populates the
+                 analysis_terraform_metadata block in data/modules/{type}/*.yaml
+                 with terraform_constraints and resources_managed / modules_called.
                  Set GITHUB_TOKEN for higher rate limits (5000/hr vs 60/hr).
 
       --dry-run              Show planned changes without writing files
-      --force                Re-scrape even if recently scraped
-      --module NAME          Scrape a single module by name
-      --max-age DAYS         Skip modules scraped within N days (default: 7)
+      --force                Re-analyze even if recently checked
+      --module NAME          Analyze a single module by name
+      --max-age DAYS         Skip modules checked within N days (default: 7)
+
+    check        Run one or more analysis dimensions on module(s).
+                 Results are written to # BEGIN ANALYSIS:{dim} blocks in
+                 data/modules/{type}/*.yaml.
+                 Six built-in dimensions:
+                   terraform-metadata       TF version + provider constraints + resources
+                   avm-interface-compliance Required AVM interface variables
+                   security-hardening       Hardcoded values, validation, sensitive outputs
+                   test-coverage            examples/, tests/, *.go / *.tftest.hcl presence
+                   doc-quality              README length and required section headers
+                   dependency-health        Version constraint style (needs terraform-metadata)
+                 Set GITHUB_TOKEN for higher rate limits (5000/hr vs 60/hr).
+
+      --module    NAME       Analyze a single module by name
+      --dimension DIM        Run only this dimension (repeat for multiple; default: all)
+      --dry-run              Show planned changes without writing files
+      --force                Ignore --max-age; always re-analyze
+      --max-age   DAYS       Skip dimensions checked within N days (default: 7)
 
     help         Show this message.
 
@@ -86,6 +107,11 @@ _usage() {
     ./avm.sh scrape --module avm-res-network-virtualnetwork
     ./avm.sh scrape --force
     GITHUB_TOKEN=ghp_... ./avm.sh scrape
+    ./avm.sh check --module avm-res-network-virtualnetwork
+    ./avm.sh check --module avm-res-network-virtualnetwork --dimension avm-interface-compliance
+    ./avm.sh check --dimension test-coverage
+    ./avm.sh check --dry-run
+    GITHUB_TOKEN=ghp_... ./avm.sh check
 
 EOF
 }
@@ -119,10 +145,17 @@ cmd_sync() {
 }
 
 # ---------------------------------------------------------------------------
-# Command: scrape
+# Command: scrape (backward-compat alias for check --dimension terraform-metadata)
 # ---------------------------------------------------------------------------
 cmd_scrape() {
-  python3 "${SCRIPTS_DIR}/scrape_modules.py" "$@"
+  python3 "${SCRIPTS_DIR}/analyze_module.py" --dimension terraform-metadata "$@"
+}
+
+# ---------------------------------------------------------------------------
+# Command: check
+# ---------------------------------------------------------------------------
+cmd_check() {
+  python3 "${SCRIPTS_DIR}/analyze_module.py" "$@"
 }
 
 # ---------------------------------------------------------------------------
@@ -137,6 +170,7 @@ case "${COMMAND}" in
   update)     cmd_update     "$@" ;;
   sync)       cmd_sync       "$@" ;;
   scrape)     cmd_scrape     "$@" ;;
+  check)      cmd_check      "$@" ;;
   help|--help|-h) _usage ;;
   "")
     _usage
