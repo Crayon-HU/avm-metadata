@@ -23,8 +23,7 @@ The repo uses a layered architecture where `scripts/` is the single shared autom
 │   sync_catalog.py          Python  ← catalog/data ops          │
 │   generate_config.py       Python  ← catalog/data ops          │
 │   analyze_module.py        Python  ← catalog/data ops          │
-│   clone_repos.sh/.ps1      Bash/PS ← git ops                   │
-│   update_repos.sh/.ps1     Bash/PS ← git ops                   │
+│   repos.py                 Python  ← git ops (clone/update/...) │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -71,9 +70,19 @@ Operators run commands from a terminal using the top-level wrapper for their she
 |---|---|---|---|
 | Generate modules.yaml | `./avm.sh setup --domains all` | `.\avm.ps1 setup --domains all` | `scripts/generate_config.py` |
 | Filter by domain/type | `./avm.sh setup --domains networking --types res` | `.\avm.ps1 setup --domains networking --types res` | `scripts/generate_config.py` |
-| Clone repos | `./avm.sh clone` | `.\avm.ps1 clone` | `scripts/clone_repos.sh/.ps1` |
-| Clone filtered | `./avm.sh clone --domain networking --type res` | `.\avm.ps1 clone -Domain networking -Type res` | `scripts/clone_repos.sh/.ps1` |
-| Update cloned repos | `./avm.sh update` | `.\avm.ps1 update` | `scripts/update_repos.sh/.ps1` |
+| Clone repos | `./avm.sh clone` | `.\avm.ps1 clone` | `scripts/repos.py clone` |
+| Clone filtered | `./avm.sh clone --domain networking --type res` | `.\avm.ps1 clone --domain networking --type res` | `scripts/repos.py clone` |
+| Update cloned repos | `./avm.sh update` | `.\avm.ps1 update` | `scripts/repos.py update` |
+| Update (parallel) | `./avm.sh update --parallel 10` | `.\avm.ps1 update --parallel 10` | `scripts/repos.py update` |
+| Fetch all remotes | `./avm.sh fetch --parallel 30` | `.\avm.ps1 fetch --parallel 30` | `scripts/repos.py fetch` |
+| Show dirty/behind repos | `./avm.sh status` | `.\avm.ps1 status` | `scripts/repos.py status` |
+| Create branch | `./avm.sh branch create feature/x` | `.\avm.ps1 branch create feature/x` | `scripts/repos.py branch create` |
+| Checkout branch | `./avm.sh branch checkout feature/x --fallback` | `.\avm.ps1 branch checkout feature/x --fallback` | `scripts/repos.py branch checkout` |
+| Delete branch | `./avm.sh branch delete feature/x` | `.\avm.ps1 branch delete feature/x` | `scripts/repos.py branch delete` |
+| Stash changes | `./avm.sh stash` | `.\avm.ps1 stash` | `scripts/repos.py stash` |
+| Pop stash | `./avm.sh stash pop` | `.\avm.ps1 stash pop` | `scripts/repos.py stash pop` |
+| Hard reset | `./avm.sh reset --hard` | `.\avm.ps1 reset --hard` | `scripts/repos.py reset` |
+| Run arbitrary command | `./avm.sh run git log --oneline -3` | `.\avm.ps1 run git log --oneline -3` | `scripts/repos.py run` |
 | Sync AVM catalog | `./avm.sh sync` | `.\avm.ps1 sync` | `scripts/sync_catalog.py` |
 | Sync (dry run) | `./avm.sh sync --dry-run` | `.\avm.ps1 sync --dry-run` | `scripts/sync_catalog.py` |
 | Scrape TF metadata (alias) | `./avm.sh scrape` | `.\avm.ps1 scrape` | `scripts/analyze_module.py --dimension terraform-metadata` |
@@ -91,6 +100,19 @@ Operators run commands from a terminal using the top-level wrapper for their she
 # Clone selected modules (shallow by default)
 ./avm.sh clone
 
+# Fetch latest from remote for all cloned repos (no merge, fast parallel)
+./avm.sh fetch --parallel 30
+
+# See which repos have local changes or are behind remote
+./avm.sh status
+
+# Work on a feature branch across all repos
+./avm.sh branch create feature/my-fix
+./avm.sh branch checkout feature/my-fix
+
+# Pull latest changes into all repos (merge)
+./avm.sh update --parallel 10
+
 # Refresh the catalog from upstream AVM CSVs
 ./avm.sh sync
 
@@ -103,8 +125,8 @@ Operators run commands from a terminal using the top-level wrapper for their she
 # Run a single dimension across all modules
 ./avm.sh check --dimension avm-interface-compliance
 
-# After a few weeks — pull latest changes in cloned repos
-./avm.sh update
+# Run an arbitrary git command in all repos
+./avm.sh run git log --oneline -3
 ```
 
 ---
@@ -174,11 +196,10 @@ Follow this checklist whenever you add a new `avm.sh` command (e.g., `validate`)
 
 | Language | Used for | Scripts |
 |---|---|---|
-| **Python 3** | Catalog / data ops | `sync_catalog.py`, `generate_config.py`, `analyze_module.py` |
-| **Bash + PowerShell pair** | Git operations | `clone_repos.sh/.ps1`, `update_repos.sh/.ps1` |
+| **Python 3** | All automation | `sync_catalog.py`, `generate_config.py`, `analyze_module.py`, `repos.py` |
 
-New data-manipulation scripts → Python only (no `.sh` equivalent needed).  
-New git-wrapping scripts → Bash + PowerShell pair (both must be kept in sync).
+All scripts are Python only — no Bash/PowerShell pairs needed. `avm.sh` and `avm.ps1` are thin wrappers that call `python3 scripts/<script>.py`.  
+New scripts → Python only (stdlib preferred; document any third-party dep in the script header).
 
 ### Script authoring rules
 
@@ -208,12 +229,13 @@ New git-wrapping scripts → Bash + PowerShell pair (both must be kept in sync).
 ### Validation
 
 ```bash
-# Syntax-check all Bash scripts before committing
-bash -n avm.sh scripts/*.sh
+# Syntax-check avm.sh
+bash -n avm.sh
 
-# Dry-run the Python catalog scripts
+# Dry-run the Python scripts
 python3 scripts/sync_catalog.py --dry-run
 python3 scripts/generate_config.py --domains networking --dry-run
+python3 scripts/repos.py clone --dry-run
 python3 scripts/analyze_module.py --dry-run --module avm-res-network-virtualnetwork
 ```
 

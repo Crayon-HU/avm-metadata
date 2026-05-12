@@ -25,142 +25,83 @@ function Show-Usage {
     Write-Host ""
     Write-Host "Commands:"
     Write-Host "  setup       Generate .config/modules.yaml from data/modules/ catalog."
-    Write-Host "              --domains <list|all>    Comma-separated domains, or all"
-    Write-Host "              --types   <list|all>    Comma-separated types: res,ptn,utl, or all"
-    Write-Host "              --include-deprecated    Include modules with status=Deprecated"
-    Write-Host "              --dry-run               Show output, do not write file"
+    Write-Host "              --domains <list|all>      Comma-separated domains, or all"
+    Write-Host "              --types   <list|all>      Comma-separated types: res,ptn,utl, or all"
+    Write-Host "              --include-deprecated      Include modules with status=Deprecated"
+    Write-Host "              --dry-run                 Show output, do not write file"
     Write-Host ""
     Write-Host "  clone       Clone module repos from .config/modules.yaml."
-    Write-Host "              -Domain <name>        Filter by a single domain"
-    Write-Host "              -Type   <type>        Filter by res, ptn, or utl"
-    Write-Host "              -Full                 Clone full history"
+    Write-Host "              --domain <name>           Filter by a single domain"
+    Write-Host "              --type   <type>           Filter by res, ptn, or utl"
+    Write-Host "              --full                    Clone full history"
+    Write-Host "              --git-name <name>         Set git user.name in cloned repos"
+    Write-Host "              --git-email <email>       Set git user.email in cloned repos"
     Write-Host ""
     Write-Host "  update      Pull latest changes for already-cloned module repos."
-    Write-Host "              -Domain <name>        Filter by a single domain"
-    Write-Host "              -Type   <type>        Filter by res, ptn, or utl"
+    Write-Host "              --domain <name>           Filter by a single domain"
+    Write-Host "              --type   <type>           Filter by res, ptn, or utl"
+    Write-Host "              --parallel N              Run N repos concurrently (default: 1)"
+    Write-Host ""
+    Write-Host "  fetch       Fetch all remotes without merging (parallel)."
+    Write-Host "              --domain <name>           Filter by a single domain"
+    Write-Host "              --type   <type>           Filter by res, ptn, or utl"
+    Write-Host "              --parallel N              Concurrency (default: 20)"
+    Write-Host ""
+    Write-Host "  status      Show repos with uncommitted changes or behind remote."
+    Write-Host "              --domain <name>           Filter by a single domain"
+    Write-Host "              --type   <type>           Filter by res, ptn, or utl"
+    Write-Host ""
+    Write-Host "  branch      Multi-repo branch management."
+    Write-Host "              create  <name>            Create branch (skip if exists)"
+    Write-Host "              checkout <name>           Switch branch (--fallback to stay if absent)"
+    Write-Host "              delete  <name>            Delete branch (--force for unmerged)"
+    Write-Host ""
+    Write-Host "  stash       Stash working tree changes across repos."
+    Write-Host "  stash pop   Pop the most recent stash entry across repos."
+    Write-Host ""
+    Write-Host "  reset       Reset repos to HEAD."
+    Write-Host "              --hard                    Hard reset (discard working tree changes)"
+    Write-Host ""
+    Write-Host "  run         Run an arbitrary command in each repo directory."
+    Write-Host "              <cmd...>                  Any git or shell command"
+    Write-Host "              --parallel N              Concurrency (default: 1)"
     Write-Host ""
     Write-Host "  sync        Fetch AVM CSV indexes → update data/modules/*.yaml."
-    Write-Host "              --dry-run              Show planned changes, no writes"
+    Write-Host "              --dry-run                 Show planned changes, no writes"
     Write-Host ""
     Write-Host "  scrape      Alias for: check --dimension terraform-metadata"
-    Write-Host "              Fetches each module's GitHub repo and populates"
-    Write-Host "              analysis_terraform_metadata in data/modules/{type}/*.yaml."
-    Write-Host "              Set GITHUB_TOKEN for higher rate limits (5000/hr vs 60/hr)."
-    Write-Host "              --dry-run              Show planned changes, no writes"
-    Write-Host "              --force                Re-analyze even if recently checked"
-    Write-Host "              --module NAME          Analyze a single module"
-    Write-Host "              --max-age DAYS         Skip if checked within N days (default: 7)"
+    Write-Host "              --dry-run                 Show planned changes, no writes"
+    Write-Host "              --force                   Re-analyze even if recently checked"
+    Write-Host "              --module NAME             Analyze a single module"
+    Write-Host "              --max-age DAYS            Skip if checked within N days (default: 7)"
     Write-Host ""
     Write-Host "  check       Run analysis dimensions on module(s)."
-    Write-Host "              Results written to # BEGIN ANALYSIS:{dim} blocks."
-    Write-Host "              Built-in dimensions:"
-    Write-Host "                terraform-metadata       TF constraints + resources"
-    Write-Host "                avm-interface-compliance Required AVM interface variables"
-    Write-Host "                security-hardening       Hardcoded values, validation, sensitive"
-    Write-Host "                test-coverage            examples/, tests/ file presence"
-    Write-Host "                doc-quality              README length + section headers"
-    Write-Host "                dependency-health        Version constraint style"
-    Write-Host "              Set GITHUB_TOKEN for higher rate limits (5000/hr vs 60/hr)."
-    Write-Host "              --module    NAME       Analyze a single module"
-    Write-Host "              --dimension DIM        Run only this dimension (repeat for multi)"
-    Write-Host "              --dry-run              Show planned changes, no writes"
-    Write-Host "              --force                Ignore --max-age; always re-analyze"
-    Write-Host "              --max-age   DAYS       Skip if checked within N days (default: 7)"
+    Write-Host "              --module    NAME          Analyze a single module"
+    Write-Host "              --dimension DIM           Run only this dimension (repeat for multi)"
+    Write-Host "              --dry-run                 Show planned changes, no writes"
+    Write-Host "              --force                   Ignore --max-age; always re-analyze"
+    Write-Host "              --max-age   DAYS          Skip if checked within N days (default: 7)"
     Write-Host ""
     Write-Host "  help        Show this message."
     Write-Host ""
     Write-Host "Examples:"
     Write-Host "  .\avm.ps1 setup --domains all"
     Write-Host "  .\avm.ps1 setup --domains networking,compute --types res"
-    Write-Host "  .\avm.ps1 clone -Domain networking -Type res"
-    Write-Host "  .\avm.ps1 update -Domain containers"
+    Write-Host "  .\avm.ps1 clone --domain networking --type res"
+    Write-Host "  .\avm.ps1 update --parallel 10"
+    Write-Host "  .\avm.ps1 fetch --parallel 30"
+    Write-Host "  .\avm.ps1 status --domain networking"
+    Write-Host "  .\avm.ps1 branch create feature/my-fix"
+    Write-Host "  .\avm.ps1 branch checkout feature/my-fix --fallback"
+    Write-Host "  .\avm.ps1 stash"
+    Write-Host "  .\avm.ps1 stash pop"
+    Write-Host "  .\avm.ps1 reset --hard --domain networking"
+    Write-Host "  .\avm.ps1 run git log --oneline -3"
     Write-Host "  .\avm.ps1 sync"
     Write-Host "  .\avm.ps1 scrape --module avm-res-network-virtualnetwork"
     Write-Host "  .\avm.ps1 check --module avm-res-network-virtualnetwork"
     Write-Host "  .\avm.ps1 check --dimension test-coverage"
-    Write-Host "  .\avm.ps1 check --dry-run"
     Write-Host ""
-}
-
-function Convert-Arguments {
-    param(
-        [string[]]$Arguments = @(),
-        [string[]]$ValueNames = @(),
-        [string[]]$SwitchNames = @()
-    )
-
-    $valueLookup = @{}
-    foreach ($name in $ValueNames) {
-        $valueLookup[$name.ToLowerInvariant()] = $name
-    }
-
-    $switchLookup = @{}
-    foreach ($name in $SwitchNames) {
-        $switchLookup[$name.ToLowerInvariant()] = $name
-    }
-
-    $bound = @{}
-    for ($i = 0; $i -lt $Arguments.Count; $i++) {
-        $token = [string]$Arguments[$i]
-        if ($token -in @('-h', '--help', '-?', 'help')) {
-            Show-Usage
-            exit 0
-        }
-        if (-not $token.StartsWith('-')) {
-            Write-Host "ERROR: Unexpected positional argument '$token'." -ForegroundColor Red
-            Show-Usage
-            exit 1
-        }
-
-        $rawName = $token -replace '^-+', ''
-        $inlineValue = $null
-        if ($rawName -match '^([^=]+)=(.*)$') {
-            $rawName = $Matches[1]
-            $inlineValue = $Matches[2]
-        }
-
-        $lookupName = $rawName.ToLowerInvariant()
-        if ($switchLookup.ContainsKey($lookupName)) {
-            if ($null -ne $inlineValue -and $inlineValue -ne "") {
-                Write-Host "ERROR: -$rawName does not accept a value." -ForegroundColor Red
-                exit 1
-            }
-            $bound[$switchLookup[$lookupName]] = $true
-        }
-        elseif ($valueLookup.ContainsKey($lookupName)) {
-            if ($null -eq $inlineValue) {
-                $i++
-                if ($i -ge $Arguments.Count -or ([string]$Arguments[$i]).StartsWith('-')) {
-                    Write-Host "ERROR: -$rawName requires a value." -ForegroundColor Red
-                    exit 1
-                }
-                $inlineValue = [string]$Arguments[$i]
-            }
-            $bound[$valueLookup[$lookupName]] = $inlineValue
-        }
-        else {
-            Write-Host "ERROR: Unknown option '-$rawName'." -ForegroundColor Red
-            Show-Usage
-            exit 1
-        }
-    }
-
-    return $bound
-}
-
-function Invoke-WorkspaceScript {
-    param(
-        [string]$Path,
-        [hashtable]$Parameters = @{}
-    )
-
-    if (-not (Test-Path $Path)) {
-        Write-Host "ERROR: script not found: $Path" -ForegroundColor Red
-        exit 1
-    }
-
-    & $Path @Parameters
-    if (-not $?) { exit 1 }
 }
 
 switch ($Command.ToLowerInvariant()) {
@@ -170,12 +111,44 @@ switch ($Command.ToLowerInvariant()) {
         if (-not $?) { exit 1 }
     }
     'clone' {
-        $params = Convert-Arguments $RemainingArgs @('Domain', 'Type', 'GitName', 'GitEmail') @('Full')
-        Invoke-WorkspaceScript (Join-Path $ScriptsDir 'clone_repos.ps1') $params
+        $pyArgs = @('clone') + $RemainingArgs
+        & python3 (Join-Path $ScriptsDir 'repos.py') @pyArgs
+        if (-not $?) { exit 1 }
     }
     'update' {
-        $params = Convert-Arguments $RemainingArgs @('Domain', 'Type') @()
-        Invoke-WorkspaceScript (Join-Path $ScriptsDir 'update_repos.ps1') $params
+        $pyArgs = @('update') + $RemainingArgs
+        & python3 (Join-Path $ScriptsDir 'repos.py') @pyArgs
+        if (-not $?) { exit 1 }
+    }
+    'fetch' {
+        $pyArgs = @('fetch') + $RemainingArgs
+        & python3 (Join-Path $ScriptsDir 'repos.py') @pyArgs
+        if (-not $?) { exit 1 }
+    }
+    'status' {
+        $pyArgs = @('status') + $RemainingArgs
+        & python3 (Join-Path $ScriptsDir 'repos.py') @pyArgs
+        if (-not $?) { exit 1 }
+    }
+    'branch' {
+        $pyArgs = @('branch') + $RemainingArgs
+        & python3 (Join-Path $ScriptsDir 'repos.py') @pyArgs
+        if (-not $?) { exit 1 }
+    }
+    'stash' {
+        $pyArgs = @('stash') + $RemainingArgs
+        & python3 (Join-Path $ScriptsDir 'repos.py') @pyArgs
+        if (-not $?) { exit 1 }
+    }
+    'reset' {
+        $pyArgs = @('reset') + $RemainingArgs
+        & python3 (Join-Path $ScriptsDir 'repos.py') @pyArgs
+        if (-not $?) { exit 1 }
+    }
+    'run' {
+        $pyArgs = @('run') + $RemainingArgs
+        & python3 (Join-Path $ScriptsDir 'repos.py') @pyArgs
+        if (-not $?) { exit 1 }
     }
     'sync' {
         $pyArgs = $RemainingArgs
@@ -193,6 +166,7 @@ switch ($Command.ToLowerInvariant()) {
         & python3 (Join-Path $ScriptsDir 'analyze_module.py') @pyArgs
         if (-not $?) { exit 1 }
     }
+    { $_ -in @('help', '--help', '-h') } {
         Show-Usage
     }
     '' {

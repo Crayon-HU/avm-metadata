@@ -5,18 +5,32 @@
 #   setup       Select domains & types → generate .config/modules.yaml
 #   clone       Clone module repos listed in .config/modules.yaml
 #   update      Pull latest changes in all already-cloned module repos
+#   fetch       Fetch all remotes without merging (parallel)
+#   status      Show repos with uncommitted changes or that are behind remote
+#   branch      Multi-repo branch management (create/checkout/delete)
+#   stash       Stash or pop changes across repos
+#   reset       Reset repos to HEAD (--hard for working tree reset)
+#   run         Run an arbitrary git/shell command in each repo
 #   sync        Fetch upstream AVM CSV indexes → update data/modules/*.yaml
 #   scrape      Alias for: check --dimension terraform-metadata
 #   check       Run analysis dimensions on module(s) → populate analysis blocks
 #
 # Usage:
-#   ./avm.sh setup [--domains networking,compute] [--types res,ptn]
-#   ./avm.sh setup --domains all
-#   ./avm.sh clone [--domain networking] [--type res] [--full]
-#   ./avm.sh update [--domain networking] [--type res]
-#   ./avm.sh sync [--dry-run]
+#   ./avm.sh setup  [--domains networking,compute] [--types res,ptn]
+#   ./avm.sh clone  [--domain networking] [--type res] [--full]
+#   ./avm.sh update [--domain networking] [--type res] [--parallel N]
+#   ./avm.sh fetch  [--domain networking] [--type res] [--parallel N]
+#   ./avm.sh status [--domain networking] [--type res]
+#   ./avm.sh branch create  <name> [--domain D] [--type T]
+#   ./avm.sh branch checkout <name> [--domain D] [--type T] [--fallback]
+#   ./avm.sh branch delete  <name> [--domain D] [--type T] [--force]
+#   ./avm.sh stash  [--domain D] [--type T]
+#   ./avm.sh stash pop [--domain D] [--type T]
+#   ./avm.sh reset  [--domain D] [--type T] [--hard]
+#   ./avm.sh run    <cmd...> [--domain D] [--type T] [--parallel N]
+#   ./avm.sh sync   [--dry-run]
 #   ./avm.sh scrape [--dry-run] [--force] [--module NAME]
-#   ./avm.sh check [--module NAME] [--dimension DIM] [--dry-run] [--force] [--max-age DAYS]
+#   ./avm.sh check  [--module NAME] [--dimension DIM] [--dry-run] [--force]
 #   ./avm.sh help
 
 set -euo pipefail
@@ -44,6 +58,8 @@ _usage() {
 
       --domains <list|all>   Comma-separated domain names, or 'all'
       --types   <list|all>   Comma-separated types (res,ptn,utl), or 'all'
+      --include-deprecated   Include modules with status=Deprecated
+      --dry-run              Show output without writing
 
     clone        Clone module repos from .config/modules.yaml.
                  Run 'setup' first if modules.yaml does not exist.
@@ -51,23 +67,53 @@ _usage() {
       --domain <name>        Filter by a single domain
       --type   <type>        Filter by type (res|ptn|utl)
       --full                 Full git history (default: shallow --depth 1)
+      --git-name <name>      Set git user.name in cloned repos
+      --git-email <email>    Set git user.email in cloned repos
 
-    update       Pull the latest changes for all already-cloned module repos.
+    update       Pull the latest changes for all already-cloned repos.
 
       --domain <name>        Limit to one domain
       --type   <type>        Limit to one type (res|ptn|utl)
+      --parallel N           Run N repos concurrently (default: 1)
+
+    fetch        Fetch all remotes without merging (fast, parallel).
+
+      --domain <name>        Limit to one domain
+      --type   <type>        Limit to one type
+      --parallel N           Concurrency (default: 20)
+
+    status       Show repos with uncommitted changes or that are behind remote.
+
+      --domain <name>        Limit to one domain
+      --type   <type>        Limit to one type
+
+    branch       Create, checkout, or delete a branch in all matching repos.
+
+      create  <name>         Create branch (skip if already exists)
+      checkout <name>        Switch to branch; --fallback to stay on current if absent
+      delete  <name>         Delete branch; --force to use -D (unmerged ok)
+
+      --domain <name>        Limit to one domain
+      --type   <type>        Limit to one type
+
+    stash        Stash working tree changes across repos.
+    stash pop    Pop the most recent stash entry across repos.
+
+    reset        Reset all repos to HEAD.
+
+      --hard                 Hard reset (discards working tree changes)
+
+    run          Run an arbitrary command in each repo directory.
+
+      <cmd...>               Any git or shell command
+      --parallel N           Concurrency (default: 1)
 
     sync         Fetch the three official AVM module index CSVs and
                  generate/update data/modules/*.yaml (one file per module).
-                 Catalog fields are refreshed; enrichment fields are preserved.
 
       --dry-run              Show planned changes without writing files
 
     scrape       Convenience alias for: check --dimension terraform-metadata
-                 Fetches each module's GitHub repo and populates the
-                 analysis_terraform_metadata block in data/modules/{type}/*.yaml
-                 with terraform_constraints and resources_managed / modules_called.
-                 Set GITHUB_TOKEN for higher rate limits (5000/hr vs 60/hr).
 
       --dry-run              Show planned changes without writing files
       --force                Re-analyze even if recently checked
@@ -75,16 +121,13 @@ _usage() {
       --max-age DAYS         Skip modules checked within N days (default: 7)
 
     check        Run one or more analysis dimensions on module(s).
-                 Results are written to # BEGIN ANALYSIS:{dim} blocks in
-                 data/modules/{type}/*.yaml.
                  Six built-in dimensions:
                    terraform-metadata       TF version + provider constraints + resources
                    avm-interface-compliance Required AVM interface variables
                    security-hardening       Hardcoded values, validation, sensitive outputs
                    test-coverage            examples/, tests/, *.go / *.tftest.hcl presence
                    doc-quality              README length and required section headers
-                   dependency-health        Version constraint style (needs terraform-metadata)
-                 Set GITHUB_TOKEN for higher rate limits (5000/hr vs 60/hr).
+                   dependency-health        Version constraint style
 
       --module    NAME       Analyze a single module by name
       --dimension DIM        Run only this dimension (repeat for multiple; default: all)
@@ -97,21 +140,21 @@ _usage() {
   Examples:
     ./avm.sh setup --domains all
     ./avm.sh setup --domains networking,compute --types res
-    ./avm.sh clone
     ./avm.sh clone --domain networking --type res
-    ./avm.sh update
-    ./avm.sh update --domain containers
-    ./avm.sh sync
+    ./avm.sh update --parallel 10
+    ./avm.sh fetch --parallel 30
+    ./avm.sh status --domain networking
+    ./avm.sh branch create feature/my-fix
+    ./avm.sh branch checkout feature/my-fix --fallback
+    ./avm.sh branch delete feature/my-fix --domain networking
+    ./avm.sh stash
+    ./avm.sh stash pop
+    ./avm.sh reset --hard --domain networking
+    ./avm.sh run git log --oneline -3
     ./avm.sh sync --dry-run
-    ./avm.sh scrape
     ./avm.sh scrape --module avm-res-network-virtualnetwork
-    ./avm.sh scrape --force
-    GITHUB_TOKEN=ghp_... ./avm.sh scrape
-    ./avm.sh check --module avm-res-network-virtualnetwork
-    ./avm.sh check --module avm-res-network-virtualnetwork --dimension avm-interface-compliance
+    GITHUB_TOKEN=ghp_... ./avm.sh check --module avm-res-network-virtualnetwork
     ./avm.sh check --dimension test-coverage
-    ./avm.sh check --dry-run
-    GITHUB_TOKEN=ghp_... ./avm.sh check
 
 EOF
 }
@@ -127,14 +170,56 @@ cmd_setup() {
 # Command: clone
 # ---------------------------------------------------------------------------
 cmd_clone() {
-  bash "${SCRIPTS_DIR}/clone_repos.sh" "$@"
+  python3 "${SCRIPTS_DIR}/repos.py" clone "$@"
 }
 
 # ---------------------------------------------------------------------------
 # Command: update
 # ---------------------------------------------------------------------------
 cmd_update() {
-  bash "${SCRIPTS_DIR}/update_repos.sh" "$@"
+  python3 "${SCRIPTS_DIR}/repos.py" update "$@"
+}
+
+# ---------------------------------------------------------------------------
+# Command: fetch
+# ---------------------------------------------------------------------------
+cmd_fetch() {
+  python3 "${SCRIPTS_DIR}/repos.py" fetch "$@"
+}
+
+# ---------------------------------------------------------------------------
+# Command: status
+# ---------------------------------------------------------------------------
+cmd_status() {
+  python3 "${SCRIPTS_DIR}/repos.py" status "$@"
+}
+
+# ---------------------------------------------------------------------------
+# Command: branch (create / checkout / delete)
+# ---------------------------------------------------------------------------
+cmd_branch() {
+  python3 "${SCRIPTS_DIR}/repos.py" branch "$@"
+}
+
+# ---------------------------------------------------------------------------
+# Command: stash / stash pop
+# ---------------------------------------------------------------------------
+cmd_stash() {
+  python3 "${SCRIPTS_DIR}/repos.py" stash "$@"
+}
+
+# ---------------------------------------------------------------------------
+# Command: reset
+# ---------------------------------------------------------------------------
+cmd_reset() {
+  python3 "${SCRIPTS_DIR}/repos.py" reset "$@"
+}
+
+# ---------------------------------------------------------------------------
+# Command: run (arbitrary command per repo)
+# ---------------------------------------------------------------------------
+cmd_run() {
+  python3 "${SCRIPTS_DIR}/repos.py" run "$@"
 }
 
 # ---------------------------------------------------------------------------
@@ -168,6 +253,12 @@ case "${COMMAND}" in
   setup)      cmd_setup      "$@" ;;
   clone)      cmd_clone      "$@" ;;
   update)     cmd_update     "$@" ;;
+  fetch)      cmd_fetch      "$@" ;;
+  status)     cmd_status     "$@" ;;
+  branch)     cmd_branch     "$@" ;;
+  stash)      cmd_stash      "$@" ;;
+  reset)      cmd_reset      "$@" ;;
+  run)        cmd_run        "$@" ;;
   sync)       cmd_sync       "$@" ;;
   scrape)     cmd_scrape     "$@" ;;
   check)      cmd_check      "$@" ;;

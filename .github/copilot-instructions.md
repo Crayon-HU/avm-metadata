@@ -17,8 +17,7 @@ Every directory whose name starts with `terraform-azurerm-avm-*` is a **cloned e
 
 scripts/
   generate_config.py            Reads data/modules/ → writes .config/modules.yaml (called by avm.sh setup)
-  clone_repos.sh/.ps1           Clones repos from modules.yaml (called by avm.sh clone)
-  update_repos.sh/.ps1          Pulls latest changes in cloned repos (called by avm.sh update)
+  repos.py                      Multi-repo git ops: clone/update/fetch/status/branch/stash/reset/run
   sync_catalog.py               Fetches upstream AVM CSVs → refreshes data/modules/ catalog sections
   analyze_module.py             Multi-dimensional analysis → populates analysis_* blocks in data/modules/
 
@@ -106,7 +105,14 @@ modules:
 ./avm.sh setup --domains networking,compute --types res
 ./avm.sh clone                                      # clone all modules from modules.yaml
 ./avm.sh clone --domain networking --type res       # filtered clone
-./avm.sh update                                     # git pull --ff-only in all cloned repos
+./avm.sh update --parallel 10                       # git pull --ff-only (parallel)
+./avm.sh fetch --parallel 30                        # fetch remotes without merging
+./avm.sh status                                     # show dirty/behind repos
+./avm.sh branch create feature/my-fix               # create branch in all repos
+./avm.sh branch checkout feature/my-fix --fallback  # checkout (stay put if missing)
+./avm.sh stash                                      # stash changes across all repos
+./avm.sh reset --hard                               # hard reset all repos to HEAD
+./avm.sh run git log --oneline -3                   # arbitrary command in each repo
 ./avm.sh sync                                       # fetch upstream CSVs → refresh data/modules/{res,ptn,utl}/*.yaml catalog section
 ./avm.sh sync --dry-run                             # preview changes without writing
 ./avm.sh scrape                                     # alias: check --dimension terraform-metadata (scrape all modules)
@@ -118,7 +124,7 @@ modules:
 
 **Syntax validation** (run before committing any script change):
 ```bash
-bash -n avm.sh scripts/*.sh
+bash -n avm.sh
 ```
 
 ---
