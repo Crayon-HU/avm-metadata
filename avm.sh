@@ -70,6 +70,7 @@ _usage() {
     stash     Stash or pop working tree changes across repos
     reset     Reset repos to HEAD
     run       Run an arbitrary git/shell command in each repo directory
+    cleanup   Remove cloned repos that are not in .config/modules.yaml
     sync      Fetch upstream AVM CSV indexes → update data/modules/*.yaml
     scrape    Alias for: check --dimension terraform-metadata
     check     Run one or more analysis dimensions on module(s)
@@ -276,6 +277,27 @@ _usage_run() {
 EOF
 }
 
+_usage_cleanup() {
+  _header
+  cat <<'EOF'
+
+  cleanup — Remove cloned repos that are NOT in .config/modules.yaml.
+             Scope filters (--domains/--types/--modules) are ignored; the
+             comparison is always against the full modules.yaml.
+
+  Command flags:
+    --force                Remove even repos with uncommitted changes, stash
+                           entries, or unpushed commits
+    --dry-run              Show what would be removed without deleting
+
+  Examples:
+    ./avm.sh cleanup
+    ./avm.sh cleanup --dry-run
+    ./avm.sh cleanup --force
+
+EOF
+}
+
 _usage_sync() {
   _header
   cat <<'EOF'
@@ -427,6 +449,14 @@ cmd_run() {
 }
 
 # ---------------------------------------------------------------------------
+# Command: cleanup
+# ---------------------------------------------------------------------------
+cmd_cleanup() {
+  for a in "$@"; do [[ "$a" == "--help" || "$a" == "-h" ]] && { _usage_cleanup; return 0; }; done
+  python3 "${SCRIPTS_DIR}/repos.py" cleanup "$@"
+}
+
+# ---------------------------------------------------------------------------
 # Command: sync
 # ---------------------------------------------------------------------------
 cmd_sync() {
@@ -466,6 +496,7 @@ case "${COMMAND}" in
   stash)      cmd_stash      "$@" ;;
   reset)      cmd_reset      "$@" ;;
   run)        cmd_run        "$@" ;;
+  cleanup)    cmd_cleanup    "$@" ;;
   sync)       cmd_sync       "$@" ;;
   scrape)     cmd_scrape     "$@" ;;
   check)      cmd_check      "$@" ;;

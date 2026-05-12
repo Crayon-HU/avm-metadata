@@ -35,6 +35,7 @@ Filters (accepted by all subcommands):
 """
 
 import os
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -703,6 +704,120 @@ def cmd_run(
 
 
 # ---------------------------------------------------------------------------
+# Subcommand: cleanup
+# ---------------------------------------------------------------------------
+
+def _orphan_dirty_detail(path: str) -> str:
+    """Return a human-readable dirty summary for an orphaned repo, or '' if clean."""
+    parts: list[str] = []
+
+    # Uncommitted changes
+    try:
+        r = subprocess.run(
+            ["git", "-C", path, "status", "--porcelain"],
+            capture_output=True, text=True, check=False,
+        )
+        n_files = len([l for l in r.stdout.splitlines() if l.strip()])
+        if n_files:
+            parts.append(f"{n_files} uncommitted")
+    except OSError:
+        pass
+
+    # Stash entries
+    try:
+        r = subprocess.run(
+            ["git", "-C", path, "stash", "list"],
+            capture_output=True, text=True, check=False,
+        )
+        n_stash = len([l for l in r.stdout.splitlines() if l.strip()])
+        if n_stash:
+            parts.append(f"stash({n_stash})")
+    except OSError:
+        pass
+
+    # Unpushed commits (only when upstream is configured)
+    try:
+        r = subprocess.run(
+            ["git", "-C", path, "rev-list", "--count", "HEAD", "^@{u}"],
+            capture_output=True, text=True, check=False,
+        )
+        if r.returncode == 0:
+            ahead = int(r.stdout.strip() or "0")
+            if ahead:
+                parts.append(f"{ahead}↑ unpushed")
+    except (OSError, ValueError):
+        pass
+
+    return ", ".join(parts)
+
+
+def cmd_cleanup(
+    configured_modules: list[dict],
+    dry_run: bool = False,
+    force: bool = False,
+) -> int:
+    """Remove cloned repos that are not present in .config/modules.yaml."""
+    configured_names = {m["name"] for m in configured_modules}
+
+    # Discover all cloned terraform-azurerm-avm-* directories on disk
+    found: list[str] = []
+    try:
+        entries = os.scandir(REPO_ROOT)
+    except OSError as e:
+        print(f"ERROR: cannot scan {REPO_ROOT}: {e}", file=sys.stderr)
+        return 1
+
+    with entries:
+        for entry in entries:
+            if (
+                entry.is_dir(follow_symlinks=False)
+                and entry.name.startswith("terraform-azurerm-avm-")
+                and os.path.isdir(os.path.join(entry.path, ".git"))
+            ):
+                found.append(entry.name)
+
+    orphans = sorted(n for n in found if n not in configured_names)
+
+    if not orphans:
+        print("Nothing to clean up — all cloned repos are in .config/modules.yaml.")
+        return 0
+
+    mode_note = "(dry-run)" if dry_run else ("(forced)" if force else "")
+    print(f"\nAVM cleanup — {len(orphans)} orphaned repo(s)  {mode_note}".rstrip())
+    print(SEP)
+
+    removed_n = skipped_n = 0
+
+    for name in orphans:
+        path = os.path.join(REPO_ROOT, name)
+        dirty_detail = _orphan_dirty_detail(path)
+
+        if dirty_detail and not force:
+            print(f"  {warn('!')}  SKIP     {name}  {warn('dirty: ' + dirty_detail)}")
+            skipped_n += 1
+        elif dry_run:
+            suffix = f"  {dim('dirty: ' + dirty_detail)}" if dirty_detail else ""
+            print(f"  →  WOULD REMOVE  {name}{suffix}")
+            removed_n += 1
+        else:
+            try:
+                shutil.rmtree(path)
+                suffix = f"  {dim('(was dirty: ' + dirty_detail + ')')}" if dirty_detail else ""
+                print(f"  {ok('✓')}  REMOVE   {name}{suffix}")
+                removed_n += 1
+            except OSError as e:
+                print(f"  {err('✗')}  FAIL     {name}  {err(str(e))}", file=sys.stderr)
+
+    print(SEP)
+    if dry_run:
+        print(f"Dry run — would remove: {removed_n}  |  skipped (dirty): {skipped_n}")
+    else:
+        print(f"Removed: {removed_n}  |  Skipped (dirty): {skipped_n}")
+
+    return 0
+
+
+# ---------------------------------------------------------------------------
 # Parallelism helper
 # ---------------------------------------------------------------------------
 
@@ -778,6 +893,7 @@ Subcommands:
   stash pop [filters] [--dry-run]
   reset   [filters] [--hard] [--dry-run]
   run     <git-or-shell-cmd...> [filters] [--parallel N] [--dry-run]
+  cleanup [--force] [--dry-run]
 
 Filters (accepted by all subcommands):
   --domains <list|all>   Comma-separated domain slugs, or 'all' (e.g. networking,compute)
@@ -966,6 +1082,16 @@ def main() -> None:
         invalid = [t for t in a.types if t not in ALL_TYPES]
         if invalid:
             _die(f"--types: invalid value(s): {', '.join(invalid)}. Must be one of: {', '.join(ALL_TYPES)}")
+
+    # cleanup compares against all configured modules — scope filters don't apply
+    if a.subcommand == "cleanup":
+        if a.domains or a.types or a.modules:
+            print(
+                "  NOTE: --domains/--types/--modules are ignored by cleanup "
+                "(orphaned repos have no catalog metadata to filter on)."
+            )
+        all_modules = load_modules()
+        sys.exit(cmd_cleanup(all_modules, dry_run=a.dry_run, force=a.force))
 
     modules = load_modules(filter_domains=a.domains, filter_types=a.types, filter_modules=a.modules)
 
