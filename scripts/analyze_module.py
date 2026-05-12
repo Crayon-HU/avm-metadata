@@ -45,9 +45,10 @@ from datetime import datetime, timezone
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-REPO_ROOT   = os.path.dirname(SCRIPT_DIR)
-MODULES_DIR = os.path.join(REPO_ROOT, "data", "modules")
+SCRIPT_DIR   = os.path.dirname(os.path.abspath(__file__))
+REPO_ROOT    = os.path.dirname(SCRIPT_DIR)
+MODULES_DIR  = os.path.join(REPO_ROOT, "data", "modules")
+MODULES_YAML = os.path.join(REPO_ROOT, ".config", "modules.yaml")
 
 CATALOG_BEGIN = "# BEGIN CATALOG"
 CATALOG_END   = "# END CATALOG"
@@ -1092,7 +1093,7 @@ def _parse_args() -> dict:
     args: dict = {
         "dry_run":    "--dry-run" in sys.argv,
         "force":      "--force" in sys.argv,
-        "modules":    [],
+        "modules":    None,   # None = not specified (scope to modules.yaml); [] = all
         "dimensions": [],
         "max_age":    DEFAULT_MAX_AGE_DAYS,
         "domains":    [],
@@ -1104,7 +1105,7 @@ def _parse_args() -> dict:
         if arg in ("--modules", "--module") and i + 1 < len(sys.argv):
             val = sys.argv[i + 1]
             if val.strip().lower() == "all":
-                args["modules"] = []
+                args["modules"] = []   # explicit "all" → scan everything
             else:
                 args["modules"] = [m.strip() for m in val.split(",") if m.strip()]
             i += 2
@@ -1147,6 +1148,54 @@ def _parse_args() -> dict:
     return args
 
 
+def _names_from_modules_yaml(
+    yaml_path: str,
+    filter_domains: list[str],
+    filter_types: list[str],
+) -> list[str]:
+    """Return module names from .config/modules.yaml, applying domain/type filters."""
+    try:
+        import yaml as _yaml  # type: ignore[import]
+        with open(yaml_path, encoding="utf-8") as f:
+            data = _yaml.safe_load(f)
+    except ImportError:
+        # Fallback: minimal YAML parser for the simple list-of-dicts structure
+        data = _parse_modules_yaml_simple(yaml_path)
+
+    entries = (data or {}).get("modules", []) or []
+    names = []
+    for entry in entries:
+        if filter_domains and entry.get("domain") not in filter_domains:
+            continue
+        if filter_types and entry.get("type") not in filter_types:
+            continue
+        name = entry.get("name", "")
+        # strip the "terraform-azurerm-" prefix to get the avm-* slug
+        slug = name.removeprefix("terraform-azurerm-")
+        if slug:
+            names.append(slug)
+    return names
+
+
+def _parse_modules_yaml_simple(yaml_path: str) -> dict:
+    """Minimal parser for .config/modules.yaml (no PyYAML dependency).
+
+    Only handles the flat list-of-dicts structure produced by generate_config.py.
+    """
+    modules: list[dict] = []
+    current: dict | None = None
+    with open(yaml_path, encoding="utf-8") as f:
+        for line in f:
+            stripped = line.strip()
+            if stripped.startswith("- name:"):
+                current = {"name": stripped[7:].strip()}
+                modules.append(current)
+            elif current is not None and ":" in stripped and not stripped.startswith("#"):
+                key, _, val = stripped.partition(":")
+                current[key.strip()] = val.strip()
+    return {"modules": modules}
+
+
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
@@ -1166,7 +1215,19 @@ def main() -> None:
     module_files: list[tuple[str, str]] = []
     filter_types   = opts["types"]
     filter_domains = opts["domains"]
-    filter_modules = opts["modules"]
+    filter_modules = opts["modules"]  # None | [] (all) | [name, ...]
+
+    # Default scope: modules configured in .config/modules.yaml.
+    # --modules all overrides this and scans the full data/modules/ catalog.
+    if filter_modules is None:
+        if os.path.exists(MODULES_YAML):
+            filter_modules = _names_from_modules_yaml(MODULES_YAML, filter_domains, filter_types)
+            filter_domains = []  # already applied via modules.yaml
+            filter_types   = []
+            print(f"  Scope: {len(filter_modules)} module(s) from .config/modules.yaml")
+        else:
+            filter_modules = []  # fall back: scan all
+            print("  WARNING: .config/modules.yaml not found — analyzing all modules in data/modules/")
 
     for mod_type in ("res", "ptn", "utl"):
         # Skip entire type directory if --types filter excludes it
