@@ -76,14 +76,13 @@ def _strip(s: str) -> str:
 def load_modules(
     filter_domains: list[str] | None = None,
     filter_types:   list[str] | None = None,
-    filter_name:    str = "",
+    filter_modules: list[str] | None = None,
 ) -> list[dict]:
     """
     Parse .config/modules.yaml and return module dicts matching the given filters.
 
     Each dict has keys: name, domain, type, url, branch.
-    filter_domains / filter_types: if empty/None → no filter applied.
-    filter_name: if non-empty → match exact module name.
+    filter_domains / filter_types / filter_modules: if empty/None → no filter applied.
     """
     if not os.path.isfile(MODULES_FILE):
         _die(
@@ -104,7 +103,7 @@ def load_modules(
 
             if "- name:" in line:
                 if cur.get("name") and cur.get("url"):
-                    _maybe_add(modules, cur, filter_domains, filter_types, filter_name)
+                    _maybe_add(modules, cur, filter_domains, filter_types, filter_modules)
                 cur = {"name": _field(line, "name"), "branch": "main",
                        "domain": "", "type": "", "url": ""}
             elif cur and "domain:" in line and "name:" not in line:
@@ -117,7 +116,7 @@ def load_modules(
                 cur["branch"] = _field(line, "branch")
 
     if cur.get("name") and cur.get("url"):
-        _maybe_add(modules, cur, filter_domains, filter_types, filter_name)
+        _maybe_add(modules, cur, filter_domains, filter_types, filter_modules)
 
     return modules
 
@@ -135,13 +134,13 @@ def _maybe_add(
     cur: dict,
     filter_domains: list[str] | None,
     filter_types:   list[str] | None,
-    filter_name:    str,
+    filter_modules: list[str] | None,
 ) -> None:
     if filter_domains and cur.get("domain") not in filter_domains:
         return
     if filter_types and cur.get("type") not in filter_types:
         return
-    if filter_name and cur.get("name") != filter_name:
+    if filter_modules and cur.get("name") not in filter_modules:
         return
     modules.append(dict(cur))
 
@@ -738,6 +737,27 @@ def _die(msg: str) -> None:
     sys.exit(1)
 
 
+def _parse_filter(flag: str, value: str) -> list[str]:
+    """Parse a filter flag value.
+
+    'all'         → [] (no filter — match everything)
+    'a,b,c'       → ['a', 'b', 'c']
+    '' or ','     → error (empty value not allowed)
+    'all,foo'     → error (cannot mix 'all' with specific values)
+    """
+    stripped = value.strip()
+    if not stripped:
+        _die(f"{flag} requires a non-empty value")
+    if stripped.lower() == "all":
+        return []
+    parts = [p.strip() for p in stripped.split(",") if p.strip()]
+    if not parts:
+        _die(f"{flag}: invalid value '{value}' — use 'all' or a comma-separated list")
+    if any(p.lower() == "all" for p in parts):
+        _die(f"{flag}: cannot mix 'all' with specific values")
+    return parts
+
+
 def _print_usage() -> None:
     print("""
 Usage: python3 scripts/repos.py <subcommand> [options]
@@ -756,11 +776,12 @@ Subcommands:
   run     <git-or-shell-cmd...> [filters] [--parallel N] [--dry-run]
 
 Filters (accepted by all subcommands):
-  --domains <list>       Comma-separated domain slugs (e.g. networking,compute)
-  --types <list>         Comma-separated types (res,ptn,utl)
-  --module <name>        Single module by name (e.g. avm-res-network-virtualnetwork)
+  --domains <list|all>   Comma-separated domain slugs, or 'all' (e.g. networking,compute)
+  --types <list|all>     Comma-separated types, or 'all' (res,ptn,utl)
+  --modules <list|all>   Comma-separated module names, or 'all'
   --domain <slug>        Alias for --domains (single value)
   --type   <res|ptn|utl> Alias for --types (single value)
+  --module <name>        Alias for --modules (single value, backward compat)
 
 Global options:
   --dry-run              Print what would happen without executing
@@ -775,7 +796,7 @@ class Args:
     branch_name: str = ""
     domains: list[str]
     types: list[str]
-    module: str = ""
+    modules: list[str]
     dry_run: bool = False
     full: bool = False
     git_name: str = ""
@@ -791,6 +812,7 @@ def parse_args(argv: list[str]) -> Args:
     a = Args()
     a.domains = []
     a.types = []
+    a.modules = []
     a.run_cmd = []
     it = iter(argv)
 
@@ -828,27 +850,32 @@ def parse_args(argv: list[str]) -> Args:
             continue
 
         if token == "--domains":
-            a.domains = [d.strip() for d in nextval("--domains").split(",") if d.strip()]
+            a.domains = _parse_filter("--domains", nextval("--domains"))
         elif token.startswith("--domains="):
-            a.domains = [d.strip() for d in token.split("=", 1)[1].split(",") if d.strip()]
+            a.domains = _parse_filter("--domains", token.split("=", 1)[1])
         elif token == "--domain":
             # backward-compat alias: single value treated as a one-element list
             a.domains = [nextval("--domain")]
         elif token.startswith("--domain="):
             a.domains = [token.split("=", 1)[1]]
         elif token == "--types":
-            a.types = [t.strip() for t in nextval("--types").split(",") if t.strip()]
+            a.types = _parse_filter("--types", nextval("--types"))
         elif token.startswith("--types="):
-            a.types = [t.strip() for t in token.split("=", 1)[1].split(",") if t.strip()]
+            a.types = _parse_filter("--types", token.split("=", 1)[1])
         elif token == "--type":
             # backward-compat alias: single value
             a.types = [nextval("--type")]
         elif token.startswith("--type="):
             a.types = [token.split("=", 1)[1]]
+        elif token == "--modules":
+            a.modules = _parse_filter("--modules", nextval("--modules"))
+        elif token.startswith("--modules="):
+            a.modules = _parse_filter("--modules", token.split("=", 1)[1])
         elif token == "--module":
-            a.module = nextval("--module")
+            # backward-compat alias: single value
+            a.modules = [nextval("--module")]
         elif token.startswith("--module="):
-            a.module = token.split("=", 1)[1]
+            a.modules = [token.split("=", 1)[1]]
         elif token == "--parallel":
             a.parallel = int(nextval("--parallel"))
         elif token.startswith("--parallel="):
@@ -902,7 +929,7 @@ def main() -> None:
         if invalid:
             _die(f"--types: invalid value(s): {', '.join(invalid)}. Must be one of: {', '.join(ALL_TYPES)}")
 
-    modules = load_modules(filter_domains=a.domains, filter_types=a.types, filter_name=a.module)
+    modules = load_modules(filter_domains=a.domains, filter_types=a.types, filter_modules=a.modules)
 
     if not modules:
         msg = "No modules match the specified filters."
@@ -910,8 +937,8 @@ def main() -> None:
             msg += f"  --domains={','.join(a.domains)}"
         if a.types:
             msg += f"  --types={','.join(a.types)}"
-        if a.module:
-            msg += f"  --module={a.module}"
+        if a.modules:
+            msg += f"  --modules={','.join(a.modules)}"
         print(msg)
         sys.exit(0)
 

@@ -1092,7 +1092,7 @@ def _parse_args() -> dict:
     args: dict = {
         "dry_run":    "--dry-run" in sys.argv,
         "force":      "--force" in sys.argv,
-        "module":     None,
+        "modules":    [],
         "dimensions": [],
         "max_age":    DEFAULT_MAX_AGE_DAYS,
         "domains":    [],
@@ -1101,8 +1101,12 @@ def _parse_args() -> dict:
     i = 1
     while i < len(sys.argv):
         arg = sys.argv[i]
-        if arg == "--module" and i + 1 < len(sys.argv):
-            args["module"] = sys.argv[i + 1]
+        if arg in ("--modules", "--module") and i + 1 < len(sys.argv):
+            val = sys.argv[i + 1]
+            if val.strip().lower() == "all":
+                args["modules"] = []
+            else:
+                args["modules"] = [m.strip() for m in val.split(",") if m.strip()]
             i += 2
         elif arg == "--dimension" and i + 1 < len(sys.argv):
             dim = sys.argv[i + 1]
@@ -1120,17 +1124,19 @@ def _parse_args() -> dict:
             except ValueError:
                 pass
             i += 2
-        elif arg == "--domains" and i + 1 < len(sys.argv):
-            args["domains"] = [d.strip() for d in sys.argv[i + 1].split(",") if d.strip()]
+        elif arg in ("--domains", "--domain") and i + 1 < len(sys.argv):
+            val = sys.argv[i + 1]
+            if val.strip().lower() == "all":
+                args["domains"] = []
+            else:
+                args["domains"] = [d.strip() for d in val.split(",") if d.strip()]
             i += 2
-        elif arg == "--domain" and i + 1 < len(sys.argv):
-            args["domains"] = [sys.argv[i + 1].strip()]
-            i += 2
-        elif arg == "--types" and i + 1 < len(sys.argv):
-            args["types"] = [t.strip() for t in sys.argv[i + 1].split(",") if t.strip()]
-            i += 2
-        elif arg == "--type" and i + 1 < len(sys.argv):
-            args["types"] = [sys.argv[i + 1].strip()]
+        elif arg in ("--types", "--type") and i + 1 < len(sys.argv):
+            val = sys.argv[i + 1]
+            if val.strip().lower() == "all":
+                args["types"] = []
+            else:
+                args["types"] = [t.strip() for t in val.split(",") if t.strip()]
             i += 2
         else:
             i += 1
@@ -1160,6 +1166,7 @@ def main() -> None:
     module_files: list[tuple[str, str]] = []
     filter_types   = opts["types"]
     filter_domains = opts["domains"]
+    filter_modules = opts["modules"]
 
     for mod_type in ("res", "ptn", "utl"):
         # Skip entire type directory if --types filter excludes it
@@ -1172,7 +1179,7 @@ def main() -> None:
             if not fname.endswith(".yaml"):
                 continue
             mod_name = fname[:-5]
-            if opts["module"] and mod_name != opts["module"]:
+            if filter_modules and mod_name not in filter_modules:
                 continue
             filepath = os.path.join(type_dir, fname)
             # Apply --domains filter: read domain from catalog block
@@ -1184,8 +1191,8 @@ def main() -> None:
                     continue
             module_files.append((filepath, mod_type))
 
-    if opts["module"] and not module_files:
-        print(f"ERROR: module '{opts['module']}' not found in data/modules/", file=sys.stderr)
+    if filter_modules and not module_files:
+        print(f"ERROR: no modules found matching --modules={','.join(filter_modules)}", file=sys.stderr)
         sys.exit(1)
 
     total = len(module_files)

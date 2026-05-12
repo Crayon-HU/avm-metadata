@@ -51,138 +51,300 @@ _usage() {
   _header
   cat <<'EOF'
 
-  Usage: ./avm.sh <command> [options]
+  Usage: ./avm.sh <command> [--help] [options]
 
-  Global filters  (accepted by clone, update, fetch, status, branch, stash, reset, run, check, scrape):
-    --domains <list>       Comma-separated domain slugs (e.g. networking,compute)
-    --types   <list>       Comma-separated types: res, ptn, utl
-    --module  <name>       Single module by name (e.g. avm-res-network-virtualnetwork)
+  Global flags (accepted by all commands unless noted):
+    --domains <list|all>   Domain slugs, comma-separated, or 'all'
+    --types   <list|all>   Types: res, ptn, utl, comma-separated, or 'all'
+    --modules <list|all>   Module names, comma-separated, or 'all'
     --dry-run              Show planned changes without executing
+    --help, -h             Show this message; or: ./avm.sh <cmd> --help
 
   Commands:
+    setup     Generate .config/modules.yaml from the data/modules/ catalog
+    clone     Clone module repos listed in .config/modules.yaml
+    update    Pull the latest changes in all already-cloned repos
+    fetch     Fetch all remotes without merging (fast, parallel)
+    status    Show repos with uncommitted changes or behind remote
+    branch    Multi-repo branch management (create / checkout / delete)
+    stash     Stash or pop working tree changes across repos
+    reset     Reset repos to HEAD
+    run       Run an arbitrary git/shell command in each repo directory
+    sync      Fetch upstream AVM CSV indexes → update data/modules/*.yaml
+    scrape    Alias for: check --dimension terraform-metadata
+    check     Run one or more analysis dimensions on module(s)
+    help      Show this message
 
-    setup        Generate .config/modules.yaml (select domains & types).
+  Run './avm.sh <command> --help' for flags and examples.
 
-      --domains <list|all>   Comma-separated domain slugs, or 'all'
-      --types   <list|all>   Comma-separated types (res,ptn,utl), or 'all'
-      --include-deprecated   Include modules with status=Deprecated
-      --dry-run              Show output without writing
+EOF
+}
 
-      Examples:
-        ./avm.sh setup --domains all
-        ./avm.sh setup --domains networking,compute --types res
+_usage_setup() {
+  _header
+  cat <<'EOF'
 
-    clone        Clone module repos from .config/modules.yaml.
-                 Run 'setup' first if modules.yaml does not exist.
+  setup — Generate .config/modules.yaml from the data/modules/ catalog.
 
-      --full                 Full git history (default: shallow --depth 1)
-      --git-name <name>      Set git user.name in cloned repos
-      --git-email <email>    Set git user.email in cloned repos
+  Global filters:
+    --domains <list|all>   Select domain(s); omit for interactive menu
+    --types   <list|all>   Select type(s): res, ptn, utl; omit for interactive menu
 
-      Examples:
-        ./avm.sh clone
-        ./avm.sh clone --domains networking --types res
-        ./avm.sh clone --module avm-res-network-virtualnetwork
+  Command flags:
+    --include-deprecated   Include modules with status=Deprecated
+    --dry-run              Show output without writing
 
-    update       Pull the latest changes for all already-cloned repos.
+  Note: 'all' selects every available domain or type. Omitting --domains or
+        --types triggers an interactive selection menu.
 
-      --parallel N           Run N repos concurrently (default: 1)
+  Examples:
+    ./avm.sh setup --domains all
+    ./avm.sh setup --domains all --types all
+    ./avm.sh setup --domains networking,compute --types res
+    ./avm.sh setup --domains all --include-deprecated
+    ./avm.sh setup --dry-run
 
-      Examples:
-        ./avm.sh update --parallel 10
-        ./avm.sh update --domains networking --parallel 5
+EOF
+}
 
-    fetch        Fetch all remotes without merging (fast, parallel).
+_usage_clone() {
+  _header
+  cat <<'EOF'
 
-      --parallel N           Concurrency (default: 20)
+  clone — Clone module repos listed in .config/modules.yaml.
+           Run 'setup' first if .config/modules.yaml does not exist.
 
-      Examples:
-        ./avm.sh fetch --parallel 30
-        ./avm.sh fetch --domains networking,compute
+  Global filters: --domains, --types, --modules (all accept 'all' or a comma-separated list)
 
-    status       Show repos with uncommitted changes or behind remote.
+  Command flags:
+    --full                 Clone full git history (default: shallow --depth 1)
+    --git-name <name>      Set git user.name in each cloned repo
+    --git-email <email>    Set git user.email in each cloned repo
 
-      Examples:
-        ./avm.sh status
-        ./avm.sh status --domains networking
-        ./avm.sh status --module avm-res-network-virtualnetwork
+  Examples:
+    ./avm.sh clone
+    ./avm.sh clone --domains networking --types res
+    ./avm.sh clone --modules avm-res-network-virtualnetwork
+    ./avm.sh clone --modules avm-res-network-virtualnetwork,avm-res-network-subnet
+    ./avm.sh clone --domains networking --full
 
-    branch       Manage branches across matching repos.
+EOF
+}
 
-      create  <name>         Create branch (skip if already exists)
-      checkout <name>        Switch; --fallback to stay on current if absent
-      delete  <name>         Delete; --force to use -D (allow unmerged)
+_usage_update() {
+  _header
+  cat <<'EOF'
 
-      Examples:
-        ./avm.sh branch create feature/my-fix
-        ./avm.sh branch create feature/my-fix --domains networking
-        ./avm.sh branch checkout feature/my-fix --fallback
-        ./avm.sh branch delete feature/my-fix
+  update — Pull the latest changes in all already-cloned repos.
 
-    stash        Stash / pop working tree changes across repos.
+  Global filters: --domains, --types, --modules
 
-      stash pop              Pop the most recent stash entry
+  Command flags:
+    --parallel N           Run N repos concurrently (default: 1)
 
-      Examples:
-        ./avm.sh stash --domains networking
-        ./avm.sh stash pop
+  Examples:
+    ./avm.sh update
+    ./avm.sh update --parallel 10
+    ./avm.sh update --domains networking --parallel 5
+    ./avm.sh update --modules avm-res-network-virtualnetwork
 
-    reset        Reset repos to HEAD.
+EOF
+}
 
-      --hard                 Hard reset (discards working tree changes)
+_usage_fetch() {
+  _header
+  cat <<'EOF'
 
-      Examples:
-        ./avm.sh reset --hard
-        ./avm.sh reset --hard --domains networking
+  fetch — Fetch all remotes without merging (fast, parallel).
 
-    run          Run an arbitrary command in each repo directory.
+  Global filters: --domains, --types, --modules
 
-      <cmd...>               Any git or shell command
-      --parallel N           Concurrency (default: 1)
+  Command flags:
+    --parallel N           Concurrency (default: 20)
 
-      Examples:
-        ./avm.sh run git log --oneline -3
-        ./avm.sh run git status --domains networking
+  Examples:
+    ./avm.sh fetch
+    ./avm.sh fetch --parallel 30
+    ./avm.sh fetch --domains networking,compute
 
-    sync         Fetch the three official AVM module index CSVs and
-                 generate/update data/modules/*.yaml (one file per module).
+EOF
+}
 
-      --dry-run              Show planned changes without writing files
+_usage_status() {
+  _header
+  cat <<'EOF'
 
-      Examples:
-        ./avm.sh sync
-        ./avm.sh sync --dry-run
+  status — Show repos with uncommitted changes or behind remote.
 
-    scrape       Convenience alias for: check --dimension terraform-metadata
+  Global filters: --domains, --types, --modules
 
-      --force                Re-analyze even if recently checked
-      --max-age DAYS         Skip modules checked within N days (default: 7)
+  Examples:
+    ./avm.sh status
+    ./avm.sh status --domains networking
+    ./avm.sh status --modules avm-res-network-virtualnetwork
 
-      Examples:
-        ./avm.sh scrape --module avm-res-network-virtualnetwork
-        ./avm.sh scrape --domains networking --types res
-        GITHUB_TOKEN=ghp_... ./avm.sh scrape
+EOF
+}
 
-    check        Run one or more analysis dimensions on module(s).
-                 Built-in dimensions:
-                   terraform-metadata       TF version + provider constraints + resources
-                   avm-interface-compliance Required AVM interface variables
-                   security-hardening       Hardcoded values, validation, sensitive outputs
-                   test-coverage            examples/, tests/, *.go / *.tftest.hcl presence
-                   doc-quality              README length and required section headers
-                   dependency-health        Version constraint style
+_usage_branch() {
+  _header
+  cat <<'EOF'
 
-      --dimension DIM        Run only this dimension (repeat for multiple; default: all)
-      --force                Ignore --max-age; always re-analyze
-      --max-age DAYS         Skip dimensions checked within N days (default: 7)
+  branch — Manage branches across matching repos.
 
-      Examples:
-        ./avm.sh check --module avm-res-network-virtualnetwork
-        ./avm.sh check --domains networking --types res --dimension test-coverage
-        ./avm.sh check --dimension avm-interface-compliance
-        GITHUB_TOKEN=ghp_... ./avm.sh check
+  Sub-operations:
+    create  <name>         Create branch (skip if already exists)
+    checkout <name>        Switch to branch; --fallback to stay on current if absent
+    delete  <name>         Delete branch; --force to use -D (allow unmerged)
 
-    help         Show this message.
+  Global filters: --domains, --types, --modules
+
+  Examples:
+    ./avm.sh branch create feature/my-fix
+    ./avm.sh branch create feature/my-fix --domains networking
+    ./avm.sh branch checkout feature/my-fix --fallback
+    ./avm.sh branch checkout feature/my-fix --domains compute --fallback
+    ./avm.sh branch delete feature/my-fix
+    ./avm.sh branch delete feature/my-fix --force
+
+EOF
+}
+
+_usage_stash() {
+  _header
+  cat <<'EOF'
+
+  stash — Stash or pop working tree changes across repos.
+
+  Sub-operations:
+    stash         Stash current changes
+    stash pop     Pop the most recent stash entry
+
+  Global filters: --domains, --types, --modules
+
+  Examples:
+    ./avm.sh stash
+    ./avm.sh stash --domains networking
+    ./avm.sh stash pop
+    ./avm.sh stash pop --domains networking
+
+EOF
+}
+
+_usage_reset() {
+  _header
+  cat <<'EOF'
+
+  reset — Reset repos to HEAD.
+
+  Global filters: --domains, --types, --modules
+
+  Command flags:
+    --hard                 Hard reset (discards all working tree changes)
+
+  Examples:
+    ./avm.sh reset --hard
+    ./avm.sh reset --hard --domains networking
+    ./avm.sh reset --hard --modules avm-res-network-virtualnetwork
+
+EOF
+}
+
+_usage_run() {
+  _header
+  cat <<'EOF'
+
+  run — Run an arbitrary git or shell command in each repo directory.
+
+  Usage: ./avm.sh run [--domains D] [--types T] [--modules M] [--parallel N] <cmd...>
+
+  Global filters: --domains, --types, --modules
+  Note: pass --help BEFORE the run command (e.g. './avm.sh run --help', not './avm.sh run git --help').
+
+  Command flags:
+    --parallel N           Concurrency (default: 1)
+
+  Examples:
+    ./avm.sh run git log --oneline -3
+    ./avm.sh run git status --domains networking
+    ./avm.sh run git fetch --parallel 10
+    ./avm.sh run terraform fmt --types res
+
+EOF
+}
+
+_usage_sync() {
+  _header
+  cat <<'EOF'
+
+  sync — Fetch the three official AVM module index CSVs and
+          generate/update data/modules/*.yaml (one file per module).
+
+  Note: sync always refreshes the full catalog; filter flags do not apply.
+
+  Command flags:
+    --dry-run              Show planned changes without writing files
+
+  Examples:
+    ./avm.sh sync
+    ./avm.sh sync --dry-run
+
+EOF
+}
+
+_usage_scrape() {
+  _header
+  cat <<'EOF'
+
+  scrape — Convenience alias for: check --dimension terraform-metadata
+            Scrapes TF version, provider constraints, and managed resources
+            from each cloned module repo into data/modules/*.yaml.
+
+  Global filters: --domains, --types, --modules
+
+  Command flags:
+    --force                Re-analyze even if recently checked
+    --max-age DAYS         Skip modules checked within N days (default: 7)
+    --dry-run              Show planned changes without writing files
+
+  Examples:
+    ./avm.sh scrape
+    ./avm.sh scrape --modules avm-res-network-virtualnetwork
+    ./avm.sh scrape --domains networking --types res
+    GITHUB_TOKEN=ghp_... ./avm.sh scrape
+
+EOF
+}
+
+_usage_check() {
+  _header
+  cat <<'EOF'
+
+  check — Run one or more analysis dimensions on module(s).
+
+  Built-in dimensions:
+    terraform-metadata       TF version + provider constraints + resources
+    avm-interface-compliance Required AVM interface variables
+    security-hardening       Hardcoded values, validation, sensitive outputs
+    test-coverage            examples/, tests/, *.go / *.tftest.hcl presence
+    doc-quality              README length and required section headers
+    dependency-health        Version constraint style
+
+  Global filters: --domains, --types, --modules
+
+  Command flags:
+    --dimension DIM        Run only this dimension (repeat for multiple; default: all)
+    --force                Ignore --max-age; always re-analyze
+    --max-age DAYS         Skip dimensions checked within N days (default: 7)
+    --dry-run              Show planned changes without writing files
+
+  Examples:
+    ./avm.sh check
+    ./avm.sh check --modules avm-res-network-virtualnetwork
+    ./avm.sh check --domains networking --types res --dimension test-coverage
+    ./avm.sh check --dimension avm-interface-compliance
+    ./avm.sh check --force
+    GITHUB_TOKEN=ghp_... ./avm.sh check
 
 EOF
 }
@@ -191,6 +353,7 @@ EOF
 # Command: setup
 # ---------------------------------------------------------------------------
 cmd_setup() {
+  for a in "$@"; do [[ "$a" == "--help" || "$a" == "-h" ]] && { _usage_setup; return 0; }; done
   python3 "${SCRIPTS_DIR}/generate_config.py" "$@"
 }
 
@@ -198,6 +361,7 @@ cmd_setup() {
 # Command: clone
 # ---------------------------------------------------------------------------
 cmd_clone() {
+  for a in "$@"; do [[ "$a" == "--help" || "$a" == "-h" ]] && { _usage_clone; return 0; }; done
   python3 "${SCRIPTS_DIR}/repos.py" clone "$@"
 }
 
@@ -205,6 +369,7 @@ cmd_clone() {
 # Command: update
 # ---------------------------------------------------------------------------
 cmd_update() {
+  for a in "$@"; do [[ "$a" == "--help" || "$a" == "-h" ]] && { _usage_update; return 0; }; done
   python3 "${SCRIPTS_DIR}/repos.py" update "$@"
 }
 
@@ -212,6 +377,7 @@ cmd_update() {
 # Command: fetch
 # ---------------------------------------------------------------------------
 cmd_fetch() {
+  for a in "$@"; do [[ "$a" == "--help" || "$a" == "-h" ]] && { _usage_fetch; return 0; }; done
   python3 "${SCRIPTS_DIR}/repos.py" fetch "$@"
 }
 
@@ -219,6 +385,7 @@ cmd_fetch() {
 # Command: status
 # ---------------------------------------------------------------------------
 cmd_status() {
+  for a in "$@"; do [[ "$a" == "--help" || "$a" == "-h" ]] && { _usage_status; return 0; }; done
   python3 "${SCRIPTS_DIR}/repos.py" status "$@"
 }
 
@@ -226,6 +393,7 @@ cmd_status() {
 # Command: branch (create / checkout / delete)
 # ---------------------------------------------------------------------------
 cmd_branch() {
+  for a in "$@"; do [[ "$a" == "--help" || "$a" == "-h" ]] && { _usage_branch; return 0; }; done
   python3 "${SCRIPTS_DIR}/repos.py" branch "$@"
 }
 
@@ -233,6 +401,7 @@ cmd_branch() {
 # Command: stash / stash pop
 # ---------------------------------------------------------------------------
 cmd_stash() {
+  for a in "$@"; do [[ "$a" == "--help" || "$a" == "-h" ]] && { _usage_stash; return 0; }; done
   python3 "${SCRIPTS_DIR}/repos.py" stash "$@"
 }
 
@@ -240,13 +409,17 @@ cmd_stash() {
 # Command: reset
 # ---------------------------------------------------------------------------
 cmd_reset() {
+  for a in "$@"; do [[ "$a" == "--help" || "$a" == "-h" ]] && { _usage_reset; return 0; }; done
   python3 "${SCRIPTS_DIR}/repos.py" reset "$@"
 }
 
 # ---------------------------------------------------------------------------
 # Command: run (arbitrary command per repo)
+# Note: only intercept --help when it is the very first argument so that
+#       './avm.sh run git --help' still passes --help to git, not AVM.
 # ---------------------------------------------------------------------------
 cmd_run() {
+  [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]] && { _usage_run; return 0; }
   python3 "${SCRIPTS_DIR}/repos.py" run "$@"
 }
 
@@ -254,6 +427,7 @@ cmd_run() {
 # Command: sync
 # ---------------------------------------------------------------------------
 cmd_sync() {
+  for a in "$@"; do [[ "$a" == "--help" || "$a" == "-h" ]] && { _usage_sync; return 0; }; done
   python3 "${SCRIPTS_DIR}/sync_catalog.py" "$@"
 }
 
@@ -261,6 +435,7 @@ cmd_sync() {
 # Command: scrape (backward-compat alias for check --dimension terraform-metadata)
 # ---------------------------------------------------------------------------
 cmd_scrape() {
+  for a in "$@"; do [[ "$a" == "--help" || "$a" == "-h" ]] && { _usage_scrape; return 0; }; done
   python3 "${SCRIPTS_DIR}/analyze_module.py" --dimension terraform-metadata "$@"
 }
 
@@ -268,6 +443,7 @@ cmd_scrape() {
 # Command: check
 # ---------------------------------------------------------------------------
 cmd_check() {
+  for a in "$@"; do [[ "$a" == "--help" || "$a" == "-h" ]] && { _usage_check; return 0; }; done
   python3 "${SCRIPTS_DIR}/analyze_module.py" "$@"
 }
 
