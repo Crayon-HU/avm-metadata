@@ -348,10 +348,12 @@ def parse_modules(csv_text: str, module_type: str) -> list[dict]:
 # Catalog YAML building
 # ---------------------------------------------------------------------------
 
-def build_catalog_section(mod: dict) -> str:
+def build_catalog_section(mod: dict, timestamp: str | None = None) -> str:
     """Build the catalog YAML block (between BEGIN/END CATALOG markers).
     All string scalars are JSON-encoded for safe YAML quoting.
     domain and provider are auto-derived and always written.
+    timestamp, when provided, is written as last_synced and is excluded
+    from the equality comparison used to detect changes.
     """
     lines = [
         f"# AVM Module — {mod['name']}",
@@ -393,6 +395,8 @@ def build_catalog_section(mod: dict) -> str:
     ]
     if mod["comments"]:
         lines.append(f"  comments: {_s(mod['comments'])}")
+    if timestamp is not None:
+        lines.append(f"  last_synced: {_s(timestamp)}")
     return "\n".join(lines)
 
 
@@ -401,7 +405,9 @@ def build_catalog_section(mod: dict) -> str:
 # ---------------------------------------------------------------------------
 
 def get_existing_catalog_content(filepath: str) -> str | None:
-    """Return the catalog text between BEGIN/END CATALOG markers, or None if not found."""
+    """Return the catalog text between BEGIN/END CATALOG markers, or None if not found.
+    The last_synced line is stripped before returning so it is excluded from change detection.
+    """
     if not os.path.exists(filepath):
         return None
     with open(filepath, "r", encoding="utf-8") as f:
@@ -410,7 +416,10 @@ def get_existing_catalog_content(filepath: str) -> str | None:
     end_idx   = content.find(END_MARKER)
     if begin_idx == -1 or end_idx == -1:
         return None
-    return content[begin_idx + len(BEGIN_MARKER) : end_idx].strip()
+    block = content[begin_idx + len(BEGIN_MARKER) : end_idx].strip()
+    # Strip last_synced so it doesn't trigger spurious re-writes on every sync
+    lines = [l for l in block.splitlines() if not l.strip().startswith("last_synced:")]
+    return "\n".join(lines).strip()
 
 
 def read_existing_scraped_block(filepath: str) -> str | None:
@@ -560,10 +569,12 @@ def main() -> None:
         if os.path.exists(old_flat) and not os.path.exists(filepath):
             os.rename(old_flat, filepath)
 
-        catalog_content = build_catalog_section(mod)
-        existing_cat    = get_existing_catalog_content(filepath)
-        is_new          = not os.path.exists(filepath)
-        needs_write     = force or is_new or (existing_cat != catalog_content.strip())
+        # Equality check uses catalog without timestamp to avoid spurious re-writes
+        catalog_content_cmp   = build_catalog_section(mod)
+        catalog_content_write = build_catalog_section(mod, timestamp)
+        existing_cat          = get_existing_catalog_content(filepath)
+        is_new                = not os.path.exists(filepath)
+        needs_write           = force or is_new or (existing_cat != catalog_content_cmp.strip())
 
         if not needs_write:
             unchanged += 1
@@ -578,7 +589,7 @@ def main() -> None:
             print(f"  {action:<6}  {mod['type']}/{mod['name']}.yaml")
         else:
             try:
-                write_module_file(filepath, catalog_content, scraped_block, enrichment_block)
+                write_module_file(filepath, catalog_content_write, scraped_block, enrichment_block)
             except OSError as exc:
                 print(f"  ERROR writing {filepath}: {exc}", file=sys.stderr)
                 failed += 1

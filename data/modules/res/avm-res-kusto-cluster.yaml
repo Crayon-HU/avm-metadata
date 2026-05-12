@@ -23,9 +23,83 @@ catalog:
     secondary:
       handle: ""
       name:   ""
+  last_synced: "2026-05-12T23:43:32Z"
 # END CATALOG
+# BEGIN SCRAPED
+# END SCRAPED
 # BEGIN ANALYSIS:terraform-metadata
+analysis_terraform_metadata:
+  checked_at: "2026-05-12T23:34:41Z"
+  status: pass
+  errors: []
+  terraform_constraints:
+    required_version: ">= 1.7.0"
+    required_providers:
+      azurerm:
+        source: "hashicorp/azurerm"
+        version_constraint: ">= 3.103.0"
+      random:
+        source: "hashicorp/random"
+        version_constraint: ">= 3.5.0"
+  resources_managed:
+    azurerm:
+      - "azurerm_kusto_cluster"
+      - "azurerm_management_lock"
+      - "azurerm_monitor_diagnostic_setting"
+      - "azurerm_private_endpoint"
+      - "azurerm_private_endpoint_application_security_group_association"
+      - "azurerm_resource_group_template_deployment"
+      - "azurerm_role_assignment"
+    random:
+      - "random_id"
 # END ANALYSIS:terraform-metadata
+# BEGIN ANALYSIS:avm-interface-compliance
+analysis_avm_interface_compliance:
+  checked_at: "2026-05-12T23:34:41Z"
+  status: pass
+  checks:
+    lock: { status: pass, evidence: "variables.tf:439" }
+    role_assignments: { status: pass, evidence: "variables.tf:592" }
+    private_endpoints: { status: pass, evidence: "variables.tf:512" }
+    diagnostic_settings: { status: pass, evidence: "variables.tf:256" }
+    managed_identities: { status: pass, evidence: "variables.tf:454" }
+    tags: { status: pass, evidence: "variables.tf:626" }
+    enable_telemetry: { status: pass, evidence: "variables.tf:314" }
+# END ANALYSIS:avm-interface-compliance
+# BEGIN ANALYSIS:security-hardening
+analysis_security_hardening:
+  checked_at: "2026-05-12T23:34:41Z"
+  status: pass
+  checks:
+    hardcoded_locations: { status: pass, evidence: "No hardcoded locations found" }
+    validation_blocks: { status: pass, evidence: "validation block found in variables.tf" }
+    sensitive_outputs: { status: pass, evidence: "All sensitive-named outputs declare sensitive = true (or none found)" }
+# END ANALYSIS:security-hardening
+# BEGIN ANALYSIS:test-coverage
+analysis_test_coverage:
+  checked_at: "2026-05-12T23:34:41Z"
+  status: pass
+  checks:
+    examples_dir: { status: pass, evidence: "examples/ contains 5 item(s)" }
+    test_files: { status: pass, evidence: "Found 5 test file(s) in tests/ (examples_apply.tftest.hcl…)" }
+# END ANALYSIS:test-coverage
+# BEGIN ANALYSIS:doc-quality
+analysis_doc_quality:
+  checked_at: "2026-05-12T23:34:41Z"
+  status: partial
+  checks:
+    readme_exists: { status: pass, evidence: "README.md found" }
+    readme_length: { status: pass, evidence: "27779 characters" }
+    required_sections: { status: partial, finding: "Missing sections: ## Usage, ## Examples" }
+# END ANALYSIS:doc-quality
+# BEGIN ANALYSIS:dependency-health
+analysis_dependency_health:
+  checked_at: "2026-05-12T23:34:41Z"
+  status: fail
+  checks:
+    terraform_version_upper_bound: { status: partial, finding: "required_version = \">= 1.7.0\" has no upper bound" }
+    provider_constraint_style: { status: fail, finding: "Open-ended >= constraint(s) detected: azurerm: \">= 3.103.0\"; random: \">= 3.5.0\"" }
+# END ANALYSIS:dependency-health
 enrichment:
   version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
   terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"
@@ -43,6 +117,8 @@ enrichment:
   #   - date: "YYYY-MM-DD"
   #     author: "github-handle"
   #     content: "free-text observation"
+
+
 
 
 

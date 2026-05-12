@@ -23,9 +23,105 @@ catalog:
     secondary:
       handle: ""
       name:   ""
+  last_synced: "2026-05-12T23:43:32Z"
 # END CATALOG
+# BEGIN SCRAPED
+# END SCRAPED
 # BEGIN ANALYSIS:terraform-metadata
+analysis_terraform_metadata:
+  checked_at: "2026-05-12T23:34:41Z"
+  status: pass
+  errors: []
+  terraform_constraints:
+    required_version: ">= 1.9, < 2.0"
+    required_providers:
+      azapi:
+        source: "Azure/azapi"
+        version_constraint: "~> 2.4"
+      azurerm:
+        source: "hashicorp/azurerm"
+        version_constraint: "~> 4.0"
+      modtm:
+        source: "azure/modtm"
+        version_constraint: "~> 0.3"
+      random:
+        source: "hashicorp/random"
+        version_constraint: "~> 3.6"
+      time:
+        source: "hashicorp/time"
+        version_constraint: "~> 0.12"
+  resources_managed:
+    azurerm:
+      - "azurerm_cosmosdb_account"
+      - "azurerm_cosmosdb_gremlin_database"
+      - "azurerm_cosmosdb_gremlin_graph"
+      - "azurerm_cosmosdb_mongo_collection"
+      - "azurerm_cosmosdb_mongo_database"
+      - "azurerm_cosmosdb_sql_container"
+      - "azurerm_cosmosdb_sql_database"
+      - "azurerm_cosmosdb_sql_dedicated_gateway"
+      - "azurerm_cosmosdb_sql_function"
+      - "azurerm_cosmosdb_sql_stored_procedure"
+      - "azurerm_cosmosdb_sql_trigger"
+      - "azurerm_management_lock"
+      - "azurerm_monitor_diagnostic_setting"
+      - "azurerm_private_endpoint"
+      - "azurerm_private_endpoint_application_security_group_association"
+      - "azurerm_role_assignment"
+    modtm:
+      - "modtm_telemetry"
+    random:
+      - "random_uuid"
+    time:
+      - "time_sleep"
 # END ANALYSIS:terraform-metadata
+# BEGIN ANALYSIS:avm-interface-compliance
+analysis_avm_interface_compliance:
+  checked_at: "2026-05-12T23:34:41Z"
+  status: pass
+  checks:
+    lock: { status: pass, evidence: "variables.lock.tf:1" }
+    role_assignments: { status: pass, evidence: "variables.roleassignments.tf:1" }
+    private_endpoints: { status: pass, evidence: "variables.privateendpoints.tf:1" }
+    diagnostic_settings: { status: pass, evidence: "variables.diagnostic.tf:1" }
+    managed_identities: { status: pass, evidence: "variables.managedidentities.tf:1" }
+    tags: { status: pass, evidence: "variables.tags.tf:1" }
+    enable_telemetry: { status: pass, evidence: "variables.telemetry.tf:1" }
+# END ANALYSIS:avm-interface-compliance
+# BEGIN ANALYSIS:security-hardening
+analysis_security_hardening:
+  checked_at: "2026-05-12T23:34:41Z"
+  status: fail
+  checks:
+    hardcoded_locations: { status: fail, finding: "Hardcoded location \"eastus\" in variables.account.optionals.tf:261" }
+    validation_blocks: { status: pass, evidence: "validation block found in variables.account.network.tf" }
+    sensitive_outputs: { status: fail, finding: "Output \"access_key_metadata_writes_enabled\" in outputs.tf may be sensitive but lacks sensitive = true" }
+# END ANALYSIS:security-hardening
+# BEGIN ANALYSIS:test-coverage
+analysis_test_coverage:
+  checked_at: "2026-05-12T23:34:41Z"
+  status: partial
+  checks:
+    examples_dir: { status: pass, evidence: "examples/ contains 13 item(s)" }
+    test_files: { status: partial, finding: "tests/ exists but contains no .go or .tftest.hcl files" }
+# END ANALYSIS:test-coverage
+# BEGIN ANALYSIS:doc-quality
+analysis_doc_quality:
+  checked_at: "2026-05-12T23:34:41Z"
+  status: partial
+  checks:
+    readme_exists: { status: pass, evidence: "README.md found" }
+    readme_length: { status: pass, evidence: "66959 characters" }
+    required_sections: { status: partial, finding: "Missing sections: ## Usage" }
+# END ANALYSIS:doc-quality
+# BEGIN ANALYSIS:dependency-health
+analysis_dependency_health:
+  checked_at: "2026-05-12T23:34:41Z"
+  status: pass
+  checks:
+    terraform_version_upper_bound: { status: pass, evidence: "required_version = \">= 1.9, < 2.0\"" }
+    provider_constraint_style: { status: pass, evidence: "All 5 provider(s) use upper-bounded constraints" }
+# END ANALYSIS:dependency-health
 enrichment:
   version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
   terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"
@@ -43,6 +139,8 @@ enrichment:
   #   - date: "YYYY-MM-DD"
   #     author: "github-handle"
   #     content: "free-text observation"
+
+
 
 
 

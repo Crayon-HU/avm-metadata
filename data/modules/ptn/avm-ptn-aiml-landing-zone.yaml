@@ -21,9 +21,155 @@ catalog:
     secondary:
       handle: "mbilalamjad"
       name:   "Bilal Amjad"
+  last_synced: "2026-05-12T23:43:32Z"
 # END CATALOG
+# BEGIN SCRAPED
+# END SCRAPED
 # BEGIN ANALYSIS:terraform-metadata
+analysis_terraform_metadata:
+  checked_at: "2026-05-12T23:34:41Z"
+  status: pass
+  errors: []
+  terraform_constraints:
+    required_version: ">= 1.9, < 2.0"
+    required_providers:
+      azapi:
+        source: "Azure/azapi"
+        version_constraint: "~> 2.4"
+      azurerm:
+        source: "hashicorp/azurerm"
+        version_constraint: "~> 4.0"
+      modtm:
+        source: "azure/modtm"
+        version_constraint: "~> 0.3"
+      random:
+        source: "hashicorp/random"
+        version_constraint: "~> 3.5"
+      time:
+        source: "hashicorp/time"
+        version_constraint: "~> 0.12"
+  modules_called:
+    - local_name: "apim"
+      source: "Azure/avm-res-apimanagement-service/azurerm"
+      version: "0.0.5"
+    - local_name: "buildvm"
+      source: "Azure/avm-res-compute-virtualmachine/azurerm"
+      version: "0.20.0"
+    - local_name: "container_apps_managed_environment"
+      source: "Azure/avm-res-app-managedenvironment/azurerm"
+      version: "0.3.0"
+    - local_name: "foundry_ptn"
+      source: "Azure/avm-ptn-aiml-ai-foundry/azurerm"
+      version: "0.10.0"
+    - local_name: "avm_res_keyvault_vault"
+      source: "Azure/avm-res-keyvault-vault/azurerm"
+      version: "=0.10.2"
+    - local_name: "cosmosdb"
+      source: "Azure/avm-res-documentdb-databaseaccount/azurerm"
+      version: "0.10.0"
+    - local_name: "storage_account"
+      source: "Azure/avm-res-storage-storageaccount/azurerm"
+      version: "0.6.6"
+    - local_name: "containerregistry"
+      source: "Azure/avm-res-containerregistry-registry/azurerm"
+      version: "0.5.0"
+    - local_name: "app_configuration"
+      source: "Azure/avm-res-appconfiguration-configurationstore/azure"
+      version: "0.5.1"
+    - local_name: "jumpvm"
+      source: "Azure/avm-res-compute-virtualmachine/azurerm"
+      version: "0.20.0"
+    - local_name: "search_service"
+      source: "Azure/avm-res-search-searchservice/azurerm"
+      version: "0.2.0"
+    - local_name: "log_analytics_workspace"
+      source: "Azure/avm-res-operationalinsights-workspace/azurerm"
+      version: "0.4.2"
+    - local_name: "ai_lz_vnet"
+      source: "Azure/avm-res-network-virtualnetwork/azurerm"
+      version: "0.16.0"
+    - local_name: "byo_subnets"
+      source: "Azure/avm-res-network-virtualnetwork/azurerm//modules/subnet"
+      version: "0.16.0"
+    - local_name: "nsgs"
+      source: "Azure/avm-res-network-networksecuritygroup/azurerm"
+      version: "0.5.0"
+    - local_name: "hub_vnet_peering"
+      source: "Azure/avm-res-network-virtualnetwork/azurerm//modules/peering"
+      version: "0.16.0"
+    - local_name: "firewall_route_table"
+      source: "Azure/avm-res-network-routetable/azurerm"
+      version: "0.4.1"
+    - local_name: "fw_pip"
+      source: "Azure/avm-res-network-publicipaddress/azurerm"
+      version: "0.2.0"
+    - local_name: "firewall"
+      source: "Azure/avm-res-network-azurefirewall/azurerm"
+      version: "0.4.0"
+    - local_name: "firewall_policy"
+      source: "Azure/avm-res-network-firewallpolicy/azurerm"
+      version: "0.3.3"
+    - local_name: "firewall_network_rule_collection_group"
+      source: "Azure/avm-res-network-firewallpolicy/azurerm//modules/rule_collection_groups"
+      version: "0.3.3"
+    - local_name: "azure_bastion"
+      source: "Azure/avm-res-network-bastionhost/azurerm"
+      version: "0.7.2"
+    - local_name: "private_dns_zones"
+      source: "Azure/avm-res-network-privatednszone/azurerm"
+      version: "0.4.2"
+    - local_name: "app_gateway_waf_policy"
+      source: "Azure/avm-res-network-applicationgatewaywebapplicationfirewallpolicy/azurerm"
+      version: "0.2.0"
+    - local_name: "application_gateway"
+      source: "Azure/avm-res-network-applicationgateway/azurerm"
+      version: "0.4.2"
+    - local_name: "avm_utl_regions"
+      source: "Azure/avm-utl-regions/azurerm"
+      version: "0.9.2"
 # END ANALYSIS:terraform-metadata
+# BEGIN ANALYSIS:avm-interface-compliance
+analysis_avm_interface_compliance:
+  checked_at: "2026-05-12T23:34:41Z"
+  status: pass
+  checks:
+    tags: { status: pass, evidence: "variables.tf:60" }
+    enable_telemetry: { status: pass, evidence: "variables.tf:21" }
+# END ANALYSIS:avm-interface-compliance
+# BEGIN ANALYSIS:security-hardening
+analysis_security_hardening:
+  checked_at: "2026-05-12T23:34:41Z"
+  status: pass
+  checks:
+    hardcoded_locations: { status: pass, evidence: "No hardcoded locations found" }
+    validation_blocks: { status: pass, evidence: "validation block found in variables.apim.tf" }
+    sensitive_outputs: { status: pass, evidence: "All sensitive-named outputs declare sensitive = true (or none found)" }
+# END ANALYSIS:security-hardening
+# BEGIN ANALYSIS:test-coverage
+analysis_test_coverage:
+  checked_at: "2026-05-12T23:34:41Z"
+  status: partial
+  checks:
+    examples_dir: { status: pass, evidence: "examples/ contains 6 item(s)" }
+    test_files: { status: partial, finding: "tests/ exists but contains no .go or .tftest.hcl files" }
+# END ANALYSIS:test-coverage
+# BEGIN ANALYSIS:doc-quality
+analysis_doc_quality:
+  checked_at: "2026-05-12T23:34:41Z"
+  status: partial
+  checks:
+    readme_exists: { status: pass, evidence: "README.md found" }
+    readme_length: { status: pass, evidence: "149225 characters" }
+    required_sections: { status: partial, finding: "Missing sections: ## Usage, ## Examples" }
+# END ANALYSIS:doc-quality
+# BEGIN ANALYSIS:dependency-health
+analysis_dependency_health:
+  checked_at: "2026-05-12T23:34:41Z"
+  status: pass
+  checks:
+    terraform_version_upper_bound: { status: pass, evidence: "required_version = \">= 1.9, < 2.0\"" }
+    provider_constraint_style: { status: pass, evidence: "All 5 provider(s) use upper-bounded constraints" }
+# END ANALYSIS:dependency-health
 enrichment:
   version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
   terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"
@@ -41,6 +187,8 @@ enrichment:
   #   - date: "YYYY-MM-DD"
   #     author: "github-handle"
   #     content: "free-text observation"
+
+
 
 
 

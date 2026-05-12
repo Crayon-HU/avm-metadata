@@ -22,9 +22,109 @@ catalog:
     secondary:
       handle: ""
       name:   ""
+  last_synced: "2026-05-12T23:43:32Z"
 # END CATALOG
+# BEGIN SCRAPED
+# END SCRAPED
 # BEGIN ANALYSIS:terraform-metadata
+analysis_terraform_metadata:
+  checked_at: "2026-05-12T23:34:42Z"
+  status: pass
+  errors: []
+  terraform_constraints:
+    required_version: "~> 1.9"
+    required_providers:
+      azapi:
+        source: "Azure/azapi"
+        version_constraint: "~> 2.4"
+      azurerm:
+        source: "hashicorp/azurerm"
+        version_constraint: "~> 4.0"
+      modtm:
+        source: "azure/modtm"
+        version_constraint: "~> 0.3"
+      random:
+        source: "hashicorp/random"
+        version_constraint: "~> 3.5"
+  modules_called:
+    - local_name: "regions"
+      source: "Azure/avm-utl-regions/azurerm"
+      version: "0.5.2"
+    - local_name: "virtual_network_ip_prefixes"
+      source: "Azure/avm-utl-network-ip-addresses/azurerm"
+      version: "0.1.0"
+    - local_name: "virtual_network_subnet_ip_prefixes"
+      source: "Azure/avm-utl-network-ip-addresses/azurerm"
+      version: "0.1.0"
+    - local_name: "firewall_policy"
+      source: "Azure/avm-res-network-firewallpolicy/azurerm"
+      version: "0.3.3"
+    - local_name: "virtual_wan"
+      source: "./modules/virtual-wan"
+    - local_name: "virtual_network_side_car"
+      source: "Azure/avm-res-network-virtualnetwork/azurerm"
+      version: "0.15.0"
+    - local_name: "dns_resolver"
+      source: "Azure/avm-res-network-dnsresolver/azurerm"
+      version: "0.7.3"
+    - local_name: "private_dns_zones"
+      source: "Azure/avm-ptn-network-private-link-private-dns-zones/azurerm"
+      version: "0.23.1"
+    - local_name: "private_dns_zone_auto_registration"
+      source: "Azure/avm-res-network-privatednszone/azurerm"
+      version: "0.4.3"
+    - local_name: "ddos_protection_plan"
+      source: "Azure/avm-res-network-ddosprotectionplan/azurerm"
+      version: "0.3.0"
+    - local_name: "bastion_public_ip"
+      source: "Azure/avm-res-network-publicipaddress/azurerm"
+      version: "0.2.0"
+    - local_name: "bastion_host"
+      source: "Azure/avm-res-network-bastionhost/azurerm"
+      version: "0.6.0"
 # END ANALYSIS:terraform-metadata
+# BEGIN ANALYSIS:avm-interface-compliance
+analysis_avm_interface_compliance:
+  checked_at: "2026-05-12T23:34:42Z"
+  status: pass
+  checks:
+    tags: { status: pass, evidence: "variables.tf:75" }
+    enable_telemetry: { status: pass, evidence: "variables.tf:49" }
+# END ANALYSIS:avm-interface-compliance
+# BEGIN ANALYSIS:security-hardening
+analysis_security_hardening:
+  checked_at: "2026-05-12T23:34:42Z"
+  status: pass
+  checks:
+    hardcoded_locations: { status: pass, evidence: "No hardcoded locations found" }
+    validation_blocks: { status: pass, evidence: "validation block found in variables.tf" }
+    sensitive_outputs: { status: pass, evidence: "All sensitive-named outputs declare sensitive = true (or none found)" }
+# END ANALYSIS:security-hardening
+# BEGIN ANALYSIS:test-coverage
+analysis_test_coverage:
+  checked_at: "2026-05-12T23:34:42Z"
+  status: partial
+  checks:
+    examples_dir: { status: pass, evidence: "examples/ contains 5 item(s)" }
+    test_files: { status: partial, finding: "tests/ exists but contains no .go or .tftest.hcl files" }
+# END ANALYSIS:test-coverage
+# BEGIN ANALYSIS:doc-quality
+analysis_doc_quality:
+  checked_at: "2026-05-12T23:34:42Z"
+  status: partial
+  checks:
+    readme_exists: { status: pass, evidence: "README.md found" }
+    readme_length: { status: pass, evidence: "74953 characters" }
+    required_sections: { status: partial, finding: "Missing sections: ## Usage, ## Examples" }
+# END ANALYSIS:doc-quality
+# BEGIN ANALYSIS:dependency-health
+analysis_dependency_health:
+  checked_at: "2026-05-12T23:34:42Z"
+  status: pass
+  checks:
+    terraform_version_upper_bound: { status: pass, evidence: "required_version = \"~> 1.9\"" }
+    provider_constraint_style: { status: pass, evidence: "All 4 provider(s) use upper-bounded constraints" }
+# END ANALYSIS:dependency-health
 enrichment:
   version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
   terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"
@@ -42,6 +142,8 @@ enrichment:
   #   - date: "YYYY-MM-DD"
   #     author: "github-handle"
   #     content: "free-text observation"
+
+
 
 
 
