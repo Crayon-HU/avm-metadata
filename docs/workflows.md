@@ -71,12 +71,15 @@ Operators run commands from a terminal using the top-level wrapper for their she
 | Generate modules.yaml | `./avm.sh setup --domains all` | `.\avm.ps1 setup --domains all` | `scripts/generate_config.py` |
 | Filter by domain/type | `./avm.sh setup --domains networking --types res` | `.\avm.ps1 setup --domains networking --types res` | `scripts/generate_config.py` |
 | Clone repos | `./avm.sh clone` | `.\avm.ps1 clone` | `scripts/repos.py clone` |
-| Clone filtered | `./avm.sh clone --domain networking --type res` | `.\avm.ps1 clone --domain networking --type res` | `scripts/repos.py clone` |
+| Clone filtered | `./avm.sh clone --domains networking --types res` | `.\avm.ps1 clone --domains networking --types res` | `scripts/repos.py clone` |
+| Clone one module | `./avm.sh clone --module avm-res-network-virtualnetwork` | `.\avm.ps1 clone --module avm-res-network-virtualnetwork` | `scripts/repos.py clone` |
 | Update cloned repos | `./avm.sh update` | `.\avm.ps1 update` | `scripts/repos.py update` |
 | Update (parallel) | `./avm.sh update --parallel 10` | `.\avm.ps1 update --parallel 10` | `scripts/repos.py update` |
 | Fetch all remotes | `./avm.sh fetch --parallel 30` | `.\avm.ps1 fetch --parallel 30` | `scripts/repos.py fetch` |
 | Show dirty/behind repos | `./avm.sh status` | `.\avm.ps1 status` | `scripts/repos.py status` |
+| Status for one module | `./avm.sh status --module avm-res-network-virtualnetwork` | `.\avm.ps1 status --module avm-res-network-virtualnetwork` | `scripts/repos.py status` |
 | Create branch | `./avm.sh branch create feature/x` | `.\avm.ps1 branch create feature/x` | `scripts/repos.py branch create` |
+| Create branch (filtered) | `./avm.sh branch create feature/x --domains networking` | `.\avm.ps1 branch create feature/x --domains networking` | `scripts/repos.py branch create` |
 | Checkout branch | `./avm.sh branch checkout feature/x --fallback` | `.\avm.ps1 branch checkout feature/x --fallback` | `scripts/repos.py branch checkout` |
 | Delete branch | `./avm.sh branch delete feature/x` | `.\avm.ps1 branch delete feature/x` | `scripts/repos.py branch delete` |
 | Stash changes | `./avm.sh stash` | `.\avm.ps1 stash` | `scripts/repos.py stash` |
@@ -87,8 +90,10 @@ Operators run commands from a terminal using the top-level wrapper for their she
 | Sync (dry run) | `./avm.sh sync --dry-run` | `.\avm.ps1 sync --dry-run` | `scripts/sync_catalog.py` |
 | Scrape TF metadata (alias) | `./avm.sh scrape` | `.\avm.ps1 scrape` | `scripts/analyze_module.py --dimension terraform-metadata` |
 | Scrape one module | `./avm.sh scrape --module NAME` | `.\avm.ps1 scrape --module NAME` | `scripts/analyze_module.py` |
+| Scrape by domain | `./avm.sh scrape --domains networking --types res` | `.\avm.ps1 scrape --domains networking --types res` | `scripts/analyze_module.py` |
 | Run all analysis | `./avm.sh check --module NAME` | `.\avm.ps1 check --module NAME` | `scripts/analyze_module.py` |
 | Run one dimension | `./avm.sh check --dimension DIM` | `.\avm.ps1 check --dimension DIM` | `scripts/analyze_module.py` |
+| Check by domain | `./avm.sh check --domains networking --dimension test-coverage` | `.\avm.ps1 check --domains networking --dimension test-coverage` | `scripts/analyze_module.py` |
 | Dry-run analysis | `./avm.sh check --dry-run` | `.\avm.ps1 check --dry-run` | `scripts/analyze_module.py` |
 
 ### Typical operator session
@@ -100,11 +105,15 @@ Operators run commands from a terminal using the top-level wrapper for their she
 # Clone selected modules (shallow by default)
 ./avm.sh clone
 
+# Or clone just networking res modules
+./avm.sh clone --domains networking --types res
+
 # Fetch latest from remote for all cloned repos (no merge, fast parallel)
 ./avm.sh fetch --parallel 30
 
 # See which repos have local changes or are behind remote
 ./avm.sh status
+./avm.sh status --domains networking
 
 # Work on a feature branch across all repos
 ./avm.sh branch create feature/my-fix
@@ -116,14 +125,15 @@ Operators run commands from a terminal using the top-level wrapper for their she
 # Refresh the catalog from upstream AVM CSVs
 ./avm.sh sync
 
-# Scrape Terraform metadata from each module repo (alias for check --dimension terraform-metadata)
+# Scrape Terraform metadata (alias for check --dimension terraform-metadata)
 ./avm.sh scrape
+./avm.sh scrape --domains networking --types res
 
 # Run full analysis on a specific module (all 6 dimensions)
 ./avm.sh check --module avm-res-network-virtualnetwork
 
-# Run a single dimension across all modules
-./avm.sh check --dimension avm-interface-compliance
+# Run a single dimension for all networking res modules
+./avm.sh check --domains networking --types res --dimension test-coverage
 
 # Run an arbitrary git command in all repos
 ./avm.sh run git log --oneline -3

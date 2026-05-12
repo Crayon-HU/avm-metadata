@@ -64,28 +64,32 @@ _usage() {
     clone        Clone module repos from .config/modules.yaml.
                  Run 'setup' first if modules.yaml does not exist.
 
-      --domain <name>        Filter by a single domain
-      --type   <type>        Filter by type (res|ptn|utl)
+      --domains <list>       Comma-separated domain slugs (e.g. networking,compute)
+      --types   <list>       Comma-separated types (res,ptn,utl)
+      --module  <name>       Filter to a single module by name
       --full                 Full git history (default: shallow --depth 1)
       --git-name <name>      Set git user.name in cloned repos
       --git-email <email>    Set git user.email in cloned repos
 
     update       Pull the latest changes for all already-cloned repos.
 
-      --domain <name>        Limit to one domain
-      --type   <type>        Limit to one type (res|ptn|utl)
+      --domains <list>       Comma-separated domain slugs
+      --types   <list>       Comma-separated types (res,ptn,utl)
+      --module  <name>       Filter to a single module by name
       --parallel N           Run N repos concurrently (default: 1)
 
     fetch        Fetch all remotes without merging (fast, parallel).
 
-      --domain <name>        Limit to one domain
-      --type   <type>        Limit to one type
+      --domains <list>       Comma-separated domain slugs
+      --types   <list>       Comma-separated types
+      --module  <name>       Filter to a single module by name
       --parallel N           Concurrency (default: 20)
 
     status       Show repos with uncommitted changes or that are behind remote.
 
-      --domain <name>        Limit to one domain
-      --type   <type>        Limit to one type
+      --domains <list>       Comma-separated domain slugs
+      --types   <list>       Comma-separated types
+      --module  <name>       Filter to a single module by name
 
     branch       Create, checkout, or delete a branch in all matching repos.
 
@@ -93,20 +97,28 @@ _usage() {
       checkout <name>        Switch to branch; --fallback to stay on current if absent
       delete  <name>         Delete branch; --force to use -D (unmerged ok)
 
-      --domain <name>        Limit to one domain
-      --type   <type>        Limit to one type
+      --domains <list>       Comma-separated domain slugs
+      --types   <list>       Comma-separated types
+      --module  <name>       Filter to a single module by name
 
     stash        Stash working tree changes across repos.
     stash pop    Pop the most recent stash entry across repos.
 
+      --domains <list>       Comma-separated domain slugs
+      --types   <list>       Comma-separated types
+
     reset        Reset all repos to HEAD.
 
       --hard                 Hard reset (discards working tree changes)
+      --domains <list>       Comma-separated domain slugs
+      --types   <list>       Comma-separated types
 
     run          Run an arbitrary command in each repo directory.
 
       <cmd...>               Any git or shell command
       --parallel N           Concurrency (default: 1)
+      --domains <list>       Comma-separated domain slugs
+      --types   <list>       Comma-separated types
 
     sync         Fetch the three official AVM module index CSVs and
                  generate/update data/modules/*.yaml (one file per module).
@@ -117,7 +129,9 @@ _usage() {
 
       --dry-run              Show planned changes without writing files
       --force                Re-analyze even if recently checked
-      --module NAME          Analyze a single module by name
+      --module <name>        Analyze a single module by name
+      --domains <list>       Comma-separated domain slugs
+      --types   <list>       Comma-separated types (res,ptn,utl)
       --max-age DAYS         Skip modules checked within N days (default: 7)
 
     check        Run one or more analysis dimensions on module(s).
@@ -129,7 +143,9 @@ _usage() {
                    doc-quality              README length and required section headers
                    dependency-health        Version constraint style
 
-      --module    NAME       Analyze a single module by name
+      --module    <name>     Analyze a single module by name
+      --domains   <list>     Comma-separated domain slugs
+      --types     <list>     Comma-separated types (res,ptn,utl)
       --dimension DIM        Run only this dimension (repeat for multiple; default: all)
       --dry-run              Show planned changes without writing files
       --force                Ignore --max-age; always re-analyze
@@ -140,20 +156,27 @@ _usage() {
   Examples:
     ./avm.sh setup --domains all
     ./avm.sh setup --domains networking,compute --types res
-    ./avm.sh clone --domain networking --type res
+    ./avm.sh clone --domains networking --types res
+    ./avm.sh clone --module avm-res-network-virtualnetwork
     ./avm.sh update --parallel 10
+    ./avm.sh update --domains networking --parallel 5
     ./avm.sh fetch --parallel 30
-    ./avm.sh status --domain networking
+    ./avm.sh fetch --domains networking,compute
+    ./avm.sh status --domains networking
+    ./avm.sh status --module avm-res-network-virtualnetwork
     ./avm.sh branch create feature/my-fix
+    ./avm.sh branch create feature/my-fix --domains networking
     ./avm.sh branch checkout feature/my-fix --fallback
-    ./avm.sh branch delete feature/my-fix --domain networking
-    ./avm.sh stash
+    ./avm.sh branch delete feature/my-fix --domains networking
+    ./avm.sh stash --domains networking
     ./avm.sh stash pop
-    ./avm.sh reset --hard --domain networking
+    ./avm.sh reset --hard --domains networking
     ./avm.sh run git log --oneline -3
     ./avm.sh sync --dry-run
     ./avm.sh scrape --module avm-res-network-virtualnetwork
+    ./avm.sh scrape --domains networking --types res
     GITHUB_TOKEN=ghp_... ./avm.sh check --module avm-res-network-virtualnetwork
+    ./avm.sh check --domains networking --types res --dimension test-coverage
     ./avm.sh check --dimension test-coverage
 
 EOF

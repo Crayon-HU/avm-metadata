@@ -23,8 +23,11 @@ Usage:
     python3 scripts/repos.py run <cmd...> [-- filters]
 
 Filters (accepted by all subcommands):
-    --domain <name>        Filter by catalog domain slug
-    --type <res|ptn|utl>   Filter by module type
+    --domain <name>        Filter by catalog domain slug (alias for --domains)
+    --type <res|ptn|utl>   Filter by module type (alias for --types)
+    --domains <list>       Comma-separated domain slugs (e.g. networking,compute)
+    --types <list>         Comma-separated types (res,ptn,utl)
+    --module <name>        Filter to a single module by name
     --dry-run              Print actions without executing
 
     ./avm.sh clone  →  python3 repos.py clone
@@ -71,13 +74,16 @@ def _strip(s: str) -> str:
 
 
 def load_modules(
-    filter_domain: str = "",
-    filter_type: str = "",
+    filter_domains: list[str] | None = None,
+    filter_types:   list[str] | None = None,
+    filter_name:    str = "",
 ) -> list[dict]:
     """
-    Parse .config/modules.yaml and return module dicts filtered by domain/type.
+    Parse .config/modules.yaml and return module dicts matching the given filters.
 
     Each dict has keys: name, domain, type, url, branch.
+    filter_domains / filter_types: if empty/None → no filter applied.
+    filter_name: if non-empty → match exact module name.
     """
     if not os.path.isfile(MODULES_FILE):
         _die(
@@ -98,7 +104,7 @@ def load_modules(
 
             if "- name:" in line:
                 if cur.get("name") and cur.get("url"):
-                    _maybe_add(modules, cur, filter_domain, filter_type)
+                    _maybe_add(modules, cur, filter_domains, filter_types, filter_name)
                 cur = {"name": _field(line, "name"), "branch": "main",
                        "domain": "", "type": "", "url": ""}
             elif cur and "domain:" in line and "name:" not in line:
@@ -111,7 +117,7 @@ def load_modules(
                 cur["branch"] = _field(line, "branch")
 
     if cur.get("name") and cur.get("url"):
-        _maybe_add(modules, cur, filter_domain, filter_type)
+        _maybe_add(modules, cur, filter_domains, filter_types, filter_name)
 
     return modules
 
@@ -127,12 +133,15 @@ def _field(line: str, key: str) -> str:
 def _maybe_add(
     modules: list[dict],
     cur: dict,
-    filter_domain: str,
-    filter_type: str,
+    filter_domains: list[str] | None,
+    filter_types:   list[str] | None,
+    filter_name:    str,
 ) -> None:
-    if filter_domain and cur.get("domain") != filter_domain:
+    if filter_domains and cur.get("domain") not in filter_domains:
         return
-    if filter_type and cur.get("type") != filter_type:
+    if filter_types and cur.get("type") not in filter_types:
+        return
+    if filter_name and cur.get("name") != filter_name:
         return
     modules.append(dict(cur))
 
@@ -734,21 +743,24 @@ def _print_usage() -> None:
 Usage: python3 scripts/repos.py <subcommand> [options]
 
 Subcommands:
-  clone   [--domain D] [--type T] [--full] [--git-name N] [--git-email E]
-  update  [--domain D] [--type T] [--parallel N]
-  fetch   [--domain D] [--type T] [--parallel N]
-  status  [--domain D] [--type T]
-  branch create  <name> [--domain D] [--type T] [--dry-run]
-  branch checkout <name> [--domain D] [--type T] [--fallback] [--dry-run]
-  branch delete  <name> [--domain D] [--type T] [--force] [--dry-run]
-  stash   [--domain D] [--type T] [--dry-run]
-  stash pop [--domain D] [--type T] [--dry-run]
-  reset   [--domain D] [--type T] [--hard] [--dry-run]
-  run     <git-or-shell-cmd...> [--domain D] [--type T] [--parallel N] [--dry-run]
+  clone   [filters] [--full] [--git-name N] [--git-email E]
+  update  [filters] [--parallel N]
+  fetch   [filters] [--parallel N]
+  status  [filters]
+  branch create  <name> [filters] [--dry-run]
+  branch checkout <name> [filters] [--fallback] [--dry-run]
+  branch delete  <name> [filters] [--force] [--dry-run]
+  stash   [filters] [--dry-run]
+  stash pop [filters] [--dry-run]
+  reset   [filters] [--hard] [--dry-run]
+  run     <git-or-shell-cmd...> [filters] [--parallel N] [--dry-run]
 
-Filters:
-  --domain <slug>        Filter by catalog domain (e.g. networking, compute)
-  --type   <res|ptn|utl> Filter by module type
+Filters (accepted by all subcommands):
+  --domains <list>       Comma-separated domain slugs (e.g. networking,compute)
+  --types <list>         Comma-separated types (res,ptn,utl)
+  --module <name>        Single module by name (e.g. avm-res-network-virtualnetwork)
+  --domain <slug>        Alias for --domains (single value)
+  --type   <res|ptn|utl> Alias for --types (single value)
 
 Global options:
   --dry-run              Print what would happen without executing
@@ -761,8 +773,9 @@ class Args:
     subcommand: str = ""
     sub2: str = ""
     branch_name: str = ""
-    domain: str = ""
-    type_: str = ""
+    domains: list[str]
+    types: list[str]
+    module: str = ""
     dry_run: bool = False
     full: bool = False
     git_name: str = ""
@@ -776,6 +789,8 @@ class Args:
 
 def parse_args(argv: list[str]) -> Args:
     a = Args()
+    a.domains = []
+    a.types = []
     a.run_cmd = []
     it = iter(argv)
 
@@ -812,14 +827,28 @@ def parse_args(argv: list[str]) -> Args:
             a.run_cmd.append(token)
             continue
 
-        if token == "--domain":
-            a.domain = nextval("--domain")
+        if token == "--domains":
+            a.domains = [d.strip() for d in nextval("--domains").split(",") if d.strip()]
+        elif token.startswith("--domains="):
+            a.domains = [d.strip() for d in token.split("=", 1)[1].split(",") if d.strip()]
+        elif token == "--domain":
+            # backward-compat alias: single value treated as a one-element list
+            a.domains = [nextval("--domain")]
         elif token.startswith("--domain="):
-            a.domain = token.split("=", 1)[1]
+            a.domains = [token.split("=", 1)[1]]
+        elif token == "--types":
+            a.types = [t.strip() for t in nextval("--types").split(",") if t.strip()]
+        elif token.startswith("--types="):
+            a.types = [t.strip() for t in token.split("=", 1)[1].split(",") if t.strip()]
         elif token == "--type":
-            a.type_ = nextval("--type")
+            # backward-compat alias: single value
+            a.types = [nextval("--type")]
         elif token.startswith("--type="):
-            a.type_ = token.split("=", 1)[1]
+            a.types = [token.split("=", 1)[1]]
+        elif token == "--module":
+            a.module = nextval("--module")
+        elif token.startswith("--module="):
+            a.module = token.split("=", 1)[1]
         elif token == "--parallel":
             a.parallel = int(nextval("--parallel"))
         elif token.startswith("--parallel="):
@@ -868,17 +897,21 @@ def main() -> None:
         _print_usage()
         sys.exit(1)
 
-    if a.type_ and a.type_ not in ALL_TYPES:
-        _die(f"--type must be one of: {', '.join(ALL_TYPES)}")
+    if a.types:
+        invalid = [t for t in a.types if t not in ALL_TYPES]
+        if invalid:
+            _die(f"--types: invalid value(s): {', '.join(invalid)}. Must be one of: {', '.join(ALL_TYPES)}")
 
-    modules = load_modules(filter_domain=a.domain, filter_type=a.type_)
+    modules = load_modules(filter_domains=a.domains, filter_types=a.types, filter_name=a.module)
 
     if not modules:
         msg = "No modules match the specified filters."
-        if a.domain:
-            msg += f"  --domain={a.domain}"
-        if a.type_:
-            msg += f"  --type={a.type_}"
+        if a.domains:
+            msg += f"  --domains={','.join(a.domains)}"
+        if a.types:
+            msg += f"  --types={','.join(a.types)}"
+        if a.module:
+            msg += f"  --module={a.module}"
         print(msg)
         sys.exit(0)
 

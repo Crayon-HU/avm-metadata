@@ -104,21 +104,24 @@ modules:
 ./avm.sh setup --domains all                        # generate .config/modules.yaml
 ./avm.sh setup --domains networking,compute --types res
 ./avm.sh clone                                      # clone all modules from modules.yaml
-./avm.sh clone --domain networking --type res       # filtered clone
+./avm.sh clone --domains networking --types res     # filtered clone
+./avm.sh clone --module avm-res-network-virtualnetwork  # single module
 ./avm.sh update --parallel 10                       # git pull --ff-only (parallel)
 ./avm.sh fetch --parallel 30                        # fetch remotes without merging
 ./avm.sh status                                     # show dirty/behind repos
+./avm.sh status --domains networking                # filtered status
 ./avm.sh branch create feature/my-fix               # create branch in all repos
+./avm.sh branch create feature/my-fix --domains networking  # filtered
 ./avm.sh branch checkout feature/my-fix --fallback  # checkout (stay put if missing)
-./avm.sh stash                                      # stash changes across all repos
+./avm.sh stash --domains networking                 # stash changes in networking repos
 ./avm.sh reset --hard                               # hard reset all repos to HEAD
 ./avm.sh run git log --oneline -3                   # arbitrary command in each repo
-./avm.sh sync                                       # fetch upstream CSVs → refresh data/modules/{res,ptn,utl}/*.yaml catalog section
+./avm.sh sync                                       # fetch upstream CSVs → refresh data/modules/
 ./avm.sh sync --dry-run                             # preview changes without writing
-./avm.sh scrape                                     # alias: check --dimension terraform-metadata (scrape all modules)
+./avm.sh scrape --domains networking --types res    # terraform-metadata for filtered repos
 ./avm.sh scrape --module avm-res-network-virtualnetwork  # scrape one module
 ./avm.sh check --module avm-res-network-virtualnetwork   # full analysis (all 6 dimensions)
-./avm.sh check --dimension avm-interface-compliance      # one dimension, all modules
+./avm.sh check --domains networking --dimension avm-interface-compliance  # filtered
 ./avm.sh check --dry-run                                 # preview analysis changes
 ```
 
