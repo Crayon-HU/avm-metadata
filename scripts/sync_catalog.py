@@ -53,6 +53,10 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 REPO_ROOT   = os.path.dirname(SCRIPT_DIR)
 MODULES_DIR = os.path.join(REPO_ROOT, "data", "modules")
 
+# Modules whose catalog.status (lowercased) are excluded by default.
+# Only "Available" modules are written/updated unless the relevant flag is passed.
+EXCLUDED_STATUSES_DEFAULT = {"deprecated", "proposed"}
+
 # ---------------------------------------------------------------------------
 # Domain and provider derivation
 # ---------------------------------------------------------------------------
@@ -531,8 +535,17 @@ def write_manifest(
 # ---------------------------------------------------------------------------
 
 def main() -> None:
-    dry_run = "--dry-run" in sys.argv
-    force   = "--force"   in sys.argv
+    dry_run           = "--dry-run"           in sys.argv
+    force             = "--force"             in sys.argv
+    include_deprecated = "--include-deprecated" in sys.argv
+    include_proposed   = "--include-proposed"   in sys.argv
+
+    # Build the excluded status set from defaults minus opted-in statuses
+    excluded = set(EXCLUDED_STATUSES_DEFAULT)
+    if include_deprecated:
+        excluded.discard("deprecated")
+    if include_proposed:
+        excluded.discard("proposed")
 
     # Create subdirectories for each module type
     for t in ("res", "ptn", "utl"):
@@ -551,6 +564,16 @@ def main() -> None:
         modules = parse_modules(csv_text, module_type)
         print(f"    → {len(modules)} modules")
         all_modules.extend(modules)
+
+    # ── Filter by status ─────────────────────────────────────────────────────
+    if excluded:
+        before = len(all_modules)
+        all_modules = [m for m in all_modules if m.get("status", "").lower() not in excluded]
+        filtered = before - len(all_modules)
+        if filtered:
+            skipped_statuses = sorted(excluded)
+            print(f"  Filtered: {filtered} module(s) with status {skipped_statuses} excluded (use --include-proposed / --include-deprecated to include)")
+    print(f"  Total:    {len(all_modules)} module(s) to process")
 
     # ── Validate: no duplicate module names ──────────────────────────────────
     names = [m["name"] for m in all_modules]

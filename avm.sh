@@ -308,13 +308,18 @@ _usage_sync() {
   Note: sync always refreshes the full catalog; filter flags do not apply.
 
   Command flags:
+    --include-deprecated   Also sync modules with status=Deprecated
+    --include-proposed     Also sync modules with status=Proposed
     --force                Re-write all module files even if catalog content is unchanged
     --dry-run              Show planned changes without writing files
+
+  Note: By default only modules with status=Available are synced.
 
   Examples:
     ./avm.sh sync
     ./avm.sh sync --dry-run
     ./avm.sh sync --force
+    ./avm.sh sync --include-proposed
 
 EOF
 }
