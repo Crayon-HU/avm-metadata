@@ -70,6 +70,15 @@ AVM_INTERFACE_VARS_RES = [
 AVM_INTERFACE_VARS_PTN_UTL = ["tags", "enable_telemetry"]
 
 # ---------------------------------------------------------------------------
+# Terminal colour helpers
+# ---------------------------------------------------------------------------
+
+def _c_ok(s: str)   -> str: return f"\033[32m{s}\033[0m"   # green
+def _c_warn(s: str) -> str: return f"\033[33m{s}\033[0m"   # yellow
+def _c_err(s: str)  -> str: return f"\033[31m{s}\033[0m"   # red
+def _c_dim(s: str)  -> str: return f"\033[2m{s}\033[0m"    # dim/grey
+
+# ---------------------------------------------------------------------------
 # Local filesystem helpers
 # ---------------------------------------------------------------------------
 
@@ -929,10 +938,14 @@ def _yaml_key(dim: str) -> str:
 # Per-module orchestration
 # ---------------------------------------------------------------------------
 
-def analyze_module(filepath: str, mod_type: str, dims: list[str], opts: dict) -> str:
+def analyze_module(filepath: str, mod_type: str, dims: list[str], opts: dict) -> dict:
     """Run the requested dimensions on one module file.
 
-    Returns a summary string: 'ok', 'partial', 'failed', 'unchanged', or 'would-update(…)'.
+    Returns a dict:
+        {
+            "status":       "ok" | "partial" | "failed" | "unchanged" | "would-update(…)",
+            "dim_statuses": {dim: status, …},   # only dims actually run this invocation
+        }
     """
     with open(filepath, "r", encoding="utf-8") as f:
         content = f.read()
@@ -958,7 +971,7 @@ def analyze_module(filepath: str, mod_type: str, dims: list[str], opts: dict) ->
             dims_to_run.insert(0, "terraform-metadata")
 
     if not dims_to_run:
-        return "unchanged"
+        return {"status": "unchanged", "dim_statuses": {}}
 
     # Run check functions, building payloads
     payloads: dict[str, dict] = {}
@@ -996,8 +1009,15 @@ def analyze_module(filepath: str, mod_type: str, dims: list[str], opts: dict) ->
 
     new_content = apply_block_updates(content, updates)
 
+    # Build dim_statuses for dims that were actually run (not auto-injected terraform-metadata)
+    dim_statuses = {
+        dim: payloads[dim]["status"]
+        for dim in dims_to_run
+        if dim in dims  # exclude auto-added terraform-metadata if user didn't request it
+    }
+
     if new_content == content:
-        return "unchanged"
+        return {"status": "unchanged", "dim_statuses": dim_statuses}
 
     if opts["dry_run"]:
         combined_status = (
@@ -1005,15 +1025,17 @@ def analyze_module(filepath: str, mod_type: str, dims: list[str], opts: dict) ->
             else "fail" if "fail" in statuses
             else "partial"
         )
-        return f"would-update({combined_status})"
+        return {"status": f"would-update({combined_status})", "dim_statuses": dim_statuses}
 
     _write_atomic(filepath, new_content)
 
     if "fail" in statuses:
-        return "failed"
-    if "partial" in statuses:
-        return "partial"
-    return "ok"
+        overall = "failed"
+    elif "partial" in statuses:
+        overall = "partial"
+    else:
+        overall = "ok"
+    return {"status": overall, "dim_statuses": dim_statuses}
 
 
 # ---------------------------------------------------------------------------
@@ -1195,7 +1217,17 @@ def main() -> None:
               f" — run: ./avm.sh clone")
 
     total = len(module_files)
-    ok = partial = failed = unchanged = 0
+    n_ok = n_partial = n_failed = n_unchanged = 0
+    show_tree = len(dims) > 1
+
+    # Column width for dim names in tree output
+    _DIM_W = max(len(d) for d in DIMENSIONS) + 2
+
+    def _dim_icon(s: str) -> str:
+        if s == "pass":               return _c_ok("✓")
+        if s == "partial":            return _c_warn("⚠")
+        if s in ("fail", "failed"):   return _c_err("✗")
+        return " "
 
     print(f"  Analyzing {total} module(s)…")
 
@@ -1206,35 +1238,46 @@ def main() -> None:
         try:
             result = analyze_module(filepath, mod_type, dims, opts)
         except Exception as e:
-            print(f"{prefix}  ✗ ERROR: {e}", file=sys.stderr)
-            failed += 1
+            print(f"{prefix}  {_c_err('✗')} ERROR: {e}", file=sys.stderr)
+            n_failed += 1
             continue
 
-        if result == "unchanged":
-            unchanged += 1
-        elif result == "ok":
-            ok += 1
-            print(f"{prefix}  ✓ ok")
-        elif result == "partial":
-            partial += 1
-            print(f"{prefix}  ⚠ partial")
-        elif result == "failed":
-            failed += 1
-            print(f"{prefix}  ✗ failed")
-        elif result.startswith("would-update"):
-            ok += 1
-            print(f"{prefix}  → {result}")
+        status       = result["status"]
+        dim_statuses = result["dim_statuses"]
+
+        if status == "unchanged":
+            n_unchanged += 1
+        elif status == "ok":
+            n_ok += 1
+            print(f"{prefix}  {_c_ok('✓')} ok")
+        elif status == "partial":
+            n_partial += 1
+            print(f"{prefix}  {_c_warn('⚠')} partial")
+        elif status == "failed":
+            n_failed += 1
+            print(f"{prefix}  {_c_err('✗')} failed")
+        elif status.startswith("would-update"):
+            n_ok += 1
+            print(f"{prefix}  → {status}")
+
+        # Per-dimension tree (only when multiple dims and something was run)
+        if show_tree and dim_statuses:
+            indent = " " * 12
+            items  = list(dim_statuses.items())
+            for i, (dim, ds) in enumerate(items):
+                connector = "└─" if i == len(items) - 1 else "├─"
+                print(f"{indent}{connector} {dim:<{_DIM_W}} {_dim_icon(ds)} {ds}")
 
     print("────────────────────────────────────────────────────────")
     if opts["dry_run"]:
         print(
-            f"Dry run — would update: {ok + partial + failed}, "
-            f"unchanged: {unchanged}"
+            f"Dry run — would update: {n_ok + n_partial + n_failed}, "
+            f"unchanged: {n_unchanged}"
         )
     else:
         print(
-            f"Done — ok: {ok}, partial: {partial}, failed: {failed}, "
-            f"unchanged: {unchanged}"
+            f"Done — ok: {n_ok}, partial: {n_partial}, failed: {n_failed}, "
+            f"unchanged: {n_unchanged}"
         )
 
 
