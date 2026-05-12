@@ -14,16 +14,17 @@ Every directory whose name starts with `terraform-azurerm-avm-*` is a **cloned e
 .config/                        Source-of-truth domain YAML files (committed)
   {domain}.yaml                 One file per domain — module inventory
   modules.yaml                  GENERATED (gitignored) — merged from selected domains
-  workspaces.yaml               GENERATED (gitignored) — workspace→module mapping; manual edits preserved across regenerations
 
 scripts/
   generate_modules.sh/.ps1      Merges selected domains → .config/modules.yaml (called by avm.sh setup)
   clone_repos.sh/.ps1           Clones repos from modules.yaml (called by avm.sh clone)
-  generate_workspaces.sh        Regenerates .code-workspace files (called automatically by setup and workspaces)
+  update_repos.sh/.ps1          Pulls latest changes in cloned repos (called by avm.sh update)
+  sync_catalog.py               Fetches upstream AVM CSVs → refreshes data/modules/ catalog sections
+  scrape_modules.py             Scrapes module repos → populates scraped block in data/modules/
 
-avm.sh                          Unified entry point — delegates to scripts/
-avm-{domain}.code-workspace     Per-domain VSCode workspace (open to scope your session)
-avm.code-workspace              Root workspace — includes . + all modules, uses git.autoRepositoryDetection: subFolders
+avm.sh                          Unified operator entry point — delegates to scripts/
+.github/skills/                 Copilot skill procedures — also delegate to scripts/
+avm.code-workspace              Root workspace — includes . + all modules
 
 terraform-azurerm-avm-*/        Cloned module repos (gitignored — not part of this repo)
 ```
@@ -100,26 +101,26 @@ modules:
   #   description: VPN Gateway
 ```
 
-**`generate_modules.sh` injects two extra fields** into each entry in `modules.yaml`:
+**`generate_modules.sh` injects one extra field** into each entry in `modules.yaml`:
 - `domain: {slug}` — set from the source domain file name
-- `workspaces: [{slug}]` — determines which `.code-workspace` file(s) the module appears in; preserved across regenerations if manually edited in `workspaces.yaml`
 
 ---
 
 ## Entry point
 
-`avm.sh` is the single unified wrapper for all automation. Prefer it over calling `scripts/` directly.
+`avm.sh` is the single unified wrapper for all automation. Prefer it over calling `scripts/` directly (skills are the exception — they call `scripts/` directly).
 
 ```bash
 ./avm.sh help                                       # show all commands and options
-./avm.sh setup --domains all                        # generate .config/modules.yaml + all .code-workspace files
+./avm.sh setup --domains all                        # generate .config/modules.yaml
 ./avm.sh setup --domains networking,compute --types res
 ./avm.sh clone                                      # clone all modules from modules.yaml
 ./avm.sh clone --domain networking --type res       # filtered clone
 ./avm.sh update                                     # git pull --ff-only in all cloned repos
-./avm.sh workspaces                                 # regenerate .code-workspace files only (no modules.yaml needed)
 ./avm.sh sync                                       # fetch upstream CSVs → refresh data/modules/{res,ptn,utl}/*.yaml catalog section
 ./avm.sh sync --dry-run                             # preview changes without writing
+./avm.sh scrape                                     # scrape module repos → populate scraped block
+./avm.sh scrape --module avm-res-network-virtualnetwork  # scrape one module
 ```
 
 **Syntax validation** (run before committing any script change):
@@ -132,9 +133,10 @@ bash -n avm.sh scripts/*.sh
 ## Workflow for this repo
 
 1. Edit `.config/{domain}.yaml` — add entries or **comment them out** (non-core modules use `# - name:` blocks; do not delete them)
-2. Run `./avm.sh setup --domains <changed-domain>` to regenerate `.config/modules.yaml` and `.code-workspace` files
+2. Run `./avm.sh setup --domains <changed-domain>` to regenerate `.config/modules.yaml`
 3. Run `./avm.sh clone` (or `--domain`/`--type` filtered) to clone newly added repos
-4. Commit only the `.config/{domain}.yaml` changes — never commit generated or cloned files
+4. Run `./avm.sh sync` to refresh the catalog from upstream AVM CSVs
+5. Commit only the `.config/{domain}.yaml` and `data/modules/*.yaml` changes — never commit generated or cloned files
 
 ---
 
@@ -184,6 +186,6 @@ Since each contributor works on a different module file, there are **never merge
 ---
 
 - Do not create Terraform (`.tf`) files here — use the cloned module repos
-- Do not commit `.config/modules.yaml` or `.config/workspaces.yaml` (both are gitignored by design)
+- Do not commit `.config/modules.yaml` (gitignored by design)
 - Do not commit `terraform-azurerm-avm-*/` directories
 - Do not modify files inside cloned module dirs through this repo's git

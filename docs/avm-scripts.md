@@ -1,36 +1,40 @@
 # AVM Script Reference
 
-This repository uses dependency-light Bash and PowerShell scripts to build a local Azure Verified Modules workspace from committed metadata. The scripts parse simple YAML by line-oriented conventions; they do not require a YAML parser.
+This repository uses a layered script architecture. Python scripts handle catalog and data operations; Bash and PowerShell scripts handle git operations. All scripts are called by both the operator entry points (`avm.sh` / `avm.ps1`) and by Copilot skills.
 
 ## Command Flow
 
 Use the top-level wrapper for the current shell:
 
-| Task | Bash | PowerShell |
-|---|---|---|
-| Show help | `./avm.sh help` | `.\avm.ps1 help` |
-| Generate inventory and workspaces | `./avm.sh setup --domains all` | `.\avm.ps1 setup -Domains all` |
-| Filter by domain/type | `./avm.sh setup --domains networking --types res` | `.\avm.ps1 setup -Domains networking -Types res` |
-| Clone modules | `./avm.sh clone --domain networking --type res` | `.\avm.ps1 clone -Domain networking -Type res` |
-| Regenerate workspaces | `./avm.sh workspaces` | `.\avm.ps1 workspaces` |
-| Update cloned repos | `./avm.sh update --domain containers` | `.\avm.ps1 update -Domain containers` |
+| Task | Bash | PowerShell | Script |
+|---|---|---|---|
+| Show help | `./avm.sh help` | `.\avm.ps1 help` | — |
+| Generate inventory | `./avm.sh setup --domains all` | `.\avm.ps1 setup -Domains all` | `scripts/generate_modules.sh/.ps1` |
+| Filter by domain/type | `./avm.sh setup --domains networking --types res` | `.\avm.ps1 setup -Domains networking -Types res` | `scripts/generate_modules.sh/.ps1` |
+| Clone modules | `./avm.sh clone --domain networking --type res` | `.\avm.ps1 clone -Domain networking -Type res` | `scripts/clone_repos.sh/.ps1` |
+| Update cloned repos | `./avm.sh update --domain containers` | `.\avm.ps1 update -Domain containers` | `scripts/update_repos.sh/.ps1` |
+| Sync AVM catalog | `./avm.sh sync` | — | `scripts/sync_catalog.py` |
+| Sync (dry run) | `./avm.sh sync --dry-run` | — | `scripts/sync_catalog.py` |
+| Scrape module repos | `./avm.sh scrape` | — | `scripts/scrape_modules.py` |
+| Scrape one module | `./avm.sh scrape --module NAME` | — | `scripts/scrape_modules.py` |
 
-The direct scripts remain available when a wrapper is not desired:
+The direct scripts remain available when the wrapper is not desired:
 
 - `scripts/generate_modules.sh` / `scripts/generate_modules.ps1`
-- `scripts/generate_workspaces.sh` / `scripts/generate_workspaces.ps1`
 - `scripts/clone_repos.sh` / `scripts/clone_repos.ps1`
 - `scripts/update_repos.sh` / `scripts/update_repos.ps1`
+- `scripts/sync_catalog.py`
+- `scripts/scrape_modules.py`
+
+Copilot skills call the Python scripts directly (same layer as `avm.sh`). See `docs/workflows.md` for the full architecture.
 
 ## Generated Files
 
-`setup` reads `.config/{domain}.yaml`, filters the selected domains and types, and writes `.config/modules.yaml`. It then regenerates `.config/workspaces.yaml` and `avm*.code-workspace` files.
+`setup` reads `.config/{domain}.yaml`, filters the selected domains and types, and writes `.config/modules.yaml`.
 
 These outputs are generated and gitignored:
 
 - `.config/modules.yaml`
-- `.config/workspaces.yaml`
-- `*.code-workspace`
 - `terraform-azurerm-avm-*/` cloned module repositories
 
 Regenerate these files instead of editing them by hand. Commit changes to `.config/{domain}.yaml`, scripts, and documentation.
@@ -48,9 +52,7 @@ modules:
     description: Virtual Network
 ```
 
-Module blocks start at `- name:`. Supported types are `res`, `ptn`, and `utl`. Comments and blank source lines are ignored during generation. `generate_modules` injects `domain:` and `workspaces:` fields into `.config/modules.yaml`; domain source files should not maintain those generated fields.
-
-Workspace assignments are stored as bracketed comma-separated values, for example `workspaces: [networking, platform]`. Existing workspace assignments are preserved when regenerating modules, and manual additions in `.config/workspaces.yaml` are preserved when regenerating workspace files.
+Module blocks start at `- name:`. Supported types are `res`, `ptn`, and `utl`. Comments and blank source lines are ignored during generation. `generate_modules` injects a `domain:` field into `.config/modules.yaml`; domain source files should not maintain that generated field.
 
 ## Portability Notes
 
