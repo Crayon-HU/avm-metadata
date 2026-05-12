@@ -9,12 +9,14 @@ All tool-owned analysis results are stored in per-dimension marker blocks:
 
 Six built-in dimensions:
     terraform-metadata       Terraform version + provider constraints + resources/modules.
-                             (replaces the old scrape_modules.py / # BEGIN SCRAPED)
     avm-interface-compliance Required AVM interface variables (lock, role_assignments, …)
     security-hardening       Hardcoded values, validation blocks, sensitive outputs.
     test-coverage            examples/, tests/, *.go / *.tftest.hcl file presence.
     doc-quality              README length, required section headers.
     dependency-health        Version constraint style (derived from terraform-metadata).
+
+All analysis reads from locally cloned repos — no GitHub API or network calls.
+Repos must be cloned first: ./avm.sh clone
 
 Usage:
     python3 scripts/analyze_module.py [options]
@@ -22,24 +24,17 @@ Usage:
     ./avm.sh scrape [options]         # backward-compat alias for --dimension terraform-metadata
 
 Options:
-    --module    NAME    Analyze a single module by name.
-    --dimension DIM     Run only this dimension (repeat for multiple). Default: all.
-    --dry-run           Show planned changes without writing files.
-    --force             Ignore --max-age; always re-analyze.
-    --max-age   DAYS    Skip dimensions checked within N days (default: 7).
-
-Environment:
-    GITHUB_TOKEN        Optional. Increases GitHub API rate limit from 60 to 5000 req/hr.
+    --modules   NAME[,…]  Comma-separated module names, or 'all' for full catalog.
+    --dimension DIM        Run only this dimension (repeat for multiple). Default: all.
+    --dry-run              Show planned changes without writing files.
+    --force                Ignore --max-age; always re-analyze.
+    --max-age   DAYS       Skip dimensions checked within N days (default: 7).
 """
 
-import json
 import os
 import re
 import sys
 import tempfile
-import time
-import urllib.error
-import urllib.request
 from datetime import datetime, timezone
 
 # ---------------------------------------------------------------------------
@@ -63,9 +58,7 @@ def _begin_re(dim: str) -> re.Pattern:
 def _end_re(dim: str) -> re.Pattern:
     return re.compile(r"^" + re.escape(f"# END ANALYSIS:{dim}") + r"\s*$", re.MULTILINE)
 
-GITHUB_API = "https://api.github.com"
-GITHUB_RAW = "https://raw.githubusercontent.com"
-GITHUB_ORG = "Azure"
+GITHUB_ORG = "Azure"  # used only to derive repo clone dir name
 
 DEFAULT_MAX_AGE_DAYS = 7
 
@@ -77,83 +70,30 @@ AVM_INTERFACE_VARS_RES = [
 AVM_INTERFACE_VARS_PTN_UTL = ["tags", "enable_telemetry"]
 
 # ---------------------------------------------------------------------------
-# GitHub helpers
+# Local filesystem helpers
 # ---------------------------------------------------------------------------
 
-class RateLimitError(RuntimeError):
-    """Raised when the GitHub API rate limit is exceeded."""
-
-
-def _github_headers() -> dict:
-    headers = {
-        "Accept":     "application/vnd.github.v3+json",
-        "User-Agent": "avm-metadata-analyzer/1.0",
-    }
-    token = os.environ.get("GITHUB_TOKEN", "").strip()
-    if token:
-        headers["Authorization"] = f"Bearer {token}"
-    return headers
-
-
-def _fetch_url(url: str, use_api_headers: bool = False, retries: int = 2) -> bytes | None:
-    """Fetch a URL, returning bytes or None on 404. Retries on transient errors."""
-    headers = _github_headers() if use_api_headers else {"User-Agent": "avm-metadata-analyzer/1.0"}
-    for attempt in range(retries + 1):
-        try:
-            req = urllib.request.Request(url, headers=headers)
-            with urllib.request.urlopen(req, timeout=20) as resp:
-                return resp.read()
-        except urllib.error.HTTPError as e:
-            if e.code == 404:
-                return None
-            if e.code == 403:
-                raise RateLimitError(
-                    "GitHub API rate limited (HTTP 403). "
-                    "Set GITHUB_TOKEN to increase limit to 5000 req/hr."
-                ) from e
-            if e.code in (429, 502, 503) and attempt < retries:
-                time.sleep(2 ** attempt)
-                continue
-            raise
-        except (urllib.error.URLError, OSError) as e:
-            if attempt < retries:
-                time.sleep(2 ** attempt)
-                continue
-            raise
-    return None
-
-
-def list_root_contents(repo_name: str) -> list[dict]:
-    """Fetch the repo root directory listing from the GitHub Contents API."""
-    url = f"{GITHUB_API}/repos/{GITHUB_ORG}/{repo_name}/contents"
-    raw = _fetch_url(url, use_api_headers=True)
-    if raw is None:
-        return []
-    try:
-        entries = json.loads(raw.decode("utf-8"))
-    except (json.JSONDecodeError, UnicodeDecodeError):
-        return []
-    return entries if isinstance(entries, list) else []
-
-
-def fetch_raw_file(repo_name: str, filepath: str, branch: str = "main") -> str | None:
-    """Fetch a raw file from GitHub. Returns text or None on 404."""
-    url = f"{GITHUB_RAW}/{GITHUB_ORG}/{repo_name}/{branch}/{filepath}"
-    raw = _fetch_url(url, use_api_headers=False)
-    return raw.decode("utf-8", errors="replace") if raw is not None else None
-
-
-def list_directory(repo_name: str, path: str) -> list[dict] | None:
-    """List a subdirectory in the repo. Returns None if the path doesn't exist."""
-    url = f"{GITHUB_API}/repos/{GITHUB_ORG}/{repo_name}/contents/{path}"
-    raw = _fetch_url(url, use_api_headers=True)
-    if raw is None:
+def _local_scandir(path: str) -> list[dict] | None:
+    """List a directory as [{name, type}] dicts, or None if it doesn't exist."""
+    if not os.path.isdir(path):
         return None
+    entries = []
+    with os.scandir(path) as it:
+        for e in sorted(it, key=lambda x: x.name):
+            entries.append({
+                "name": e.name,
+                "type": "file" if e.is_file() else "dir",
+            })
+    return entries
+
+
+def _local_read(path: str) -> str | None:
+    """Read a file from local disk. Returns text or None if not found."""
     try:
-        entries = json.loads(raw.decode("utf-8"))
-    except (json.JSONDecodeError, UnicodeDecodeError):
+        with open(path, encoding="utf-8", errors="replace") as f:
+            return f.read()
+    except FileNotFoundError:
         return None
-    return entries if isinstance(entries, list) else None
 
 
 # ---------------------------------------------------------------------------
@@ -283,15 +223,15 @@ def find_variable_file(var_name: str, tf_contents: dict[str, str]) -> str | None
 
 
 # ---------------------------------------------------------------------------
-# Per-module context — shared fetch cache
+# Per-module context — local filesystem read cache
 # ---------------------------------------------------------------------------
 
 class ModuleContext:
-    """Fetched data for one module, shared across all dimensions in a single run."""
+    """Local filesystem data for one module, shared across all dimensions in a single run."""
 
-    def __init__(self, repo_name: str, mod_type: str):
-        self.repo_name = repo_name
-        self.mod_type  = mod_type
+    def __init__(self, local_path: str, mod_type: str):
+        self.local_path = local_path
+        self.mod_type   = mod_type
         self._root_contents: list[dict] | None = None
         self._tf_contents:   dict[str, str] | None = None
         self._readme:        str | None = None
@@ -302,23 +242,21 @@ class ModuleContext:
         self._tests_fetched  = False
 
     def root_contents(self) -> list[dict]:
+        """List the root directory of the cloned repo."""
         if self._root_contents is None:
-            self._root_contents = list_root_contents(self.repo_name)
+            self._root_contents = _local_scandir(self.local_path) or []
         return self._root_contents
 
     def tf_contents(self) -> dict[str, str]:
-        """Fetch and cache all root-level .tf file contents."""
+        """Read and cache all root-level .tf file contents."""
         if self._tf_contents is None:
             self._tf_contents = {}
-            tf_files = [
-                e["name"] for e in self.root_contents()
-                if isinstance(e, dict) and e.get("type") == "file"
-                and e.get("name", "").endswith(".tf")
-            ]
-            for fname in tf_files:
-                text = fetch_raw_file(self.repo_name, fname)
-                if text:
-                    self._tf_contents[fname] = text
+            for entry in self.root_contents():
+                fname = entry.get("name", "")
+                if entry.get("type") == "file" and fname.endswith(".tf"):
+                    text = _local_read(os.path.join(self.local_path, fname))
+                    if text:
+                        self._tf_contents[fname] = text
         return self._tf_contents
 
     def combined_tf(self) -> str:
@@ -327,19 +265,19 @@ class ModuleContext:
     def readme(self) -> str | None:
         if not self._readme_fetched:
             self._readme_fetched = True
-            self._readme = fetch_raw_file(self.repo_name, "README.md")
+            self._readme = _local_read(os.path.join(self.local_path, "README.md"))
         return self._readme
 
     def examples_listing(self) -> list[dict] | None:
         if not self._examples_fetched:
             self._examples_fetched = True
-            self._examples_listing = list_directory(self.repo_name, "examples")
+            self._examples_listing = _local_scandir(os.path.join(self.local_path, "examples"))
         return self._examples_listing
 
     def tests_listing(self) -> list[dict] | None:
         if not self._tests_fetched:
             self._tests_fetched = True
-            self._tests_listing = list_directory(self.repo_name, "tests")
+            self._tests_listing = _local_scandir(os.path.join(self.local_path, "tests"))
         return self._tests_listing
 
 
@@ -461,8 +399,8 @@ def _write_atomic(filepath: str, content: str) -> None:
 # ---------------------------------------------------------------------------
 
 def _q(v: str) -> str:
-    """JSON-encoded double-quoted YAML scalar."""
-    return json.dumps(v)
+    """Double-quoted YAML scalar (escape backslash and double-quote)."""
+    return '"' + v.replace("\\", "\\\\").replace('"', '\\"') + '"'
 
 
 def _build_check_yaml(check_name: str, result: dict, indent: int = 4) -> str:
@@ -999,16 +937,11 @@ def analyze_module(filepath: str, mod_type: str, dims: list[str], opts: dict) ->
     with open(filepath, "r", encoding="utf-8") as f:
         content = f.read()
 
-    # Extract repo_url from catalog block for GitHub fetching
-    repo_url_m = re.search(r'repo_url:\s+"([^"]+)"', content)
-    if not repo_url_m:
-        print(f"    WARN: no repo_url in {filepath}", file=sys.stderr)
-        return "failed"
+    # Derive cloned repo path from the module YAML file name
+    mod_name = os.path.basename(filepath)[:-5]  # strip .yaml
+    local_path = os.path.join(REPO_ROOT, f"terraform-azurerm-{mod_name}")
 
-    repo_url  = repo_url_m.group(1)
-    repo_name = repo_url.rstrip("/").split("/")[-1]
-
-    ctx = ModuleContext(repo_name=repo_name, mod_type=mod_type)
+    ctx = ModuleContext(local_path=local_path, mod_type=mod_type)
 
     # Determine which dimensions are actually stale and need running
     dims_to_run: list[str] = []
@@ -1042,8 +975,6 @@ def analyze_module(filepath: str, mod_type: str, dims: list[str], opts: dict) ->
                 payload = check_fn(ctx)  # type: ignore[call-arg]
             if dim == "terraform-metadata":
                 metadata_payload = payload
-        except RateLimitError:
-            raise
         except Exception as e:
             payload = {
                 "checked_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
@@ -1206,9 +1137,6 @@ def main() -> None:
     if opts["dry_run"]:
         print("  (dry-run mode — no files will be modified)")
 
-    if not os.environ.get("GITHUB_TOKEN"):
-        print("  HINT: Set GITHUB_TOKEN for higher GitHub API rate limits (5000/hr vs 60/hr).")
-
     dims = opts["dimensions"]
     print(f"  Dimensions: {', '.join(dims)}")
 
@@ -1277,10 +1205,6 @@ def main() -> None:
 
         try:
             result = analyze_module(filepath, mod_type, dims, opts)
-        except RateLimitError as e:
-            print(f"\n  ABORT: {e}", file=sys.stderr)
-            print(f"  Analyzed {ok + partial + failed + unchanged}/{total} modules before rate limit.")
-            sys.exit(2)
         except Exception as e:
             print(f"{prefix}  ✗ ERROR: {e}", file=sys.stderr)
             failed += 1
