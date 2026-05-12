@@ -523,6 +523,7 @@ def write_manifest(
 
 def main() -> None:
     dry_run = "--dry-run" in sys.argv
+    force   = "--force"   in sys.argv
 
     # Create subdirectories for each module type
     for t in ("res", "ptn", "utl"):
@@ -562,7 +563,7 @@ def main() -> None:
         catalog_content = build_catalog_section(mod)
         existing_cat    = get_existing_catalog_content(filepath)
         is_new          = not os.path.exists(filepath)
-        needs_write     = is_new or (existing_cat != catalog_content.strip())
+        needs_write     = force or is_new or (existing_cat != catalog_content.strip())
 
         if not needs_write:
             unchanged += 1

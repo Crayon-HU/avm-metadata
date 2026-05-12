@@ -308,11 +308,13 @@ _usage_sync() {
   Note: sync always refreshes the full catalog; filter flags do not apply.
 
   Command flags:
+    --force                Re-write all module files even if catalog content is unchanged
     --dry-run              Show planned changes without writing files
 
   Examples:
     ./avm.sh sync
     ./avm.sh sync --dry-run
+    ./avm.sh sync --force
 
 EOF
 }
