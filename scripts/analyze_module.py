@@ -1213,6 +1213,7 @@ def main() -> None:
     print(f"  Dimensions: {', '.join(dims)}")
 
     module_files: list[tuple[str, str]] = []
+    module_files_skipped: list[str] = []
     filter_types   = opts["types"]
     filter_domains = opts["domains"]
     filter_modules = opts["modules"]  # None | [] (all) | [name, ...]
@@ -1250,11 +1251,20 @@ def main() -> None:
                 _m = re.search(r'domain:\s+"([^"]+)"', _content)
                 if not _m or _m.group(1) not in filter_domains:
                     continue
+            # Skip modules whose repo has not been cloned yet
+            repo_dir = os.path.join(REPO_ROOT, f"terraform-azurerm-{mod_name}")
+            if not os.path.isdir(os.path.join(repo_dir, ".git")):
+                module_files_skipped.append(mod_name)
+                continue
             module_files.append((filepath, mod_type))
 
     if filter_modules and not module_files:
         print(f"ERROR: no modules found matching --modules={','.join(filter_modules)}", file=sys.stderr)
         sys.exit(1)
+
+    if module_files_skipped:
+        print(f"  Skipped {len(module_files_skipped)} uncloned module(s)"
+              f" — run: ./avm.sh clone")
 
     total = len(module_files)
     ok = partial = failed = unchanged = 0
