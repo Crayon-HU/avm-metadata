@@ -218,6 +218,10 @@ def cmd_clone(
 ) -> int:
     depth = 0 if full else 1
     mode = "full history" if full else "shallow (--depth 1)"
+
+    if not dry_run:
+        git_name, git_email = _prompt_git_identity(git_name, git_email)
+
     print(f"\nAVM clone — {len(modules)} modules  [{mode}]")
     print(SEP)
 
@@ -907,6 +911,40 @@ def parse_args(argv: list[str]) -> Args:
             _die(f"Unknown option: {token}")
 
     return a
+
+
+def _prompt_git_identity(git_name: str, git_email: str) -> tuple[str, str]:
+    """Prompt for git user.name / user.email when not supplied via flags.
+
+    Identity is always set explicitly in each repo's local config — global git
+    config is intentionally ignored.  Press Enter to leave a field blank (no
+    local config written for that field).  Skips the prompt when stdin is not a
+    TTY (non-interactive run).
+    """
+    if not sys.stdin.isatty():
+        return git_name, git_email
+
+    needs_prompt = not git_name or not git_email
+    if not needs_prompt:
+        return git_name, git_email
+
+    print()
+    print("  Git identity (set explicitly in each repo — Enter to skip a field):")
+
+    if not git_name:
+        try:
+            git_name = input("  user.name : ").strip()
+        except EOFError:
+            git_name = ""
+
+    if not git_email:
+        try:
+            git_email = input("  user.email: ").strip()
+        except EOFError:
+            git_email = ""
+
+    print()
+    return git_name, git_email
 
 
 # ---------------------------------------------------------------------------
