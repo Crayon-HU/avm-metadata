@@ -37,8 +37,9 @@ ALL_TYPES    = ("res", "ptn", "utl")
 CATALOG_BEGIN = "# BEGIN CATALOG"
 CATALOG_END   = "# END CATALOG"
 
-# Modules whose catalog.status contains these strings are excluded by default.
-DEPRECATED_STATUSES = {"deprecated"}
+# Modules whose catalog.status (lowercased) are excluded by default.
+# Only "Available" modules are included unless the relevant flag is passed.
+EXCLUDED_STATUSES_DEFAULT = {"deprecated", "proposed"}
 
 
 # ---------------------------------------------------------------------------
@@ -238,6 +239,7 @@ def build_modules_yaml(
     selected_types: list[str],
     include_deprecated: bool,
     timestamp: str,
+    include_proposed: bool = False,
 ) -> str:
     """
     Build the content of .config/modules.yaml from the filtered module list.
@@ -267,8 +269,13 @@ def build_modules_yaml(
         # Apply type filter
         if selected_types and mod_type not in selected_types:
             continue
-        # Apply status filter
-        if not include_deprecated and m.get("status", "").lower() in DEPRECATED_STATUSES:
+        # Apply status filter — build the excluded set from defaults minus opt-ins
+        excluded = set(EXCLUDED_STATUSES_DEFAULT)
+        if include_deprecated:
+            excluded.discard("deprecated")
+        if include_proposed:
+            excluded.discard("proposed")
+        if m.get("status", "").lower() in excluded:
             continue
 
         # Domain section comment
@@ -305,6 +312,7 @@ def _parse_args(argv: list[str]) -> dict:
         "domains": "",
         "types": "",
         "include_deprecated": False,
+        "include_proposed": False,
         "dry_run": False,
     }
     i = 0
@@ -329,6 +337,8 @@ def _parse_args(argv: list[str]) -> dict:
             args["types"] = argv[i]
         elif arg == "--include-deprecated":
             args["include_deprecated"] = True
+        elif arg == "--include-proposed":
+            args["include_proposed"] = True
         elif arg == "--dry-run":
             args["dry_run"] = True
         else:
@@ -344,7 +354,8 @@ Usage: python3 scripts/generate_config.py [options]
 Options:
   --domains <list|all>      Comma-separated domain slugs, or 'all'
   --types <list|all>        Comma-separated types (res,ptn,utl), or 'all'
-  --include-deprecated      Include modules with status=Deprecated (excluded by default)
+  --include-deprecated      Also include modules with status=Deprecated
+  --include-proposed        Also include modules with status=Proposed
   --dry-run                 Print what would be written; don't write the file
   -h, --help                Show this help
 
@@ -352,6 +363,7 @@ Examples:
   python3 scripts/generate_config.py --domains all
   python3 scripts/generate_config.py --domains networking,compute --types res,ptn
   python3 scripts/generate_config.py --domains all --include-deprecated
+  python3 scripts/generate_config.py --domains all --include-proposed
 """)
 
 
@@ -368,6 +380,7 @@ def main() -> None:
     args = _parse_args(sys.argv[1:])
     dry_run = args["dry_run"]
     include_deprecated = args["include_deprecated"]
+    include_proposed   = args["include_proposed"]
 
     # --- discover all available domains from data/modules ---
     all_modules = discover_modules(ALL_TYPES)
@@ -419,12 +432,15 @@ def main() -> None:
     print(f"Selected types:   {', '.join(selected_types)}")
     if include_deprecated:
         print("Including:        deprecated modules")
+    if include_proposed:
+        print("Including:        proposed modules")
     print()
 
     # --- build output ---
     timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     content, count = build_modules_yaml(
-        all_modules, selected_domains, selected_types, include_deprecated, timestamp
+        all_modules, selected_domains, selected_types, include_deprecated, timestamp,
+        include_proposed=include_proposed,
     )
 
     if count == 0:

@@ -91,10 +91,12 @@ _usage_setup() {
     --types   <list|all>   Select type(s): res, ptn, utl; omit for interactive menu
 
   Command flags:
-    --include-deprecated   Include modules with status=Deprecated
+    --include-deprecated   Also include modules with status=Deprecated
+    --include-proposed     Also include modules with status=Proposed
     --dry-run              Show output without writing
 
-  Note: 'all' selects every available domain or type. Omitting --domains or
+  Note: By default only modules with status=Available are included.
+        'all' selects every available domain or type. Omitting --domains or
         --types triggers an interactive selection menu.
 
   Examples:
@@ -102,6 +104,7 @@ _usage_setup() {
     ./avm.sh setup --domains all --types all
     ./avm.sh setup --domains networking,compute --types res
     ./avm.sh setup --domains all --include-deprecated
+    ./avm.sh setup --domains all --include-proposed
     ./avm.sh setup --dry-run
 
 EOF
