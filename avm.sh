@@ -53,89 +53,118 @@ _usage() {
 
   Usage: ./avm.sh <command> [options]
 
+  Global filters  (accepted by clone, update, fetch, status, branch, stash, reset, run, check, scrape):
+    --domains <list>       Comma-separated domain slugs (e.g. networking,compute)
+    --types   <list>       Comma-separated types: res, ptn, utl
+    --module  <name>       Single module by name (e.g. avm-res-network-virtualnetwork)
+    --dry-run              Show planned changes without executing
+
   Commands:
+
     setup        Generate .config/modules.yaml (select domains & types).
 
-      --domains <list|all>   Comma-separated domain names, or 'all'
+      --domains <list|all>   Comma-separated domain slugs, or 'all'
       --types   <list|all>   Comma-separated types (res,ptn,utl), or 'all'
       --include-deprecated   Include modules with status=Deprecated
       --dry-run              Show output without writing
 
+      Examples:
+        ./avm.sh setup --domains all
+        ./avm.sh setup --domains networking,compute --types res
+
     clone        Clone module repos from .config/modules.yaml.
                  Run 'setup' first if modules.yaml does not exist.
 
-      --domains <list>       Comma-separated domain slugs (e.g. networking,compute)
-      --types   <list>       Comma-separated types (res,ptn,utl)
-      --module  <name>       Filter to a single module by name
       --full                 Full git history (default: shallow --depth 1)
       --git-name <name>      Set git user.name in cloned repos
       --git-email <email>    Set git user.email in cloned repos
 
+      Examples:
+        ./avm.sh clone
+        ./avm.sh clone --domains networking --types res
+        ./avm.sh clone --module avm-res-network-virtualnetwork
+
     update       Pull the latest changes for all already-cloned repos.
 
-      --domains <list>       Comma-separated domain slugs
-      --types   <list>       Comma-separated types (res,ptn,utl)
-      --module  <name>       Filter to a single module by name
       --parallel N           Run N repos concurrently (default: 1)
+
+      Examples:
+        ./avm.sh update --parallel 10
+        ./avm.sh update --domains networking --parallel 5
 
     fetch        Fetch all remotes without merging (fast, parallel).
 
-      --domains <list>       Comma-separated domain slugs
-      --types   <list>       Comma-separated types
-      --module  <name>       Filter to a single module by name
       --parallel N           Concurrency (default: 20)
 
-    status       Show repos with uncommitted changes or that are behind remote.
+      Examples:
+        ./avm.sh fetch --parallel 30
+        ./avm.sh fetch --domains networking,compute
 
-      --domains <list>       Comma-separated domain slugs
-      --types   <list>       Comma-separated types
-      --module  <name>       Filter to a single module by name
+    status       Show repos with uncommitted changes or behind remote.
 
-    branch       Create, checkout, or delete a branch in all matching repos.
+      Examples:
+        ./avm.sh status
+        ./avm.sh status --domains networking
+        ./avm.sh status --module avm-res-network-virtualnetwork
+
+    branch       Manage branches across matching repos.
 
       create  <name>         Create branch (skip if already exists)
-      checkout <name>        Switch to branch; --fallback to stay on current if absent
-      delete  <name>         Delete branch; --force to use -D (unmerged ok)
+      checkout <name>        Switch; --fallback to stay on current if absent
+      delete  <name>         Delete; --force to use -D (allow unmerged)
 
-      --domains <list>       Comma-separated domain slugs
-      --types   <list>       Comma-separated types
-      --module  <name>       Filter to a single module by name
+      Examples:
+        ./avm.sh branch create feature/my-fix
+        ./avm.sh branch create feature/my-fix --domains networking
+        ./avm.sh branch checkout feature/my-fix --fallback
+        ./avm.sh branch delete feature/my-fix
 
-    stash        Stash working tree changes across repos.
-    stash pop    Pop the most recent stash entry across repos.
+    stash        Stash / pop working tree changes across repos.
 
-      --domains <list>       Comma-separated domain slugs
-      --types   <list>       Comma-separated types
+      stash pop              Pop the most recent stash entry
 
-    reset        Reset all repos to HEAD.
+      Examples:
+        ./avm.sh stash --domains networking
+        ./avm.sh stash pop
+
+    reset        Reset repos to HEAD.
 
       --hard                 Hard reset (discards working tree changes)
-      --domains <list>       Comma-separated domain slugs
-      --types   <list>       Comma-separated types
+
+      Examples:
+        ./avm.sh reset --hard
+        ./avm.sh reset --hard --domains networking
 
     run          Run an arbitrary command in each repo directory.
 
       <cmd...>               Any git or shell command
       --parallel N           Concurrency (default: 1)
-      --domains <list>       Comma-separated domain slugs
-      --types   <list>       Comma-separated types
+
+      Examples:
+        ./avm.sh run git log --oneline -3
+        ./avm.sh run git status --domains networking
 
     sync         Fetch the three official AVM module index CSVs and
                  generate/update data/modules/*.yaml (one file per module).
 
       --dry-run              Show planned changes without writing files
 
+      Examples:
+        ./avm.sh sync
+        ./avm.sh sync --dry-run
+
     scrape       Convenience alias for: check --dimension terraform-metadata
 
-      --dry-run              Show planned changes without writing files
       --force                Re-analyze even if recently checked
-      --module <name>        Analyze a single module by name
-      --domains <list>       Comma-separated domain slugs
-      --types   <list>       Comma-separated types (res,ptn,utl)
       --max-age DAYS         Skip modules checked within N days (default: 7)
 
+      Examples:
+        ./avm.sh scrape --module avm-res-network-virtualnetwork
+        ./avm.sh scrape --domains networking --types res
+        GITHUB_TOKEN=ghp_... ./avm.sh scrape
+
     check        Run one or more analysis dimensions on module(s).
-                 Six built-in dimensions:
+                 Built-in dimensions:
                    terraform-metadata       TF version + provider constraints + resources
                    avm-interface-compliance Required AVM interface variables
                    security-hardening       Hardcoded values, validation, sensitive outputs
@@ -143,41 +172,17 @@ _usage() {
                    doc-quality              README length and required section headers
                    dependency-health        Version constraint style
 
-      --module    <name>     Analyze a single module by name
-      --domains   <list>     Comma-separated domain slugs
-      --types     <list>     Comma-separated types (res,ptn,utl)
       --dimension DIM        Run only this dimension (repeat for multiple; default: all)
-      --dry-run              Show planned changes without writing files
       --force                Ignore --max-age; always re-analyze
-      --max-age   DAYS       Skip dimensions checked within N days (default: 7)
+      --max-age DAYS         Skip dimensions checked within N days (default: 7)
+
+      Examples:
+        ./avm.sh check --module avm-res-network-virtualnetwork
+        ./avm.sh check --domains networking --types res --dimension test-coverage
+        ./avm.sh check --dimension avm-interface-compliance
+        GITHUB_TOKEN=ghp_... ./avm.sh check
 
     help         Show this message.
-
-  Examples:
-    ./avm.sh setup --domains all
-    ./avm.sh setup --domains networking,compute --types res
-    ./avm.sh clone --domains networking --types res
-    ./avm.sh clone --module avm-res-network-virtualnetwork
-    ./avm.sh update --parallel 10
-    ./avm.sh update --domains networking --parallel 5
-    ./avm.sh fetch --parallel 30
-    ./avm.sh fetch --domains networking,compute
-    ./avm.sh status --domains networking
-    ./avm.sh status --module avm-res-network-virtualnetwork
-    ./avm.sh branch create feature/my-fix
-    ./avm.sh branch create feature/my-fix --domains networking
-    ./avm.sh branch checkout feature/my-fix --fallback
-    ./avm.sh branch delete feature/my-fix --domains networking
-    ./avm.sh stash --domains networking
-    ./avm.sh stash pop
-    ./avm.sh reset --hard --domains networking
-    ./avm.sh run git log --oneline -3
-    ./avm.sh sync --dry-run
-    ./avm.sh scrape --module avm-res-network-virtualnetwork
-    ./avm.sh scrape --domains networking --types res
-    GITHUB_TOKEN=ghp_... ./avm.sh check --module avm-res-network-virtualnetwork
-    ./avm.sh check --domains networking --types res --dimension test-coverage
-    ./avm.sh check --dimension test-coverage
 
 EOF
 }
