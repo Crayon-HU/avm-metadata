@@ -1,0 +1,32 @@
+resource:
+  type: azapi_client_config
+  provider: azapi
+  symbol_type: datasource
+  registry_url: "https://registry.terraform.io/providers/azure/azapi/latest/docs/data-sources/client_config"
+
+provider_updates:
+  last_checked: "2026-05-13T06:21:02Z"
+  findings:
+  - version: "2.7.0"
+    criticality: high
+    type: bug_fix
+    summary: "`azapi_client_config` data source: Fix a bug that specified subscription ID should not be overridden by Azure CLI default subscription ID."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.7.0"
+  - version: "2.1.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_client_config` data source: Support `object_id` field."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.1.0"
+
+provider_issues:
+  last_checked: "2026-05-13T06:39:29Z"
+  items: []
+  # item shape:
+  #   - number: 1234
+  #     title: "..."
+  #     labels: [bug]
+  #     url: "..."
+  #     created_at: "2026-01-01"
+
+enrichment:
+  notes: []

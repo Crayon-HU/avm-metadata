@@ -1,0 +1,69 @@
+# BEGIN CATALOG
+# AVM Module — avm-res-compute-sshpublickey
+# catalog: auto-generated from AVM upstream CSV. Run: ./avm.sh sync to refresh.
+# enrichment: hand-maintained — NEVER overwritten by sync.
+
+catalog:
+  name:         "avm-res-compute-sshpublickey"
+  type:         res
+  domain:       compute
+  provider:     azurerm
+  display_name: "Public SSH Key"
+  status:       "Available"
+  repo_url:     "https://github.com/Azure/terraform-azurerm-avm-res-compute-sshpublickey"
+  registry_url: "https://registry.terraform.io/modules/Azure/avm-res-compute-sshpublickey/azurerm/latest"
+  description:  "AVM Resource Module for Public SSH Key"
+  first_published: "2024-05"
+  provider_namespace: "Microsoft.Compute"
+  resource_type: "sshPublicKeys"
+  owners:
+    primary:
+      handle: "ChrisSidebotham"
+      name:   "Chris Sidebotham"
+    secondary:
+      handle: ""
+      name:   ""
+  last_synced: "2026-05-13T08:58:19Z"
+# END CATALOG
+# BEGIN SCRAPED
+# END SCRAPED
+module_issues:
+  last_harvested: "2026-05-13T09:56:06Z"
+  open_count: 0
+  issues: []
+  # issue shape:
+  #   - number: 312
+  #     title: "..."
+  #     labels: [bug, help wanted]
+  #     url: "..."
+  #     created_at: "2026-03-21"
+  #     comments: 4
+
+# BEGIN ANALYSIS:use-cases
+analysis_use_cases:
+  checked_at: "2026-05-13T09:56:33Z"
+  status: pass
+  inferred_tags: ["compute", "infrastructure", "security"]
+  evidence:
+    catalog_domain: compute
+    catalog_resource_type: Microsoft.Compute/sshPublicKeys
+# END ANALYSIS:use-cases
+
+enrichment:
+  version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
+  terraform_version: ""      # Terraform CLI version tested with, e.g. "1.9.0"
+  provider_version: ""       # azurerm/azapi provider version tested with
+  use_cases: []              # short tags, e.g. ["alz", "hub-spoke", "landing-zone"]
+  known_issues: []
+  # known_issues item shape:
+  #   - title: "brief description"
+  #     status: open           # open | resolved | wontfix
+  #     severity: medium       # low | medium | high
+  #     workaround: ""         # optional workaround description
+  #     url: ""                # optional issue/PR/discussion URL
+  notes: []
+  # notes item shape:
+  #   - date: "YYYY-MM-DD"
+  #     author: "github-handle"
+  #     content: "free-text observation"
+

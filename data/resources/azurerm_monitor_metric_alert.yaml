@@ -1,0 +1,27 @@
+resource:
+  type: azurerm_monitor_metric_alert
+  provider: azurerm
+  symbol_type: resource
+  registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/monitor_metric_alert"
+
+provider_updates:
+  last_checked: "2026-05-13T06:16:10Z"
+  findings: []
+  # finding shape:
+  #   - version: "4.15.0"
+  #     criticality: high   # critical | high | medium | low
+  #     type: bug_fix       # bug_fix | security | enhancement | breaking_change | new_feature | deprecated
+  #     summary: "..."
+  #     url: "..."
+
+provider_issues:
+  last_checked: "2026-05-13T06:34:31Z"
+  items:
+  - number: 32274
+    title: "azurerm_monitor_scheduled_query_rules_alert_v2: support dynamic threshold criteria (DynamicThresholdCriterion)"
+    labels: ["enhancement", "service/monitor", "service/application-insights", "sdk/requires-upgrade", "service/resource"]
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/issues/32274"
+    created_at: "2026-04-29"
+
+enrichment:
+  notes: []

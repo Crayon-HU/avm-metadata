@@ -1,0 +1,174 @@
+# BEGIN CATALOG
+# AVM Module — avm-ptn-aks-production
+# catalog: auto-generated from AVM upstream CSV. Run: ./avm.sh sync to refresh.
+# enrichment: hand-maintained — NEVER overwritten by sync.
+
+catalog:
+  name:         "avm-ptn-aks-production"
+  type:         ptn
+  domain:       containers
+  provider:     azurerm
+  display_name: "Azure Kubernetes Service"
+  status:       "Available"
+  repo_url:     "https://github.com/Azure/terraform-azurerm-avm-ptn-aks-production"
+  registry_url: "https://registry.terraform.io/modules/Azure/avm-ptn-aks-production/azurerm/latest"
+  description:  "AVM Pattern Module for Azure Kubernetes Service"
+  first_published: "2024-04"
+  owners:
+    primary:
+      handle: "chanakanissanka"
+      name:   "Chanaka Nissanka"
+    secondary:
+      handle: ""
+      name:   ""
+  last_synced: "2026-05-12T23:48:16Z"
+# END CATALOG
+# BEGIN SCRAPED
+# END SCRAPED
+# BEGIN ANALYSIS:terraform-metadata
+analysis_terraform_metadata:
+  checked_at: "2026-05-13T04:50:11Z"
+  status: pass
+  errors: []
+  terraform_constraints:
+    required_version: ">= 1.9, < 2.0"
+    required_providers:
+      azapi:
+        source: "Azure/azapi"
+        version_constraint: "~> 2.4"
+      azurerm:
+        source: "hashicorp/azurerm"
+        version_constraint: ">= 4, <5"
+      modtm:
+        source: "Azure/modtm"
+        version_constraint: ">= 0.3, < 1.0"
+      null:
+        source: "hashicorp/null"
+        version_constraint: ">= 3.0"
+      random:
+        source: "hashicorp/random"
+        version_constraint: ">= 3.5.0"
+  resources_managed:
+    azapi:
+      - "azapi_update_resource"
+    azurerm:
+      - "azurerm_kubernetes_cluster"
+      - "azurerm_kubernetes_cluster_node_pool"
+      - "azurerm_log_analytics_workspace"
+      - "azurerm_log_analytics_workspace_table"
+      - "azurerm_management_lock"
+      - "azurerm_monitor_diagnostic_setting"
+      - "azurerm_role_assignment"
+      - "azurerm_user_assigned_identity"
+    modtm:
+      - "modtm_telemetry"
+    null:
+      - "null_resource"
+    random:
+      - "random_uuid"
+  datasources_managed:
+    azapi:
+      - "azapi_client_config"
+      - "azapi_resource_list"
+    azurerm:
+      - "azurerm_subscription"
+      - "azurerm_user_assigned_identity"
+    modtm:
+      - "modtm_module_source"
+  modules_called:
+    - local_name: "avm_res_containerregistry_registry"
+      source: "Azure/avm-res-containerregistry-registry/azurerm"
+      version: "0.4.0"
+# END ANALYSIS:terraform-metadata
+# BEGIN ANALYSIS:avm-interface-compliance
+analysis_avm_interface_compliance:
+  checked_at: "2026-05-13T04:50:11Z"
+  status: pass
+  checks:
+    tags: { status: pass, evidence: "variables.tf:283" }
+    enable_telemetry: { status: pass, evidence: "variables.tf:57" }
+# END ANALYSIS:avm-interface-compliance
+# BEGIN ANALYSIS:security-hardening
+analysis_security_hardening:
+  checked_at: "2026-05-13T04:50:11Z"
+  status: fail
+  checks:
+    hardcoded_locations: { status: pass, evidence: "No hardcoded locations found" }
+    validation_blocks: { status: pass, evidence: "validation block found in variables.tf" }
+    sensitive_outputs: { status: fail, finding: "Output \"key_vault_secrets_provider_secret_identity_client_id\" in outputs.tf may be sensitive but lacks sensitive = true" }
+# END ANALYSIS:security-hardening
+# BEGIN ANALYSIS:test-coverage
+analysis_test_coverage:
+  checked_at: "2026-05-13T04:50:11Z"
+  status: partial
+  checks:
+    examples_dir: { status: pass, evidence: "examples/ contains 5 item(s)" }
+    test_files: { status: partial, finding: "tests/ exists but contains no .go or .tftest.hcl files" }
+# END ANALYSIS:test-coverage
+# BEGIN ANALYSIS:doc-quality
+analysis_doc_quality:
+  checked_at: "2026-05-13T04:50:11Z"
+  status: partial
+  checks:
+    readme_exists: { status: pass, evidence: "README.md found" }
+    readme_length: { status: pass, evidence: "25935 characters" }
+    required_sections: { status: partial, finding: "Missing sections: ## Usage, ## Examples" }
+# END ANALYSIS:doc-quality
+# BEGIN ANALYSIS:dependency-health
+analysis_dependency_health:
+  checked_at: "2026-05-13T04:50:11Z"
+  status: fail
+  checks:
+    terraform_version_upper_bound: { status: pass, evidence: "required_version = \">= 1.9, < 2.0\"" }
+    provider_constraint_style: { status: fail, finding: "Open-ended >= constraint(s) detected: null: \">= 3.0\"; random: \">= 3.5.0\"" }
+# END ANALYSIS:dependency-health
+module_issues:
+  last_harvested: "2026-05-13T07:43:45Z"
+  open_count: 2
+  issues:
+  - number: 147
+    title: "[AVM Module Issue]: module consumers should be able to specify all naming conventions"
+    labels: ["enhancement", "Language: Terraform :globe_with_meridians:"]
+    url: "https://github.com/Azure/terraform-azurerm-avm-ptn-aks-production/issues/147"
+    created_at: "2024-12-04"
+    comments: 9
+  - number: 146
+    title: "[AVM Module Issue]: `network` variable can be simplified, and needs a fix for resource group assumption"
+    labels: ["enhancement", "Type: Bug :bug:", "Language: Terraform :globe_with_meridians:"]
+    url: "https://github.com/Azure/terraform-azurerm-avm-ptn-aks-production/issues/146"
+    created_at: "2024-12-04"
+    comments: 14
+
+# BEGIN ANALYSIS:use-cases
+analysis_use_cases:
+  checked_at: "2026-05-13T09:56:33Z"
+  status: pass
+  inferred_tags: ["aks", "cloud-native", "containers", "identity", "log-analytics", "monitoring"]
+  evidence:
+    catalog_domain: containers
+    resources_managed: [azurerm_kubernetes_cluster, azurerm_kubernetes_cluster_node_pool, azurerm_log_analytics_workspace, azurerm_log_analytics_workspace_table, azurerm_user_assigned_identity]
+# END ANALYSIS:use-cases
+
+enrichment:
+  version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
+  terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"
+  provider_version: ""       # azurerm/azapi provider version tested with
+  use_cases: []              # short tags, e.g. ["alz", "hub-spoke", "landing-zone"]
+  known_issues: []
+  # known_issues item shape:
+  #   - title: "brief description"
+  #     status: open           # open | resolved | wontfix
+  #     severity: medium       # low | medium | high
+  #     workaround: ""         # optional workaround description
+  #     url: ""                # optional issue/PR/discussion URL
+  notes: []
+  # notes item shape:
+  #   - date: "YYYY-MM-DD"
+  #     author: "github-handle"
+  #     content: "free-text observation"
+
+
+
+
+
+

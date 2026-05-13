@@ -1,0 +1,563 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Crayon-HU/avm-metadata/schemas/avm-module-utl.schema.json",
+  "title": "AVM Utility Module",
+  "description": "Schema for data/modules/utl/{name}.yaml. Utility modules provide reusable helper logic and may manage Terraform resources directly. Sections: catalog (CSV-derived), analysis_* (managed by ./avm.sh check / analyze_module.py \u2014 optional until first run), enrichment (hand-maintained).",
+  "type": "object",
+  "required": [
+    "catalog",
+    "enrichment"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "catalog": {
+      "description": "Auto-generated from the official AVM CSV index. Run ./avm.sh sync to refresh. Never hand-edit.",
+      "type": "object",
+      "required": [
+        "name",
+        "type",
+        "domain",
+        "provider",
+        "display_name",
+        "status",
+        "repo_url",
+        "registry_url",
+        "description",
+        "owners"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^avm-utl-[a-z][a-z0-9-]+$"
+        },
+        "type": {
+          "type": "string",
+          "const": "utl"
+        },
+        "domain": {
+          "$ref": "#/$defs/domain"
+        },
+        "provider": {
+          "$ref": "#/$defs/provider"
+        },
+        "display_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "alternative_names": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "Available",
+            "Proposed",
+            "Deprecated",
+            "Orphaned"
+          ]
+        },
+        "repo_url": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://github\\.com/Azure/terraform-(azurerm|azure|azapi)-avm-utl-"
+        },
+        "registry_url": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://registry\\.terraform\\.io/"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "first_published": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$"
+        },
+        "owners": {
+          "$ref": "#/$defs/owners"
+        },
+        "comments": {
+          "type": "string"
+        },
+        "last_synced": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 UTC timestamp of the last ./avm.sh sync run that wrote this file."
+        }
+      }
+    },
+    "scraped": {
+      "description": "DEPRECATED \u2014 migrated to analysis_terraform_metadata. Kept to avoid breaking older files during transition. Never hand-edit.",
+      "type": "object",
+      "required": [
+        "at",
+        "status"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "at": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "ok",
+            "partial",
+            "failed"
+          ]
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "terraform_constraints": {
+          "$ref": "#/$defs/terraform_constraints"
+        },
+        "resources_managed": {
+          "$ref": "#/$defs/resources_map"
+        }
+      }
+    },
+    "analysis_terraform_metadata": {
+      "description": "Terraform file metadata scraped from the module repo. Managed by analyze_module.py --dimension terraform-metadata (./avm.sh scrape). Never hand-edit.",
+      "type": "object",
+      "required": [
+        "checked_at",
+        "status"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "checked_at": {
+          "description": "ISO 8601 UTC timestamp of last successful run.",
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "partial",
+            "fail",
+            "unchecked"
+          ]
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "terraform_constraints": {
+          "$ref": "#/$defs/terraform_constraints"
+        },
+        "resources_managed": {
+          "description": "Terraform resource types managed by this utility module, keyed by provider prefix.",
+          "$ref": "#/$defs/resources_map"
+        },
+        "datasources_managed": {
+          "description": "Terraform data source types read by this module, keyed by provider prefix.",
+          "$ref": "#/$defs/resources_map"
+        },
+        "functions_used": {
+          "description": "Provider function calls (provider::<ns>::<fn>) used by this module, keyed by provider namespace.",
+          "$ref": "#/$defs/resources_map"
+        },
+        "ephemeral_managed": {
+          "description": "Ephemeral resource types used by this module, keyed by provider prefix.",
+          "$ref": "#/$defs/resources_map"
+        },
+        "actions_managed": {
+          "description": "Terraform action invocation types used by this module, keyed by provider prefix.",
+          "$ref": "#/$defs/resources_map"
+        }
+      }
+    },
+    "analysis_avm_interface_compliance": {
+      "description": "AVM interface compliance checks. Managed by analyze_module.py. Never hand-edit.",
+      "$ref": "#/$defs/analysis_dimension"
+    },
+    "analysis_security_hardening": {
+      "description": "Security hardening checks. Managed by analyze_module.py. Never hand-edit.",
+      "$ref": "#/$defs/analysis_dimension"
+    },
+    "analysis_test_coverage": {
+      "description": "Test coverage checks. Managed by analyze_module.py. Never hand-edit.",
+      "$ref": "#/$defs/analysis_dimension"
+    },
+    "analysis_doc_quality": {
+      "description": "Documentation quality checks. Managed by analyze_module.py. Never hand-edit.",
+      "$ref": "#/$defs/analysis_dimension"
+    },
+    "analysis_dependency_health": {
+      "description": "Dependency health checks. Managed by analyze_module.py. Never hand-edit.",
+      "$ref": "#/$defs/analysis_dimension"
+    },
+    "module_issues": {
+      "description": "Open GitHub issues harvested from the AVM module repo (e.g., Azure/terraform-azurerm-avm-res-*). Written by scripts/harvest_module_issues.py (./avm.sh harvest). Never hand-edit — use enrichment.known_issues for hand-curated entries.",
+      "$ref": "#/$defs/module_issues_block"
+    },
+    "enrichment": {
+      "description": "Hand-maintained by contributors. Never overwritten by ./avm.sh sync or ./avm.sh check.",
+      "type": "object",
+      "required": [
+        "version_pinned",
+        "terraform_version",
+        "provider_version",
+        "use_cases",
+        "known_issues",
+        "notes"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "version_pinned": {
+          "type": "string",
+          "pattern": "^([0-9]+\\.[0-9]+\\.[0-9]+)?$"
+        },
+        "terraform_version": {
+          "type": "string",
+          "pattern": "^([0-9]+\\.[0-9]+\\.[0-9]+)?$"
+        },
+        "provider_version": {
+          "type": "string",
+          "pattern": "^([0-9]+\\.[0-9]+(\\.[0-9]+)?)?$"
+        },
+        "use_cases": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[a-z0-9][a-z0-9-]*$"
+          }
+        },
+        "known_issues": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/known_issue"
+          }
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/note"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "analysis_check_result": {
+      "description": "Result of a single deterministic check within an analysis dimension.",
+      "type": "object",
+      "required": [
+        "status"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "fail",
+            "missing",
+            "partial",
+            "unchecked"
+          ]
+        },
+        "evidence": {
+          "description": "File:line reference when the check passed.",
+          "type": "string"
+        },
+        "finding": {
+          "description": "Description of the issue when the check failed or is missing.",
+          "type": "string"
+        }
+      }
+    },
+    "analysis_dimension": {
+      "description": "A single analysis dimension block, written by analyze_module.py. Never hand-edit.",
+      "type": "object",
+      "required": [
+        "checked_at",
+        "status"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "checked_at": {
+          "description": "ISO 8601 UTC timestamp of last run.",
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "partial",
+            "fail",
+            "unchecked"
+          ]
+        },
+        "checks": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/analysis_check_result"
+          }
+        },
+        "llm_assessment": {
+          "type": "string"
+        }
+      }
+    },
+    "domain": {
+      "type": "string",
+      "enum": [
+        "networking",
+        "compute",
+        "containers",
+        "identity-security",
+        "storage",
+        "monitoring",
+        "management",
+        "recovery-bcdr",
+        "web-app-services",
+        "data-databases",
+        "ai-ml",
+        "platform-alz",
+        "avd",
+        "hybrid",
+        "iot",
+        "developer-tools",
+        "other"
+      ]
+    },
+    "provider": {
+      "type": "string",
+      "enum": [
+        "azurerm",
+        "azapi",
+        "azure"
+      ]
+    },
+    "owners": {
+      "type": "object",
+      "required": [
+        "primary",
+        "secondary"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "primary": {
+          "$ref": "#/$defs/owner"
+        },
+        "secondary": {
+          "$ref": "#/$defs/owner"
+        }
+      }
+    },
+    "owner": {
+      "type": "object",
+      "required": [
+        "handle",
+        "name"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "handle": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "terraform_constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "required_version": {
+          "type": "string"
+        },
+        "required_providers": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/provider_requirement"
+          }
+        }
+      }
+    },
+    "provider_requirement": {
+      "type": "object",
+      "required": [
+        "source"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "type": "string"
+        },
+        "version_constraint": {
+          "type": "string"
+        }
+      }
+    },
+    "resources_map": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "uniqueItems": true,
+        "items": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "module_issues_block": {
+      "description": "Snapshot of open GitHub issues harvested from the AVM module repo (e.g., Azure/terraform-azurerm-avm-res-*)sitory.",
+      "type": "object",
+      "required": [
+        "last_harvested",
+        "open_count",
+        "issues"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "last_harvested": {
+          "description": "ISO 8601 UTC timestamp of the last successful harvest run.",
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+        },
+        "open_count": {
+          "description": "Total number of open issues in the upstream repository at harvest time.",
+          "type": "integer",
+          "minimum": 0
+        },
+        "issues": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/upstream_issue"
+          }
+        }
+      }
+    },
+    "module_issue": {
+      "description": "A single open GitHub issue from the AVM module repo (e.g., Azure/terraform-azurerm-avm-res-*)sitory.",
+      "type": "object",
+      "required": [
+        "number",
+        "title",
+        "url",
+        "created_at"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "number": {
+          "description": "GitHub issue number.",
+          "type": "integer",
+          "minimum": 1
+        },
+        "title": {
+          "description": "Issue title.",
+          "type": "string",
+          "minLength": 1
+        },
+        "state": {
+          "description": "GitHub issue state at harvest time.",
+          "type": "string",
+          "enum": ["open", "closed"]
+        },
+        "labels": {
+          "description": "GitHub label names applied to the issue.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "url": {
+          "description": "Full HTTPS URL to the issue on github.com.",
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://github\\.com/"
+        },
+        "created_at": {
+          "description": "ISO 8601 date the issue was created.",
+          "type": "string",
+          "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"
+        },
+        "updated_at": {
+          "description": "ISO 8601 date the issue was last updated.",
+          "type": "string",
+          "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"
+        },
+        "comments": {
+          "description": "Number of comments on the issue.",
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "known_issue": {
+      "type": "object",
+      "required": [
+        "title",
+        "status"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "open",
+            "resolved",
+            "wontfix"
+          ]
+        },
+        "severity": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "workaround": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      }
+    },
+    "note": {
+      "type": "object",
+      "required": [
+        "date",
+        "author",
+        "content"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "date": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"
+        },
+        "author": {
+          "type": "string",
+          "minLength": 1
+        },
+        "content": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

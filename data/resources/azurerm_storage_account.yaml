@@ -1,0 +1,37 @@
+resource:
+  type: azurerm_storage_account
+  provider: azurerm
+  symbol_type: resource
+  registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account"
+
+provider_updates:
+  last_checked: "2026-05-13T06:16:10Z"
+  findings: []
+  # finding shape:
+  #   - version: "4.15.0"
+  #     criticality: high   # critical | high | medium | low
+  #     type: bug_fix       # bug_fix | security | enhancement | breaking_change | new_feature | deprecated
+  #     summary: "..."
+  #     url: "..."
+
+provider_issues:
+  last_checked: "2026-05-13T06:34:31Z"
+  items:
+  - number: 32263
+    title: "Support for azurerm_storage_account filtering /31 and /32 CIDRs from network_rules ip_rules"
+    labels: ["enhancement", "service/storage", "service/network"]
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/issues/32263"
+    created_at: "2026-04-28"
+  - number: 32162
+    title: "CORS policy for `azurerm_storage_account`"
+    labels: ["enhancement", "service/storage"]
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/issues/32162"
+    created_at: "2026-04-14"
+  - number: 32143
+    title: "azurerm_storage_account: Support for Geo Priority Replication (geoPriorityReplicationStatus)"
+    labels: ["enhancement", "service/storage", "service/resource"]
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/issues/32143"
+    created_at: "2026-04-09"
+
+enrichment:
+  notes: []

@@ -1,0 +1,37 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Debug: sync_catalog.py",
+			"type": "debugpy",
+			"request": "launch",
+			"program": "${workspaceFolder}/scripts/sync_catalog.py",
+			"cwd": "${workspaceFolder}",
+			"console": "integratedTerminal"
+		},
+		{
+			"name": "Debug: generate_config.py",
+			"type": "debugpy",
+			"request": "launch",
+			"program": "${workspaceFolder}/scripts/generate_config.py",
+			"cwd": "${workspaceFolder}",
+			"console": "integratedTerminal"
+		},
+		{
+			"name": "Debug: analyze_module.py",
+			"type": "debugpy",
+			"request": "launch",
+			"program": "${workspaceFolder}/scripts/analyze_module.py",
+			"cwd": "${workspaceFolder}",
+			"console": "integratedTerminal"
+		},
+		{
+			"name": "Debug: manage_repos.py",
+			"type": "debugpy",
+			"request": "launch",
+			"program": "${workspaceFolder}/scripts/manage_repos.py",
+			"cwd": "${workspaceFolder}",
+			"console": "integratedTerminal"
+		}
+	]
+}

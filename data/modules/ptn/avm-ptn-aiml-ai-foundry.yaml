@@ -1,0 +1,152 @@
+# BEGIN CATALOG
+# AVM Module — avm-ptn-aiml-ai-foundry
+# catalog: auto-generated from AVM upstream CSV. Run: ./avm.sh sync to refresh.
+# enrichment: hand-maintained — NEVER overwritten by sync.
+
+catalog:
+  name:         "avm-ptn-aiml-ai-foundry"
+  type:         ptn
+  domain:       ai-ml
+  provider:     azurerm
+  display_name: "AI-ML - AI Foundry"
+  status:       "Available"
+  repo_url:     "https://github.com/Azure/terraform-azurerm-avm-ptn-aiml-ai-foundry"
+  registry_url: "https://registry.terraform.io/modules/Azure/avm-ptn-aiml-ai-foundry/azurerm/latest"
+  description:  "AVM Pattern Module for AI-ML - AI Foundry"
+  first_published: "2025-07"
+  owners:
+    primary:
+      handle: "segraef"
+      name:   "Sebastian Graef"
+    secondary:
+      handle: "mbilalamjad"
+      name:   "Bilal Amjad"
+  last_synced: "2026-05-12T23:48:16Z"
+# END CATALOG
+# BEGIN SCRAPED
+# END SCRAPED
+# BEGIN ANALYSIS:terraform-metadata
+analysis_terraform_metadata:
+  checked_at: "2026-05-12T23:34:41Z"
+  status: pass
+  errors: []
+  terraform_constraints:
+    required_version: ">= 1.12, < 2.0"
+    required_providers:
+      azapi:
+        source: "Azure/azapi"
+        version_constraint: "~> 2.5"
+      azurerm:
+        source: "hashicorp/azurerm"
+        version_constraint: "~> 4.38"
+      modtm:
+        source: "azure/modtm"
+        version_constraint: "~> 0.3"
+      random:
+        source: "hashicorp/random"
+        version_constraint: "~> 3.7"
+      time:
+        source: "hashicorp/time"
+        version_constraint: "~> 0.13"
+  modules_called:
+    - local_name: "avm_utl_regions"
+      source: "Azure/avm-utl-regions/azurerm"
+      version: "0.5.2"
+    - local_name: "key_vault"
+      source: "Azure/avm-res-keyvault-vault/azurerm"
+      version: "0.10.2"
+    - local_name: "storage_account"
+      source: "Azure/avm-res-storage-storageaccount/azurerm"
+      version: "0.6.7"
+    - local_name: "cosmosdb"
+      source: "Azure/avm-res-documentdb-databaseaccount/azurerm"
+      version: "0.10.0"
+    - local_name: "ai_foundry_project"
+      source: "./modules/ai-foundry-project"
+# END ANALYSIS:terraform-metadata
+# BEGIN ANALYSIS:avm-interface-compliance
+analysis_avm_interface_compliance:
+  checked_at: "2026-05-12T23:34:41Z"
+  status: pass
+  checks:
+    tags: { status: pass, evidence: "variables.tf:145" }
+    enable_telemetry: { status: pass, evidence: "variables.tf:116" }
+# END ANALYSIS:avm-interface-compliance
+# BEGIN ANALYSIS:security-hardening
+analysis_security_hardening:
+  checked_at: "2026-05-12T23:34:41Z"
+  status: fail
+  checks:
+    hardcoded_locations: { status: pass, evidence: "No hardcoded locations found" }
+    validation_blocks: { status: pass, evidence: "validation block found in variables.foundry.tf" }
+    sensitive_outputs: { status: fail, finding: "Output \"key_vault_id\" in outputs.tf may be sensitive but lacks sensitive = true" }
+# END ANALYSIS:security-hardening
+# BEGIN ANALYSIS:test-coverage
+analysis_test_coverage:
+  checked_at: "2026-05-12T23:34:41Z"
+  status: partial
+  checks:
+    examples_dir: { status: pass, evidence: "examples/ contains 10 item(s)" }
+    test_files: { status: partial, finding: "tests/ exists but contains no .go or .tftest.hcl files" }
+# END ANALYSIS:test-coverage
+# BEGIN ANALYSIS:doc-quality
+analysis_doc_quality:
+  checked_at: "2026-05-12T23:34:41Z"
+  status: partial
+  checks:
+    readme_exists: { status: pass, evidence: "README.md found" }
+    readme_length: { status: pass, evidence: "52858 characters" }
+    required_sections: { status: partial, finding: "Missing sections: ## Usage, ## Examples" }
+# END ANALYSIS:doc-quality
+# BEGIN ANALYSIS:dependency-health
+analysis_dependency_health:
+  checked_at: "2026-05-12T23:34:41Z"
+  status: pass
+  checks:
+    terraform_version_upper_bound: { status: pass, evidence: "required_version = \">= 1.12, < 2.0\"" }
+    provider_constraint_style: { status: pass, evidence: "All 5 provider(s) use upper-bounded constraints" }
+# END ANALYSIS:dependency-health
+module_issues:
+  last_harvested: "2026-05-13T07:43:45Z"
+  open_count: 0
+  issues: []
+  # issue shape:
+  #   - number: 312
+  #     title: "..."
+  #     labels: [bug, help wanted]
+  #     url: "..."
+  #     created_at: "2026-03-21"
+  #     comments: 4
+
+# BEGIN ANALYSIS:use-cases
+analysis_use_cases:
+  checked_at: "2026-05-13T09:56:33Z"
+  status: pass
+  inferred_tags: ["ai-ml", "machine-learning"]
+  evidence:
+    catalog_domain: ai-ml
+# END ANALYSIS:use-cases
+
+enrichment:
+  version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
+  terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"
+  provider_version: ""       # azurerm/azapi provider version tested with
+  use_cases: []              # short tags, e.g. ["alz", "hub-spoke", "landing-zone"]
+  known_issues: []
+  # known_issues item shape:
+  #   - title: "brief description"
+  #     status: open           # open | resolved | wontfix
+  #     severity: medium       # low | medium | high
+  #     workaround: ""         # optional workaround description
+  #     url: ""                # optional issue/PR/discussion URL
+  notes: []
+  # notes item shape:
+  #   - date: "YYYY-MM-DD"
+  #     author: "github-handle"
+  #     content: "free-text observation"
+
+
+
+
+
+

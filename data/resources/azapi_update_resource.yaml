@@ -1,0 +1,146 @@
+resource:
+  type: azapi_update_resource
+  provider: azapi
+  symbol_type: resource
+  registry_url: "https://registry.terraform.io/providers/azure/azapi/latest/docs/resources/update_resource"
+
+provider_updates:
+  last_checked: "2026-05-13T06:21:02Z"
+  findings:
+  - version: "2.9.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_update_resource` resource: Support `replace_triggers_external_values` argument to trigger resource replacement based on external values."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.9.0"
+  - version: "2.9.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource`, `azapi_update_resource` resources: Support `list_unique_id_property` and `ignore_other_items_in_list` fields, which are used to manage list properties with unique identifiers (GH-..."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.9.0"
+  - version: "2.9.0"
+    criticality: high
+    type: bug_fix
+    summary: "Fix `azapi_update_resource` state migration missing `replace_triggers_external_values` field (GH-1071)."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.9.0"
+  - version: "2.5.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_update_resource` resource: remove the readonly fields from `identity.userAssignedIdentities` in the request body."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.5.0"
+  - version: "2.5.0"
+    criticality: high
+    type: bug_fix
+    summary: "Fix a bug that `azapi_update_resource` does not update the correct items in an array when the order of the items is different from the remote state."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.5.0"
+  - version: "2.4.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource`, `azapi_update_resource` resources: Support `sensitive_body` field, which is used to specify the write-only properties in the request body."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.4.0"
+  - version: "2.4.0"
+    criticality: high
+    type: bug_fix
+    summary: "Fix a bug that `azapi_update_resource` resource produced inconsistent results when only `error_message_regex` is changed."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.4.0"
+  - version: "2.0.1"
+    criticality: critical
+    type: breaking_change
+    summary: "`azapi_resource`, `azapi_update_resource` resources and data sources' `output` field defaults to the readonly fields when the `response_export_values` is not specified."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.0.1"
+  - version: "1.14.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource`, `azapi_update_resource`, `azapi_resource_action`, `azapi_data_plane_resource` resources: Support `timeouts.update` field, which is used to specify the timeout for the update opera..."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.14.0"
+  - version: "1.14.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_update_resource` resource: Improve the id build logic to honor user's input."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.14.0"
+  - version: "1.13.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource` resource, `azapi_update_resource` resource, `azapi_resource_action` resource, `azapi_data_plane_resource` resource, `azapi_resource_action` data source: The `body` field supports t..."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.13.0"
+  - version: "1.13.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource` resource, `azapi_update_resource` resource, `azapi_resource_action` resource, `azapi_data_plane_resource` resource, `azapi_resource_action` data source, `azapi_resource` data sourc..."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.13.0"
+  - version: "1.13.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource` resource, `azapi_update_resource` resource: Ignore the order of the elements in a list if the element has a `name` field as identifier."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.13.0"
+  - version: "1.10.0"
+    criticality: low
+    type: documentation
+    summary: "Fix a bug that deploy time constants are not removed from the request body when using `azapi_update_resource` resource."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.10.0"
+  - version: "1.9.0"
+    criticality: low
+    type: documentation
+    summary: "`azapi_update_resource` resource: Support `ignore_body_changes` field, which is used to ignore some properties when comparing the resource with its current state."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.9.0"
+  - version: "1.0.0"
+    criticality: low
+    type: documentation
+    summary: "`azapi_update_resource`: `ignore_missing_property`'s default value changed from `false` to `true`."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.0.0"
+  - version: "0.4.0"
+    criticality: low
+    type: documentation
+    summary: "`azapi_update_resource`: Supports `locks` which used to prevent creating/modifying/deleting resources at the same time."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v0.4.0"
+  - version: "0.2.1"
+    criticality: low
+    type: documentation
+    summary: "Fix the modification is not working, when use `azapi_update_resource` to modify additional properties."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v0.2.1"
+  - version: "0.2.1"
+    criticality: low
+    type: documentation
+    summary: "Fix crash when use `azapi_update_resource` on a resource whose id is null"
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v0.2.1"
+
+provider_issues:
+  last_checked: "2026-05-13T06:39:29Z"
+  items:
+  - number: 1088
+    title: "'azapi_update_resource' sends conflicting 'sharedKey' and 'sharedKeyLength' for VPN link shared keys"
+    labels: []
+    url: "https://github.com/Azure/terraform-provider-azapi/issues/1088"
+    created_at: "2026-04-05"
+  - number: 1042
+    title: "Feature request: Add `azapi_data_plane_update_resource` (to support e.g. Key Vault key rotation policies)"
+    labels: ["enhancement"]
+    url: "https://github.com/Azure/terraform-provider-azapi/issues/1042"
+    created_at: "2026-01-29"
+  - number: 1039
+    title: "feature request: support ephemeral values on `azapi_resource_action` action and resource"
+    labels: ["enhancement"]
+    url: "https://github.com/Azure/terraform-provider-azapi/issues/1039"
+    created_at: "2026-01-27"
+  - number: 967
+    title: "Consider adding `when` to `azapi_update_resource` resource"
+    labels: ["enhancement"]
+    url: "https://github.com/Azure/terraform-provider-azapi/issues/967"
+    created_at: "2025-08-20"
+  - number: 943
+    title: "`azapi_update_resource` with `Microsoft.App/managedEnvironments@2025-02-02-preview` doesn't set `headers` if using `sensitive_body`"
+    labels: ["example"]
+    url: "https://github.com/Azure/terraform-provider-azapi/issues/943"
+    created_at: "2025-08-01"
+  - number: 693
+    title: "PATCH option for resource azapi_update_resource"
+    labels: ["enhancement"]
+    url: "https://github.com/Azure/terraform-provider-azapi/issues/693"
+    created_at: "2024-12-12"
+  - number: 620
+    title: "Getting 404 with using azapi_update for Virtual Endpoints on Postgres Flexible Servers"
+    labels: ["upstream-api"]
+    url: "https://github.com/Azure/terraform-provider-azapi/issues/620"
+    created_at: "2024-09-18"
+
+enrichment:
+  notes: []

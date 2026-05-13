@@ -1,0 +1,179 @@
+# BEGIN CATALOG
+# AVM Module — avm-ptn-network-routeserver
+# catalog: auto-generated from AVM upstream CSV. Run: ./avm.sh sync to refresh.
+# enrichment: hand-maintained — NEVER overwritten by sync.
+
+catalog:
+  name:         "avm-ptn-network-routeserver"
+  type:         ptn
+  domain:       networking
+  provider:     azurerm
+  display_name: "Azure Route Server"
+  status:       "Available"
+  repo_url:     "https://github.com/Azure/terraform-azurerm-avm-ptn-network-routeserver"
+  registry_url: "https://registry.terraform.io/modules/Azure/avm-ptn-network-routeserver/azurerm/latest"
+  description:  "AVM Pattern Module for Azure Route Server"
+  first_published: "2024-06"
+  owners:
+    primary:
+      handle: "jchancellor-ms"
+      name:   "Jon Chancellor"
+    secondary:
+      handle: ""
+      name:   ""
+  last_synced: "2026-05-12T23:48:16Z"
+# END CATALOG
+# BEGIN SCRAPED
+# END SCRAPED
+# BEGIN ANALYSIS:terraform-metadata
+analysis_terraform_metadata:
+  checked_at: "2026-05-13T09:38:43Z"
+  status: pass
+  errors: []
+  terraform_constraints:
+    required_version: "~> 1.9"
+    required_providers:
+      azapi:
+        source: "Azure/azapi"
+        version_constraint: "~> 2.4"
+      azurerm:
+        source: "hashicorp/azurerm"
+        version_constraint: ">= 3.115, < 5.0"
+      modtm:
+        source: "Azure/modtm"
+        version_constraint: "~> 0.3"
+      random:
+        source: "hashicorp/random"
+        version_constraint: "~> 3.6"
+      time:
+        source: "hashicorp/time"
+        version_constraint: "~> 0.11"
+  resources_managed:
+    azapi:
+      - "azapi_resource"
+    azurerm:
+      - "azurerm_management_lock"
+      - "azurerm_public_ip"
+      - "azurerm_role_assignment"
+      - "azurerm_virtual_hub_bgp_connection"
+    modtm:
+      - "modtm_telemetry"
+    random:
+      - "random_uuid"
+    time:
+      - "time_sleep"
+  datasources_managed:
+    azapi:
+      - "azapi_client_config"
+    azurerm:
+      - "azurerm_virtual_hub"
+    modtm:
+      - "modtm_module_source"
+# END ANALYSIS:terraform-metadata
+# BEGIN ANALYSIS:avm-interface-compliance
+analysis_avm_interface_compliance:
+  checked_at: "2026-05-13T09:38:43Z"
+  status: pass
+  checks:
+    tags: { status: pass, evidence: "variables.tf:226" }
+    enable_telemetry: { status: pass, evidence: "variables.tf:71" }
+# END ANALYSIS:avm-interface-compliance
+# BEGIN ANALYSIS:security-hardening
+analysis_security_hardening:
+  checked_at: "2026-05-13T09:38:43Z"
+  status: pass
+  checks:
+    hardcoded_locations: { status: pass, evidence: "No hardcoded locations found" }
+    validation_blocks: { status: pass, evidence: "validation block found in variables.tf" }
+    sensitive_outputs: { status: pass, evidence: "All sensitive-named outputs declare sensitive = true (or none found)" }
+# END ANALYSIS:security-hardening
+# BEGIN ANALYSIS:test-coverage
+analysis_test_coverage:
+  checked_at: "2026-05-13T09:38:43Z"
+  status: partial
+  checks:
+    examples_dir: { status: pass, evidence: "examples/ contains 4 item(s)" }
+    test_files: { status: partial, finding: "tests/ exists but contains no .go or .tftest.hcl files" }
+# END ANALYSIS:test-coverage
+# BEGIN ANALYSIS:doc-quality
+analysis_doc_quality:
+  checked_at: "2026-05-13T09:38:43Z"
+  status: partial
+  checks:
+    readme_exists: { status: pass, evidence: "README.md found" }
+    readme_length: { status: pass, evidence: "16317 characters" }
+    required_sections: { status: partial, finding: "Missing sections: ## Usage, ## Examples" }
+# END ANALYSIS:doc-quality
+# BEGIN ANALYSIS:dependency-health
+analysis_dependency_health:
+  checked_at: "2026-05-13T09:38:43Z"
+  status: pass
+  checks:
+    terraform_version_upper_bound: { status: pass, evidence: "required_version = \"~> 1.9\"" }
+    provider_constraint_style: { status: pass, evidence: "All 5 provider(s) use upper-bounded constraints" }
+# END ANALYSIS:dependency-health
+module_issues:
+  last_harvested: "2026-05-13T07:43:45Z"
+  open_count: 0
+  issues: []
+  # issue shape:
+  #   - number: 312
+  #     title: "..."
+  #     labels: [bug, help wanted]
+  #     url: "..."
+  #     created_at: "2026-03-21"
+  #     comments: 4
+
+# BEGIN ANALYSIS:provider-currency
+analysis_provider_currency:
+  checked_at: "2026-05-13T09:38:43Z"
+  status: partial
+  worst_criticality: high
+  finding_counts:
+    critical: 0
+    high: 1
+    medium: 1
+    low: 0
+  issue_counts:
+    total: 0
+  coverage_stats:
+    checked: 7
+    total: 7
+  checks:
+    critical_findings: { status: partial, finding: "No critical findings; 1 high finding(s) across: azapi_client_config" }
+    open_issues: { status: pass, evidence: "0 open provider issues across 7 resource type(s)" }
+    stub_coverage: { status: pass, evidence: "All 7 resource type(s) have provider data" }
+# END ANALYSIS:provider-currency
+# BEGIN ANALYSIS:use-cases
+analysis_use_cases:
+  checked_at: "2026-05-13T09:56:33Z"
+  status: pass
+  inferred_tags: ["connectivity", "networking"]
+  evidence:
+    catalog_domain: networking
+    resources_managed: [azurerm_public_ip, azurerm_virtual_hub_bgp_connection, time_sleep]
+# END ANALYSIS:use-cases
+
+enrichment:
+  version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
+  terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"
+  provider_version: ""       # azurerm/azapi provider version tested with
+  use_cases: []              # short tags, e.g. ["alz", "hub-spoke", "landing-zone"]
+  known_issues: []
+  # known_issues item shape:
+  #   - title: "brief description"
+  #     status: open           # open | resolved | wontfix
+  #     severity: medium       # low | medium | high
+  #     workaround: ""         # optional workaround description
+  #     url: ""                # optional issue/PR/discussion URL
+  notes: []
+  # notes item shape:
+  #   - date: "YYYY-MM-DD"
+  #     author: "github-handle"
+  #     content: "free-text observation"
+
+
+
+
+
+

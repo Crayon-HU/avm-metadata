@@ -1,0 +1,31 @@
+resource:
+  type: azurerm_subnet
+  provider: azurerm
+  symbol_type: resource
+  registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet"
+
+provider_updates:
+  last_checked: "2026-05-13T06:16:10Z"
+  findings:
+  - version: "4.72.0"
+    criticality: low
+    type: documentation
+    summary: "New List Resource**: `azurerm_subnet` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.72.0"
+  - version: "4.72.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_subnet` - add support for the `Microsoft.MessagingConnectors/connectors` value in the `delegation.service_delegation.name` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.72.0"
+
+provider_issues:
+  last_checked: "2026-05-13T06:34:31Z"
+  items:
+  - number: 32258
+    title: "Bug: `number_of_ip_addresses` in `ip_address_pool` uses string comparison instead of numeric, blocking valid increases"
+    labels: ["bug", "service/subnets", "v/4.x"]
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/issues/32258"
+    created_at: "2026-04-28"
+
+enrichment:
+  notes: []

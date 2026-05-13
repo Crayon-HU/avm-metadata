@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "EditorConfig.EditorConfig",
+    "hashicorp.terraform",
+    "ms-azuretools.vscode-azureterraform",
+    "redhat.vscode-yaml",
+    "ms-python.python",
+    "ms-python.pylance",
+    "github.copilot",
+    "mhutchie.git-graph"
+  ]
+}

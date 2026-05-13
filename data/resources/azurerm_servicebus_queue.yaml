@@ -1,0 +1,28 @@
+resource:
+  type: azurerm_servicebus_queue
+  provider: azurerm
+  symbol_type: resource
+  registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/servicebus_queue"
+
+provider_updates:
+  last_checked: "2026-05-13T06:16:10Z"
+  findings: []
+  # finding shape:
+  #   - version: "4.15.0"
+  #     criticality: high   # critical | high | medium | low
+  #     type: bug_fix       # bug_fix | security | enhancement | breaking_change | new_feature | deprecated
+  #     summary: "..."
+  #     url: "..."
+
+provider_issues:
+  last_checked: "2026-05-13T06:34:31Z"
+  items: []
+  # item shape:
+  #   - number: 1234
+  #     title: "..."
+  #     labels: [bug]
+  #     url: "..."
+  #     created_at: "2026-01-01"
+
+enrichment:
+  notes: []

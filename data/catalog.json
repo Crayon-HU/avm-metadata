@@ -1,0 +1,5062 @@
+{
+  "generated_at": "2026-05-13T09:53:23Z",
+  "total": 148,
+  "modules": [
+    {
+      "name": "avm-res-apimanagement-service",
+      "domain": "web-app-services",
+      "type": "res",
+      "status": "Available",
+      "display_name": "API Management Service",
+      "score": 60.0,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "fail",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-app-containerapp",
+      "domain": "containers",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Container App",
+      "score": 76.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-app-job",
+      "domain": "containers",
+      "type": "res",
+      "status": "Available",
+      "display_name": "App Job",
+      "score": 76.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-app-managedenvironment",
+      "domain": "containers",
+      "type": "res",
+      "status": "Available",
+      "display_name": "App Managed Environment",
+      "score": 50.0,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "security-hardening": {
+          "status": "fail",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-appconfiguration-configurationstore",
+      "domain": "management",
+      "type": "res",
+      "status": "Available",
+      "display_name": "App Configuration Store",
+      "score": 86.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T20:50:39Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-12T20:50:39Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T20:50:39Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T20:50:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T20:50:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T20:50:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-authorization-roleassignment",
+      "domain": "identity-security",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Role Assignment",
+      "score": 70.0,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-automation-automationaccount",
+      "domain": "management",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Automation Account",
+      "score": 66.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "fail",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-avs-privatecloud",
+      "domain": "other",
+      "type": "res",
+      "status": "Available",
+      "display_name": "AVS Private Cloud",
+      "score": 76.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-azurestackhci-cluster",
+      "domain": "hybrid",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Azure Stack HCI Cluster",
+      "score": 50.0,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "fail",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-azurestackhci-logicalnetwork",
+      "domain": "hybrid",
+      "type": "res",
+      "status": "Available",
+      "display_name": "AzureStackHCI logical network",
+      "score": 76.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-azurestackhci-virtualmachineinstance",
+      "domain": "hybrid",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Stack HCI Virtual Machine Instance",
+      "score": 76.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-batch-batchaccount",
+      "domain": "compute",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Batch Account",
+      "score": 66.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "dependency-health": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-botservice-botservice",
+      "domain": "ai-ml",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Bot Service",
+      "score": 76.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-cache-redis",
+      "domain": "data-databases",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Redis Cache",
+      "score": 72.2,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "provider-currency": {
+          "status": "fail",
+          "checked_at": "2026-05-13T09:38:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-cache-redisenterprise",
+      "domain": "data-databases",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Azure Managed Redis",
+      "score": 63.9,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "provider-currency": {
+          "status": "fail",
+          "checked_at": "2026-05-13T09:38:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-cdn-profile",
+      "domain": "networking",
+      "type": "res",
+      "status": "Available",
+      "display_name": "CDN Profile",
+      "score": 55.6,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "dependency-health": {
+          "status": "fail",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-certificateregistration-certificateorder",
+      "domain": "web-app-services",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Certificate Orders",
+      "score": 76.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-cognitiveservices-account",
+      "domain": "ai-ml",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Cognitive Service",
+      "score": 86.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-communication-emailservice",
+      "domain": "web-app-services",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Email Communication Service",
+      "score": 76.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-compute-capacityreservationgroup",
+      "domain": "compute",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Capacity Reservation Group",
+      "score": 0.0,
+      "stale_days": null,
+      "analysis": {},
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-compute-disk",
+      "domain": "compute",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Compute Disk",
+      "score": 0.0,
+      "stale_days": null,
+      "analysis": {},
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-compute-diskencryptionset",
+      "domain": "compute",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Disk Encryption Set",
+      "score": 0.0,
+      "stale_days": null,
+      "analysis": {},
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-compute-gallery",
+      "domain": "compute",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Azure Compute Gallery",
+      "score": 0.0,
+      "stale_days": null,
+      "analysis": {},
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-compute-hostgroup",
+      "domain": "compute",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Host Groups",
+      "score": 0.0,
+      "stale_days": null,
+      "analysis": {},
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-compute-proximityplacementgroup",
+      "domain": "compute",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Proximity Placement Group",
+      "score": 0.0,
+      "stale_days": null,
+      "analysis": {},
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-compute-sshpublickey",
+      "domain": "compute",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Public SSH Key",
+      "score": 0.0,
+      "stale_days": null,
+      "analysis": {},
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-compute-virtualmachine",
+      "domain": "compute",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Virtual Machine",
+      "score": 0.0,
+      "stale_days": null,
+      "analysis": {},
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-compute-virtualmachinescaleset",
+      "domain": "compute",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Virtual Machine Scale Set",
+      "score": 0.0,
+      "stale_days": null,
+      "analysis": {},
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-containerinstance-containergroup",
+      "domain": "containers",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Container Instance",
+      "score": 63.3,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "security-hardening": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-containerregistry-registry",
+      "domain": "containers",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Azure Container Registry (ACR)",
+      "score": 76.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "dependency-health": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-containerservice-managedcluster",
+      "domain": "containers",
+      "type": "res",
+      "status": "Available",
+      "display_name": "AKS Managed Cluster",
+      "score": 60.0,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "security-hardening": {
+          "status": "fail",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-databricks-workspace",
+      "domain": "data-databases",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Azure Databricks Workspace",
+      "score": 77.8,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "test-coverage": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-datafactory-factory",
+      "domain": "data-databases",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Data Factory",
+      "score": 72.2,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "dependency-health": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-dataprotection-backupvault",
+      "domain": "recovery-bcdr",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Data Protection Backup Vault",
+      "score": 30.0,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "fail",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "fail",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-dataprotection-resourceguard",
+      "domain": "recovery-bcdr",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Data Protection Resource Guard",
+      "score": 76.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-dbformysql-flexibleserver",
+      "domain": "data-databases",
+      "type": "res",
+      "status": "Available",
+      "display_name": "DB for MySQL Flexible Server",
+      "score": 80.6,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-dbforpostgresql-flexibleserver",
+      "domain": "data-databases",
+      "type": "res",
+      "status": "Available",
+      "display_name": "DB for Postgre SQL Flexible Server",
+      "score": 80.6,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-desktopvirtualization-applicationgroup",
+      "domain": "avd",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Azure Virtual Desktop (AVD) Application Group",
+      "score": 72.2,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-desktopvirtualization-hostpool",
+      "domain": "avd",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Azure Virtual Desktop (AVD) Host Pool",
+      "score": 72.2,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-desktopvirtualization-scalingplan",
+      "domain": "avd",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Azure Virtual Desktop (AVD) Scaling Plan",
+      "score": 72.2,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-desktopvirtualization-workspace",
+      "domain": "avd",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Azure Virtual Desktop (AVD) Workspace",
+      "score": 72.2,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-devcenter-devcenter",
+      "domain": "developer-tools",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Dev Center",
+      "score": 76.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-devopsinfrastructure-pool",
+      "domain": "hybrid",
+      "type": "res",
+      "status": "Available",
+      "display_name": "DevOps Pools",
+      "score": 66.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-documentdb-databaseaccount",
+      "domain": "data-databases",
+      "type": "res",
+      "status": "Available",
+      "display_name": "CosmosDB Database Account",
+      "score": 58.3,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "security-hardening": {
+          "status": "fail",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-documentdb-mongocluster",
+      "domain": "data-databases",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Cosmos DB for MongoDB (vCore)",
+      "score": 80.6,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-edge-site",
+      "domain": "hybrid",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Azure Arc Site manager",
+      "score": 76.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-eventgrid-domain",
+      "domain": "iot",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Event Grid Domain",
+      "score": 86.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-eventgrid-namespace",
+      "domain": "iot",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Event Grid Namespace",
+      "score": 86.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-eventgrid-topic",
+      "domain": "iot",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Event Grid Topic",
+      "score": 86.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-eventhub-namespace",
+      "domain": "data-databases",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Event Hub Namespace",
+      "score": 80.6,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-features-feature",
+      "domain": "management",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Azure Feature Exposure Control (AFEC)",
+      "score": 76.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-hybridcontainerservice-provisionedclusterinstance",
+      "domain": "containers",
+      "type": "res",
+      "status": "Available",
+      "display_name": "AKS Arc",
+      "score": 56.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "dependency-health": {
+          "status": "fail",
+          "checked_at": "2026-05-13T04:50:11Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-insights-autoscalesetting",
+      "domain": "monitoring",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Auto scale settings",
+      "score": 63.3,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-insights-component",
+      "domain": "monitoring",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Application Insight",
+      "score": 50.0,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "fail",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-insights-datacollectionendpoint",
+      "domain": "monitoring",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Data Collection Endpoint",
+      "score": 76.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-insights-datacollectionrule",
+      "domain": "monitoring",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Data Collection Rule",
+      "score": 76.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-keyvault-vault",
+      "domain": "identity-security",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Key Vault",
+      "score": 50.0,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "fail",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-kusto-cluster",
+      "domain": "data-databases",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Kusto Clusters",
+      "score": 69.4,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "test-coverage": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "dependency-health": {
+          "status": "fail",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-logic-workflow",
+      "domain": "web-app-services",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Logic Apps (Workflow)",
+      "score": 76.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-machinelearningservices-workspace",
+      "domain": "ai-ml",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Machine Learning Services Workspace",
+      "score": 86.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-maintenance-maintenanceconfiguration",
+      "domain": "management",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Maintenance Configuration",
+      "score": 76.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-managedidentity-userassignedidentity",
+      "domain": "identity-security",
+      "type": "res",
+      "status": "Available",
+      "display_name": "User Assigned Identity",
+      "score": 76.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-management-servicegroup",
+      "domain": "management",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Management Service Groups",
+      "score": 63.3,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-netapp-netappaccount",
+      "domain": "storage",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Azure NetApp File",
+      "score": 72.2,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-network-applicationgateway",
+      "domain": "networking",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Application Gateway",
+      "score": 33.3,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "security-hardening": {
+          "status": "fail",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "dependency-health": {
+          "status": "fail",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-network-applicationgatewaywebapplicationfirewallpolicy",
+      "domain": "networking",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Application Gateway Web Application Firewall (WAF) Policy",
+      "score": 72.2,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-network-applicationsecuritygroup",
+      "domain": "networking",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Application Security Group (ASG)",
+      "score": 72.2,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-network-azurefirewall",
+      "domain": "networking",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Azure Firewall",
+      "score": 72.2,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-network-bastionhost",
+      "domain": "networking",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Bastion Host",
+      "score": 72.2,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-network-connection",
+      "domain": "networking",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Virtual Network Gateway Connection",
+      "score": 72.2,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-network-ddosprotectionplan",
+      "domain": "networking",
+      "type": "res",
+      "status": "Available",
+      "display_name": "DDoS Protection",
+      "score": 63.9,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "dependency-health": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-network-dnsresolver",
+      "domain": "networking",
+      "type": "res",
+      "status": "Available",
+      "display_name": "DNS Resolver",
+      "score": 55.6,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "dependency-health": {
+          "status": "fail",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-network-dnszone",
+      "domain": "networking",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Public DNS Zone",
+      "score": 72.2,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-network-expressroutecircuit",
+      "domain": "networking",
+      "type": "res",
+      "status": "Available",
+      "display_name": "ExpressRoute Circuit",
+      "score": 72.2,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-network-firewallpolicy",
+      "domain": "networking",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Azure Firewall Policy",
+      "score": 72.2,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-network-frontdoorwebapplicationfirewallpolicy",
+      "domain": "networking",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Front Door Web Application Firewall (WAF) Policy",
+      "score": 72.2,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-network-ipgroup",
+      "domain": "networking",
+      "type": "res",
+      "status": "Available",
+      "display_name": "IP Group",
+      "score": 72.2,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-network-loadbalancer",
+      "domain": "networking",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Loadbalancer",
+      "score": 55.6,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "dependency-health": {
+          "status": "fail",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-network-localnetworkgateway",
+      "domain": "networking",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Local Network Gateway",
+      "score": 72.2,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-network-natgateway",
+      "domain": "networking",
+      "type": "res",
+      "status": "Available",
+      "display_name": "NAT Gateway",
+      "score": 72.2,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:42Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-network-networkinterface",
+      "domain": "networking",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Network Interface",
+      "score": 72.2,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-network-networkmanager",
+      "domain": "networking",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Azure Virtual Network Manager",
+      "score": 72.2,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-network-networksecuritygroup",
+      "domain": "networking",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Network Security Group",
+      "score": 72.2,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-network-networkwatcher",
+      "domain": "networking",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Azure Network Watcher",
+      "score": 72.2,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-network-privatednszone",
+      "domain": "networking",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Private DNS Zone",
+      "score": 63.9,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "provider-currency": {
+          "status": "fail",
+          "checked_at": "2026-05-13T09:38:43Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-network-privateendpoint",
+      "domain": "networking",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Private Endpoint",
+      "score": 72.2,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-network-publicipaddress",
+      "domain": "networking",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Public IP Address",
+      "score": 55.6,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "dependency-health": {
+          "status": "fail",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-network-publicipprefix",
+      "domain": "networking",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Public IP Prefix",
+      "score": 72.2,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-network-routetable",
+      "domain": "networking",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Route Table",
+      "score": 72.2,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-network-trafficmanagerprofile",
+      "domain": "networking",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Traffic Manager Profile",
+      "score": 72.2,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-network-virtualnetwork",
+      "domain": "networking",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Virtual Network",
+      "score": 72.2,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-operationalinsights-workspace",
+      "domain": "monitoring",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Log Analytics workspace",
+      "score": 76.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-oracledatabase-cloudexadatainfrastructure",
+      "domain": "data-databases",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Oracle Exadata Infrastructure",
+      "score": 72.2,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-oracledatabase-cloudvmcluster",
+      "domain": "data-databases",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Oracle VM cluster",
+      "score": 72.2,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "provider-currency": {
+          "status": "fail",
+          "checked_at": "2026-05-13T09:38:43Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-portal-dashboard",
+      "domain": "management",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Azure Portal Dashboard",
+      "score": 76.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-recoveryservices-vault",
+      "domain": "recovery-bcdr",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Recovery Services Vault",
+      "score": 86.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-redhatopenshift-openshiftcluster",
+      "domain": "containers",
+      "type": "res",
+      "status": "Available",
+      "display_name": "OpenShift Cluster",
+      "score": 76.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-relay-namespace",
+      "domain": "web-app-services",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Relay Namespace",
+      "score": 76.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-resourcegraph-query",
+      "domain": "management",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Resource Graph Query",
+      "score": 76.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-resources-resourcegroup",
+      "domain": "management",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Resource Group",
+      "score": 76.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-search-searchservice",
+      "domain": "data-databases",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Search Service",
+      "score": 80.6,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-servicebus-namespace",
+      "domain": "data-databases",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Service Bus Namespace",
+      "score": 80.6,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-sql-managedinstance",
+      "domain": "data-databases",
+      "type": "res",
+      "status": "Available",
+      "display_name": "SQL Managed Instance",
+      "score": 72.2,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "provider-currency": {
+          "status": "fail",
+          "checked_at": "2026-05-13T09:38:43Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-sql-server",
+      "domain": "data-databases",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Azure SQL Server",
+      "score": 80.6,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-sqlvirtualmachine-sqlvirtualmachine",
+      "domain": "data-databases",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Sql Virtual Machine",
+      "score": 72.2,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-storage-storageaccount",
+      "domain": "storage",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Storage Account",
+      "score": 55.6,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "dependency-health": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "provider-currency": {
+          "status": "fail",
+          "checked_at": "2026-05-13T09:38:43Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-web-connection",
+      "domain": "web-app-services",
+      "type": "res",
+      "status": "Available",
+      "display_name": "API Connection",
+      "score": 76.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-web-hostingenvironment",
+      "domain": "web-app-services",
+      "type": "res",
+      "status": "Available",
+      "display_name": "App Service Environment",
+      "score": 76.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-web-serverfarm",
+      "domain": "web-app-services",
+      "type": "res",
+      "status": "Available",
+      "display_name": "App Service Plan",
+      "score": 76.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-web-site",
+      "domain": "web-app-services",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Web/Function App",
+      "score": 86.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-res-web-staticsite",
+      "domain": "web-app-services",
+      "type": "res",
+      "status": "Available",
+      "display_name": "Static Web App",
+      "score": 40.0,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "fail",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-ptn-aca-lza-hosting-environment",
+      "domain": "containers",
+      "type": "ptn",
+      "status": "Available",
+      "display_name": "Azure Container Apps Landing Zone Accelerator",
+      "score": 60.0,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "security-hardening": {
+          "status": "fail",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-ptn-aiml-ai-foundry",
+      "domain": "ai-ml",
+      "type": "ptn",
+      "status": "Available",
+      "display_name": "AI-ML - AI Foundry",
+      "score": 60.0,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "fail",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-ptn-aiml-landing-zone",
+      "domain": "ai-ml",
+      "type": "ptn",
+      "status": "Available",
+      "display_name": "AI-ML - Landing Zone (LZ)",
+      "score": 86.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-ptn-aks-dev",
+      "domain": "containers",
+      "type": "ptn",
+      "status": "Available",
+      "display_name": "AKS dev",
+      "score": 86.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-ptn-aks-economy",
+      "domain": "containers",
+      "type": "ptn",
+      "status": "Available",
+      "display_name": "AKS economy",
+      "score": 86.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-ptn-aks-enterprise",
+      "domain": "containers",
+      "type": "ptn",
+      "status": "Available",
+      "display_name": "AKS Enterprise",
+      "score": 86.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-ptn-aks-production",
+      "domain": "containers",
+      "type": "ptn",
+      "status": "Available",
+      "display_name": "Azure Kubernetes Service",
+      "score": 40.0,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "security-hardening": {
+          "status": "fail",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T04:50:11Z"
+        },
+        "dependency-health": {
+          "status": "fail",
+          "checked_at": "2026-05-13T04:50:11Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-ptn-alz-connectivity-hub-and-spoke-vnet",
+      "domain": "platform-alz",
+      "type": "ptn",
+      "status": "Available",
+      "display_name": "ALZ Connectivity Hub and Spoke",
+      "score": 86.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:41Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-ptn-alz-connectivity-virtual-wan",
+      "domain": "platform-alz",
+      "type": "ptn",
+      "status": "Available",
+      "display_name": "ALZ Connectivity vWAN",
+      "score": 86.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-ptn-alz-management",
+      "domain": "platform-alz",
+      "type": "ptn",
+      "status": "Available",
+      "display_name": "ALZ Management",
+      "score": 93.3,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "test-coverage": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-ptn-alz-sub-vending",
+      "domain": "platform-alz",
+      "type": "ptn",
+      "status": "Available",
+      "display_name": "ALZ Subscription vending",
+      "score": 0.0,
+      "stale_days": null,
+      "analysis": {},
+      "open_issues": 0
+    },
+    {
+      "name": "avm-ptn-alz",
+      "domain": "platform-alz",
+      "type": "ptn",
+      "status": "Available",
+      "display_name": "Azure Landing Zone Management Groups and Policy",
+      "score": 76.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-ptn-avd-lza-insights",
+      "domain": "avd",
+      "type": "ptn",
+      "status": "Available",
+      "display_name": "AVD Insights",
+      "score": 72.2,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-ptn-avd-lza-managementplane",
+      "domain": "avd",
+      "type": "ptn",
+      "status": "Available",
+      "display_name": "AVD Management Plane",
+      "score": 72.2,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-ptn-azuremonitorwindowsagent",
+      "domain": "monitoring",
+      "type": "ptn",
+      "status": "Available",
+      "display_name": "Azure Monitor Windows Agent",
+      "score": 76.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-ptn-cicd-agents-and-runners",
+      "domain": "developer-tools",
+      "type": "ptn",
+      "status": "Available",
+      "display_name": "CI CD Agents and Runners",
+      "score": 50.0,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "security-hardening": {
+          "status": "fail",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "dependency-health": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-ptn-commercial-marketplace",
+      "domain": "other",
+      "type": "ptn",
+      "status": "Available",
+      "display_name": "Commercial Marketplace SaaS Accelerator",
+      "score": 66.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "security-hardening": {
+          "status": "fail",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "test-coverage": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-ptn-ephemeral-credential",
+      "domain": "identity-security",
+      "type": "ptn",
+      "status": "Available",
+      "display_name": "Ephemeral Credentials Generator",
+      "score": 0.0,
+      "stale_days": null,
+      "analysis": {},
+      "open_issues": 0
+    },
+    {
+      "name": "avm-ptn-function-app-storage-private-endpoints",
+      "domain": "web-app-services",
+      "type": "ptn",
+      "status": "Available",
+      "display_name": "Function App and private endpoint-secured Storage",
+      "score": 86.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-ptn-hci-ad-provisioner",
+      "domain": "hybrid",
+      "type": "ptn",
+      "status": "Available",
+      "display_name": "Arc for AD registration",
+      "score": 76.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-ptn-hci-server-provisioner",
+      "domain": "hybrid",
+      "type": "ptn",
+      "status": "Available",
+      "display_name": "Arc for Server registration",
+      "score": 76.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-ptn-monitoring-amba-alz",
+      "domain": "monitoring",
+      "type": "ptn",
+      "status": "Available",
+      "display_name": "AMBA ALZ Pattern",
+      "score": 93.3,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "test-coverage": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-ptn-network-private-link-private-dns-zones",
+      "domain": "networking",
+      "type": "ptn",
+      "status": "Available",
+      "display_name": "Private Link Private DNS Zones",
+      "score": 80.6,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-ptn-network-routeserver",
+      "domain": "networking",
+      "type": "ptn",
+      "status": "Available",
+      "display_name": "Azure Route Server",
+      "score": 80.6,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-ptn-odaa",
+      "domain": "data-databases",
+      "type": "ptn",
+      "status": "Available",
+      "display_name": "Oracle Exedata Workload",
+      "score": 69.4,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "avm-interface-compliance": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "security-hardening": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-ptn-policyassignment",
+      "domain": "management",
+      "type": "ptn",
+      "status": "Available",
+      "display_name": "Policy assignment",
+      "score": 76.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-utl-compute-linuxvirtualmachine-azapi-replicator",
+      "domain": "compute",
+      "type": "utl",
+      "status": "Available",
+      "display_name": "Linux VM AzRM to AzAPI Replicator",
+      "score": 0.0,
+      "stale_days": null,
+      "analysis": {},
+      "open_issues": 0
+    },
+    {
+      "name": "avm-utl-compute-orchestratedvirtualmachinescaleset-azapi-replicator",
+      "domain": "compute",
+      "type": "utl",
+      "status": "Available",
+      "display_name": "VMSS AzRM to AzAPI Replicator",
+      "score": 0.0,
+      "stale_days": null,
+      "analysis": {},
+      "open_issues": 0
+    },
+    {
+      "name": "avm-utl-compute-windowsvirtualmachine-azapi-replicator",
+      "domain": "compute",
+      "type": "utl",
+      "status": "Available",
+      "display_name": "Windows VM AzRM to AzAPI Replicator",
+      "score": 0.0,
+      "stale_days": null,
+      "analysis": {},
+      "open_issues": 0
+    },
+    {
+      "name": "avm-utl-interfaces",
+      "domain": "platform-alz",
+      "type": "utl",
+      "status": "Available",
+      "display_name": "AVM Interfaces",
+      "score": 0.0,
+      "stale_days": null,
+      "analysis": {},
+      "open_issues": 0
+    },
+    {
+      "name": "avm-utl-network-ip-addresses",
+      "domain": "networking",
+      "type": "utl",
+      "status": "Available",
+      "display_name": "AVM Network IP Addresses",
+      "score": 72.2,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-13T09:38:43Z"
+        },
+        "provider-currency": {
+          "status": "partial",
+          "checked_at": "2026-05-13T09:38:43Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-utl-network-virtualnetwork-azapi-replicator",
+      "domain": "networking",
+      "type": "utl",
+      "status": "Available",
+      "display_name": "Virtual Network AzRM to AzAPI Replicator",
+      "score": 0.0,
+      "stale_days": null,
+      "analysis": {},
+      "open_issues": 0
+    },
+    {
+      "name": "avm-utl-privatedns-privatednszone-azapi-replicator",
+      "domain": "networking",
+      "type": "utl",
+      "status": "Available",
+      "display_name": "Private DNS Zone AzRM to AzAPI Replicator",
+      "score": 0.0,
+      "stale_days": null,
+      "analysis": {},
+      "open_issues": 0
+    },
+    {
+      "name": "avm-utl-regions",
+      "domain": "management",
+      "type": "utl",
+      "status": "Available",
+      "display_name": "Azure Regions Data",
+      "score": 76.7,
+      "stale_days": 0,
+      "analysis": {
+        "terraform-metadata": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "avm-interface-compliance": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "security-hardening": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "test-coverage": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "doc-quality": {
+          "status": "partial",
+          "checked_at": "2026-05-12T23:34:42Z"
+        },
+        "dependency-health": {
+          "status": "pass",
+          "checked_at": "2026-05-12T23:34:42Z"
+        }
+      },
+      "open_issues": 0
+    },
+    {
+      "name": "avm-utl-resources-resourcegroup-azapi-replicator",
+      "domain": "management",
+      "type": "utl",
+      "status": "Available",
+      "display_name": "Resource Group AzRM to AzAPI Replicator",
+      "score": 0.0,
+      "stale_days": null,
+      "analysis": {},
+      "open_issues": 0
+    },
+    {
+      "name": "avm-utl-roledefinitions",
+      "domain": "identity-security",
+      "type": "utl",
+      "status": "Available",
+      "display_name": "Azure Role Definitions",
+      "score": 0.0,
+      "stale_days": null,
+      "analysis": {},
+      "open_issues": 0
+    },
+    {
+      "name": "avm-utl-sku-finder",
+      "domain": "compute",
+      "type": "utl",
+      "status": "Available",
+      "display_name": "AVM SKU Finder",
+      "score": 0.0,
+      "stale_days": null,
+      "analysis": {},
+      "open_issues": 0
+    }
+  ]
+}

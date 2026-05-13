@@ -1,0 +1,69 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "avm: sync catalog",
+      "type": "shell",
+      "command": "./avm.sh sync",
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "problemMatcher": []
+    },
+    {
+      "label": "avm: sync catalog (dry run)",
+      "type": "shell",
+      "command": "./avm.sh sync --dry-run",
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "problemMatcher": []
+    },
+    {
+      "label": "avm: setup all domains",
+      "type": "shell",
+      "command": "./avm.sh setup --domains all",
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "problemMatcher": []
+    },
+    {
+      "label": "avm: clone all",
+      "type": "shell",
+      "command": "./avm.sh clone",
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "problemMatcher": []
+    },
+    {
+      "label": "avm: update all (git pull)",
+      "type": "shell",
+      "command": "./avm.sh update --parallel 10",
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "problemMatcher": []
+    },
+    {
+      "label": "avm: status",
+      "type": "shell",
+      "command": "./avm.sh status",
+      "group": "test",
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "problemMatcher": []
+    },
+    {
+      "label": "avm: cleanup (dry run)",
+      "type": "shell",
+      "command": "./avm.sh cleanup --dry-run",
+      "group": "test",
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "problemMatcher": []
+    },
+    {
+      "label": "avm: validate scripts (bash -n)",
+      "type": "shell",
+      "command": "bash -n avm.sh && echo 'avm.sh OK'",
+      "group": "test",
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "problemMatcher": []
+    }
+  ]
+}

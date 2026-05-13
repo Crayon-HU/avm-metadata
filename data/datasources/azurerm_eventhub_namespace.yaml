@@ -1,0 +1,37 @@
+resource:
+  type: azurerm_eventhub_namespace
+  provider: azurerm
+  symbol_type: datasource
+  registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/eventhub_namespace"
+
+provider_updates:
+  last_checked: "2026-05-13T09:54:43Z"
+  findings:
+  - version: "4.48.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_eventhub_namespace` - `maximum_throughput_units` can be set to `0` when `auto_inflate_enabled` is disabled ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.48.0"
+  - version: "4.27.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_eventhub_namespace` - remove max items from network/ip rules as they can be increased above upon request ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.27.0"
+  - version: "3.113.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_eventhub_namespace` - deprecate the `zone_redundant` field in v4.0 ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.113.0"
+
+provider_issues:
+  last_checked: null
+  items: []
+  # item shape:
+  #   - number: 1234
+  #     title: "..."
+  #     labels: [bug]
+  #     url: "..."
+  #     created_at: "2026-01-01"
+
+enrichment:
+  notes: []

@@ -1,0 +1,249 @@
+# use_case_tags.yaml — Use-case tag lookup for avm tag command.
+#
+# Used by scripts/tag_use_cases.py to infer analysis_use_cases tags from catalog metadata.
+# Operator-maintained: add/edit entries freely.
+#
+# Tag vocabulary (functional v1):
+#   networking, connectivity, security, compute, containers, data, storage,
+#   messaging, monitoring, identity, ai-ml, web, automation, management,
+#   platform, avd, hybrid, iot, bcdr, devtools, cdn, api-gateway
+#
+# Three tiers (applied in order, results merged):
+#   1. domains:          catalog.domain → base tags (all module types)
+#   2. resource_types:   "{provider_namespace}/{resource_type}" → extra tags (res modules only)
+#   3. resources:        azurerm_*/azapi_*/azuread_* resource names → extra tags (from resources_managed)
+#      (helper resources below are IGNORED — they appear in almost every module)
+
+# ---------------------------------------------------------------------------
+# Tier 1 — Domain → base tags
+# ---------------------------------------------------------------------------
+domains:
+  networking:         [networking, connectivity]
+  compute:            [compute, infrastructure]
+  containers:         [containers, cloud-native]
+  data-databases:     [data, databases]
+  monitoring:         [monitoring, observability]
+  identity-security:  [security, identity]
+  web-app-services:   [web, application]
+  storage:            [storage]
+  management:         [management, governance]
+  platform-alz:       [platform, landing-zone, alz]
+  avd:                [avd, virtual-desktop]
+  hybrid:             [hybrid, arc]
+  iot:                [iot]
+  ai-ml:              [ai-ml, machine-learning]
+  recovery-bcdr:      [bcdr, recovery]
+  developer-tools:    [devtools]
+  other:              []
+
+# ---------------------------------------------------------------------------
+# Tier 2 — provider_namespace/resource_type → extra tags
+# Key format: "Microsoft.Namespace/resourceTypes" (case-sensitive, matches catalog values)
+# ---------------------------------------------------------------------------
+resource_types:
+  # Networking — connectivity and security sub-tags
+  Microsoft.Network/virtualNetworks:                    [hub-spoke, landing-zone]
+  Microsoft.Network/networkSecurityGroups:              [security, zero-trust]
+  Microsoft.Network/azureFirewalls:                     [security, firewall, zero-trust]
+  Microsoft.Network/firewallPolicies:                   [security, firewall]
+  Microsoft.Network/applicationGateways:                [security, load-balancing, api-gateway]
+  Microsoft.Network/ApplicationGatewayWebApplicationFirewallPolicies: [security, waf]
+  Microsoft.Network/frontDoorWebApplicationFirewallPolicies: [security, waf, cdn]
+  Microsoft.Network/bastionHosts:                       [security, remote-access]
+  Microsoft.Network/privateEndpoints:                   [security, private-connectivity, zero-trust]
+  Microsoft.Network/privateDnsZones:                    [private-connectivity, dns]
+  Microsoft.Network/dnsZones:                           [dns]
+  Microsoft.Network/dnsResolvers:                       [dns, private-connectivity]
+  Microsoft.Network/loadBalancers:                      [load-balancing]
+  Microsoft.Network/natGateways:                        [connectivity, egress]
+  Microsoft.Network/expressRouteCircuits:               [hybrid, connectivity, expressroute]
+  Microsoft.Network/connections:                        [hybrid, connectivity, vpn]
+  Microsoft.Network/localNetworkGateways:               [hybrid, connectivity, vpn]
+  Microsoft.Network/ddosProtectionPlans:                [security, ddos]
+  Microsoft.Network/publicIPAddresses:                  [connectivity]
+  Microsoft.Network/publicIPPrefixes:                   [connectivity]
+  Microsoft.Network/routeTables:                        [connectivity, routing]
+  Microsoft.Network/networkManagers:                    [management, networking]
+  Microsoft.Network/networkWatchers:                    [monitoring, networking]
+  Microsoft.Network/trafficmanagerprofiles:             [load-balancing, global-routing]
+  Microsoft.Network/networkInterfaces:                  [compute, infrastructure]
+  Microsoft.Network/applicationSecurityGroups:          [security]
+  Microsoft.Network/ipGroups:                           [security, firewall]
+
+  # Compute
+  Microsoft.Compute/virtualMachines:                    [compute, iaas]
+  Microsoft.Compute/virtualMachineScaleSets:            [compute, iaas, autoscale]
+  Microsoft.Compute/disks:                              [compute, storage, iaas]
+  Microsoft.Compute/diskEncryptionSets:                 [security, encryption]
+  Microsoft.Compute/galleries:                          [compute, image-management]
+  Microsoft.Compute/hostGroups:                         [compute, dedicated-hosts, isolation]
+  Microsoft.Compute/capacityReservationGroups:          [compute, capacity-management]
+  Microsoft.Compute/proximityPlacementGroups:           [compute, performance, iaas]
+  Microsoft.Compute/sshPublicKeys:                      [security, compute]
+
+  # Containers
+  Microsoft.ContainerService/managedClusters:           [containers, aks, kubernetes]
+  Microsoft.ContainerRegistry/registries:               [containers, aks, image-management]
+  Microsoft.App/containerApps:                          [containers, serverless, aca]
+  Microsoft.App/Jobs:                                   [containers, serverless, aca]
+  Microsoft.App/managedEnvironments:                    [containers, serverless, aca]
+  Microsoft.ContainerInstance/containerGroups:          [containers, serverless]
+  Microsoft.HybridContainerService/provisionedClusterInstances: [containers, kubernetes, hybrid, arc]
+  Microsoft.RedHatOpenShift/openShiftClusters:          [containers, kubernetes, openshift]
+
+  # Data & Databases
+  Microsoft.DocumentDB/databaseAccount:                 [data, nosql, cosmosdb]
+  Microsoft.DocumentDB/mongoClusters:                   [data, nosql, mongodb]
+  Microsoft.Sql/servers:                                [data, sql, relational]
+  Microsoft.Sql/managedInstances:                       [data, sql, relational, lift-and-shift]
+  Microsoft.SqlVirtualMachine/sqlVirtualMachines:       [data, sql, iaas]
+  Microsoft.DBforMySQL/flexibleServers:                 [data, mysql, relational]
+  Microsoft.DBforPostgreSQL/flexibleServers:            [data, postgresql, relational]
+  Microsoft.Cache/Redis:                                [data, cache, redis]
+  Microsoft.Cache/redisEnterprise:                      [data, cache, redis]
+  Microsoft.Databricks/workspaces:                      [data, analytics, databricks, ai-ml]
+  Microsoft.DataFactory/factories:                      [data, integration, etl]
+  Microsoft.Kusto/clusters:                             [data, analytics, adx]
+  Oracle.Database/cloudExadataInfrastructures:          [data, oracle, hybrid]
+  Oracle.Database/cloudvmclusters:                      [data, oracle, hybrid]
+  Microsoft.NetApp/netAppAccounts:                      [storage, nfs, high-performance]
+
+  # Storage
+  Microsoft.Storage/storageAccounts:                    [storage, data]
+
+  # Messaging & Integration
+  Microsoft.EventHub/namespaces:                        [messaging, streaming, event-driven]
+  Microsoft.ServiceBus/namespaces:                      [messaging, integration, event-driven]
+  Microsoft.EventGrid/namespaces:                       [messaging, event-driven]
+  Microsoft.EventGrid/topics:                           [messaging, event-driven]
+  Microsoft.EventGrid/domains:                          [messaging, event-driven]
+  Microsoft.Logic/workflows:                            [automation, integration, messaging]
+  Microsoft.Relay/namespaces:                           [messaging, hybrid, integration]
+
+  # Monitoring & Observability
+  Microsoft.Insights/components:                        [monitoring, apm, observability]
+  Microsoft.Insights/dataCollectionRules:               [monitoring, observability]
+  Microsoft.Insights/dataCollectionEndpoints:           [monitoring, observability]
+  Microsoft.Insights/autoscalesettings:                 [monitoring, autoscale]
+  Microsoft.OperationalInsights/workspaces:             [monitoring, log-analytics, observability]
+
+  # Identity & Security
+  Microsoft.KeyVault/vaults:                            [security, secrets, encryption, zero-trust]
+  Microsoft.ManagedIdentity/userAssignedIdentities:     [identity, security]
+  Microsoft.Authorization/roleAssignments:              [identity, rbac, governance]
+  Microsoft.AppConfiguration/configurationStores:       [configuration, identity]
+
+  # Web & Application
+  Microsoft.Web/sites:                                  [web, application, serverless]
+  Microsoft.Web/serverfarms:                            [web, application]
+  Microsoft.Web/staticSites:                            [web, frontend, cdn]
+  Microsoft.Web/hostingEnvironments:                    [web, application, isolated]
+  Microsoft.Web/connection:                             [integration, web]
+  Microsoft.ApiManagement/service:                      [api-gateway, web, integration]
+
+  # AI / ML
+  Microsoft.CognitiveServices/accounts:                 [ai-ml, cognitive-services]
+  Microsoft.MachineLearningServices/workspaces:         [ai-ml, mlops]
+  Microsoft.Search/searchServices:                      [ai-ml, search]
+  Microsoft.BotService/botServices:                     [ai-ml, chatbot]
+
+  # CDN
+  Microsoft.Cdn/profiles:                               [cdn, web, networking]
+
+  # Management & Governance
+  Microsoft.Resources/resourceGroups:                   [management, governance, landing-zone]
+  Microsoft.Management/serviceGroups:                   [management, governance, alz]
+  Microsoft.Automation/automationAccounts:              [automation, management, devops]
+  Microsoft.Portal/dashboards:                          [monitoring, management]
+  Microsoft.ResourceGraph/queries:                      [management, governance]
+  Microsoft.Maintenance/maintenanceConfigurations:      [management, compute]
+  Microsoft.Features/features:                          [management, governance]
+
+  # Platform / ALZ
+  Microsoft.AVS/privateClouds:                          [hybrid, vmware, avs]
+  Microsoft.CertificateRegistration/certificateOrders:  [security, certificates, web]
+  Microsoft.Communication/emailServices:                [messaging, communication]
+
+  # Azure Virtual Desktop
+  Microsoft.DesktopVirtualization/hostPools:            [avd, virtual-desktop]
+  Microsoft.DesktopVirtualization/workspaces:           [avd, virtual-desktop]
+  Microsoft.DesktopVirtualization/applicationGroups:    [avd, virtual-desktop]
+  Microsoft.DesktopVirtualization/scalingPlans:         [avd, virtual-desktop, autoscale]
+
+  # Hybrid & HCI
+  Microsoft.AzureStackHCI/clusters:                     [hybrid, hci, edge]
+  Microsoft.AzureStackHCI/logicalNetworks:              [hybrid, hci, networking]
+  Microsoft.AzureStackHCI/virtualMachineInstances:      [hybrid, hci, compute]
+
+  # IoT
+  Microsoft.Edge/sites:                                 [iot, edge, hybrid]
+
+  # BCDR
+  Microsoft.RecoveryServices/vaults:                    [bcdr, backup, recovery]
+  Microsoft.DataProtection/backupVaults:                [bcdr, backup]
+  Microsoft.DataProtection/resourceGuards:              [bcdr, security, governance]
+
+  # Developer Tools
+  Microsoft.DevCenter/devcenters:                       [devtools, development]
+  Microsoft.DevOpsInfrastructure/Pools:                 [devtools, cicd, automation]
+
+  # Batch / HPC
+  Microsoft.Batch/batchAccounts:                        [compute, hpc, batch]
+
+# ---------------------------------------------------------------------------
+# Tier 3 — specific Terraform resource names → extra tags
+# Only map non-helper, high-signal resources. See 'ignore' list below.
+# ---------------------------------------------------------------------------
+resources:
+  azurerm_kubernetes_cluster:           [containers, aks]
+  azurerm_container_registry:           [containers, image-management]
+  azurerm_log_analytics_workspace:      [monitoring, log-analytics]
+  azurerm_application_insights:         [monitoring, apm]
+  azurerm_key_vault:                    [security, secrets]
+  azurerm_user_assigned_identity:       [identity]
+  azurerm_virtual_network:              [networking, connectivity]
+  azurerm_subnet:                       [networking, connectivity]
+  azurerm_network_security_group:       [security, networking]
+  azurerm_firewall:                     [security, firewall]
+  azurerm_application_gateway:          [load-balancing, api-gateway]
+  azurerm_private_endpoint:             [security, private-connectivity]
+  azurerm_storage_account:              [storage]
+  azurerm_cosmosdb_account:             [data, nosql]
+  azurerm_linux_virtual_machine:        [compute, iaas]
+  azurerm_windows_virtual_machine:      [compute, iaas]
+  azurerm_mssql_server:                 [data, sql]
+  azurerm_mssql_managed_instance:       [data, sql, lift-and-shift]
+  azurerm_postgresql_flexible_server:   [data, postgresql]
+  azurerm_mysql_flexible_server:        [data, mysql]
+  azurerm_redis_cache:                  [data, cache]
+  azurerm_eventhub_namespace:           [messaging, streaming]
+  azurerm_servicebus_namespace:         [messaging, integration]
+  azurerm_data_factory:                 [data, etl, integration]
+  azurerm_automation_account:           [automation, management]
+  azurerm_api_management:               [api-gateway, web]
+  azurerm_cdn_frontdoor_profile:        [cdn, web]
+  azurerm_search_service:               [ai-ml, search]
+  azurerm_cognitive_account:            [ai-ml]
+  azurerm_backup_protected_vm:          [bcdr, backup]
+  azurerm_recovery_services_vault:      [bcdr, backup]
+  azuread_directory_role:               [identity, security]
+  azuread_directory_role_assignment:    [identity, rbac]
+
+# Resources to always skip — they appear in almost every module as helpers
+# and carry no use-case signal.
+ignore:
+  - azurerm_role_assignment
+  - azurerm_management_lock
+  - azurerm_monitor_diagnostic_setting
+  - azurerm_resource_group
+  - azurerm_subscription
+  - azapi_resource
+  - azapi_update_resource
+  - azapi_resource_action
+  - azapi_resource_list
+  - azapi_client_config
+  - azurerm_client_config
+  - modtm_telemetry
+  - random_uuid
+  - random_string
+  - random_password

@@ -1,0 +1,136 @@
+resource:
+  type: azapi_resource_action
+  provider: azapi
+  symbol_type: ephemeral
+  registry_url: "https://registry.terraform.io/providers/azure/azapi/latest/docs/ephemeral-resources/resource_action"
+
+provider_updates:
+  last_checked: "2026-05-13T06:21:02Z"
+  findings:
+  - version: "2.9.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource_action` resource: Support updating api-version without recreating the resource."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.9.0"
+  - version: "2.9.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource_action`  Support `ignore_not_found` argument to optionally suppress 404 errors and expose resource existence."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.9.0"
+  - version: "2.9.0"
+    criticality: high
+    type: bug_fix
+    summary: "`azapi_resource_action`: Fix inconsistent result error when updating `query_parameters` with `when = 'destroy'` (GH-1028)."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.9.0"
+  - version: "2.8.0"
+    criticality: medium
+    type: enhancement
+    summary: "New Action**: `azapi_resource_action` - Perform stateless actions on Azure resources that can be invoked via Terraform action triggers"
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.8.0"
+  - version: "2.4.0"
+    criticality: high
+    type: bug_fix
+    summary: "Fix a bug that `azapi_resource_action` resource could not be migrated correctly when the `body` is empty string."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.4.0"
+  - version: "2.3.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource_action` resource, data source: Support `sensitive_response_export_values` field, which is used to specify the sensitive fields to export."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.3.0"
+  - version: "1.14.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource`, `azapi_update_resource`, `azapi_resource_action`, `azapi_data_plane_resource` resources: Support `timeouts.update` field, which is used to specify the timeout for the update opera..."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.14.0"
+  - version: "1.13.1"
+    criticality: high
+    type: bug_fix
+    summary: "Fix a bug that `azapi_resource_action` resource shows the plan diff when upgrading from the previous provider."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.13.1"
+  - version: "1.13.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource` resource, `azapi_update_resource` resource, `azapi_resource_action` resource, `azapi_data_plane_resource` resource, `azapi_resource_action` data source: The `body` field supports t..."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.13.0"
+  - version: "1.13.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource` resource, `azapi_update_resource` resource, `azapi_resource_action` resource, `azapi_data_plane_resource` resource, `azapi_resource_action` data source: The `body` field supports t..."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.13.0"
+  - version: "1.13.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource` resource, `azapi_update_resource` resource, `azapi_resource_action` resource, `azapi_data_plane_resource` resource, `azapi_resource_action` data source, `azapi_resource` data sourc..."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.13.0"
+  - version: "1.13.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource` resource, `azapi_update_resource` resource, `azapi_resource_action` resource, `azapi_data_plane_resource` resource, `azapi_resource_action` data source, `azapi_resource` data sourc..."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.13.0"
+  - version: "1.13.0"
+    criticality: high
+    type: bug_fix
+    summary: "Fix a bug that `azapi_resource_action` doesn't support 204 status code as a success response."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.13.0"
+  - version: "1.11.0"
+    criticality: low
+    type: documentation
+    summary: "`azapi_resource_action` resource: Support `HEAD` method."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.11.0"
+  - version: "1.11.0"
+    criticality: low
+    type: documentation
+    summary: "`azapi_resource_action` resource: Support `when` field, which is used to control when to execute the action."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.11.0"
+  - version: "1.10.0"
+    criticality: low
+    type: documentation
+    summary: "`azapi_resource_action` resource: Support `GET` method."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.10.0"
+  - version: "1.8.0"
+    criticality: low
+    type: documentation
+    summary: "`azapi_resource_action`: Support provider action."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.8.0"
+  - version: "1.1.0"
+    criticality: low
+    type: documentation
+    summary: "`azapi_resource_action`: The `output` is not refreshed when `body` is changed."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.1.0"
+  - version: "0.6.0"
+    criticality: low
+    type: documentation
+    summary: "`azapi_resource_action`: Supports `locks` which used to prevent modifying resources at the same time."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v0.6.0"
+  - version: "0.6.0"
+    criticality: low
+    type: documentation
+    summary: "`azapi_resource_action`: Supports parse response which `Content-Type` is `text/plain`."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v0.6.0"
+
+provider_issues:
+  last_checked: "2026-05-13T06:39:29Z"
+  items:
+  - number: 1094
+    title: "Logic bug in `azapi_resource_action.exist` for resources created before v2.9.0"
+    labels: []
+    url: "https://github.com/Azure/terraform-provider-azapi/issues/1094"
+    created_at: "2026-04-09"
+  - number: 1039
+    title: "feature request: support ephemeral values on `azapi_resource_action` action and resource"
+    labels: ["enhancement"]
+    url: "https://github.com/Azure/terraform-provider-azapi/issues/1039"
+    created_at: "2026-01-27"
+  - number: 967
+    title: "Consider adding `when` to `azapi_update_resource` resource"
+    labels: ["enhancement"]
+    url: "https://github.com/Azure/terraform-provider-azapi/issues/967"
+    created_at: "2025-08-20"
+  - number: 326
+    title: "`azapi_resource_action` - resource_id validate error for Providers Register At Management Group Scope method"
+    labels: ["upstream-sdk"]
+    url: "https://github.com/Azure/terraform-provider-azapi/issues/326"
+    created_at: "2023-08-02"
+
+enrichment:
+  notes: []

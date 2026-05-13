@@ -1,0 +1,321 @@
+resource:
+  type: azapi_resource
+  provider: azapi
+  symbol_type: datasource
+  registry_url: "https://registry.terraform.io/providers/azure/azapi/latest/docs/data-sources/resource"
+
+provider_updates:
+  last_checked: "2026-05-13T06:21:02Z"
+  findings:
+  - version: "2.9.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource`, `azapi_update_resource` resources: Support `list_unique_id_property` and `ignore_other_items_in_list` fields, which are used to manage list properties with unique identifiers (GH-..."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.9.0"
+  - version: "2.9.0"
+    criticality: high
+    type: bug_fix
+    summary: "`azapi_resource` resource: Fix embedded schema validation failure when the discriminator property is unknown (GH-1038)."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.9.0"
+  - version: "2.8.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource` resource: Add support for identity-based import, enabling import via resource ID and type from list resource protocol."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.8.0"
+  - version: "2.8.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource` resource: Support listing resources via new ListResource protocol."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.8.0"
+  - version: "2.8.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource` resource: Support listing all resources in a resource group when `type` is omitted. Uses ARM API `/subscriptions/{sub}/resourceGroups/{rg}/resources` to enumerate all resources."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.8.0"
+  - version: "2.8.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource` resource: Refactor import logic to support identity block and multiple import scenarios (ID only, ID with API version, ID and type)."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.8.0"
+  - version: "2.8.0"
+    criticality: high
+    type: bug_fix
+    summary: "Fix `azapi_resource` resource move from `azurerm_storage_share` by converting `/fileshares/` to `/shares/` in resource ID."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.8.0"
+  - version: "2.7.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource` resource: Refactor move-state logic to centrally derive ARM IDs from data-plane IDs for selected azurerm resources."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.7.0"
+  - version: "2.7.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource` data source: Support `ignore_not_found` argument and `exists` computed field to optionally suppress 404 errors and expose resource existence."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.7.0"
+  - version: "2.7.0"
+    criticality: high
+    type: bug_fix
+    summary: "`azapi_resource` resource: Support moving from `azurerm_storage_container` whose `id` is a data-plane URL by leveraging the `resource_manager_id` attribute (GH-955)."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.7.0"
+  - version: "2.7.0"
+    criticality: high
+    type: bug_fix
+    summary: "`azapi_resource` resource: Support moving from `azurerm_key_vault_secret` whose `id` is a data-plane URL by leveraging the `resource_versionless_id` attribute (GH-917)."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.7.0"
+  - version: "2.7.0"
+    criticality: high
+    type: bug_fix
+    summary: "`azapi_resource` resource: Support moving from `azurerm_key_vault_key` whose `id` is a data-plane URL by leveraging the `resource_versionless_id` attribute."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.7.0"
+  - version: "2.5.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource` resource: ignore the changes when the `body` field matches the remote state even if the `body` field or `api-version` field is changed."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.5.0"
+  - version: "2.5.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource` resource: ignore the order of the `identity_ids` array."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.5.0"
+  - version: "2.5.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource` resource: support `ignore_null_property` field, which is used to ignore the null properties in the `body` field."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.5.0"
+  - version: "2.5.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource` resource: support `sensitive_body_version` field, which is used to manually control the version of the sensitive body."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.5.0"
+  - version: "2.4.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource` resource: Support schema validation in `terraform validate`."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.4.0"
+  - version: "2.4.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource` resource: Preflight validation supports nested resources."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.4.0"
+  - version: "2.4.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource`, `azapi_update_resource` resources: Support `sensitive_body` field, which is used to specify the write-only properties in the request body."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.4.0"
+  - version: "2.4.0"
+    criticality: high
+    type: bug_fix
+    summary: "Fix a bug that after moving resource from `azurerm` provider, the `azapi_resource` resource could not be updated correctly."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.4.0"
+  - version: "2.4.0"
+    criticality: high
+    type: bug_fix
+    summary: "Fix a bug that `azapi_resource` is replaced if the API returns a readonly location."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.4.0"
+  - version: "2.2.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource` resource: Improved 403 handling for management group resources to include child resources"
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.2.0"
+  - version: "2.1.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource` resource: Support resource move operation, it allows moving resources from `azurerm` provider."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.1.0"
+  - version: "2.0.1"
+    criticality: critical
+    type: breaking_change
+    summary: "`azapi_resource`, `azapi_update_resource` resources and data sources' `output` field defaults to the readonly fields when the `response_export_values` is not specified."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.0.1"
+  - version: "2.0.1"
+    criticality: critical
+    type: breaking_change
+    summary: "The `azapi_resource`'s `removing_special_chars` field is removed. Please specify the `name` field and remove the special characters in the `name` field instead."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.0.1"
+  - version: "2.0.0-beta"
+    criticality: critical
+    type: breaking_change
+    summary: "The `azapi_resource`'s `removing_special_chars` field is removed. Please specify the `name` field and remove the special characters in the `name` field instead."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.0.0-beta"
+  - version: "2.0.0-beta"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource` and `azapi_data_plane_resource` resource: Support `replace_triggers_external_values` field which is used to trigger a replacement of the resource."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.0.0-beta"
+  - version: "2.0.0-beta"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource` and `azapi_data_plane_resource` resource: Support `replace_triggers_refs` field which is used to trigger a replacement of the resource."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.0.0-beta"
+  - version: "1.14.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource`, `azapi_update_resource`, `azapi_resource_action`, `azapi_data_plane_resource` resources: Support `timeouts.update` field, which is used to specify the timeout for the update opera..."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.14.0"
+  - version: "1.14.0"
+    criticality: high
+    type: bug_fix
+    summary: "Fix a bug that `azapi_resource` will crash when the `location` in GET response is null."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.14.0"
+  - version: "1.14.0"
+    criticality: high
+    type: bug_fix
+    summary: "Fix a bug that `azapi_resource` only supports extension resource on a resource group scoped resource."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.14.0"
+  - version: "1.13.1"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource` data source: The `output` field changes from JSON string to HCL object. Users can use access the fields in the output as an HCL object. Please remove the `jsondecode` function when..."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.13.1"
+  - version: "1.13.1"
+    criticality: high
+    type: bug_fix
+    summary: "Fix a bug when upgrading from previous provider `azapi_resource` resource will set `tags` and `location` for resources that don't have `tags` or `location` in the configuration."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.13.1"
+  - version: "1.13.1"
+    criticality: high
+    type: bug_fix
+    summary: "Fix a bug that `azapi_resource` resource cannot handle tags with unknown values."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.13.1"
+  - version: "1.13.0"
+    criticality: critical
+    type: breaking_change
+    summary: "2. The `azapi_resource`'s `removing_special_chars` field is deprecated. It will not work in this release and will be removed in the next major release."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.13.0"
+  - version: "1.13.0"
+    criticality: critical
+    type: breaking_change
+    summary: "4. `azapi_resource` data source, azapi_resource_list` data source: The `output` field changes from JSON string to HCL object. Users can use access the fields in the output as an HCL object. Please ..."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.13.0"
+  - version: "1.13.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource` resource, `azapi_update_resource` resource, `azapi_resource_action` resource, `azapi_data_plane_resource` resource, `azapi_resource_action` data source: The `body` field supports t..."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.13.0"
+  - version: "1.13.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource` resource, `azapi_update_resource` resource, `azapi_resource_action` resource, `azapi_data_plane_resource` resource, `azapi_resource_action` data source, `azapi_resource` data sourc..."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.13.0"
+  - version: "1.13.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource` resource, `azapi_update_resource` resource, `azapi_resource_action` resource, `azapi_data_plane_resource` resource, `azapi_resource_action` data source, `azapi_resource` data sourc..."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.13.0"
+  - version: "1.13.0"
+    criticality: medium
+    type: enhancement
+    summary: "`azapi_resource` resource, `azapi_update_resource` resource: Ignore the order of the elements in a list if the element has a `name` field as identifier."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.13.0"
+  - version: "1.12.1"
+    criticality: low
+    type: documentation
+    summary: "Fix a bug that `azapi_resource` removes some required fields in the `body` when using `ignore_body_changes` feature."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.12.1"
+  - version: "1.12.0"
+    criticality: low
+    type: documentation
+    summary: "The `azapi_resource`'s `removing_special_chars` field is deprecated. It will not work in the next minor release and will be removed in the next major release."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.12.0"
+  - version: "1.10.0"
+    criticality: low
+    type: documentation
+    summary: "`azapi_resource` data source: When creating `Microsoft.Resources/subscriptions`, `resource_id` is optional and defaults to the ID of the default subscription."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.10.0"
+  - version: "1.9.0"
+    criticality: low
+    type: documentation
+    summary: "`azapi_resource` resource/data source: When creating `Microsoft.Resources/resourceGroups`, `parent_id` is optional and defaults to the ID of the default subscription."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.9.0"
+  - version: "1.9.0"
+    criticality: low
+    type: documentation
+    summary: "`azapi_resource` resource: Support `ignore_body_changes` field, which is used to ignore some properties when comparing the resource with its current state."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.9.0"
+  - version: "1.9.0"
+    criticality: low
+    type: documentation
+    summary: "Fix a bug that `azapi_resource` resource doesn't store the `id` in the state when error happens during the creation."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.9.0"
+  - version: "1.3.0"
+    criticality: low
+    type: documentation
+    summary: "`azapi_resource`: `ignore_missing_property` will also ignore the sensitive properties returned in asterisks."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.3.0"
+  - version: "1.0.0"
+    criticality: low
+    type: documentation
+    summary: "`azapi_resource`: `ignore_missing_property`'s default value changed from `false` to `true`."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.0.0"
+  - version: "0.4.0"
+    criticality: low
+    type: documentation
+    summary: "`azapi_resource`: Supports default api-version when importing existing resource into terraform state."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v0.4.0"
+  - version: "0.4.0"
+    criticality: low
+    type: documentation
+    summary: "`azapi_resource`: Supports `locks` which used to prevent creating/modifying/deleting resources at the same time."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v0.4.0"
+  - version: "0.4.0"
+    criticality: low
+    type: documentation
+    summary: "`azapi_resource` data source: Supports configuring `resource_id` as an alternative way to configure `name` and `parent_id`."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v0.4.0"
+  - version: "0.2.0"
+    criticality: low
+    type: documentation
+    summary: "Fix incorrect ID format in the imported `azapi_resource` resource."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v0.2.0"
+  - version: "0.2.0"
+    criticality: low
+    type: documentation
+    summary: "Fix incorrect `body` content in the imported `azapi_resource` resource."
+    url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v0.2.0"
+
+provider_issues:
+  last_checked: "2026-05-13T06:39:29Z"
+  items:
+  - number: 1110
+    title: "azapi_resource: in-flight Create not preserved in state when terraform receives SIGINT (resource left orphaned in Azure)"
+    labels: []
+    url: "https://github.com/Azure/terraform-provider-azapi/issues/1110"
+    created_at: "2026-04-27"
+  - number: 1098
+    title: "`azapi_resource` fails to read resources when Azure API returns UTF-8 BOM in JSON response"
+    labels: []
+    url: "https://github.com/Azure/terraform-provider-azapi/issues/1098"
+    created_at: "2026-04-17"
+  - number: 1039
+    title: "feature request: support ephemeral values on `azapi_resource_action` action and resource"
+    labels: ["enhancement"]
+    url: "https://github.com/Azure/terraform-provider-azapi/issues/1039"
+    created_at: "2026-01-27"
+  - number: 899
+    title: "`azapi_resource`: unable to manage `Microsoft.Marketplace/privateStores/collections/offers`"
+    labels: ["upstream-api"]
+    url: "https://github.com/Azure/terraform-provider-azapi/issues/899"
+    created_at: "2025-06-17"
+  - number: 880
+    title: "## Bug: 500 Internal Server Error when creating AzureFile Datastore via AzAPI – Works via CLI/YAML"
+    labels: ["upstream-api"]
+    url: "https://github.com/Azure/terraform-provider-azapi/issues/880"
+    created_at: "2025-05-21"
+  - number: 875
+    title: "`azapi_resource`: `sensitive_body` attributes are displayed in output attribute"
+    labels: []
+    url: "https://github.com/Azure/terraform-provider-azapi/issues/875"
+    created_at: "2025-05-16"
+  - number: 624
+    title: "Getting 400 Bad Request when creating PostgreSQL flexibleservers/migration using azapi_resource"
+    labels: []
+    url: "https://github.com/Azure/terraform-provider-azapi/issues/624"
+    created_at: "2024-09-24"
+  - number: 334
+    title: "`azapi_resource` for Policy Fragments yielding constant diff with `rawxml` submissions"
+    labels: ["upstream-api"]
+    url: "https://github.com/Azure/terraform-provider-azapi/issues/334"
+    created_at: "2023-08-10"
+
+enrichment:
+  notes: []

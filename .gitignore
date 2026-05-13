@@ -1,0 +1,41 @@
+# =============================================================================
+# Generated files — merged from selected .config/{domain}.yaml files
+# =============================================================================
+.config/modules.yaml
+.config/workspaces.yaml
+# *.code-workspace
+# AGENTS.md
+
+# =============================================================================
+# data/ is intentionally committed — it is the module enrichment inventory.
+# Do NOT add data/ or data/modules/ here.
+# =============================================================================
+
+# =============================================================================
+# Cloned AVM module repositories (all types: res, ptn, utl)
+# =============================================================================
+terraform-azurerm-avm-*/
+terraform-azure-avm-*/
+terraform-azapi-avm-*/
+
+# =============================================================================
+# Local tooling and OS artifacts
+# =============================================================================
+.venv/
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc
+.mypy_cache/
+
+tests/
+.old/
+
+# =============================================================================
+# Editor files
+# =============================================================================
+*.swp
+*.swo
+*~
+# .vscode/
+.idea/

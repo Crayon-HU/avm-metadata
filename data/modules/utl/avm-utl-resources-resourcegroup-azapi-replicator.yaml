@@ -1,0 +1,73 @@
+# BEGIN CATALOG
+# AVM Module — avm-utl-resources-resourcegroup-azapi-replicator
+# catalog: auto-generated from AVM upstream CSV. Run: ./avm.sh sync to refresh.
+# enrichment: hand-maintained — NEVER overwritten by sync.
+
+catalog:
+  name:         "avm-utl-resources-resourcegroup-azapi-replicator"
+  type:         utl
+  domain:       management
+  provider:     azure
+  display_name: "Resource Group AzRM to AzAPI Replicator"
+  status:       "Available"
+  repo_url:     "https://github.com/Azure/terraform-azure-avm-utl-resources-resourcegroup-azapi-replicator"
+  registry_url: "https://registry.terraform.io/modules/Azure/avm-utl-resources-resourcegroup-azapi-replicator/azure/latest"
+  description:  "This AVM utility module helps users to migrate their azurerm_resource_group resources to AzAPI provider."
+  first_published: "2026-01"
+  owners:
+    primary:
+      handle: "lonegunmanb"
+      name:   "Zijie He"
+    secondary:
+      handle: ""
+      name:   ""
+  last_synced: "2026-05-12T23:48:16Z"
+# END CATALOG
+# BEGIN SCRAPED
+# END SCRAPED
+# BEGIN ANALYSIS:terraform-metadata
+# END ANALYSIS:terraform-metadata
+module_issues:
+  last_harvested: "2026-05-13T07:43:45Z"
+  open_count: 0
+  issues: []
+  # issue shape:
+  #   - number: 312
+  #     title: "..."
+  #     labels: [bug, help wanted]
+  #     url: "..."
+  #     created_at: "2026-03-21"
+  #     comments: 4
+
+# BEGIN ANALYSIS:use-cases
+analysis_use_cases:
+  checked_at: "2026-05-13T09:56:33Z"
+  status: pass
+  inferred_tags: ["governance", "management"]
+  evidence:
+    catalog_domain: management
+# END ANALYSIS:use-cases
+
+enrichment:
+  version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
+  terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"
+  provider_version: ""       # azurerm/azapi provider version tested with
+  use_cases: []              # short tags, e.g. ["alz", "hub-spoke", "landing-zone"]
+  known_issues: []
+  # known_issues item shape:
+  #   - title: "brief description"
+  #     status: open           # open | resolved | wontfix
+  #     severity: medium       # low | medium | high
+  #     workaround: ""         # optional workaround description
+  #     url: ""                # optional issue/PR/discussion URL
+  notes: []
+  # notes item shape:
+  #   - date: "YYYY-MM-DD"
+  #     author: "github-handle"
+  #     content: "free-text observation"
+
+
+
+
+
+
