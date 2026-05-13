@@ -8,7 +8,8 @@ Modules are sourced directly from the official [Azure GitHub organization](https
 
 ## Prerequisites
 
-- **git** — the only required tool for cloning
+- **git** — for cloning module repos
+- **Python 3.9+** — for all automation scripts (`avm.sh` delegates to them)
 
 ---
 
@@ -21,42 +22,85 @@ git clone https://github.com/Crayon-HU/avm-metadata.git
 cd avm-metadata
 ```
 
-### 2. Generate the module inventory
+### 2. Sync the module catalog from upstream AVM CSVs
 
-Select the domains you want to work with. This merges the selected `.config/{domain}.yaml` files into `.config/modules.yaml`.
-
-**macOS / Linux:**
-```bash
-./scripts/generate_modules.sh                        # interactive menu
-./scripts/generate_modules.sh --domains all          # all domains
-./scripts/generate_modules.sh --domains networking,compute,identity
-```
-
-**Windows (PowerShell):**
-```powershell
-.\scripts\generate_modules.ps1                       # interactive menu
-.\scripts\generate_modules.ps1 -Domains all
-.\scripts\generate_modules.ps1 -Domains networking,compute,identity
-```
-
-### 3. Clone the module repositories
+Fetches the official AVM index CSVs and creates/updates one YAML file per module under `data/modules/`. Only `Available` modules are synced by default.
 
 ```bash
-./scripts/clone_repos.sh                  # clone everything in modules.yaml
-./scripts/clone_repos.sh --domain networking   # one domain only
-./scripts/clone_repos.sh --type ptn            # pattern modules only
-./scripts/clone_repos.sh --full               # full history (default: --depth 1)
+./avm.sh sync              # fetch upstream AVM CSVs → data/modules/
+./avm.sh sync --dry-run    # preview changes without writing
 ```
 
-### 4. Open the workspace in VSCode
+### 3. Generate the module inventory
+
+Reads `data/modules/` and writes `.config/modules.yaml` — the list of repos to clone. Only `Available` modules are included by default.
 
 ```bash
-code avm-metadata.code-workspace          # all modules (root)
-code avm-networking.code-workspace        # networking domain only
-code avm-compute.code-workspace           # compute domain only
+./avm.sh setup --domains all                          # all domains
+./avm.sh setup --domains networking,compute           # specific domains
+./avm.sh setup --domains networking --types res,ptn   # filtered by type
+./avm.sh setup --dry-run                              # preview
 ```
 
-> Open the domain-specific workspace to load only the modules relevant to your current task.
+> **Interactive mode:** omit `--domains`/`--types` for a menu-driven selection.
+
+### 4. Clone the module repositories
+
+```bash
+./avm.sh clone                                          # clone all from modules.yaml
+./avm.sh clone --domains networking --types res         # filtered clone
+./avm.sh clone --modules avm-res-network-virtualnetwork # single module
+```
+
+Git identity is prompted interactively on first clone (set per-repo, never in global config).
+
+### 5. Open the workspace in VSCode
+
+```bash
+code avm.code-workspace    # all modules
+```
+
+---
+
+## Key Commands
+
+```bash
+# Catalog
+./avm.sh sync                                       # refresh catalog from upstream AVM CSVs
+./avm.sh sync --force                               # force-rewrite all module files
+./avm.sh sync --include-proposed                    # also include Proposed-status modules
+./avm.sh setup --domains all                        # generate .config/modules.yaml
+
+# Repo management
+./avm.sh clone                                      # clone repos in modules.yaml
+./avm.sh update --parallel 10                       # pull latest (parallel)
+./avm.sh fetch --parallel 30                        # fetch remotes without merging
+./avm.sh status                                     # show dirty / behind repos
+./avm.sh cleanup                                    # remove repos not in modules.yaml
+./avm.sh cleanup --dry-run                          # preview cleanup
+./avm.sh cleanup --force                            # remove even dirty repos
+
+# Branch management
+./avm.sh branch create feature/my-fix              # create branch in all repos
+./avm.sh branch checkout feature/my-fix --fallback # checkout (stay put if missing)
+./avm.sh branch delete feature/my-fix              # delete branch
+
+# Stash / reset
+./avm.sh stash                                     # stash all changes
+./avm.sh stash pop
+./avm.sh reset --hard                              # hard reset all repos to HEAD
+
+# Arbitrary command
+./avm.sh run git log --oneline -3
+
+# Analysis
+./avm.sh check --module avm-res-network-virtualnetwork   # full analysis (all 6 dims)
+./avm.sh check --dimension test-coverage                  # one dim, all modules
+./avm.sh check --domains networking --dimension doc-quality
+./avm.sh scrape --module avm-res-network-virtualnetwork   # terraform-metadata alias
+```
+
+Run `./avm.sh help` or `./avm.sh <command> --help` for full flag reference.
 
 ---
 
@@ -75,42 +119,30 @@ code avm-compute.code-workspace           # compute domain only
 | `data` | 8 | — | — | Databricks, PostgreSQL, MySQL, Cosmos DB, SQL Server, Data Factory |
 | `platform` | — | 3 | 4 | Cross-cutting: ALZ foundations, regions, interfaces, SKU finder |
 
+> Counts reflect `Available`-status modules. `Proposed` and `Deprecated` modules exist in upstream but are excluded by default.
+
 ---
 
 ## Repository Layout
 
 ```
-.config/
-  networking.yaml        ← domain module definitions (committed, source of truth)
-  compute.yaml
-  containers.yaml
-  identity.yaml
-  storage.yaml
-  management.yaml
-  recovery.yaml
-  web.yaml
-  data.yaml
-  platform.yaml
-  modules.yaml           ← GENERATED (gitignored) — re-run generate_modules.sh
+data/modules/                  ← one YAML per module (source of truth for catalog)
+  res/   avm-res-*.yaml        ← resource modules
+  ptn/   avm-ptn-*.yaml        ← pattern modules
+  utl/   avm-utl-*.yaml        ← utility modules
+  catalog-manifest.yaml        ← auto-generated summary
 
 scripts/
-  generate_modules.sh    ← merges selected domains → .config/modules.yaml
-  generate_modules.ps1   ← PowerShell variant
-  clone_repos.sh         ← clones repos from modules.yaml
-  clone_repos.ps1        ← PowerShell variant
-  generate_workspaces.sh ← regenerates .code-workspace files from domain YAMLs
+  generate_config.py           ← data/modules/ → .config/modules.yaml
+  repos.py                     ← multi-repo git ops (clone/update/fetch/…)
+  sync_catalog.py              ← upstream AVM CSVs → data/modules/ catalog sections
+  analyze_module.py            ← multi-dimensional analysis → analysis_* blocks
 
-avm-metadata.code-workspace      ← root VSCode workspace (all modules via autodetect)
-avm-networking.code-workspace    ← networking domain workspace
-avm-compute.code-workspace       ← compute domain workspace
-avm-containers.code-workspace    ← containers domain workspace
-avm-identity.code-workspace      ← identity domain workspace
-avm-storage.code-workspace       ← storage domain workspace
-avm-management.code-workspace    ← management domain workspace
-avm-recovery.code-workspace      ← recovery domain workspace
-avm-web.code-workspace           ← web domain workspace
-avm-data.code-workspace          ← data domain workspace
-avm-platform.code-workspace      ← platform domain workspace
+avm.sh                         ← unified operator entry point
+.github/skills/                ← Copilot skill procedures
+avm.code-workspace             ← VSCode multi-root workspace
+
+terraform-azurerm-avm-*/       ← cloned module repos (gitignored)
 ```
 
 ---
@@ -127,10 +159,17 @@ avm-platform.code-workspace      ← platform domain workspace
 
 ## Adding a New Module
 
-1. Find the module in the [AVM Terraform index](https://azure.github.io/Azure-Verified-Modules/indexes/terraform/)
-2. Add an entry to the appropriate `.config/{domain}.yaml`
-3. Re-run `scripts/generate_modules.sh` (select the affected domain)
-4. Re-run `scripts/generate_workspaces.sh` to update `.code-workspace` files
-5. Run `scripts/clone_repos.sh` to clone the new repo
+New modules appear automatically when upstream AVM publishes them and `sync` is re-run:
 
-The new module directory (`terraform-azurerm-avm-*`) is automatically gitignored by the `.gitignore` wildcard pattern.
+```bash
+./avm.sh sync          # picks up new Available modules from upstream CSVs
+./avm.sh setup --domains <domain>   # regenerate modules.yaml for that domain
+./avm.sh clone         # clone newly added repos
+```
+
+To remove repos that are no longer in your config:
+
+```bash
+./avm.sh cleanup --dry-run   # preview
+./avm.sh cleanup             # remove clean orphaned repos
+```

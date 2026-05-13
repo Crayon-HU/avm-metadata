@@ -70,14 +70,18 @@ Operators run commands from a terminal using the top-level wrapper for their she
 |---|---|---|---|
 | Generate modules.yaml | `./avm.sh setup --domains all` | `.\avm.ps1 setup --domains all` | `scripts/generate_config.py` |
 | Filter by domain/type | `./avm.sh setup --domains networking --types res` | `.\avm.ps1 setup --domains networking --types res` | `scripts/generate_config.py` |
+| Include Proposed modules | `./avm.sh setup --include-proposed` | `.\avm.ps1 setup --include-proposed` | `scripts/generate_config.py` |
 | Clone repos | `./avm.sh clone` | `.\avm.ps1 clone` | `scripts/repos.py clone` |
 | Clone filtered | `./avm.sh clone --domains networking --types res` | `.\avm.ps1 clone --domains networking --types res` | `scripts/repos.py clone` |
-| Clone one module | `./avm.sh clone --module avm-res-network-virtualnetwork` | `.\avm.ps1 clone --module avm-res-network-virtualnetwork` | `scripts/repos.py clone` |
+| Clone one module | `./avm.sh clone --modules avm-res-network-virtualnetwork` | `.\avm.ps1 clone --modules avm-res-network-virtualnetwork` | `scripts/repos.py clone` |
 | Update cloned repos | `./avm.sh update` | `.\avm.ps1 update` | `scripts/repos.py update` |
 | Update (parallel) | `./avm.sh update --parallel 10` | `.\avm.ps1 update --parallel 10` | `scripts/repos.py update` |
 | Fetch all remotes | `./avm.sh fetch --parallel 30` | `.\avm.ps1 fetch --parallel 30` | `scripts/repos.py fetch` |
 | Show dirty/behind repos | `./avm.sh status` | `.\avm.ps1 status` | `scripts/repos.py status` |
-| Status for one module | `./avm.sh status --module avm-res-network-virtualnetwork` | `.\avm.ps1 status --module avm-res-network-virtualnetwork` | `scripts/repos.py status` |
+| Status for one module | `./avm.sh status --modules avm-res-network-virtualnetwork` | `.\avm.ps1 status --modules avm-res-network-virtualnetwork` | `scripts/repos.py status` |
+| Remove orphaned repos | `./avm.sh cleanup` | `.\avm.ps1 cleanup` | `scripts/repos.py cleanup` |
+| Cleanup (dry run) | `./avm.sh cleanup --dry-run` | `.\avm.ps1 cleanup --dry-run` | `scripts/repos.py cleanup` |
+| Cleanup (include dirty) | `./avm.sh cleanup --force` | `.\avm.ps1 cleanup --force` | `scripts/repos.py cleanup` |
 | Create branch | `./avm.sh branch create feature/x` | `.\avm.ps1 branch create feature/x` | `scripts/repos.py branch create` |
 | Create branch (filtered) | `./avm.sh branch create feature/x --domains networking` | `.\avm.ps1 branch create feature/x --domains networking` | `scripts/repos.py branch create` |
 | Checkout branch | `./avm.sh branch checkout feature/x --fallback` | `.\avm.ps1 branch checkout feature/x --fallback` | `scripts/repos.py branch checkout` |
@@ -88,10 +92,12 @@ Operators run commands from a terminal using the top-level wrapper for their she
 | Run arbitrary command | `./avm.sh run git log --oneline -3` | `.\avm.ps1 run git log --oneline -3` | `scripts/repos.py run` |
 | Sync AVM catalog | `./avm.sh sync` | `.\avm.ps1 sync` | `scripts/sync_catalog.py` |
 | Sync (dry run) | `./avm.sh sync --dry-run` | `.\avm.ps1 sync --dry-run` | `scripts/sync_catalog.py` |
+| Sync (force rewrite all) | `./avm.sh sync --force` | `.\avm.ps1 sync --force` | `scripts/sync_catalog.py` |
+| Sync with Proposed modules | `./avm.sh sync --include-proposed` | `.\avm.ps1 sync --include-proposed` | `scripts/sync_catalog.py` |
 | Scrape TF metadata (alias) | `./avm.sh scrape` | `.\avm.ps1 scrape` | `scripts/analyze_module.py --dimension terraform-metadata` |
-| Scrape one module | `./avm.sh scrape --module NAME` | `.\avm.ps1 scrape --module NAME` | `scripts/analyze_module.py` |
+| Scrape one module | `./avm.sh scrape --modules NAME` | `.\avm.ps1 scrape --modules NAME` | `scripts/analyze_module.py` |
 | Scrape by domain | `./avm.sh scrape --domains networking --types res` | `.\avm.ps1 scrape --domains networking --types res` | `scripts/analyze_module.py` |
-| Run all analysis | `./avm.sh check --module NAME` | `.\avm.ps1 check --module NAME` | `scripts/analyze_module.py` |
+| Run all analysis | `./avm.sh check --modules NAME` | `.\avm.ps1 check --modules NAME` | `scripts/analyze_module.py` |
 | Run one dimension | `./avm.sh check --dimension DIM` | `.\avm.ps1 check --dimension DIM` | `scripts/analyze_module.py` |
 | Check by domain | `./avm.sh check --domains networking --dimension test-coverage` | `.\avm.ps1 check --domains networking --dimension test-coverage` | `scripts/analyze_module.py` |
 | Dry-run analysis | `./avm.sh check --dry-run` | `.\avm.ps1 check --dry-run` | `scripts/analyze_module.py` |
@@ -99,7 +105,8 @@ Operators run commands from a terminal using the top-level wrapper for their she
 ### Typical operator session
 
 ```bash
-# First time setup — pick your domains
+# First time setup — sync catalog then pick your domains
+./avm.sh sync
 ./avm.sh setup --domains networking,compute --types res,ptn
 
 # Clone selected modules (shallow by default)
@@ -122,15 +129,16 @@ Operators run commands from a terminal using the top-level wrapper for their she
 # Pull latest changes into all repos (merge)
 ./avm.sh update --parallel 10
 
-# Refresh the catalog from upstream AVM CSVs
-./avm.sh sync
+# Remove repos that are no longer in your config (e.g. after changing domains)
+./avm.sh cleanup --dry-run     # preview first
+./avm.sh cleanup               # remove clean orphans
 
 # Scrape Terraform metadata (alias for check --dimension terraform-metadata)
 ./avm.sh scrape
 ./avm.sh scrape --domains networking --types res
 
 # Run full analysis on a specific module (all 6 dimensions)
-./avm.sh check --module avm-res-network-virtualnetwork
+./avm.sh check --modules avm-res-network-virtualnetwork
 
 # Run a single dimension for all networking res modules
 ./avm.sh check --domains networking --types res --dimension test-coverage
@@ -302,27 +310,37 @@ enrichment:   ← hand-maintained, never overwritten
 
 ### The 6 built-in dimensions
 
-| Dimension | Key | API calls | Depends on |
-|---|---|---|---|
-| `terraform-metadata` | `analysis_terraform_metadata` | GitHub Contents (list + fetch .tf files) | — |
-| `avm-interface-compliance` | `analysis_avm_interface_compliance` | Same .tf files (cached) | — |
-| `security-hardening` | `analysis_security_hardening` | Same .tf files (cached) | — |
-| `test-coverage` | `analysis_test_coverage` | GitHub Contents (examples/, tests/) | — |
-| `doc-quality` | `analysis_doc_quality` | raw.githubusercontent.com (README.md) | — |
-| `dependency-health` | `analysis_dependency_health` | **None** (reads in-memory metadata) | `terraform-metadata` |
+Analysis runs **exclusively on cloned repos** — no GitHub API or network calls. Uncloned repos are skipped. Scope defaults to modules in `.config/modules.yaml` (not all `data/modules/` files).
 
-All dimensions share a per-module fetch cache — fetching `.tf` files once serves all three
-dimensions that need them.
+| Dimension | Key | Source | Depends on |
+|---|---|---|---|
+| `terraform-metadata` | `analysis_terraform_metadata` | local `.tf` files | — |
+| `avm-interface-compliance` | `analysis_avm_interface_compliance` | local `.tf` files | — |
+| `security-hardening` | `analysis_security_hardening` | local `.tf` files | — |
+| `test-coverage` | `analysis_test_coverage` | local `examples/` and `tests/` dirs | — |
+| `doc-quality` | `analysis_doc_quality` | local `README.md` | — |
+| `dependency-health` | `analysis_dependency_health` | reads in-memory terraform-metadata block | `terraform-metadata` |
+
+When multiple dimensions are requested, `check` shows per-module progress with a tree of each dimension's status:
+
+```
+  [  1/14] res/avm-res-network-virtualnetwork  ⚠ partial
+            ├─ terraform-metadata            ✓ pass
+            ├─ avm-interface-compliance      ⚠ partial
+            ├─ security-hardening            ✓ pass
+            ├─ test-coverage                 ⚠ partial
+            ├─ doc-quality                   ✓ pass
+            └─ dependency-health             ✓ pass
+```
 
 ### Running analysis
 
 **All dimensions on one module:**
 ```bash
-./avm.sh check --module avm-res-network-virtualnetwork
-GITHUB_TOKEN=ghp_... ./avm.sh check --module avm-res-network-virtualnetwork
+./avm.sh check --modules avm-res-network-virtualnetwork
 ```
 
-**One dimension across all modules:**
+**One dimension across all configured modules:**
 ```bash
 ./avm.sh check --dimension test-coverage
 ./avm.sh check --dimension test-coverage --max-age 30
@@ -330,7 +348,7 @@ GITHUB_TOKEN=ghp_... ./avm.sh check --module avm-res-network-virtualnetwork
 
 **Scrape alias (terraform-metadata only):**
 ```bash
-./avm.sh scrape --module avm-res-network-virtualnetwork
+./avm.sh scrape --modules avm-res-network-virtualnetwork
 ./avm.sh scrape --force
 ```
 

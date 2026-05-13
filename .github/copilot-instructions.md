@@ -11,13 +11,15 @@ Every directory whose name starts with `terraform-azurerm-avm-*` is a **cloned e
 ## Workspace layout
 
 ```
-.config/                        Source-of-truth domain YAML files (committed)
-  {domain}.yaml                 One file per domain — module inventory
-  modules.yaml                  GENERATED (gitignored) — merged from selected domains
+data/modules/                   Source of truth for the module catalog (committed)
+  res/   avm-res-*.yaml         One YAML per resource module
+  ptn/   avm-ptn-*.yaml         One YAML per pattern module
+  utl/   avm-utl-*.yaml         One YAML per utility module
+  catalog-manifest.yaml         Auto-generated summary
 
 scripts/
-  generate_config.py            Reads data/modules/ → writes .config/modules.yaml (called by avm.sh setup)
-  repos.py                      Multi-repo git ops: clone/update/fetch/status/branch/stash/reset/run
+  generate_config.py            Reads data/modules/ → writes .config/modules.yaml
+  repos.py                      Multi-repo git ops: clone/update/fetch/status/branch/stash/reset/run/cleanup
   sync_catalog.py               Fetches upstream AVM CSVs → refreshes data/modules/ catalog sections
   analyze_module.py             Multi-dimensional analysis → populates analysis_* blocks in data/modules/
 
@@ -26,6 +28,7 @@ avm.sh                          Unified operator entry point — delegates to sc
 avm.code-workspace              Root workspace — includes . + all modules
 
 terraform-azurerm-avm-*/        Cloned module repos (gitignored — not part of this repo)
+.config/modules.yaml            GENERATED (gitignored) — re-run: ./avm.sh setup
 ```
 
 ---
@@ -91,7 +94,12 @@ modules:
     description: Virtual Network
 ```
 
-`generate_config.py` reads `catalog.repo_url`, `catalog.domain`, `catalog.type`, `catalog.display_name` from `data/modules/{type}/*.yaml` catalog blocks. Modules with `status: Deprecated` are excluded by default (`--include-deprecated` to override).
+`generate_config.py` reads `catalog.repo_url`, `catalog.domain`, `catalog.type`, `catalog.display_name` from `data/modules/{type}/*.yaml` catalog blocks.
+
+**Status filtering (both `setup` and `sync`):**
+- Default: only `Available` modules are included/synced
+- `--include-deprecated` — also include/sync `Deprecated` modules
+- `--include-proposed` — also include/sync `Proposed` modules
 
 ---
 
@@ -100,27 +108,46 @@ modules:
 `avm.sh` is the single unified wrapper for all automation. Prefer it over calling `scripts/` directly (skills are the exception — they call `scripts/` directly).
 
 ```bash
-./avm.sh help                                       # show all commands and options
-./avm.sh setup --domains all                        # generate .config/modules.yaml
+./avm.sh help                                            # show all commands and options
+
+# Catalog
+./avm.sh sync                                            # fetch upstream CSVs → refresh data/modules/
+./avm.sh sync --dry-run                                  # preview changes without writing
+./avm.sh sync --force                                    # force-rewrite all module files
+./avm.sh sync --include-proposed                         # also sync Proposed-status modules
+./avm.sh sync --include-deprecated                       # also sync Deprecated-status modules
+
+# Setup
+./avm.sh setup --domains all                             # generate .config/modules.yaml
 ./avm.sh setup --domains networking,compute --types res
-./avm.sh clone                                      # clone all modules from modules.yaml
-./avm.sh clone --domains networking --types res     # filtered clone
-./avm.sh clone --module avm-res-network-virtualnetwork  # single module
-./avm.sh update --parallel 10                       # git pull --ff-only (parallel)
-./avm.sh fetch --parallel 30                        # fetch remotes without merging
-./avm.sh status                                     # show dirty/behind repos
-./avm.sh status --domains networking                # filtered status
-./avm.sh branch create feature/my-fix               # create branch in all repos
+./avm.sh setup --include-proposed                        # include Proposed modules in config
+
+# Clone / update
+./avm.sh clone                                           # clone all modules from modules.yaml
+./avm.sh clone --domains networking --types res          # filtered clone
+./avm.sh clone --modules avm-res-network-virtualnetwork  # single module
+./avm.sh update --parallel 10                            # git pull --ff-only (parallel)
+./avm.sh fetch --parallel 30                             # fetch remotes without merging
+
+# Status / cleanup
+./avm.sh status                                          # show dirty/behind repos
+./avm.sh status --domains networking                     # filtered status
+./avm.sh cleanup                                         # remove repos not in modules.yaml
+./avm.sh cleanup --dry-run                               # preview cleanup
+./avm.sh cleanup --force                                 # remove even dirty repos
+
+# Branch management
+./avm.sh branch create feature/my-fix                   # create branch in all repos
 ./avm.sh branch create feature/my-fix --domains networking  # filtered
-./avm.sh branch checkout feature/my-fix --fallback  # checkout (stay put if missing)
-./avm.sh stash --domains networking                 # stash changes in networking repos
-./avm.sh reset --hard                               # hard reset all repos to HEAD
-./avm.sh run git log --oneline -3                   # arbitrary command in each repo
-./avm.sh sync                                       # fetch upstream CSVs → refresh data/modules/
-./avm.sh sync --dry-run                             # preview changes without writing
-./avm.sh scrape --domains networking --types res    # terraform-metadata for filtered repos
-./avm.sh scrape --module avm-res-network-virtualnetwork  # scrape one module
-./avm.sh check --module avm-res-network-virtualnetwork   # full analysis (all 6 dimensions)
+./avm.sh branch checkout feature/my-fix --fallback       # checkout (stay put if missing)
+./avm.sh stash --domains networking                      # stash changes in networking repos
+./avm.sh reset --hard                                    # hard reset all repos to HEAD
+./avm.sh run git log --oneline -3                        # arbitrary command in each repo
+
+# Analysis
+./avm.sh scrape --domains networking --types res         # terraform-metadata for filtered repos
+./avm.sh scrape --modules avm-res-network-virtualnetwork # scrape one module
+./avm.sh check --modules avm-res-network-virtualnetwork  # full analysis (all 6 dimensions)
 ./avm.sh check --domains networking --dimension avm-interface-compliance  # filtered
 ./avm.sh check --dry-run                                 # preview analysis changes
 ```
@@ -134,11 +161,11 @@ bash -n avm.sh
 
 ## Workflow for this repo
 
-1. Edit `.config/{domain}.yaml` — add entries or **comment them out** (non-core modules use `# - name:` blocks; do not delete them)
-2. Run `./avm.sh setup --domains <changed-domain>` to regenerate `.config/modules.yaml`
-3. Run `./avm.sh clone` (or `--domain`/`--type` filtered) to clone newly added repos
-4. Run `./avm.sh sync` to refresh the catalog from upstream AVM CSVs
-5. Commit only the `.config/{domain}.yaml` and `data/modules/*.yaml` changes — never commit generated or cloned files
+1. Run `./avm.sh sync` to refresh the catalog from upstream AVM CSVs
+2. Run `./avm.sh setup --domains <domain(s)>` to regenerate `.config/modules.yaml`
+3. Run `./avm.sh clone` (or filtered) to clone newly added repos
+4. Run `./avm.sh cleanup` to remove repos that are no longer in your config
+5. Commit only `data/modules/*.yaml` changes — never commit generated or cloned files
 
 ---
 
@@ -150,18 +177,20 @@ Per `.gitattributes`: `.sh`, `.yaml`, `.yml`, `.json`, `.tf`, `.tfvars` → LF. 
 
 ## Module inventory (`data/modules/`)
 
-**225 module files** across three subdirectories, one YAML per module:
+**~148 Available module files** (out of 225 total upstream) across three subdirectories, one YAML per module:
 
 ```
 data/modules/
-  res/   avm-res-*.yaml   (152 resource modules)
-  ptn/   avm-ptn-*.yaml   (59 pattern modules)
-  utl/   avm-utl-*.yaml   (14 utility modules)
+  res/   avm-res-*.yaml   (resource modules)
+  ptn/   avm-ptn-*.yaml   (pattern modules)
+  utl/   avm-utl-*.yaml   (utility modules)
   catalog-manifest.yaml   auto-generated summary
 ```
 
-- **`catalog:`** — auto-generated, refreshed by `./avm.sh sync`. Never hand-edit this section.
-- **`enrichment:`** — hand-maintained, **never overwritten by sync**. Add your notes here.
+Each module file has three sections:
+- **`catalog:`** — auto-generated, refreshed by `./avm.sh sync`. Never hand-edit. Includes `last_synced` timestamp.
+- **`analysis_*:`** — written by `./avm.sh check`. One block per dimension, never overwritten by sync.
+- **`enrichment:`** — hand-maintained, **never overwritten by any tool**. Add your notes here.
 
 ```yaml
 enrichment:
