@@ -23,7 +23,8 @@ The repo uses a layered architecture where `scripts/` is the single shared autom
 │   sync_catalog.py          Python  ← catalog/data ops          │
 │   generate_config.py       Python  ← catalog/data ops          │
 │   analyze_module.py        Python  ← catalog/data ops          │
-│   manage_repos.py                 Python  ← git ops (clone/update/...) │
+│   report.py                Python  ← read-only reports         │
+│   manage_repos.py          Python  ← git ops (clone/update/...) │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -80,8 +81,9 @@ Operators run commands from a terminal using the top-level wrapper for their she
 | `update` | Pull latest changes (ff-only) | | `./avm.sh update` | `.\avm.ps1 update` | — | `manage_repos.py update` |
 | `update` | Pull latest changes in parallel | | `./avm.sh update --parallel 10` | `.\avm.ps1 update --parallel 10` | — | `manage_repos.py update` |
 | `fetch` | Fetch remotes without merging | | `./avm.sh fetch --parallel 30` | `.\avm.ps1 fetch --parallel 30` | — | `manage_repos.py fetch` |
-| `status` | Show dirty/ahead/behind repos | | `./avm.sh status` | `.\avm.ps1 status` | — | `manage_repos.py status` |
+| `status` | Show dirty/ahead/behind + staleness | | `./avm.sh status` | `.\avm.ps1 status` | — | `manage_repos.py status` |
 | `status` | Status for a single module | | `./avm.sh status --modules avm-res-network-virtualnetwork` | `.\avm.ps1 status --modules avm-res-network-virtualnetwork` | — | `manage_repos.py status` |
+| `status` | Override stale threshold (days) | | `./avm.sh status --stale-threshold 30` | `.\avm.ps1 status --stale-threshold 30` | — | `manage_repos.py status` |
 | `cleanup` | Remove repos not in modules.yaml | | `./avm.sh cleanup` | `.\avm.ps1 cleanup` | — | `manage_repos.py cleanup` |
 | `cleanup` | Preview orphaned repos (dry run) | | `./avm.sh cleanup --dry-run` | `.\avm.ps1 cleanup --dry-run` | — | `manage_repos.py cleanup` |
 | `cleanup` | Remove even dirty orphaned repos | | `./avm.sh cleanup --force` | `.\avm.ps1 cleanup --force` | — | `manage_repos.py cleanup` |
@@ -104,6 +106,12 @@ Operators run commands from a terminal using the top-level wrapper for their she
 | `check` | Single dimension, single module | | `./avm.sh check --modules NAME --dimension tests` | `.\avm.ps1 check --modules NAME --dimension tests` | `/avm-check --modules NAME --dimension tests` | `analyze_module.py` |
 | `check` | Single dimension, domain/type filter | | `./avm.sh check --domains networking --types res --dimension compliance` | `.\avm.ps1 check --domains networking --types res --dimension compliance` | `/avm-check --domains networking --types res --dimension compliance` | `analyze_module.py` |
 | `check` | Preview analysis changes (dry run) | | `./avm.sh check --dry-run` | `.\avm.ps1 check --dry-run` | `/avm-check --dry-run` | `analyze_module.py` |
+| `report` | Weighted compliance scorecard | | `./avm.sh report --scores` | `.\avm.ps1 report --scores` | `/avm-issues` | `report.py` |
+| `report` | Scorecard for specific domain, threshold filter | | `./avm.sh report --scores --domains networking --min-score 80` | `.\avm.ps1 report --scores --domains networking --min-score 80` | — | `report.py` |
+| `report` | Cross-module open issue rollup | | `./avm.sh report --issues` | `.\avm.ps1 report --issues` | `/avm-issues` | `report.py` |
+| `report` | Issue rollup filtered by severity | | `./avm.sh report --issues --severity critical,high` | `.\avm.ps1 report --issues --severity critical,high` | — | `report.py` |
+| `report` | Export full catalog to JSON | | `./avm.sh report --json` | `.\avm.ps1 report --json` | — | `report.py` |
+| `report` | Export catalog JSON to custom path | | `./avm.sh report --json --output docs/catalog.json` | `.\avm.ps1 report --json --output docs/catalog.json` | — | `report.py` |
 
 ### Typical operator session
 
@@ -145,6 +153,13 @@ Operators run commands from a terminal using the top-level wrapper for their she
 
 # Run a single dimension for all networking res modules
 ./avm.sh check --domains networking --types res --dimension test-coverage
+
+# Report on compliance scores and open issues (read-only, no files modified)
+./avm.sh report --scores                          # ranked scorecard with weighted dimension grades
+./avm.sh report --scores --min-score 80           # show only modules below 80%
+./avm.sh report --issues                          # open issue rollup across all modules
+./avm.sh report --issues --severity critical,high # critical/high only
+./avm.sh report --json                            # export to data/catalog.json
 
 # Run an arbitrary git command in all repos
 ./avm.sh run git log --oneline -3
@@ -195,6 +210,7 @@ Brief description of what the skill does.
 | `avm-check` | `/avm-check --modules NAME --dimension deps` | `scripts/analyze_module.py --dimension dependency-health` | Version constraint style |
 | `avm-check` | `/avm-check --domains DOMAIN --types TYPE [--dimension DIM]` | `scripts/analyze_module.py` | Bulk check across a domain/type filter |
 | `avm-sync` | `/avm-sync [domain]` | `scripts/sync_catalog.py` | Sync AVM module catalog from upstream CSVs |
+| `avm-issues` | `/avm-issues [--domains DOMAIN] [--severity LEVEL]` | `scripts/report.py` | Surface open issues and low-scoring modules across the catalog |
 
 ---
 
@@ -206,19 +222,20 @@ Follow this checklist whenever you add a new `avm.sh` command (e.g., `validate`)
 
 - [ ] **Write the script** in `scripts/` following the language policy below
 - [ ] **Add `cmd_{name}()`** function to `avm.sh` that delegates to the script
-- [ ] **Add dispatch case** `{name}) cmd_{name} "$@" ;;` in `avm.sh`
+- [ ] **Add `_usage_{name}()`** function and dispatch case `{name}) cmd_{name} "$@" ;;` in `avm.sh`
 - [ ] **Add usage text** to the `_usage()` function in `avm.sh`
 - [ ] **Add matching block** to `avm.ps1` (usage + dispatch)
 - [ ] **Create a skill** at `.github/skills/avm-{name}/SKILL.md`
-- [ ] **Update this file** (`docs/workflows.md`) — add a row to the command table and skills table
+- [ ] **Update this file** (`docs/workflows.md`) — add a row to the command table and skills table, and update the architecture diagram if adding a new script
 - [ ] **Update `.github/copilot-instructions.md`** entry point section
+- [ ] **Update `README.md`** Key Commands section
 - [ ] **Run syntax check**: `bash -n avm.sh scripts/*.sh`
 
 ### Language policy
 
 | Language | Used for | Scripts |
 |---|---|---|
-| **Python 3** | All automation | `sync_catalog.py`, `generate_config.py`, `analyze_module.py`, `manage_repos.py` |
+| **Python 3** | All automation | `sync_catalog.py`, `generate_config.py`, `analyze_module.py`, `manage_repos.py`, `report.py` |
 
 All scripts are Python only — no Bash/PowerShell pairs needed. `avm.sh` and `avm.ps1` are thin wrappers that call `python3 scripts/<script>.py`.  
 New scripts → Python only (stdlib preferred; document any third-party dep in the script header).
@@ -259,6 +276,10 @@ python3 scripts/sync_catalog.py --dry-run
 python3 scripts/generate_config.py --domains networking --dry-run
 python3 scripts/manage_repos.py clone --dry-run
 python3 scripts/analyze_module.py --dry-run --module avm-res-network-virtualnetwork
+
+# Smoke-test the reporting script (read-only, safe to run at any time)
+python3 scripts/report.py --scores
+python3 scripts/report.py --issues
 ```
 
 ---
@@ -324,6 +345,19 @@ Analysis runs **exclusively on cloned repos** — no GitHub API or network calls
 | `test-coverage` | `analysis_test_coverage` | local `examples/` and `tests/` dirs | — |
 | `doc-quality` | `analysis_doc_quality` | local `README.md` | — |
 | `dependency-health` | `analysis_dependency_health` | reads in-memory terraform-metadata block | `terraform-metadata` |
+
+Each dimension carries a **severity weight** (defined as `DIMENSION_SEVERITY` in both `analyze_module.py` and `report.py`) used by `avm report --scores`:
+
+| Dimension | Severity | Weight |
+|---|---|---|
+| `security-hardening` | critical | 4 |
+| `avm-interface-compliance` | high | 3 |
+| `dependency-health` | high | 3 |
+| `test-coverage` | medium | 2 |
+| `doc-quality` | medium | 2 |
+| `terraform-metadata` | low | 1 |
+
+The overall score for a module is `sum(weight × status_value) / sum(weights) × 100` where `pass=1.0`, `partial/unchecked/skip=0.5`, `fail/missing=0.0`.
 
 When multiple dimensions are requested, `check` shows per-module progress with a tree of each dimension's status:
 

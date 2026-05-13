@@ -19,9 +19,10 @@ data/modules/                   Source of truth for the module catalog (committe
 
 scripts/
   generate_config.py            Reads data/modules/ → writes .config/modules.yaml
-  manage_repos.py                      Multi-repo git ops: clone/update/fetch/status/branch/stash/reset/run/cleanup
+  manage_repos.py               Multi-repo git ops: clone/update/fetch/status/branch/stash/reset/run/cleanup
   sync_catalog.py               Fetches upstream AVM CSVs → refreshes data/modules/ catalog sections
   analyze_module.py             Multi-dimensional analysis → populates analysis_* blocks in data/modules/
+  report.py                     Read-only reports: compliance scores (weighted), issue rollup, JSON export
 
 avm.sh                          Unified operator entry point — delegates to scripts/
 .github/skills/                 Copilot skill procedures — also delegate to scripts/
@@ -130,8 +131,9 @@ modules:
 ./avm.sh fetch --parallel 30                             # fetch remotes without merging
 
 # Status / cleanup
-./avm.sh status                                          # show dirty/behind repos
+./avm.sh status                                          # show dirty/behind repos + staleness
 ./avm.sh status --domains networking                     # filtered status
+./avm.sh status --stale-threshold 30                     # flag modules not checked for 30+ days
 ./avm.sh cleanup                                         # remove repos not in modules.yaml
 ./avm.sh cleanup --dry-run                               # preview cleanup
 ./avm.sh cleanup --force                                 # remove even dirty repos
@@ -150,6 +152,14 @@ modules:
 ./avm.sh check --modules avm-res-network-virtualnetwork  # full analysis (all 6 dimensions)
 ./avm.sh check --domains networking --dimension avm-interface-compliance  # filtered
 ./avm.sh check --dry-run                                 # preview analysis changes
+
+# Reporting (read-only, no files modified)
+./avm.sh report --scores                                 # weighted compliance scorecard
+./avm.sh report --scores --domains networking --min-score 80  # filter low scorers
+./avm.sh report --issues                                 # cross-module open issue rollup
+./avm.sh report --issues --severity critical,high        # filter by severity
+./avm.sh report --json                                   # export catalog → data/catalog.json
+./avm.sh report --json --output docs/catalog.json        # custom output path
 ```
 
 **Syntax validation** (run before committing any script change):
@@ -194,7 +204,7 @@ Each module file has three sections:
 
 ```yaml
 enrichment:
-  version_pinned: "0.7.0"
+  version_pinned: "0.7.0"   # auto-filled by ./avm.sh check (terraform-metadata dim) from git tags
   terraform_version: "1.9.0"
   provider_version: "3.117.0"
   use_cases: ["alz", "hub-spoke"]

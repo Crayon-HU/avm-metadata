@@ -75,7 +75,7 @@ code avm.code-workspace    # all modules
 ./avm.sh clone                                      # clone repos in modules.yaml
 ./avm.sh update --parallel 10                       # pull latest (parallel)
 ./avm.sh fetch --parallel 30                        # fetch remotes without merging
-./avm.sh status                                     # show dirty / behind repos
+./avm.sh status                                     # show dirty / behind repos + staleness
 ./avm.sh cleanup                                    # remove repos not in modules.yaml
 ./avm.sh cleanup --dry-run                          # preview cleanup
 ./avm.sh cleanup --force                            # remove even dirty repos
@@ -98,6 +98,13 @@ code avm.code-workspace    # all modules
 ./avm.sh check --dimension test-coverage                  # one dim, all modules
 ./avm.sh check --domains networking --dimension doc-quality
 ./avm.sh scrape --module avm-res-network-virtualnetwork   # terraform-metadata alias
+
+# Reporting (read-only)
+./avm.sh report --scores                                  # weighted compliance scorecard
+./avm.sh report --scores --domains networking --min-score 80  # show modules scoring < 80
+./avm.sh report --issues                                  # cross-module open issue rollup
+./avm.sh report --issues --severity critical,high         # filter by severity
+./avm.sh report --json                                    # export catalog → data/catalog.json
 ```
 
 Run `./avm.sh help` or `./avm.sh <command> --help` for full flag reference.
@@ -134,9 +141,10 @@ data/modules/                  ← one YAML per module (source of truth for cata
 
 scripts/
   generate_config.py           ← data/modules/ → .config/modules.yaml
-  manage_repos.py                     ← multi-repo git ops (clone/update/fetch/…)
+  manage_repos.py              ← multi-repo git ops (clone/update/fetch/…)
   sync_catalog.py              ← upstream AVM CSVs → data/modules/ catalog sections
   analyze_module.py            ← multi-dimensional analysis → analysis_* blocks
+  report.py                    ← read-only reports: scores, issues, JSON export
 
 avm.sh                         ← unified operator entry point
 .github/skills/                ← Copilot skill procedures
