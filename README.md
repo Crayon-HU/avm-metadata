@@ -111,6 +111,12 @@ code avm.code-workspace    # all modules
 ./avm.sh activity --since 7d --stagnant-only              # repos with no commits
 ./avm.sh index                                            # create per-resource-type stubs (data/resources/, data/datasources/, …)
 ./avm.sh index --dry-run                                  # preview without writing
+
+# Provider change intelligence (fetches GitHub Releases, writes findings to stubs)
+./avm.sh providers                                        # azurerm + azapi, last 100 releases
+./avm.sh providers --since 4.0.0                          # only releases >= 4.0.0
+./avm.sh providers --dry-run                              # preview without writing
+
 ./avm.sh site                                             # generate HTML dashboard (docs/site/index.html)
 ./avm.sh site --open                                      # generate + open in browser
 ```
@@ -155,6 +161,7 @@ scripts/
   report.py                    ← read-only reports: scores, issues, JSON export
   activity.py                  ← git commit activity monitor
   build_resource_index.py      ← per-resource-type stub inventory → data/{resources,datasources,…}/
+  fetch_provider_changes.py   ← provider GitHub Releases → provider_updates findings in stubs
   generate_site.py             ← static HTML health dashboard → docs/site/
 
 avm.sh                         ← unified operator entry point

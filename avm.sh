@@ -14,6 +14,11 @@
 #   sync        Fetch upstream AVM CSV indexes → update data/modules/*.yaml
 #   scrape      Alias for: check --dimension terraform-metadata
 #   check       Run analysis dimensions on module(s) → populate analysis blocks
+#   report      Compliance scorecard, open issues rollup, and JSON catalog export
+#   activity    Git commit activity monitor across cloned repos
+#   index       Build per-resource-type stub inventory (data/resources/ etc.)
+#   providers   Fetch provider changelog → write provider_updates findings to stubs
+#   site        Generate static HTML health dashboard
 #
 # Usage:
 #   ./avm.sh setup  [--domains networking,compute] [--types res,ptn]
@@ -76,7 +81,8 @@ _usage() {
     check     Run one or more analysis dimensions on module(s)
     report    Compliance scorecard, open issues rollup, and JSON catalog export
     activity  Git commit activity monitor across cloned repos
-    index     Build provider-grouped resource-to-module index (data/resources/)
+    index     Build per-resource-type stub inventory (data/resources/ etc.)
+    providers Fetch provider changelog → write provider_updates findings to stubs
     site      Generate static HTML health dashboard (docs/site/index.html)
     help      Show this message
 
@@ -578,8 +584,9 @@ _usage_index() {
             data/functions/    ...
             data/ephemerals/   ...
             data/actions/      ...
-          Stubs are created once and NEVER overwritten. Phase 2/3 scripts
-          populate provider_changelog.findings and upstream_issues.items.
+          Stubs are created once and NEVER overwritten by this command.
+          Use 'providers' to populate provider_updates.findings.
+          Use Phase 3 to populate provider_issues.items.
 
   Usage:
     ./avm.sh index [options]
@@ -587,7 +594,7 @@ _usage_index() {
   Options:
     --dry-run             Preview without writing files.
     --force               Overwrite existing stubs (use with care — resets
-                          provider_changelog and upstream_issues to empty).
+                          provider_updates and provider_issues to empty).
     --domains DOMAINS     Comma-separated domain slugs.
     --types TYPES         Comma-separated module types: res, ptn, utl.
 
@@ -608,8 +615,6 @@ cmd_index() {
 _usage_site() {
   _header
   cat <<'EOF'
-
-  site — Generate a static HTML health dashboard from all analysis data.
          Produces a single self-contained HTML file (inline CSS, no CDN).
          Per-domain tables with colour-coded scores, dimension badges,
          staleness indicators, and version pin status.
@@ -636,6 +641,48 @@ cmd_site() {
   python3 "${SCRIPTS_DIR}/generate_site.py" "$@"
 }
 
+_usage_providers() {
+  _header
+  cat <<'EOF'
+
+  providers — Fetch Terraform provider release notes and write changelog findings
+              into the provider_updates.findings block of per-resource-type stubs at:
+                data/resources/    azurerm_virtual_network.yaml
+                data/datasources/  azurerm_subnet.yaml
+                ...
+
+              Each finding records the provider version, criticality, type, and summary.
+              Stubs are updated in-place; all other sections (provider_issues, enrichment)
+              are preserved unchanged.
+
+              Requires GITHUB_TOKEN for best results (5 000 req/hr vs 60 unauthenticated).
+
+  Usage:
+    ./avm.sh providers [options]
+
+  Options:
+    --provider LIST       Comma-separated provider names (default: azurerm,azapi).
+                          Supported: azurerm, azapi, azuread
+    --since VERSION       Only include releases >= this version (e.g., 4.0.0).
+    --max-releases N      Maximum releases per provider (default: 100).
+    --dry-run             Preview without modifying files.
+    --force               Re-fetch even if last_checked is within 24 h.
+
+  Examples:
+    ./avm.sh providers
+    ./avm.sh providers --since 4.0.0
+    ./avm.sh providers --provider azurerm --since 4.0.0 --max-releases 10
+    ./avm.sh providers --dry-run
+    ./avm.sh providers --force
+
+EOF
+}
+
+cmd_providers() {
+  for a in "$@"; do [[ "$a" == "--help" || "$a" == "-h" ]] && { _usage_providers; return 0; }; done
+  python3 "${SCRIPTS_DIR}/fetch_provider_changes.py" "$@"
+}
+
 # ---------------------------------------------------------------------------
 # Dispatch
 # ---------------------------------------------------------------------------
@@ -660,6 +707,7 @@ case "${COMMAND}" in
   activity)   cmd_activity   "$@" ;;
   index)      cmd_index      "$@" ;;
   site)       cmd_site       "$@" ;;
+  providers)  cmd_providers  "$@" ;;
   help|--help|-h) _usage ;;
   "")
     _usage

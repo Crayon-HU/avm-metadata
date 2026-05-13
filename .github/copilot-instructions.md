@@ -25,6 +25,7 @@ scripts/
   report.py                     Read-only reports: compliance scores (weighted), issue rollup, JSON export
   activity.py                   Git commit activity monitor across cloned repos
   build_resource_index.py       Per-resource-type stub inventory builder → data/{resources,datasources,…}/
+  fetch_provider_changes.py     Fetch provider GitHub Releases → write provider_updates findings to stubs
   generate_site.py              Static HTML health dashboard generator → docs/site/index.html
 
 avm.sh                          Unified operator entry point — delegates to scripts/
@@ -174,6 +175,13 @@ modules:
 ./avm.sh index                                           # create stubs for all symbol types (no overwrite)
 ./avm.sh index --dry-run                                 # preview without writing
 ./avm.sh index --domains networking --types res          # filtered index
+
+# Provider change intelligence (reads stubs from data/resources/ etc., calls GitHub API)
+./avm.sh providers                                       # fetch all releases, azurerm+azapi (default)
+./avm.sh providers --since 4.0.0                         # only releases >= 4.0.0
+./avm.sh providers --provider azurerm --max-releases 10  # limit release count
+./avm.sh providers --dry-run                             # preview without writing
+./avm.sh providers --force                               # re-fetch even if checked within 24 h
 
 # Health dashboard (reads data/modules/, writes docs/site/index.html)
 ./avm.sh site                                            # generate static HTML dashboard

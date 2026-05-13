@@ -13,7 +13,7 @@ Four distinct tracking keys — each has a unique location, source, and automati
 | 1 | `enrichment.known_issues` | `data/modules/*.yaml` | **Hand-typed** by operator | n/a (read by `report --issues`, `/avm-issues`) | ✅ Done |
 | 2 | `module_issues` | `data/modules/*.yaml` | GitHub issues on AVM module repos (`Azure/terraform-azurerm-avm-*`) | ⬇ pull | `avm harvest` 💡 |
 | 3 | `provider_issues` | `data/{resources,datasources,…}/*.yaml` | GitHub issues on Terraform provider repos (`hashicorp/terraform-provider-azurerm`, `Azure/terraform-provider-azapi`) | ⬇ pull | Phase 3 (provider-currency) 💡 |
-| 4 | `provider_updates` | `data/{resources,datasources,…}/*.yaml` | GitHub Releases / CHANGELOG of Terraform provider | ⬇ pull | Phase 2 (provider-currency) 💡 |
+| 4 | `provider_updates` | `data/{resources,datasources,…}/*.yaml` | GitHub Releases / CHANGELOG of Terraform provider | ⬇ pull | `avm providers` ✅ |
 
 **`/avm-issues` shows 0 on a fresh repo** — correct. It reads `enrichment.known_issues` only. No operator has typed entries yet.
 
@@ -45,7 +45,9 @@ Four distinct tracking keys — each has a unique location, source, and automati
 - ✅ **`avm report`** — new CLI command: `--scores`, `--issues`, `--json` subcommands with `--domains`, `--types`, `--severity`, `--min-score`, `--output` filters. _Implemented in `avm.sh` + `scripts/report.py`._
 - ✅ **`avm activity`** — git commit activity monitor across all cloned repos with `--since`, `--stagnant-only`, `--no-stagnant`, `--top`, `--domains` flags. _Implemented in `avm.sh` + `scripts/activity.py`._
 - ✅ **`avm index`** — build per-resource-type stub inventory (`data/{resources,datasources,functions,ephemerals,actions}/{type}.yaml`); stubs never overwritten; `--dry-run`, `--domains`, `--types` flags. _Implemented in `avm.sh` + `scripts/build_resource_index.py`._
-- ✅ **`avm site`** — generate static HTML health dashboard with `--domains`, `--output`, `--open` flags. _Implemented in `avm.sh` + `scripts/generate_site.py`._
+- ✅ **`avm providers`** — fetch Terraform provider release notes → parse by resource type → write `provider_updates.findings` into each stub. _Implemented in `avm.sh` + `scripts/fetch_provider_changes.py`._
+
+
 
 > **Export to JSON** (was an inline idea) — ✅ `./avm.sh report --json` exports the full catalog to `data/catalog.json`. _Implemented in `scripts/report.py`._
 
@@ -110,25 +112,39 @@ Script: `scripts/build_resource_index.py` — reads all module YAMLs, collects a
 
 ---
 
-### Phase 2 — Fetch provider changelog per resource type
+### Phase 2 — Fetch provider changelog per resource type ✅
 
-For each provider, pull the changelog/release notes between the module's minimum required provider version and the latest published version. Three sources, used in order:
+For each provider, fetch GitHub Releases and parse the markdown release body to extract entries that mention specific resource types. Findings are written directly into each resource stub's `provider_updates.findings` block — no intermediate file.
 
-| Source | Method | Notes |
-|---|---|---|
-| **GitHub Releases** | GitHub API — `GET /repos/{owner}/{repo}/releases` | Structured; contains release body (markdown) |
-| **GitHub CHANGELOG.md** | Fetch raw file from the provider repo | `hashicorp/terraform-provider-azurerm`, `Azure/terraform-provider-azapi` |
-| **Terraform Registry** | MCP / Registry API | Provides latest version; use as version anchor |
+Script: `scripts/fetch_provider_changes.py` — reads `data/{resources,datasources,functions,ephemerals}/` stubs, fetches GitHub Releases API, parses markdown headings to assign criticality and type, writes findings in-place. _Implemented. Run `./avm.sh providers`._
 
-Filter release notes to only entries that mention the specific resource type(s) a module manages (e.g., `azurerm_virtual_network`).
+```
+./avm.sh providers                                    # all stubs, last 100 releases, azurerm+azapi
+./avm.sh providers --since 4.0.0                      # limit to releases >= 4.0.0
+./avm.sh providers --provider azurerm --dry-run       # preview without writing
+./avm.sh providers --force                            # re-fetch even if checked within 24 h
+```
 
-Script: `scripts/fetch_provider_changes.py --provider azurerm` — outputs `data/resources/azurerm_changes.yaml` with per-resource-type findings.
+Criticality classification is done inline by matching release section headings against a precedence table (Breaking Changes → critical, Security/CVE → critical, Bug Fixes → high, Enhancements → medium, New Resources → low). Results are stored per-resource, per-version:
+
+```yaml
+provider_updates:
+  last_checked: "2026-05-13T06:16:10Z"
+  findings:
+  - version: "4.15.0"
+    criticality: high
+    type: bug_fix
+    summary: "`azurerm_virtual_network` - fixed incorrect subnet delegation order"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.15.0"
+```
+
+> **Note:** Phase 3 (criticality classification) is merged into Phase 2 — it is performed inline during the same fetch pass.
 
 ---
 
-### Phase 3 — Assign criticality
+### Phase 3 — Fetch provider issues per resource type
 
-Classify each matched changelog entry by scanning the release note text for signal words:
+Fetch open GitHub issues from the provider repos and write them into each stub's `provider_issues.items` block:
 
 | Criticality | Signals |
 |---|---|
@@ -136,31 +152,6 @@ Classify each matched changelog entry by scanning the release note text for sign
 | `high` | `bug fix`, `fix`, `regression`, `incorrect`, `panic`, `crash` |
 | `medium` | `enhancement`, `improvement`, `deprecated`, `behavior change` |
 | `low` | `new resource`, `new attribute`, `new argument`, `documentation` |
-
-Store findings in `data/resources/azurerm_findings.yaml`:
-
-```yaml
-- resource_type: "azurerm_virtual_network"
-  provider: azurerm
-  provider_version_from: "4.0.0"
-  provider_version_to: "4.21.0"   # latest at check time
-  findings:
-    - version: "4.15.0"
-      criticality: high
-      type: bug_fix
-      summary: "azurerm_virtual_network: fixed incorrect subnet delegation order"
-      url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.15.0"
-    - version: "4.18.0"
-      criticality: medium
-      type: enhancement
-      summary: "azurerm_virtual_network: added private_endpoint_network_policies attribute"
-      url: "..."
-  modules_affected:
-    - avm-res-network-virtualnetwork
-  checked_at: "2026-05-13T..."
-```
-
----
 
 ### Phase 4 — Surface findings
 
@@ -171,7 +162,7 @@ Store findings in `data/resources/azurerm_findings.yaml`:
 
 ---
 
-> **Implementation order:** Phase 1 (pure YAML → YAML transform, no network) → Phase 4 dashboard column (immediate value) → Phase 2+3 (network-dependent, needs GitHub token and Registry MCP).
+> **Implementation order:** Phase 1 ✅ → Phase 2 ✅ (Provider Change Intelligence: fetch + classify) → Phase 3 💡 (provider issues from GitHub) → Phase 4 💡 (surface findings in analysis blocks and dashboard).
 
 ### Other Terraform symbol types (datasources, functions, ephemeral/actions) ✅
 
