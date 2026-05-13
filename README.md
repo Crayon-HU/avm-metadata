@@ -115,6 +115,8 @@ code avm.code-workspace    # all modules
 # Provider change intelligence (fetches GitHub Releases, writes findings to stubs)
 ./avm.sh providers                                        # azurerm + azapi, last 100 releases
 ./avm.sh providers --since 4.0.0                          # only releases >= 4.0.0
+./avm.sh providers --mode issues                          # open GitHub Issues → provider_issues.items
+./avm.sh providers --mode all                             # releases + issues in one pass
 ./avm.sh providers --dry-run                              # preview without writing
 
 ./avm.sh site                                             # generate HTML dashboard (docs/site/index.html)

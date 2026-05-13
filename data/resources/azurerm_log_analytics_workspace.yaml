@@ -5,17 +5,16 @@ resource:
   registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/log_analytics_workspace"
 
 provider_updates:
-  last_checked: null
-  findings: []
-  # finding shape:
-  #   - version: "4.15.0"
-  #     criticality: high   # critical | high | medium | low
-  #     type: bug_fix       # bug_fix | security | enhancement | breaking_change | new_feature | deprecated
-  #     summary: "..."
-  #     url: "..."
+  last_checked: "2026-05-13T06:16:10Z"
+  findings:
+  - version: "4.72.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_log_analytics_workspace` - add support for the `10000`, `25000` and `50000` values in the `reservation_capacity_in_gb_per_day` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.72.0"
 
 provider_issues:
-  last_checked: null
+  last_checked: "2026-05-13T06:34:31Z"
   items: []
   # item shape:
   #   - number: 1234

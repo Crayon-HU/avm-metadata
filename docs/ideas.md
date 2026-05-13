@@ -12,7 +12,7 @@ Four distinct tracking keys — each has a unique location, source, and automati
 |---|---|---|---|---|---|
 | 1 | `enrichment.known_issues` | `data/modules/*.yaml` | **Hand-typed** by operator | n/a (read by `report --issues`, `/avm-issues`) | ✅ Done |
 | 2 | `module_issues` | `data/modules/*.yaml` | GitHub issues on AVM module repos (`Azure/terraform-azurerm-avm-*`) | ⬇ pull | `avm harvest` 💡 |
-| 3 | `provider_issues` | `data/{resources,datasources,…}/*.yaml` | GitHub issues on Terraform provider repos (`hashicorp/terraform-provider-azurerm`, `Azure/terraform-provider-azapi`) | ⬇ pull | Phase 3 (provider-currency) 💡 |
+| 3 | `provider_issues` | `data/{resources,datasources,…}/*.yaml` | GitHub issues on Terraform provider repos (`hashicorp/terraform-provider-azurerm`, `Azure/terraform-provider-azapi`) | ⬇ pull | `avm providers --mode issues` ✅ |
 | 4 | `provider_updates` | `data/{resources,datasources,…}/*.yaml` | GitHub Releases / CHANGELOG of Terraform provider | ⬇ pull | `avm providers` ✅ |
 
 **`/avm-issues` shows 0 on a fresh repo** — correct. It reads `enrichment.known_issues` only. No operator has typed entries yet.
@@ -45,7 +45,7 @@ Four distinct tracking keys — each has a unique location, source, and automati
 - ✅ **`avm report`** — new CLI command: `--scores`, `--issues`, `--json` subcommands with `--domains`, `--types`, `--severity`, `--min-score`, `--output` filters. _Implemented in `avm.sh` + `scripts/report.py`._
 - ✅ **`avm activity`** — git commit activity monitor across all cloned repos with `--since`, `--stagnant-only`, `--no-stagnant`, `--top`, `--domains` flags. _Implemented in `avm.sh` + `scripts/activity.py`._
 - ✅ **`avm index`** — build per-resource-type stub inventory (`data/{resources,datasources,functions,ephemerals,actions}/{type}.yaml`); stubs never overwritten; `--dry-run`, `--domains`, `--types` flags. _Implemented in `avm.sh` + `scripts/build_resource_index.py`._
-- ✅ **`avm providers`** — fetch Terraform provider release notes → parse by resource type → write `provider_updates.findings` into each stub. _Implemented in `avm.sh` + `scripts/fetch_provider_changes.py`._
+- ✅ **`avm providers`** — fetch Terraform provider changelog (releases) and/or open GitHub issues → write `provider_updates.findings` / `provider_issues.items` into each stub. Modes: `changes` (default), `issues`, `all`. Flags: `--provider`, `--mode`, `--since`, `--max-releases`, `--max-issues`, `--dry-run`, `--force`. _Implemented in `avm.sh` + `scripts/fetch_provider_changes.py`._
 
 
 
@@ -142,16 +142,29 @@ provider_updates:
 
 ---
 
-### Phase 3 — Fetch provider issues per resource type
+### Phase 3 — Fetch provider issues per resource type ✅
 
-Fetch open GitHub issues from the provider repos and write them into each stub's `provider_issues.items` block:
+Bulk-fetches all open GitHub Issues from provider repos, cross-matches issue titles and bodies against known resource types (backtick-quoted), and writes matched issues into each stub's `provider_issues.items` block.
 
-| Criticality | Signals |
-|---|---|
-| `critical` | `security`, `CVE`, `vulnerability`, `breaking change`, `data loss` |
-| `high` | `bug fix`, `fix`, `regression`, `incorrect`, `panic`, `crash` |
-| `medium` | `enhancement`, `improvement`, `deprecated`, `behavior change` |
-| `low` | `new resource`, `new attribute`, `new argument`, `documentation` |
+```
+./avm.sh providers --mode issues                      # open issues only (azurerm+azapi)
+./avm.sh providers --mode all                         # changelog + issues in one pass
+./avm.sh providers --mode issues --max-issues 500
+./avm.sh providers --mode issues --dry-run
+```
+
+**Strategy:** Bulk-fetch all open issues in ~10 API calls (100/page), then cross-match — far more efficient than per-resource-type search queries (~223 calls). Issue title + first 3 000 chars of body are scanned for backtick-quoted resource type names.
+
+```yaml
+provider_issues:
+  last_checked: "2026-05-13T08:00:00Z"
+  items:
+  - number: 12345
+    title: "azurerm_storage_account: Support for Geo Priority Replication"
+    labels: ["enhancement", "service/storage"]
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/issues/12345"
+    created_at: "2026-04-09"
+```
 
 ### Phase 4 — Surface findings
 
@@ -162,7 +175,7 @@ Fetch open GitHub issues from the provider repos and write them into each stub's
 
 ---
 
-> **Implementation order:** Phase 1 ✅ → Phase 2 ✅ (Provider Change Intelligence: fetch + classify) → Phase 3 💡 (provider issues from GitHub) → Phase 4 💡 (surface findings in analysis blocks and dashboard).
+> **Implementation order:** Phase 1 ✅ → Phase 2 ✅ → Phase 3 ✅ → Phase 4 💡 (surface findings in `analysis_provider_currency:` blocks and dashboard).
 
 ### Other Terraform symbol types (datasources, functions, ephemeral/actions) ✅
 

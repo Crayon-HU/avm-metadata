@@ -5,7 +5,7 @@ resource:
   registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_interface_application_security_group_association"
 
 provider_updates:
-  last_checked: null
+  last_checked: "2026-05-13T06:16:10Z"
   findings: []
   # finding shape:
   #   - version: "4.15.0"
@@ -15,7 +15,7 @@ provider_updates:
   #     url: "..."
 
 provider_issues:
-  last_checked: null
+  last_checked: "2026-05-13T06:34:31Z"
   items: []
   # item shape:
   #   - number: 1234

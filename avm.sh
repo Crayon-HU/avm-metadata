@@ -17,7 +17,7 @@
 #   report      Compliance scorecard, open issues rollup, and JSON catalog export
 #   activity    Git commit activity monitor across cloned repos
 #   index       Build per-resource-type stub inventory (data/resources/ etc.)
-#   providers   Fetch provider changelog → write provider_updates findings to stubs
+#   providers   Fetch provider changelog/issues → write provider_updates/provider_issues to stubs
 #   site        Generate static HTML health dashboard
 #
 # Usage:
@@ -82,7 +82,7 @@ _usage() {
     report    Compliance scorecard, open issues rollup, and JSON catalog export
     activity  Git commit activity monitor across cloned repos
     index     Build per-resource-type stub inventory (data/resources/ etc.)
-    providers Fetch provider changelog → write provider_updates findings to stubs
+    providers Fetch provider changelog/issues → write to provider_updates/provider_issues stubs
     site      Generate static HTML health dashboard (docs/site/index.html)
     help      Show this message
 
@@ -645,15 +645,19 @@ _usage_providers() {
   _header
   cat <<'EOF'
 
-  providers — Fetch Terraform provider release notes and write changelog findings
-              into the provider_updates.findings block of per-resource-type stubs at:
+  providers — Fetch Terraform provider changelog and/or open GitHub Issues,
+              and write findings into per-resource-type stubs at:
                 data/resources/    azurerm_virtual_network.yaml
                 data/datasources/  azurerm_subnet.yaml
                 ...
 
-              Each finding records the provider version, criticality, type, and summary.
-              Stubs are updated in-place; all other sections (provider_issues, enrichment)
-              are preserved unchanged.
+              Two modes — use --mode to control what is fetched:
+                changes (default)  GitHub Releases → provider_updates.findings
+                issues             Open GitHub Issues → provider_issues.items
+                all                Both in a single pass
+
+              Stubs are updated in-place; all sections not targeted by the
+              current mode are preserved unchanged.
 
               Requires GITHUB_TOKEN for best results (5 000 req/hr vs 60 unauthenticated).
 
@@ -663,15 +667,21 @@ _usage_providers() {
   Options:
     --provider LIST       Comma-separated provider names (default: azurerm,azapi).
                           Supported: azurerm, azapi, azuread
+    --mode MODE           changes | issues | all (default: changes)
     --since VERSION       Only include releases >= this version (e.g., 4.0.0).
+                          Applies to changes mode only.
     --max-releases N      Maximum releases per provider (default: 100).
+    --max-issues N        Maximum open issues per provider (default: 1000).
     --dry-run             Preview without modifying files.
     --force               Re-fetch even if last_checked is within 24 h.
 
   Examples:
-    ./avm.sh providers
-    ./avm.sh providers --since 4.0.0
-    ./avm.sh providers --provider azurerm --since 4.0.0 --max-releases 10
+    ./avm.sh providers                                    # changelog only (default)
+    ./avm.sh providers --mode issues                      # open issues only
+    ./avm.sh providers --mode all                         # changelog + issues
+    ./avm.sh providers --since 4.0.0                      # changelog from version 4.0.0
+    ./avm.sh providers --provider azurerm --max-releases 10
+    ./avm.sh providers --mode issues --max-issues 500
     ./avm.sh providers --dry-run
     ./avm.sh providers --force
 

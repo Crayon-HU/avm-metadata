@@ -180,6 +180,8 @@ modules:
 ./avm.sh providers                                       # fetch all releases, azurerm+azapi (default)
 ./avm.sh providers --since 4.0.0                         # only releases >= 4.0.0
 ./avm.sh providers --provider azurerm --max-releases 10  # limit release count
+./avm.sh providers --mode issues                         # open GitHub Issues → provider_issues.items
+./avm.sh providers --mode all                            # releases + issues in one pass
 ./avm.sh providers --dry-run                             # preview without writing
 ./avm.sh providers --force                               # re-fetch even if checked within 24 h
 

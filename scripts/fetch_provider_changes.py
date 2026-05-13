@@ -1,22 +1,25 @@
 #!/usr/bin/env python3
-"""fetch_provider_changes.py — Fetch Terraform provider changelog and write findings to resource stubs.
+"""fetch_provider_changes.py — Fetch Terraform provider changelog/issues and write to resource stubs.
 
-Phase 2 of Provider Change Intelligence.
+Phase 2 + Phase 3 of Provider Change Intelligence.
 
-For each provider, fetches GitHub Releases, parses each release body to extract
-resource type mentions and their criticality, then writes findings into the
-provider_updates.findings block of each matching stub in:
+Phase 2 (--mode changes):
+  Fetches GitHub Releases, parses each release body to extract resource type
+  mentions and their criticality, then writes findings into the
+  provider_updates.findings block of each matching stub.
 
+Phase 3 (--mode issues):
+  Bulk-fetches all open GitHub Issues from provider repos, cross-matches against
+  known resource types (title + body[:3000]), and writes matched issues into the
+  provider_issues.items block of each matching stub.
+
+Use --mode all to run both phases in a single pass.
+
+Stub locations:
     data/resources/     azurerm_virtual_network.yaml
     data/datasources/   azurerm_subnet.yaml
     data/functions/     ...
     data/ephemerals/    ...
-
-Criticality is determined by the release body section heading:
-    Breaking Changes / Security → critical
-    Bug Fixes / Fixes           → high
-    Enhancements                → medium
-    New Resources / New Data Sources / Deprecations → low/medium
 
 Usage:
     python3 scripts/fetch_provider_changes.py [options]
@@ -24,8 +27,10 @@ Usage:
 
 Options:
     --provider LIST     Comma-separated provider names (default: azurerm,azapi)
-    --since VERSION     Only include releases >= this version (e.g., 4.0.0)
+    --mode MODE         changes | issues | all (default: changes)
+    --since VERSION     Only include releases >= this version (changes mode only)
     --max-releases N    Maximum releases to fetch per provider (default: 100)
+    --max-issues N      Maximum issues to fetch per provider (default: 1000)
     --dry-run           Print summary without modifying files
     --force             Re-fetch even if last_checked is within 24 h
 
@@ -347,10 +352,14 @@ def _load_stubs(providers: list[str]) -> dict[str, tuple[str, dict]]:
     return stubs
 
 
-def _is_recently_checked(stub_data: dict, max_age_hours: int = 24) -> bool:
-    """Return True if provider_updates.last_checked is within max_age_hours."""
+def _is_recently_checked(
+    stub_data:     dict,
+    section_key:   str = "provider_updates",
+    max_age_hours: int = 24,
+) -> bool:
+    """Return True if <section_key>.last_checked is within max_age_hours."""
     try:
-        last_checked = stub_data.get("provider_updates", {}).get("last_checked")
+        last_checked = stub_data.get(section_key, {}).get("last_checked")
         if last_checked is None:
             return False
         ts = datetime.fromisoformat(str(last_checked).rstrip("Z")).replace(
@@ -470,6 +479,227 @@ def _update_stub(fpath: str, findings: list[dict], now: str, dry_run: bool) -> b
 
 
 # ---------------------------------------------------------------------------
+# Phase 3 — provider_issues (open GitHub issues)
+# ---------------------------------------------------------------------------
+
+
+def _fetch_issues(
+    owner:      str,
+    repo:       str,
+    token:      str | None,
+    max_issues: int,
+) -> list[dict]:
+    """Bulk-fetch all open (non-PR) issues from a GitHub repository, newest first.
+
+    Uses the issues endpoint with state=open; pull requests are filtered out.
+    Returns at most max_issues entries.
+    """
+    issues:   list[dict] = []
+    page      = 1
+    per_page  = 100  # GitHub's maximum
+
+    while len(issues) < max_issues:
+        url = (
+            f"https://api.github.com/repos/{owner}/{repo}/issues"
+            f"?state=open&per_page={per_page}&page={page}"
+        )
+        batch: list[dict] = _github_get(url, token)
+
+        if not batch:
+            break
+
+        for item in batch:
+            # The GitHub issues endpoint also returns pull requests — skip them
+            if "pull_request" in item:
+                continue
+            issues.append(item)
+            if len(issues) >= max_issues:
+                return issues
+
+        if len(batch) < per_page:
+            break  # last page reached
+        page += 1
+
+    return issues
+
+
+def _match_resource_types_in_issue(
+    issue:       dict,
+    known_types: set[str],
+) -> list[str]:
+    """Return the subset of known_types mentioned in an issue's title or body.
+
+    Searches: title (full) + first 3 000 chars of body.
+    Uses the same backtick-quote regex as release body parsing.
+    """
+    title = issue.get("title") or ""
+    body  = (issue.get("body") or "")[:3000]
+    text  = f"{title}\n{body}"
+
+    matched = {m for m in _RESOURCE_TYPE_RE.findall(text) if m in known_types}
+    return sorted(matched)
+
+
+def _format_provider_issues_block(items: list[dict], now: str) -> str:
+    """Render the provider_issues: YAML block as a plain string.
+
+    Items are written as actual YAML entries. When items is empty,
+    the shape comment is preserved for documentation.
+    """
+    lines: list[str] = [
+        "provider_issues:",
+        f'  last_checked: "{now}"',
+    ]
+
+    if items:
+        lines.append("  items:")
+        for item in items:
+            title_safe  = item["title"].replace('"', "'")
+            url_safe    = item.get("html_url", item.get("url", "")).replace('"', "'")
+            labels_yaml = json.dumps([lb["name"] for lb in item.get("labels", [])])
+            created     = (item.get("created_at") or "")[:10]  # date only
+            lines += [
+                f'  - number: {item["number"]}',
+                f'    title: "{title_safe}"',
+                f'    labels: {labels_yaml}',
+                f'    url: "{url_safe}"',
+                f'    created_at: "{created}"',
+            ]
+    else:
+        lines += [
+            "  items: []",
+            "  # item shape:",
+            "  #   - number: 1234",
+            "  #     title: \"...\"",
+            "  #     labels: [bug]",
+            "  #     url: \"...\"",
+            "  #     created_at: \"2026-01-01\"",
+        ]
+
+    return "\n".join(lines)
+
+
+def _update_stub_issues(
+    fpath:    str,
+    items:    list[dict],
+    now:      str,
+    dry_run:  bool,
+) -> bool:
+    """Write issue items into a stub file's provider_issues: section.
+
+    Returns True if the file was (or would be) modified.
+    """
+    with open(fpath, "r", encoding="utf-8") as fh:
+        original = fh.read()
+
+    new_block   = _format_provider_issues_block(items, now)
+    new_content = _replace_yaml_section(original, "provider_issues", new_block)
+
+    if new_content == original:
+        return False
+
+    if not dry_run:
+        import tempfile
+        tmp_dir = os.path.dirname(fpath)
+        with tempfile.NamedTemporaryFile(
+            mode="w", encoding="utf-8", suffix=".yaml",
+            dir=tmp_dir, delete=False,
+        ) as tmp:
+            tmp.write(new_content)
+            tmp_path = tmp.name
+        os.replace(tmp_path, fpath)
+
+    return True
+
+
+def cmd_provider_issues(
+    providers:  list[str],
+    dry_run:    bool,
+    force:      bool,
+    max_issues: int,
+    token:      str | None,
+) -> None:
+    """Fetch open provider GitHub issues and write them into resource stubs."""
+    now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+    print(f"Loading stubs for: {', '.join(providers)}")
+    stubs = _load_stubs(providers)
+    print(f"  {len(stubs)} stub(s) loaded")
+
+    known_types = set(stubs.keys())
+    total_stubs_updated = 0
+    total_items         = 0
+
+    for provider_name in providers:
+        pinfo = _PROVIDERS[provider_name]
+        owner, repo = pinfo["owner"], pinfo["repo"]
+
+        label = f"{provider_name} ({owner}/{repo})"
+        print(f"\nFetching issues: {label}  (max {max_issues})")
+
+        try:
+            all_issues = _fetch_issues(owner, repo, token, max_issues)
+        except RuntimeError as exc:
+            print(f"  [error] {exc}", file=sys.stderr)
+            continue
+
+        print(f"  Fetched {len(all_issues)} open issue(s)")
+        if not all_issues:
+            continue
+
+        # Index issues by resource type: resource_type → list of matching issues
+        issues_by_type: dict[str, list[dict]] = {}
+        for issue in all_issues:
+            for rtype in _match_resource_types_in_issue(issue, known_types):
+                if rtype not in issues_by_type:
+                    issues_by_type[rtype] = []
+                issues_by_type[rtype].append(issue)
+
+        types_matched = len(issues_by_type)
+        print(f"  {types_matched} resource type(s) mentioned in open issues")
+
+        provider_updated = 0
+        provider_items   = 0
+
+        for resource_type, (fpath, stub_data) in stubs.items():
+            if stub_data["resource"].get("provider") != provider_name:
+                continue
+            if not force and _is_recently_checked(
+                stub_data, section_key="provider_issues", max_age_hours=24
+            ):
+                continue
+
+            matched_items = issues_by_type.get(resource_type, [])
+            rel_path = os.path.relpath(fpath, REPO_ROOT)
+
+            if dry_run:
+                n = len(matched_items)
+                if n:
+                    print(f"  [dry-run] {n} issue(s) → {rel_path}")
+                    provider_updated += 1
+                    provider_items   += n
+                continue
+
+            modified = _update_stub_issues(fpath, matched_items, now, dry_run=False)
+            if modified:
+                provider_updated += 1
+                provider_items   += len(matched_items)
+
+        if dry_run:
+            print(f"  [dry-run] Would update {provider_updated} stub(s), "
+                  f"{provider_items} issue item(s)")
+        else:
+            print(f"  Updated {provider_updated} stub(s) with "
+                  f"{provider_items} issue item(s)")
+
+        total_stubs_updated += provider_updated
+        total_items         += provider_items
+
+    action = "[dry-run] Would write" if dry_run else "Done. Wrote"
+    print(f"\n{action} {total_items} issue item(s) across {total_stubs_updated} stub(s).")
+
+
+# ---------------------------------------------------------------------------
 # Main command
 # ---------------------------------------------------------------------------
 
@@ -484,13 +714,6 @@ def cmd_providers(
 ) -> None:
     """Fetch provider releases and write findings into resource stubs."""
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-
-    # Validate requested providers
-    unknown = [p for p in providers if p not in _PROVIDERS]
-    if unknown:
-        print(f"[error] Unknown provider(s): {', '.join(unknown)}. "
-              f"Available: {', '.join(_PROVIDERS)}", file=sys.stderr)
-        sys.exit(1)
 
     print(f"Loading stubs for: {', '.join(providers)}")
     stubs = _load_stubs(providers)
@@ -536,7 +759,9 @@ def cmd_providers(
         for resource_type, (fpath, stub_data) in stubs.items():
             if stub_data["resource"].get("provider") != provider_name:
                 continue
-            if not force and _is_recently_checked(stub_data, max_age_hours=24):
+            if not force and _is_recently_checked(
+                stub_data, section_key="provider_updates", max_age_hours=24
+            ):
                 continue
 
             findings_for_type = all_findings.get(resource_type, [])
@@ -576,7 +801,13 @@ def cmd_providers(
 
 def _parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(
-        description="Fetch Terraform provider changelog and write findings to resource stubs.",
+        description=(
+            "Fetch Terraform provider changelog/issues and write to resource stubs.\n\n"
+            "Modes:\n"
+            "  changes  Fetch GitHub Releases → write provider_updates.findings (default)\n"
+            "  issues   Fetch open GitHub Issues → write provider_issues.items\n"
+            "  all      Run both modes in a single pass"
+        ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     p.add_argument(
@@ -584,14 +815,24 @@ def _parse_args() -> argparse.Namespace:
         help="Comma-separated provider names (default: azurerm,azapi)",
     )
     p.add_argument(
+        "--mode", default="changes",
+        choices=["changes", "issues", "all"],
+        help="What to fetch: changes | issues | all (default: changes)",
+    )
+    p.add_argument(
         "--since", default=None,
         metavar="VERSION",
-        help="Only include releases >= this version (e.g., 4.0.0)",
+        help="Only include releases >= this version, e.g. 4.0.0 (changes mode only)",
     )
     p.add_argument(
         "--max-releases", type=int, default=100,
         metavar="N",
         help="Maximum releases to fetch per provider (default: 100)",
+    )
+    p.add_argument(
+        "--max-issues", type=int, default=1000,
+        metavar="N",
+        help="Maximum open issues to fetch per provider (default: 1000)",
     )
     p.add_argument(
         "--dry-run", action="store_true",
@@ -615,16 +856,37 @@ def main() -> None:
             file=sys.stderr,
         )
 
+    # Validate providers early (shared by all modes)
     providers = [p.strip() for p in args.provider.split(",") if p.strip()]
-    cmd_providers(
-        providers    = providers,
-        since        = args.since,
-        dry_run      = args.dry_run,
-        force        = args.force,
-        max_releases = args.max_releases,
-        token        = token,
-    )
+    unknown   = [p for p in providers if p not in _PROVIDERS]
+    if unknown:
+        print(
+            f"[error] Unknown provider(s): {', '.join(unknown)}. "
+            f"Available: {', '.join(_PROVIDERS)}",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+    if args.mode in ("changes", "all"):
+        cmd_providers(
+            providers    = providers,
+            since        = args.since,
+            dry_run      = args.dry_run,
+            force        = args.force,
+            max_releases = args.max_releases,
+            token        = token,
+        )
+
+    if args.mode in ("issues", "all"):
+        cmd_provider_issues(
+            providers  = providers,
+            dry_run    = args.dry_run,
+            force      = args.force,
+            max_issues = args.max_issues,
+            token      = token,
+        )
 
 
 if __name__ == "__main__":
     main()
+
