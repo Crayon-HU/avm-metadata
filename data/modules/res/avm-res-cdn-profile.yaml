@@ -29,7 +29,7 @@ catalog:
 # END SCRAPED
 # BEGIN ANALYSIS:terraform-metadata
 analysis_terraform_metadata:
-  checked_at: "2026-05-13T04:02:34Z"
+  checked_at: "2026-05-13T04:50:11Z"
   status: pass
   errors: []
   terraform_constraints:
@@ -84,7 +84,7 @@ analysis_terraform_metadata:
 # END ANALYSIS:terraform-metadata
 # BEGIN ANALYSIS:avm-interface-compliance
 analysis_avm_interface_compliance:
-  checked_at: "2026-05-13T04:02:34Z"
+  checked_at: "2026-05-13T04:50:11Z"
   status: partial
   checks:
     lock: { status: pass, evidence: "variables.tf:2090" }
@@ -97,7 +97,7 @@ analysis_avm_interface_compliance:
 # END ANALYSIS:avm-interface-compliance
 # BEGIN ANALYSIS:security-hardening
 analysis_security_hardening:
-  checked_at: "2026-05-13T04:02:34Z"
+  checked_at: "2026-05-13T04:50:11Z"
   status: pass
   checks:
     hardcoded_locations: { status: pass, evidence: "No hardcoded locations found" }
@@ -106,7 +106,7 @@ analysis_security_hardening:
 # END ANALYSIS:security-hardening
 # BEGIN ANALYSIS:test-coverage
 analysis_test_coverage:
-  checked_at: "2026-05-13T04:02:34Z"
+  checked_at: "2026-05-13T04:50:11Z"
   status: partial
   checks:
     examples_dir: { status: pass, evidence: "examples/ contains 11 item(s)" }
@@ -114,7 +114,7 @@ analysis_test_coverage:
 # END ANALYSIS:test-coverage
 # BEGIN ANALYSIS:doc-quality
 analysis_doc_quality:
-  checked_at: "2026-05-13T04:02:34Z"
+  checked_at: "2026-05-13T04:50:11Z"
   status: partial
   checks:
     readme_exists: { status: pass, evidence: "README.md found" }
@@ -123,7 +123,7 @@ analysis_doc_quality:
 # END ANALYSIS:doc-quality
 # BEGIN ANALYSIS:dependency-health
 analysis_dependency_health:
-  checked_at: "2026-05-13T04:02:34Z"
+  checked_at: "2026-05-13T04:50:11Z"
   status: fail
   checks:
     terraform_version_upper_bound: { status: pass, evidence: "required_version = \">= 1.9, < 2.0\"" }

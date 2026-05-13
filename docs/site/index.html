@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AVM Intelligence Dashboard</title>
+  <style>
+:root {
+  --bg:       #0d1117;
+  --bg2:      #161b22;
+  --bg3:      #21262d;
+  --border:   #30363d;
+  --text:     #e6edf3;
+  --muted:    #8b949e;
+  --green:    #3fb950;
+  --orange:   #d29922;
+  --red:      #f85149;
+  --blue:     #58a6ff;
+  --purple:   #bc8cff;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  background: var(--bg);
+  color: var(--text);
+  padding: 24px;
+}
+h1 { font-size: 22px; font-weight: 600; margin-bottom: 4px; }
+.subtitle { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+.stats {
+  display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 28px;
+}
+.stat-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 12px 18px; min-width: 120px;
+}
+.stat-card .val { font-size: 22px; font-weight: 700; line-height: 1.2; }
+.stat-card .lbl { color: var(--muted); font-size: 12px; margin-top: 2px; }
+details { margin-bottom: 16px; }
+summary {
+  list-style: none; cursor: pointer;
+  display: flex; align-items: center; gap: 8px;
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 10px 16px;
+  font-weight: 600; font-size: 15px;
+  user-select: none;
+}
+details[open] > summary { border-radius: 8px 8px 0 0; border-bottom-color: transparent; }
+summary::before { content: "▶"; font-size: 11px; color: var(--muted); transition: transform .15s; }
+details[open] summary::before { transform: rotate(90deg); }
+.domain-stats { margin-left: auto; font-size: 12px; color: var(--muted); font-weight: 400; display: flex; gap: 10px; }
+table {
+  width: 100%; border-collapse: collapse;
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 0 0 8px 8px; overflow: hidden;
+}
+th, td { padding: 7px 12px; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; }
+tr:last-child td { border-bottom: none; }
+th { background: var(--bg3); color: var(--muted); font-size: 12px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+td.name { font-family: monospace; font-size: 12px; white-space: nowrap; }
+td.name a { color: var(--blue); text-decoration: none; }
+td.name a:hover { text-decoration: underline; }
+.score { font-weight: 700; font-size: 13px; }
+.score-green  { color: var(--green);  }
+.score-orange { color: var(--orange); }
+.score-red    { color: var(--red);    }
+.score-grey   { color: var(--muted);  }
+.badge {
+  display: inline-block; padding: 1px 5px; border-radius: 4px;
+  font-size: 11px; font-weight: 600; line-height: 1.5;
+}
+.pass    { background: rgba(63,185,80,.15);  color: var(--green);  }
+.partial { background: rgba(210,153,34,.15); color: var(--orange); }
+.fail    { background: rgba(248,81,73,.15);  color: var(--red);    }
+.none    { background: rgba(139,148,158,.1); color: var(--muted);  }
+.stale-badge { font-size: 11px; padding: 1px 5px; border-radius: 4px; margin-left: 4px; }
+.stale-warn  { background: rgba(210,153,34,.2); color: var(--orange); }
+.stale-crit  { background: rgba(248,81,73,.2);  color: var(--red);    }
+.type-badge  { font-size: 11px; padding: 1px 5px; border-radius: 4px; background: rgba(188,140,255,.15); color: var(--purple); }
+.version     { font-size: 12px; color: var(--muted); font-family: monospace; }
+footer       { margin-top: 32px; color: var(--muted); font-size: 12px; text-align: center; }
+</style>
+</head>
+<body>
+  <h1>⚡ AVM Intelligence Dashboard</h1>
+  <p class="subtitle">Generated: 2026-05-13 05:43 UTC &nbsp;·&nbsp; <span class="badge pass">✓ pass</span> <span class="badge partial">⚠ partial</span> <span class="badge fail">✗ fail</span> <span class="badge none">– no data</span></p>
+  <div class="stats">
+    <div class="stat-card"><div class="val">148</div><div class="lbl">Modules</div></div>
+    <div class="stat-card"><div class="val">17</div><div class="lbl">Domains</div></div>
+    <div class="stat-card"><div class="val">111</div><div class="lbl">res</div></div>
+    <div class="stat-card"><div class="val">26</div><div class="lbl">ptn</div></div>
+    <div class="stat-card"><div class="val">11</div><div class="lbl">utl</div></div>
+    <div class="stat-card"><div class="val">137</div><div class="lbl">Analyzed</div></div>
+    <div class="stat-card"><div class="val">74%</div><div class="lbl">Avg score</div></div>
+</div>
+  <p style="font-size:12px;color:var(--muted);margin-bottom:16px"><b>SH</b> = security-hardening &nbsp;·&nbsp; <b>AI</b> = avm-interface-compliance &nbsp;·&nbsp; <b>DH</b> = dependency-health &nbsp;·&nbsp; <b>TC</b> = test-coverage &nbsp;·&nbsp; <b>DQ</b> = doc-quality &nbsp;·&nbsp; <b>TM</b> = terraform-metadata</p>
+  
+<details open>
+  <summary>Ai Ml<span class="domain-stats"><span>5 modules</span><span class="score score-orange">avg 79%</span></span></summary>
+  <table>
+    <thead>
+      <tr>
+        <th>Module</th><th>Type</th><th>Score</th>
+        <th style="font-size:11px">SH&nbsp;AI&nbsp;DH&nbsp;TC&nbsp;DQ&nbsp;TM</th>
+        <th>Version</th><th>Synced</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-botservice-botservice" target="_blank">avm-res-botservice-botservice</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-cognitiveservices-account" target="_blank">avm-res-cognitiveservices-account</a></td><td><span class="type-badge">res</span></td><td><span class="score score-green">87%</span></td><td><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-machinelearningservices-workspace" target="_blank">avm-res-machinelearningservices-workspace</a></td><td><span class="type-badge">res</span></td><td><span class="score score-green">87%</span></td><td><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-ptn-aiml-ai-foundry" target="_blank">avm-ptn-aiml-ai-foundry</a></td><td><span class="type-badge">ptn</span></td><td><span class="score score-orange">60%</span></td><td><span class="badge fail">✗</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-ptn-aiml-landing-zone" target="_blank">avm-ptn-aiml-landing-zone</a></td><td><span class="type-badge">ptn</span></td><td><span class="score score-green">87%</span></td><td><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+    </tbody>
+  </table>
+</details>
+
+<details open>
+  <summary>Avd<span class="domain-stats"><span>6 modules</span><span class="score score-orange">avg 77%</span></span></summary>
+  <table>
+    <thead>
+      <tr>
+        <th>Module</th><th>Type</th><th>Score</th>
+        <th style="font-size:11px">SH&nbsp;AI&nbsp;DH&nbsp;TC&nbsp;DQ&nbsp;TM</th>
+        <th>Version</th><th>Synced</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-desktopvirtualization-applicationgroup" target="_blank">avm-res-desktopvirtualization-applicationgroup</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-desktopvirtualization-hostpool" target="_blank">avm-res-desktopvirtualization-hostpool</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-desktopvirtualization-scalingplan" target="_blank">avm-res-desktopvirtualization-scalingplan</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-desktopvirtualization-workspace" target="_blank">avm-res-desktopvirtualization-workspace</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-ptn-avd-lza-insights" target="_blank">avm-ptn-avd-lza-insights</a></td><td><span class="type-badge">ptn</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-ptn-avd-lza-managementplane" target="_blank">avm-ptn-avd-lza-managementplane</a></td><td><span class="type-badge">ptn</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+    </tbody>
+  </table>
+</details>
+
+<details open>
+  <summary>Compute<span class="domain-stats"><span>14 modules</span><span class="score score-orange">avg 66%</span></span></summary>
+  <table>
+    <thead>
+      <tr>
+        <th>Module</th><th>Type</th><th>Score</th>
+        <th style="font-size:11px">SH&nbsp;AI&nbsp;DH&nbsp;TC&nbsp;DQ&nbsp;TM</th>
+        <th>Version</th><th>Synced</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-batch-batchaccount" target="_blank">avm-res-batch-batchaccount</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">67%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-compute-capacityreservationgroup" target="_blank">avm-res-compute-capacityreservationgroup</a></td><td><span class="type-badge">res</span></td><td><span class="score score-green">87%</span></td><td><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version">v0.1.0</td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-compute-disk" target="_blank">avm-res-compute-disk</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-compute-diskencryptionset" target="_blank">avm-res-compute-diskencryptionset</a></td><td><span class="type-badge">res</span></td><td><span class="score score-red">50%</span></td><td><span class="badge fail">✗</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-compute-gallery" target="_blank">avm-res-compute-gallery</a></td><td><span class="type-badge">res</span></td><td><span class="score score-red">57%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge fail">✗</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-compute-hostgroup" target="_blank">avm-res-compute-hostgroup</a></td><td><span class="type-badge">res</span></td><td><span class="score score-red">57%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge fail">✗</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-compute-proximityplacementgroup" target="_blank">avm-res-compute-proximityplacementgroup</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-compute-sshpublickey" target="_blank">avm-res-compute-sshpublickey</a></td><td><span class="type-badge">res</span></td><td><span class="score score-red">57%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge fail">✗</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-compute-virtualmachine" target="_blank">avm-res-compute-virtualmachine</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-compute-virtualmachinescaleset" target="_blank">avm-res-compute-virtualmachinescaleset</a></td><td><span class="type-badge">res</span></td><td><span class="score score-red">57%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge fail">✗</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azure-avm-utl-compute-linuxvirtualmachine-azapi-replicator" target="_blank">avm-utl-compute-linuxvirtualmachine-azapi-replicator</a></td><td><span class="type-badge">utl</span></td><td><span class="score score-grey">—</span></td><td><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azure-avm-utl-compute-orchestratedvirtualmachinescaleset-azapi-replicator" target="_blank">avm-utl-compute-orchestratedvirtualmachinescaleset-azapi-replicator</a></td><td><span class="type-badge">utl</span></td><td><span class="score score-grey">—</span></td><td><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azure-avm-utl-compute-windowsvirtualmachine-azapi-replicator" target="_blank">avm-utl-compute-windowsvirtualmachine-azapi-replicator</a></td><td><span class="type-badge">utl</span></td><td><span class="score score-grey">—</span></td><td><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azapi-avm-utl-sku-finder" target="_blank">avm-utl-sku-finder</a></td><td><span class="type-badge">utl</span></td><td><span class="score score-grey">—</span></td><td><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+    </tbody>
+  </table>
+</details>
+
+<details open>
+  <summary>Containers<span class="domain-stats"><span>13 modules</span><span class="score score-orange">avg 69%</span></span></summary>
+  <table>
+    <thead>
+      <tr>
+        <th>Module</th><th>Type</th><th>Score</th>
+        <th style="font-size:11px">SH&nbsp;AI&nbsp;DH&nbsp;TC&nbsp;DQ&nbsp;TM</th>
+        <th>Version</th><th>Synced</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-app-containerapp" target="_blank">avm-res-app-containerapp</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-app-job" target="_blank">avm-res-app-job</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-app-managedenvironment" target="_blank">avm-res-app-managedenvironment</a></td><td><span class="type-badge">res</span></td><td><span class="score score-red">50%</span></td><td><span class="badge fail">✗</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-containerinstance-containergroup" target="_blank">avm-res-containerinstance-containergroup</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">63%</span></td><td><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-containerregistry-registry" target="_blank">avm-res-containerregistry-registry</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-containerservice-managedcluster" target="_blank">avm-res-containerservice-managedcluster</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">60%</span></td><td><span class="badge fail">✗</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version">v0.5.4</td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-hybridcontainerservice-provisionedclusterinstance" target="_blank">avm-res-hybridcontainerservice-provisionedclusterinstance</a></td><td><span class="type-badge">res</span></td><td><span class="score score-red">57%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge fail">✗</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version">v2.0.4</td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-redhatopenshift-openshiftcluster" target="_blank">avm-res-redhatopenshift-openshiftcluster</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-ptn-aca-lza-hosting-environment" target="_blank">avm-ptn-aca-lza-hosting-environment</a></td><td><span class="type-badge">ptn</span></td><td><span class="score score-orange">60%</span></td><td><span class="badge fail">✗</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-ptn-aks-dev" target="_blank">avm-ptn-aks-dev</a></td><td><span class="type-badge">ptn</span></td><td><span class="score score-green">87%</span></td><td><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-ptn-aks-economy" target="_blank">avm-ptn-aks-economy</a></td><td><span class="type-badge">ptn</span></td><td><span class="score score-green">87%</span></td><td><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-ptn-aks-enterprise" target="_blank">avm-ptn-aks-enterprise</a></td><td><span class="type-badge">ptn</span></td><td><span class="score score-green">87%</span></td><td><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-ptn-aks-production" target="_blank">avm-ptn-aks-production</a></td><td><span class="type-badge">ptn</span></td><td><span class="score score-red">40%</span></td><td><span class="badge fail">✗</span><span class="badge pass">✓</span><span class="badge fail">✗</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+    </tbody>
+  </table>
+</details>
+
+<details open>
+  <summary>Data Databases<span class="domain-stats"><span>18 modules</span><span class="score score-green">avg 81%</span></span></summary>
+  <table>
+    <thead>
+      <tr>
+        <th>Module</th><th>Type</th><th>Score</th>
+        <th style="font-size:11px">SH&nbsp;AI&nbsp;DH&nbsp;TC&nbsp;DQ&nbsp;TM</th>
+        <th>Version</th><th>Synced</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-cache-redis" target="_blank">avm-res-cache-redis</a></td><td><span class="type-badge">res</span></td><td><span class="score score-green">87%</span></td><td><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-cache-redisenterprise" target="_blank">avm-res-cache-redisenterprise</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-databricks-workspace" target="_blank">avm-res-databricks-workspace</a></td><td><span class="type-badge">res</span></td><td><span class="score score-green">83%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-datafactory-factory" target="_blank">avm-res-datafactory-factory</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-dbformysql-flexibleserver" target="_blank">avm-res-dbformysql-flexibleserver</a></td><td><span class="type-badge">res</span></td><td><span class="score score-green">87%</span></td><td><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-dbforpostgresql-flexibleserver" target="_blank">avm-res-dbforpostgresql-flexibleserver</a></td><td><span class="type-badge">res</span></td><td><span class="score score-green">87%</span></td><td><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-documentdb-databaseaccount" target="_blank">avm-res-documentdb-databaseaccount</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">60%</span></td><td><span class="badge fail">✗</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-documentdb-mongocluster" target="_blank">avm-res-documentdb-mongocluster</a></td><td><span class="type-badge">res</span></td><td><span class="score score-green">87%</span></td><td><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-eventhub-namespace" target="_blank">avm-res-eventhub-namespace</a></td><td><span class="type-badge">res</span></td><td><span class="score score-green">87%</span></td><td><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-kusto-cluster" target="_blank">avm-res-kusto-cluster</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">73%</span></td><td><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge fail">✗</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-oracledatabase-cloudexadatainfrastructure" target="_blank">avm-res-oracledatabase-cloudexadatainfrastructure</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-oracledatabase-cloudvmcluster" target="_blank">avm-res-oracledatabase-cloudvmcluster</a></td><td><span class="type-badge">res</span></td><td><span class="score score-green">87%</span></td><td><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-search-searchservice" target="_blank">avm-res-search-searchservice</a></td><td><span class="type-badge">res</span></td><td><span class="score score-green">87%</span></td><td><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-servicebus-namespace" target="_blank">avm-res-servicebus-namespace</a></td><td><span class="type-badge">res</span></td><td><span class="score score-green">87%</span></td><td><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-sql-managedinstance" target="_blank">avm-res-sql-managedinstance</a></td><td><span class="type-badge">res</span></td><td><span class="score score-green">87%</span></td><td><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-sql-server" target="_blank">avm-res-sql-server</a></td><td><span class="type-badge">res</span></td><td><span class="score score-green">87%</span></td><td><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-sqlvirtualmachine-sqlvirtualmachine" target="_blank">avm-res-sqlvirtualmachine-sqlvirtualmachine</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-ptn-odaa" target="_blank">avm-ptn-odaa</a></td><td><span class="type-badge">ptn</span></td><td><span class="score score-orange">73%</span></td><td><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+    </tbody>
+  </table>
+</details>
+
+<details open>
+  <summary>Developer Tools<span class="domain-stats"><span>2 modules</span><span class="score score-orange">avg 63%</span></span></summary>
+  <table>
+    <thead>
+      <tr>
+        <th>Module</th><th>Type</th><th>Score</th>
+        <th style="font-size:11px">SH&nbsp;AI&nbsp;DH&nbsp;TC&nbsp;DQ&nbsp;TM</th>
+        <th>Version</th><th>Synced</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-devcenter-devcenter" target="_blank">avm-res-devcenter-devcenter</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-ptn-cicd-agents-and-runners" target="_blank">avm-ptn-cicd-agents-and-runners</a></td><td><span class="type-badge">ptn</span></td><td><span class="score score-red">50%</span></td><td><span class="badge fail">✗</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+    </tbody>
+  </table>
+</details>
+
+<details open>
+  <summary>Hybrid<span class="domain-stats"><span>7 modules</span><span class="score score-orange">avg 71%</span></span></summary>
+  <table>
+    <thead>
+      <tr>
+        <th>Module</th><th>Type</th><th>Score</th>
+        <th style="font-size:11px">SH&nbsp;AI&nbsp;DH&nbsp;TC&nbsp;DQ&nbsp;TM</th>
+        <th>Version</th><th>Synced</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-azurestackhci-cluster" target="_blank">avm-res-azurestackhci-cluster</a></td><td><span class="type-badge">res</span></td><td><span class="score score-red">50%</span></td><td><span class="badge fail">✗</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-azurestackhci-logicalnetwork" target="_blank">avm-res-azurestackhci-logicalnetwork</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-azurestackhci-virtualmachineinstance" target="_blank">avm-res-azurestackhci-virtualmachineinstance</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-devopsinfrastructure-pool" target="_blank">avm-res-devopsinfrastructure-pool</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">67%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-edge-site" target="_blank">avm-res-edge-site</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-ptn-hci-ad-provisioner" target="_blank">avm-ptn-hci-ad-provisioner</a></td><td><span class="type-badge">ptn</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-ptn-hci-server-provisioner" target="_blank">avm-ptn-hci-server-provisioner</a></td><td><span class="type-badge">ptn</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+    </tbody>
+  </table>
+</details>
+
+<details open>
+  <summary>Identity Security<span class="domain-stats"><span>5 modules</span><span class="score score-orange">avg 66%</span></span></summary>
+  <table>
+    <thead>
+      <tr>
+        <th>Module</th><th>Type</th><th>Score</th>
+        <th style="font-size:11px">SH&nbsp;AI&nbsp;DH&nbsp;TC&nbsp;DQ&nbsp;TM</th>
+        <th>Version</th><th>Synced</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-authorization-roleassignment" target="_blank">avm-res-authorization-roleassignment</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">70%</span></td><td><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-keyvault-vault" target="_blank">avm-res-keyvault-vault</a></td><td><span class="type-badge">res</span></td><td><span class="score score-red">50%</span></td><td><span class="badge fail">✗</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-managedidentity-userassignedidentity" target="_blank">avm-res-managedidentity-userassignedidentity</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azure-avm-ptn-ephemeral-credential" target="_blank">avm-ptn-ephemeral-credential</a></td><td><span class="type-badge">ptn</span></td><td><span class="score score-grey">—</span></td><td><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azure-avm-utl-roledefinitions" target="_blank">avm-utl-roledefinitions</a></td><td><span class="type-badge">utl</span></td><td><span class="score score-grey">—</span></td><td><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+    </tbody>
+  </table>
+</details>
+
+<details open>
+  <summary>Iot<span class="domain-stats"><span>3 modules</span><span class="score score-green">avg 87%</span></span></summary>
+  <table>
+    <thead>
+      <tr>
+        <th>Module</th><th>Type</th><th>Score</th>
+        <th style="font-size:11px">SH&nbsp;AI&nbsp;DH&nbsp;TC&nbsp;DQ&nbsp;TM</th>
+        <th>Version</th><th>Synced</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-eventgrid-domain" target="_blank">avm-res-eventgrid-domain</a></td><td><span class="type-badge">res</span></td><td><span class="score score-green">87%</span></td><td><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-eventgrid-namespace" target="_blank">avm-res-eventgrid-namespace</a></td><td><span class="type-badge">res</span></td><td><span class="score score-green">87%</span></td><td><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-eventgrid-topic" target="_blank">avm-res-eventgrid-topic</a></td><td><span class="type-badge">res</span></td><td><span class="score score-green">87%</span></td><td><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+    </tbody>
+  </table>
+</details>
+
+<details open>
+  <summary>Management<span class="domain-stats"><span>11 modules</span><span class="score score-orange">avg 75%</span></span></summary>
+  <table>
+    <thead>
+      <tr>
+        <th>Module</th><th>Type</th><th>Score</th>
+        <th style="font-size:11px">SH&nbsp;AI&nbsp;DH&nbsp;TC&nbsp;DQ&nbsp;TM</th>
+        <th>Version</th><th>Synced</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azure-avm-res-appconfiguration-configurationstore" target="_blank">avm-res-appconfiguration-configurationstore</a></td><td><span class="type-badge">res</span></td><td><span class="score score-green">87%</span></td><td><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-automation-automationaccount" target="_blank">avm-res-automation-automationaccount</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">67%</span></td><td><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge fail">✗</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-features-feature" target="_blank">avm-res-features-feature</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-maintenance-maintenanceconfiguration" target="_blank">avm-res-maintenance-maintenanceconfiguration</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-management-servicegroup" target="_blank">avm-res-management-servicegroup</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">63%</span></td><td><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-portal-dashboard" target="_blank">avm-res-portal-dashboard</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-resourcegraph-query" target="_blank">avm-res-resourcegraph-query</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-resources-resourcegroup" target="_blank">avm-res-resources-resourcegroup</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-ptn-policyassignment" target="_blank">avm-ptn-policyassignment</a></td><td><span class="type-badge">ptn</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-utl-regions" target="_blank">avm-utl-regions</a></td><td><span class="type-badge">utl</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azure-avm-utl-resources-resourcegroup-azapi-replicator" target="_blank">avm-utl-resources-resourcegroup-azapi-replicator</a></td><td><span class="type-badge">utl</span></td><td><span class="score score-grey">—</span></td><td><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+    </tbody>
+  </table>
+</details>
+
+<details open>
+  <summary>Monitoring<span class="domain-stats"><span>7 modules</span><span class="score score-orange">avg 73%</span></span></summary>
+  <table>
+    <thead>
+      <tr>
+        <th>Module</th><th>Type</th><th>Score</th>
+        <th style="font-size:11px">SH&nbsp;AI&nbsp;DH&nbsp;TC&nbsp;DQ&nbsp;TM</th>
+        <th>Version</th><th>Synced</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-insights-autoscalesetting" target="_blank">avm-res-insights-autoscalesetting</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">63%</span></td><td><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-insights-component" target="_blank">avm-res-insights-component</a></td><td><span class="type-badge">res</span></td><td><span class="score score-red">50%</span></td><td><span class="badge fail">✗</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-insights-datacollectionendpoint" target="_blank">avm-res-insights-datacollectionendpoint</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-insights-datacollectionrule" target="_blank">avm-res-insights-datacollectionrule</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-operationalinsights-workspace" target="_blank">avm-res-operationalinsights-workspace</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-ptn-azuremonitorwindowsagent" target="_blank">avm-ptn-azuremonitorwindowsagent</a></td><td><span class="type-badge">ptn</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-ptn-monitoring-amba-alz" target="_blank">avm-ptn-monitoring-amba-alz</a></td><td><span class="type-badge">ptn</span></td><td><span class="score score-green">93%</span></td><td><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+    </tbody>
+  </table>
+</details>
+
+<details open>
+  <summary>Networking<span class="domain-stats"><span>33 modules</span><span class="score score-orange">avg 73%</span></span></summary>
+  <table>
+    <thead>
+      <tr>
+        <th>Module</th><th>Type</th><th>Score</th>
+        <th style="font-size:11px">SH&nbsp;AI&nbsp;DH&nbsp;TC&nbsp;DQ&nbsp;TM</th>
+        <th>Version</th><th>Synced</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-cdn-profile" target="_blank">avm-res-cdn-profile</a></td><td><span class="type-badge">res</span></td><td><span class="score score-red">57%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge fail">✗</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-network-applicationgateway" target="_blank">avm-res-network-applicationgateway</a></td><td><span class="type-badge">res</span></td><td><span class="score score-red">30%</span></td><td><span class="badge fail">✗</span><span class="badge partial">⚠</span><span class="badge fail">✗</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-network-applicationgatewaywebapplicationfirewallpolicy" target="_blank">avm-res-network-applicationgatewaywebapplicationfirewallpolicy</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-network-applicationsecuritygroup" target="_blank">avm-res-network-applicationsecuritygroup</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-network-azurefirewall" target="_blank">avm-res-network-azurefirewall</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-network-bastionhost" target="_blank">avm-res-network-bastionhost</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version">v0.9.0</td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-network-connection" target="_blank">avm-res-network-connection</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-network-ddosprotectionplan" target="_blank">avm-res-network-ddosprotectionplan</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">67%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-network-dnsresolver" target="_blank">avm-res-network-dnsresolver</a></td><td><span class="type-badge">res</span></td><td><span class="score score-red">57%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge fail">✗</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-network-dnszone" target="_blank">avm-res-network-dnszone</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-network-expressroutecircuit" target="_blank">avm-res-network-expressroutecircuit</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-network-firewallpolicy" target="_blank">avm-res-network-firewallpolicy</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version">v0.3.4</td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-network-frontdoorwebapplicationfirewallpolicy" target="_blank">avm-res-network-frontdoorwebapplicationfirewallpolicy</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-network-ipgroup" target="_blank">avm-res-network-ipgroup</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version">v0.2.0</td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-network-loadbalancer" target="_blank">avm-res-network-loadbalancer</a></td><td><span class="type-badge">res</span></td><td><span class="score score-red">57%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge fail">✗</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-network-localnetworkgateway" target="_blank">avm-res-network-localnetworkgateway</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-network-natgateway" target="_blank">avm-res-network-natgateway</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-network-networkinterface" target="_blank">avm-res-network-networkinterface</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-network-networkmanager" target="_blank">avm-res-network-networkmanager</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version">v0.3.0</td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-network-networksecuritygroup" target="_blank">avm-res-network-networksecuritygroup</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-network-networkwatcher" target="_blank">avm-res-network-networkwatcher</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-network-privatednszone" target="_blank">avm-res-network-privatednszone</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-network-privateendpoint" target="_blank">avm-res-network-privateendpoint</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-network-publicipaddress" target="_blank">avm-res-network-publicipaddress</a></td><td><span class="type-badge">res</span></td><td><span class="score score-red">57%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge fail">✗</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-network-publicipprefix" target="_blank">avm-res-network-publicipprefix</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-network-routetable" target="_blank">avm-res-network-routetable</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version">v0.5.0</td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-network-trafficmanagerprofile" target="_blank">avm-res-network-trafficmanagerprofile</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-network-virtualnetwork" target="_blank">avm-res-network-virtualnetwork</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-ptn-network-private-link-private-dns-zones" target="_blank">avm-ptn-network-private-link-private-dns-zones</a></td><td><span class="type-badge">ptn</span></td><td><span class="score score-green">87%</span></td><td><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version">v0.23.1</td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-ptn-network-routeserver" target="_blank">avm-ptn-network-routeserver</a></td><td><span class="type-badge">ptn</span></td><td><span class="score score-green">87%</span></td><td><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-utl-network-ip-addresses" target="_blank">avm-utl-network-ip-addresses</a></td><td><span class="type-badge">utl</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azure-avm-utl-network-virtualnetwork-azapi-replicator" target="_blank">avm-utl-network-virtualnetwork-azapi-replicator</a></td><td><span class="type-badge">utl</span></td><td><span class="score score-grey">—</span></td><td><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azure-avm-utl-privatedns-privatednszone-azapi-replicator" target="_blank">avm-utl-privatedns-privatednszone-azapi-replicator</a></td><td><span class="type-badge">utl</span></td><td><span class="score score-grey">—</span></td><td><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+    </tbody>
+  </table>
+</details>
+
+<details open>
+  <summary>Other<span class="domain-stats"><span>2 modules</span><span class="score score-orange">avg 72%</span></span></summary>
+  <table>
+    <thead>
+      <tr>
+        <th>Module</th><th>Type</th><th>Score</th>
+        <th style="font-size:11px">SH&nbsp;AI&nbsp;DH&nbsp;TC&nbsp;DQ&nbsp;TM</th>
+        <th>Version</th><th>Synced</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-avs-privatecloud" target="_blank">avm-res-avs-privatecloud</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-ptn-commercial-marketplace" target="_blank">avm-ptn-commercial-marketplace</a></td><td><span class="type-badge">ptn</span></td><td><span class="score score-orange">67%</span></td><td><span class="badge fail">✗</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+    </tbody>
+  </table>
+</details>
+
+<details open>
+  <summary>Platform Alz<span class="domain-stats"><span>6 modules</span><span class="score score-green">avg 86%</span></span></summary>
+  <table>
+    <thead>
+      <tr>
+        <th>Module</th><th>Type</th><th>Score</th>
+        <th style="font-size:11px">SH&nbsp;AI&nbsp;DH&nbsp;TC&nbsp;DQ&nbsp;TM</th>
+        <th>Version</th><th>Synced</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-ptn-alz-connectivity-hub-and-spoke-vnet" target="_blank">avm-ptn-alz-connectivity-hub-and-spoke-vnet</a></td><td><span class="type-badge">ptn</span></td><td><span class="score score-green">87%</span></td><td><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-ptn-alz-connectivity-virtual-wan" target="_blank">avm-ptn-alz-connectivity-virtual-wan</a></td><td><span class="type-badge">ptn</span></td><td><span class="score score-green">87%</span></td><td><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-ptn-alz-management" target="_blank">avm-ptn-alz-management</a></td><td><span class="type-badge">ptn</span></td><td><span class="score score-green">93%</span></td><td><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azure-avm-ptn-alz-sub-vending" target="_blank">avm-ptn-alz-sub-vending</a></td><td><span class="type-badge">ptn</span></td><td><span class="score score-grey">—</span></td><td><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-ptn-alz" target="_blank">avm-ptn-alz</a></td><td><span class="type-badge">ptn</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azure-avm-utl-interfaces" target="_blank">avm-utl-interfaces</a></td><td><span class="type-badge">utl</span></td><td><span class="score score-grey">—</span></td><td><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span><span class="badge none">–</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+    </tbody>
+  </table>
+</details>
+
+<details open>
+  <summary>Recovery Bcdr<span class="domain-stats"><span>3 modules</span><span class="score score-orange">avg 64%</span></span></summary>
+  <table>
+    <thead>
+      <tr>
+        <th>Module</th><th>Type</th><th>Score</th>
+        <th style="font-size:11px">SH&nbsp;AI&nbsp;DH&nbsp;TC&nbsp;DQ&nbsp;TM</th>
+        <th>Version</th><th>Synced</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-dataprotection-backupvault" target="_blank">avm-res-dataprotection-backupvault</a></td><td><span class="type-badge">res</span></td><td><span class="score score-red">30%</span></td><td><span class="badge fail">✗</span><span class="badge partial">⚠</span><span class="badge fail">✗</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-dataprotection-resourceguard" target="_blank">avm-res-dataprotection-resourceguard</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-recoveryservices-vault" target="_blank">avm-res-recoveryservices-vault</a></td><td><span class="type-badge">res</span></td><td><span class="score score-green">87%</span></td><td><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+    </tbody>
+  </table>
+</details>
+
+<details open>
+  <summary>Storage<span class="domain-stats"><span>2 modules</span><span class="score score-orange">avg 72%</span></span></summary>
+  <table>
+    <thead>
+      <tr>
+        <th>Module</th><th>Type</th><th>Score</th>
+        <th style="font-size:11px">SH&nbsp;AI&nbsp;DH&nbsp;TC&nbsp;DQ&nbsp;TM</th>
+        <th>Version</th><th>Synced</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-netapp-netappaccount" target="_blank">avm-res-netapp-netappaccount</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-storage-storageaccount" target="_blank">avm-res-storage-storageaccount</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">67%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+    </tbody>
+  </table>
+</details>
+
+<details open>
+  <summary>Web App Services<span class="domain-stats"><span>11 modules</span><span class="score score-orange">avg 74%</span></span></summary>
+  <table>
+    <thead>
+      <tr>
+        <th>Module</th><th>Type</th><th>Score</th>
+        <th style="font-size:11px">SH&nbsp;AI&nbsp;DH&nbsp;TC&nbsp;DQ&nbsp;TM</th>
+        <th>Version</th><th>Synced</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-apimanagement-service" target="_blank">avm-res-apimanagement-service</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">60%</span></td><td><span class="badge fail">✗</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-certificateregistration-certificateorder" target="_blank">avm-res-certificateregistration-certificateorder</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-communication-emailservice" target="_blank">avm-res-communication-emailservice</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-logic-workflow" target="_blank">avm-res-logic-workflow</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-relay-namespace" target="_blank">avm-res-relay-namespace</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-web-connection" target="_blank">avm-res-web-connection</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-web-hostingenvironment" target="_blank">avm-res-web-hostingenvironment</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-web-serverfarm" target="_blank">avm-res-web-serverfarm</a></td><td><span class="type-badge">res</span></td><td><span class="score score-orange">77%</span></td><td><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-web-site" target="_blank">avm-res-web-site</a></td><td><span class="type-badge">res</span></td><td><span class="score score-green">87%</span></td><td><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-res-web-staticsite" target="_blank">avm-res-web-staticsite</a></td><td><span class="type-badge">res</span></td><td><span class="score score-red">40%</span></td><td><span class="badge fail">✗</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+<tr><td class="name"><a href="https://github.com/Azure/terraform-azurerm-avm-ptn-function-app-storage-private-endpoints" target="_blank">avm-ptn-function-app-storage-private-endpoints</a></td><td><span class="type-badge">ptn</span></td><td><span class="score score-green">87%</span></td><td><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge pass">✓</span><span class="badge partial">⚠</span><span class="badge partial">⚠</span><span class="badge pass">✓</span></td><td class="version"><span style="color:var(--muted)">—</span></td><td class="version">2026-05-12</td></tr>
+    </tbody>
+  </table>
+</details>
+
+  <footer>Auto-generated by <code>scripts/generate_site.py</code> · Crayon-HU/avm-metadata</footer>
+</body>
+</html>

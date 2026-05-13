@@ -1,0 +1,248 @@
+---
+applyTo: ".gitignore,.gitattributes,.gitmodules,**/.gitignore,**/.gitattributes,**/.gitmodules"
+---
+
+# Git Repository Standards
+
+Apply these conventions when initialising or modifying a Git repository.
+
+---
+
+## Repository initialisation checklist
+
+Every repository must ship with:
+
+- `.gitignore` — tailored to the project stack
+- `.gitattributes` — line ending and diff controls
+- `README.md` — purpose, quick start, contributing pointer
+- `CONTRIBUTING.md` — branch, commit, and PR conventions
+
+---
+
+## .gitignore
+
+Use stack-specific patterns. Always include:
+
+```gitignore
+# Secrets and credentials — never commit these
+*.env
+.env*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+credentials.json
+secrets.yaml
+
+# Editor and OS artefacts
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Build outputs
+dist/
+build/
+out/
+bin/
+*.o
+*.a
+
+# Dependency directories
+node_modules/
+vendor/
+__pycache__/
+*.pyc
+.venv/
+venv/
+```
+
+Language-specific additions:
+
+**Go:**
+```gitignore
+*.exe
+*.test
+coverage.out
+```
+
+**Python:**
+```gitignore
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+```
+
+**Terraform:**
+```gitignore
+.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfplan
+override.tf
+override.tfvars
+```
+
+**Node.js / TypeScript:**
+```gitignore
+.npm/
+.eslintcache
+*.tsbuildinfo
+```
+
+---
+
+## .gitattributes
+
+Always include a `.gitattributes` to enforce line endings and mark binary files:
+
+```gitattributes
+# Default: detect text files and normalise to LF in the repository
+* text=auto eol=lf
+
+# Windows scripts must use CRLF on checkout
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Shell scripts always LF
+*.sh  text eol=lf
+
+# Binary files — no diff, no merge
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.pdf  binary
+*.zip  binary
+*.tar  binary
+*.gz   binary
+*.exe  binary
+*.dll  binary
+
+# Avoid merge conflicts on generated lock files
+package-lock.json merge=ours
+yarn.lock         merge=ours
+go.sum            merge=ours
+
+# Linguist overrides (GitHub language stats)
+*.md        linguist-documentation=true
+docs/**     linguist-documentation=true
+vendor/**   linguist-vendored=true
+```
+
+---
+
+## Branch naming
+
+Follow the pattern used by the `git-workflows` plugin: `type/description`
+
+| Type | Use |
+|---|---|
+| `feat/` | New feature |
+| `fix/` | Bug fix |
+| `chore/` | Maintenance, deps, config |
+| `docs/` | Documentation only |
+| `refactor/` | Code restructure, no behaviour change |
+| `test/` | Test additions or corrections |
+| `ci/` | CI/CD pipeline changes |
+
+Use `kebab-case` for the description: `feat/add-oauth-login`, `fix/null-pointer-in-handler`.
+
+Never commit directly to `main` or `master`. Always PR.
+
+---
+
+## Commit messages
+
+Use Conventional Commits (enforced by the `git-workflows` `/commit` command):
+
+```
+<type>(<scope>): <short summary>
+
+[optional body — what and why, not how]
+
+[optional footer — BREAKING CHANGE: or Refs: #issue]
+```
+
+Examples:
+```
+feat(auth): add OAuth 2.0 login flow
+fix(api): handle null user in /me endpoint
+chore(deps): bump azurerm provider to 4.1.0
+```
+
+Rules:
+- Summary line ≤ 72 characters, imperative mood ("add", not "added" or "adds")
+- `BREAKING CHANGE:` in footer triggers a major version bump
+- Reference issue numbers in footer: `Refs: #42`
+
+---
+
+## Tag naming
+
+Use semantic versioning with a `v` prefix: `v1.0.0`, `v1.2.3-rc.1`.
+
+Annotated tags only for releases:
+```bash
+git tag -a v1.0.0 -m "chore: release v1.0.0"
+git push origin v1.0.0
+```
+
+---
+
+## .gitmodules
+
+Avoid submodules unless strictly necessary. When required:
+- Pin to a specific tag — never a branch
+- Document the reason in a comment
+- Include a `scripts/init.sh` that runs `git submodule update --init --recursive`
+
+```ini
+[submodule "vendor/toolkit"]
+    path = vendor/toolkit
+    url = https://github.com/org/toolkit.git
+    branch = v2.3.0   # pin to tag, not a moving branch
+```
+
+---
+
+## Protected branch rules
+
+Apply these settings to `main` / `master` via GitHub branch protection or ADO branch policies:
+
+- Require pull request reviews (minimum 1 reviewer)
+- Require status checks to pass before merging
+- Require branches to be up to date before merging
+- Disallow direct pushes and force-pushes
+- Automatically delete head branches after merge
+
+---
+
+## Repository structure conventions
+
+```
+repo-root/
+├── .github/                # GitHub/ADO CI config
+│   ├── copilot-instructions.md
+│   └── workflows/
+├── .gitignore
+├── .gitattributes
+├── README.md
+├── CONTRIBUTING.md
+├── CHANGELOG.md            # Keep for library/tool repos
+└── src/ | cmd/ | app/      # Source — matches project type
+```
+
+- Keep `README.md` up to date with installation and usage
+- Use `CHANGELOG.md` for versioned libraries; skip for internal services
+- Commit `.gitattributes` and `.gitignore` in the initial commit — before any code
