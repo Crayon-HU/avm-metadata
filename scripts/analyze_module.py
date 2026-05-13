@@ -33,6 +33,7 @@ Options:
 
 import os
 import re
+import subprocess
 import sys
 import tempfile
 from datetime import datetime, timezone
@@ -70,6 +71,57 @@ AVM_INTERFACE_VARS_RES = [
 AVM_INTERFACE_VARS_PTN_UTL = ["tags", "enable_telemetry"]
 
 # ---------------------------------------------------------------------------
+# Dimension severity weights — used by scripts/report.py for compliance scoring
+# ---------------------------------------------------------------------------
+
+# Weight per dimension: higher = more impact on overall score.
+# "level" is a human-readable label; "weight" is the numeric multiplier.
+DIMENSION_SEVERITY: dict[str, dict] = {
+    "security-hardening":       {"level": "critical", "weight": 4},
+    "avm-interface-compliance": {"level": "high",     "weight": 3},
+    "dependency-health":        {"level": "high",     "weight": 3},
+    "test-coverage":            {"level": "medium",   "weight": 2},
+    "doc-quality":              {"level": "medium",   "weight": 2},
+    "terraform-metadata":       {"level": "low",      "weight": 1},
+}
+
+# Per-check severity within each dimension.
+# Used by report.py for granular scoring when individual check data is present.
+CHECK_SEVERITY: dict[str, dict[str, str]] = {
+    "avm-interface-compliance": {
+        "private_endpoints":  "high",
+        "diagnostic_settings": "high",
+        "role_assignments":   "high",
+        "tags":               "high",
+        "lock":               "medium",
+        "managed_identities": "medium",
+        "enable_telemetry":   "medium",
+    },
+    "security-hardening": {
+        "hardcoded_locations": "critical",
+        "sensitive_outputs":   "high",
+        "validation_blocks":   "medium",
+    },
+    "dependency-health": {
+        "provider_constraint_style":     "high",
+        "terraform_version_upper_bound": "medium",
+    },
+    "test-coverage": {
+        "test_files":   "high",
+        "examples_dir": "medium",
+    },
+    "doc-quality": {
+        "readme_exists":      "critical",
+        "readme_length":      "medium",
+        "required_sections":  "medium",
+    },
+    "terraform-metadata": {
+        "terraform_constraints": "low",
+        "resources_managed":     "low",
+    },
+}
+
+# ---------------------------------------------------------------------------
 # Terminal colour helpers
 # ---------------------------------------------------------------------------
 
@@ -103,6 +155,34 @@ def _local_read(path: str) -> str | None:
             return f.read()
     except FileNotFoundError:
         return None
+
+
+def _read_latest_git_tag(local_path: str) -> str:
+    """Return the most recent semver-like git tag from a cloned repo, or '' if none."""
+    try:
+        result = subprocess.run(
+            ["git", "-C", local_path, "tag", "--sort=-version:refname"],
+            capture_output=True, text=True, timeout=5,
+        )
+        if result.returncode == 0:
+            for line in result.stdout.splitlines():
+                tag = line.strip()
+                if tag:
+                    return tag
+    except (OSError, subprocess.TimeoutExpired):
+        pass
+    return ""
+
+
+def _try_pin_version(content: str, tag: str) -> str:
+    """Fill enrichment.version_pinned with tag if it is currently empty ("")."""
+    return re.sub(
+        r'^(\s+version_pinned:\s*)""(\s*(?:#.*)?)$',
+        lambda m: f'{m.group(1)}"{tag}"{m.group(2)}',
+        content,
+        count=1,
+        flags=re.MULTILINE,
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -1078,6 +1158,13 @@ def analyze_module(filepath: str, mod_type: str, dims: list[str], opts: dict) ->
         updates[dim] = block_text
 
     new_content = apply_block_updates(content, updates)
+
+    # Auto-fill enrichment.version_pinned as a side-effect of terraform-metadata.
+    # Reads the latest git tag and fills the field only if it is currently empty.
+    if "terraform-metadata" in dims_to_run:
+        tag = _read_latest_git_tag(local_path)
+        if tag:
+            new_content = _try_pin_version(new_content, tag)
 
     # Build dim_statuses for dims that were actually run (not auto-injected terraform-metadata)
     dim_statuses = {

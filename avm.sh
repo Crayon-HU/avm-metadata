@@ -74,6 +74,7 @@ _usage() {
     sync      Fetch upstream AVM CSV indexes → update data/modules/*.yaml
     scrape    Alias for: check --dimension terraform-metadata
     check     Run one or more analysis dimensions on module(s)
+    report    Compliance scorecard, open issues rollup, and JSON catalog export
     help      Show this message
 
   Run './avm.sh <command> --help' for flags and examples.
@@ -488,6 +489,47 @@ cmd_check() {
 }
 
 # ---------------------------------------------------------------------------
+# Command: report
+# ---------------------------------------------------------------------------
+_usage_report() {
+  _header
+  cat <<'EOF'
+
+  report — Read-only catalog reports: compliance scores, open issues, JSON export.
+
+  Subcommands:
+    --scores    Weighted compliance scorecard, ranked by overall score.
+    --issues    Cross-module open issue rollup, grouped by severity.
+    --json      Export the full catalog to data/catalog.json (or --output FILE).
+
+  Global filters: --domains, --types
+
+  --scores flags:
+    --min-score N    Only show modules with score < N (0–100)
+
+  --issues flags:
+    --severity LEVEL[,…]  Filter by severity: critical, high, medium, low
+
+  Common flags:
+    --output FILE    Write output to FILE instead of stdout
+
+  Examples:
+    ./avm.sh report --scores
+    ./avm.sh report --scores --domains networking --min-score 80
+    ./avm.sh report --issues
+    ./avm.sh report --issues --severity critical,high
+    ./avm.sh report --json
+    ./avm.sh report --json --output docs/catalog.json
+
+EOF
+}
+
+cmd_report() {
+  for a in "$@"; do [[ "$a" == "--help" || "$a" == "-h" ]] && { _usage_report; return 0; }; done
+  python3 "${SCRIPTS_DIR}/report.py" "$@"
+}
+
+# ---------------------------------------------------------------------------
 # Dispatch
 # ---------------------------------------------------------------------------
 COMMAND="${1:-}"
@@ -507,6 +549,7 @@ case "${COMMAND}" in
   sync)       cmd_sync       "$@" ;;
   scrape)     cmd_scrape     "$@" ;;
   check)      cmd_check      "$@" ;;
+  report)     cmd_report     "$@" ;;
   help|--help|-h) _usage ;;
   "")
     _usage

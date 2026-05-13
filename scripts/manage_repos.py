@@ -35,11 +35,13 @@ Filters (accepted by all subcommands):
 """
 
 import os
+import re
 import shutil
 import subprocess
 import sys
 import tempfile
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from datetime import datetime, timezone
 
 # ---------------------------------------------------------------------------
 # Paths
@@ -47,6 +49,10 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 SCRIPT_DIR   = os.path.dirname(os.path.abspath(__file__))
 REPO_ROOT    = os.path.dirname(SCRIPT_DIR)
 MODULES_FILE = os.path.join(REPO_ROOT, ".config", "modules.yaml")
+MODULES_DIR  = os.path.join(REPO_ROOT, "data", "modules")
+
+# Default number of days before an analysis block is considered stale
+_DEFAULT_STALE_THRESHOLD = 14
 
 ALL_TYPES = ("res", "ptn", "utl")
 
@@ -361,6 +367,40 @@ def cmd_fetch(
 # Subcommand: status
 # ---------------------------------------------------------------------------
 
+def _get_staleness_days(mod: dict) -> int | None:
+    """Read the module YAML and return the age in days of the oldest analysis block.
+
+    Returns None if the YAML cannot be read or no analysis blocks are found.
+    """
+    mod_name = mod.get("name", "")
+    mod_type = mod.get("type", "")
+    # Derive slug: strip the "terraform-azurerm-" prefix
+    slug = mod_name.removeprefix("terraform-azurerm-")
+    if not slug or not mod_type:
+        return None
+
+    yaml_path = os.path.join(MODULES_DIR, mod_type, f"{slug}.yaml")
+    try:
+        with open(yaml_path, encoding="utf-8", errors="replace") as f:
+            content = f.read()
+    except OSError:
+        return None
+
+    now = datetime.now(timezone.utc)
+    oldest_days: int | None = None
+
+    for m in re.finditer(r'^\s+checked_at:\s+"([^"]+)"', content, re.MULTILINE):
+        try:
+            ts  = datetime.fromisoformat(m.group(1).replace("Z", "+00:00"))
+            age = max(0, (now - ts).days)
+            if oldest_days is None or age > oldest_days:
+                oldest_days = age
+        except ValueError:
+            pass
+
+    return oldest_days
+
+
 def _do_status(mod: dict, _dry_run: bool) -> tuple[str, str, str]:
     """
     Returns (status, label, note).
@@ -396,34 +436,49 @@ def _do_status(mod: dict, _dry_run: bool) -> tuple[str, str, str]:
     return ("clean", label, "")
 
 
-def cmd_status(modules: list[dict], parallel: int = 20, dry_run: bool = False) -> int:
-    print(f"\nAVM status — {len(modules)} modules")
+def cmd_status(
+    modules:            list[dict],
+    parallel:           int = 20,
+    dry_run:            bool = False,
+    stale_threshold:    int = _DEFAULT_STALE_THRESHOLD,
+) -> int:
+    print(f"\nAVM status — {len(modules)} modules  (stale threshold: {stale_threshold}d)")
     print(SEP)
 
     results = _run_parallel(_do_status, modules, parallel, dry_run)
 
-    clean_n = dirty_n = behind_n = skip_n = fail_n = 0
-    for status, label, note in results:
+    clean_n = dirty_n = behind_n = skip_n = fail_n = stale_n = 0
+    for (status, label, note), mod in zip(results, modules):
+        # Compute staleness annotation
+        stale_days = _get_staleness_days(mod)
+        if stale_days is not None and stale_days >= stale_threshold:
+            stale_sfx = warn(f" [stale {stale_days}d]")
+            stale_n += 1
+        else:
+            stale_sfx = ""
+
         if status == "clean":
-            # only print non-clean unless -v
+            if stale_sfx:
+                print(f"  {ok('✓')}  CLEAN    {label}{stale_sfx}")
             clean_n += 1
         elif status == "dirty":
-            print(f"  {warn('!')}  DIRTY    {label}  {warn(note)}")
+            print(f"  {warn('!')}  DIRTY    {label}  {warn(note)}{stale_sfx}")
             dirty_n += 1
         elif status == "behind":
-            print(f"  {warn('↓')}  BEHIND   {label}  {warn(note)}")
+            print(f"  {warn('↓')}  BEHIND   {label}  {warn(note)}{stale_sfx}")
             behind_n += 1
         elif status == "skip":
             print(f"  {dim('-')}  SKIP     {label}  {dim(note)}")
             skip_n += 1
         else:
-            print(f"  {err('✗')}  FAIL     {label}  {err(note)}")
+            print(f"  {err('✗')}  FAIL     {label}  {err(note)}{stale_sfx}")
             fail_n += 1
 
     print(SEP)
     print(
         f"Clean: {clean_n}  |  Dirty: {dirty_n}  |  "
         f"Behind/ahead: {behind_n}  |  Not cloned: {skip_n}"
+        + (f"  |  Stale analysis: {warn(str(stale_n))}" if stale_n else "")
     )
     return 0
 
@@ -925,6 +980,7 @@ class Args:
     fallback: bool = False
     force: bool = False
     hard: bool = False
+    stale_threshold: int = _DEFAULT_STALE_THRESHOLD
     run_cmd: list[str] = []
 
 
@@ -1019,6 +1075,16 @@ def parse_args(argv: list[str]) -> Args:
             a.force = True
         elif token == "--hard":
             a.hard = True
+        elif token == "--stale-threshold":
+            try:
+                a.stale_threshold = int(nextval("--stale-threshold"))
+            except (ValueError, SystemExit):
+                _die("--stale-threshold requires an integer value")
+        elif token.startswith("--stale-threshold="):
+            try:
+                a.stale_threshold = int(token.split("=", 1)[1])
+            except ValueError:
+                _die("--stale-threshold requires an integer value")
         elif token == "-h" or token == "--help":
             _print_usage()
             sys.exit(0)
@@ -1125,7 +1191,8 @@ def main() -> None:
 
     elif sub == "status":
         parallel = a.parallel or 20
-        rc = cmd_status(modules, parallel=parallel, dry_run=a.dry_run)
+        rc = cmd_status(modules, parallel=parallel, dry_run=a.dry_run,
+                        stale_threshold=a.stale_threshold)
 
     elif sub == "branch":
         op = a.sub2
