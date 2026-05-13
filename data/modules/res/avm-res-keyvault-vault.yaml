@@ -115,6 +115,17 @@ analysis_dependency_health:
     terraform_version_upper_bound: { status: pass, evidence: "required_version = \">= 1.9, < 2.0\"" }
     provider_constraint_style: { status: pass, evidence: "All 5 provider(s) use upper-bounded constraints" }
 # END ANALYSIS:dependency-health
+module_issues:
+  last_harvested: "2026-05-13T07:39:16Z"
+  open_count: 1
+  issues:
+  - number: 37
+    title: "feat: release_policy support for keys"
+    labels: ["enhancement", "Type: Feature Request :heavy_plus_sign:"]
+    url: "https://github.com/Azure/terraform-azurerm-avm-res-keyvault-vault/issues/37"
+    created_at: "2023-11-29"
+    comments: 3
+
 enrichment:
   version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
   terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"

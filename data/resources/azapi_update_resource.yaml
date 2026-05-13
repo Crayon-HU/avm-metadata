@@ -104,14 +104,43 @@ provider_updates:
     url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v0.2.1"
 
 provider_issues:
-  last_checked: null
-  items: []
-  # item shape:
-  #   - number: 1234
-  #     title: "..."
-  #     labels: [bug]
-  #     url: "..."
-  #     created_at: "2026-01-01"
+  last_checked: "2026-05-13T06:39:29Z"
+  items:
+  - number: 1088
+    title: "'azapi_update_resource' sends conflicting 'sharedKey' and 'sharedKeyLength' for VPN link shared keys"
+    labels: []
+    url: "https://github.com/Azure/terraform-provider-azapi/issues/1088"
+    created_at: "2026-04-05"
+  - number: 1042
+    title: "Feature request: Add `azapi_data_plane_update_resource` (to support e.g. Key Vault key rotation policies)"
+    labels: ["enhancement"]
+    url: "https://github.com/Azure/terraform-provider-azapi/issues/1042"
+    created_at: "2026-01-29"
+  - number: 1039
+    title: "feature request: support ephemeral values on `azapi_resource_action` action and resource"
+    labels: ["enhancement"]
+    url: "https://github.com/Azure/terraform-provider-azapi/issues/1039"
+    created_at: "2026-01-27"
+  - number: 967
+    title: "Consider adding `when` to `azapi_update_resource` resource"
+    labels: ["enhancement"]
+    url: "https://github.com/Azure/terraform-provider-azapi/issues/967"
+    created_at: "2025-08-20"
+  - number: 943
+    title: "`azapi_update_resource` with `Microsoft.App/managedEnvironments@2025-02-02-preview` doesn't set `headers` if using `sensitive_body`"
+    labels: ["example"]
+    url: "https://github.com/Azure/terraform-provider-azapi/issues/943"
+    created_at: "2025-08-01"
+  - number: 693
+    title: "PATCH option for resource azapi_update_resource"
+    labels: ["enhancement"]
+    url: "https://github.com/Azure/terraform-provider-azapi/issues/693"
+    created_at: "2024-12-12"
+  - number: 620
+    title: "Getting 404 with using azapi_update for Virtual Endpoints on Postgres Flexible Servers"
+    labels: ["upstream-api"]
+    url: "https://github.com/Azure/terraform-provider-azapi/issues/620"
+    created_at: "2024-09-18"
 
 enrichment:
   notes: []

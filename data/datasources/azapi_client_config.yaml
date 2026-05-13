@@ -19,7 +19,7 @@ provider_updates:
     url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.1.0"
 
 provider_issues:
-  last_checked: null
+  last_checked: "2026-05-13T06:39:29Z"
   items: []
   # item shape:
   #   - number: 1234

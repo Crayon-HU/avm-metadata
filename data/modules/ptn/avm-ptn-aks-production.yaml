@@ -122,6 +122,23 @@ analysis_dependency_health:
     terraform_version_upper_bound: { status: pass, evidence: "required_version = \">= 1.9, < 2.0\"" }
     provider_constraint_style: { status: fail, finding: "Open-ended >= constraint(s) detected: null: \">= 3.0\"; random: \">= 3.5.0\"" }
 # END ANALYSIS:dependency-health
+module_issues:
+  last_harvested: "2026-05-13T07:43:45Z"
+  open_count: 2
+  issues:
+  - number: 147
+    title: "[AVM Module Issue]: module consumers should be able to specify all naming conventions"
+    labels: ["enhancement", "Language: Terraform :globe_with_meridians:"]
+    url: "https://github.com/Azure/terraform-azurerm-avm-ptn-aks-production/issues/147"
+    created_at: "2024-12-04"
+    comments: 9
+  - number: 146
+    title: "[AVM Module Issue]: `network` variable can be simplified, and needs a fix for resource group assumption"
+    labels: ["enhancement", "Type: Bug :bug:", "Language: Terraform :globe_with_meridians:"]
+    url: "https://github.com/Azure/terraform-azurerm-avm-ptn-aks-production/issues/146"
+    created_at: "2024-12-04"
+    comments: 14
+
 enrichment:
   version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
   terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"

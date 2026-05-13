@@ -274,14 +274,48 @@ provider_updates:
     url: "https://github.com/Azure/terraform-provider-azapi/releases/tag/v0.2.0"
 
 provider_issues:
-  last_checked: null
-  items: []
-  # item shape:
-  #   - number: 1234
-  #     title: "..."
-  #     labels: [bug]
-  #     url: "..."
-  #     created_at: "2026-01-01"
+  last_checked: "2026-05-13T06:39:29Z"
+  items:
+  - number: 1110
+    title: "azapi_resource: in-flight Create not preserved in state when terraform receives SIGINT (resource left orphaned in Azure)"
+    labels: []
+    url: "https://github.com/Azure/terraform-provider-azapi/issues/1110"
+    created_at: "2026-04-27"
+  - number: 1098
+    title: "`azapi_resource` fails to read resources when Azure API returns UTF-8 BOM in JSON response"
+    labels: []
+    url: "https://github.com/Azure/terraform-provider-azapi/issues/1098"
+    created_at: "2026-04-17"
+  - number: 1039
+    title: "feature request: support ephemeral values on `azapi_resource_action` action and resource"
+    labels: ["enhancement"]
+    url: "https://github.com/Azure/terraform-provider-azapi/issues/1039"
+    created_at: "2026-01-27"
+  - number: 899
+    title: "`azapi_resource`: unable to manage `Microsoft.Marketplace/privateStores/collections/offers`"
+    labels: ["upstream-api"]
+    url: "https://github.com/Azure/terraform-provider-azapi/issues/899"
+    created_at: "2025-06-17"
+  - number: 880
+    title: "## Bug: 500 Internal Server Error when creating AzureFile Datastore via AzAPI – Works via CLI/YAML"
+    labels: ["upstream-api"]
+    url: "https://github.com/Azure/terraform-provider-azapi/issues/880"
+    created_at: "2025-05-21"
+  - number: 875
+    title: "`azapi_resource`: `sensitive_body` attributes are displayed in output attribute"
+    labels: []
+    url: "https://github.com/Azure/terraform-provider-azapi/issues/875"
+    created_at: "2025-05-16"
+  - number: 624
+    title: "Getting 400 Bad Request when creating PostgreSQL flexibleservers/migration using azapi_resource"
+    labels: []
+    url: "https://github.com/Azure/terraform-provider-azapi/issues/624"
+    created_at: "2024-09-24"
+  - number: 334
+    title: "`azapi_resource` for Policy Fragments yielding constant diff with `rawxml` submissions"
+    labels: ["upstream-api"]
+    url: "https://github.com/Azure/terraform-provider-azapi/issues/334"
+    created_at: "2023-08-10"
 
 enrichment:
   notes: []

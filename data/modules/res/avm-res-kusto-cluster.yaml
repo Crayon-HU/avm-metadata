@@ -100,6 +100,17 @@ analysis_dependency_health:
     terraform_version_upper_bound: { status: partial, finding: "required_version = \">= 1.7.0\" has no upper bound" }
     provider_constraint_style: { status: fail, finding: "Open-ended >= constraint(s) detected: azurerm: \">= 3.103.0\"; random: \">= 3.5.0\"" }
 # END ANALYSIS:dependency-health
+module_issues:
+  last_harvested: "2026-05-13T07:39:16Z"
+  open_count: 1
+  issues:
+  - number: 12
+    title: "WAF Alignment - Analyze Usage and cost"
+    labels: ["enhancement", "Type: Feature Request :heavy_plus_sign:", "Language: Terraform :globe_with_meridians:"]
+    url: "https://github.com/Azure/terraform-azurerm-avm-res-kusto-cluster/issues/12"
+    created_at: "2024-03-28"
+    comments: 1
+
 enrichment:
   version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
   terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"

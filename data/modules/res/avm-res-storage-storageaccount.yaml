@@ -100,6 +100,17 @@ analysis_dependency_health:
     terraform_version_upper_bound: { status: partial, finding: "required_version = \">= 1.10.0\" has no upper bound" }
     provider_constraint_style: { status: pass, evidence: "All 3 provider(s) use upper-bounded constraints" }
 # END ANALYSIS:dependency-health
+module_issues:
+  last_harvested: "2026-05-13T07:43:45Z"
+  open_count: 1
+  issues:
+  - number: 319
+    title: "setting network_rules detects as change in plan/apply on 2.runs"
+    labels: ["bug", "Needs: Immediate Attention :bangbang:", "Needs: Triage :mag:", "Status: Response Overdue :triangular_flag_on_post:"]
+    url: "https://github.com/Azure/terraform-azurerm-avm-res-storage-storageaccount/issues/319"
+    created_at: "2026-01-16"
+    comments: 3
+
 enrichment:
   version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
   terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"

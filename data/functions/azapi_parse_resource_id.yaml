@@ -5,7 +5,7 @@ resource:
   registry_url: "https://registry.terraform.io/providers/azure/azapi/latest/docs/functions/parse_resource_id"
 
 provider_updates:
-  last_checked: null
+  last_checked: "2026-05-13T06:21:02Z"
   findings: []
   # finding shape:
   #   - version: "4.15.0"
@@ -15,7 +15,7 @@ provider_updates:
   #     url: "..."
 
 provider_issues:
-  last_checked: null
+  last_checked: "2026-05-13T06:39:29Z"
   items: []
   # item shape:
   #   - number: 1234

@@ -109,6 +109,18 @@ analysis_dependency_health:
     terraform_version_upper_bound: { status: pass, evidence: "required_version = \"~> 1.5\"" }
     provider_constraint_style: { status: pass, evidence: "All 4 provider(s) use upper-bounded constraints" }
 # END ANALYSIS:dependency-health
+module_issues:
+  last_harvested: "2026-05-13T07:43:45Z"
+  open_count: 0
+  issues: []
+  # issue shape:
+  #   - number: 312
+  #     title: "..."
+  #     labels: [bug, help wanted]
+  #     url: "..."
+  #     created_at: "2026-03-21"
+  #     comments: 4
+
 enrichment:
   version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
   terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"

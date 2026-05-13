@@ -122,6 +122,29 @@ analysis_dependency_health:
     terraform_version_upper_bound: { status: pass, evidence: "required_version = \">= 1.9, < 2.0\"" }
     provider_constraint_style: { status: pass, evidence: "All 3 provider(s) use upper-bounded constraints" }
 # END ANALYSIS:dependency-health
+module_issues:
+  last_harvested: "2026-05-13T07:43:45Z"
+  open_count: 3
+  issues:
+  - number: 17
+    title: "Feature: Allow use of existing DDoS Protection Plan instead of creating IP-based rules"
+    labels: ["enhancement", "Type: Feature Request :heavy_plus_sign:"]
+    url: "https://github.com/Azure/terraform-azurerm-avm-ptn-aca-lza-hosting-environment/issues/17"
+    created_at: "2026-01-27"
+    comments: 2
+  - number: 16
+    title: "Feature: Make private DNS zone deployment optional for private endpoints"
+    labels: ["enhancement", "Type: Feature Request :heavy_plus_sign:"]
+    url: "https://github.com/Azure/terraform-azurerm-avm-ptn-aca-lza-hosting-environment/issues/16"
+    created_at: "2026-01-27"
+    comments: 2
+  - number: 15
+    title: "Feature: Make ACR deployment optional and allow use of existing ACR"
+    labels: ["enhancement", "Type: Feature Request :heavy_plus_sign:"]
+    url: "https://github.com/Azure/terraform-azurerm-avm-ptn-aca-lza-hosting-environment/issues/15"
+    created_at: "2026-01-27"
+    comments: 2
+
 enrichment:
   version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
   terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"
