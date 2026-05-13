@@ -66,41 +66,44 @@ Operators run commands from a terminal using the top-level wrapper for their she
 
 ### Command reference
 
-| Command | Bash | PowerShell | Script |
-|---|---|---|---|
-| Generate modules.yaml | `./avm.sh setup --domains all` | `.\avm.ps1 setup --domains all` | `scripts/generate_config.py` |
-| Filter by domain/type | `./avm.sh setup --domains networking --types res` | `.\avm.ps1 setup --domains networking --types res` | `scripts/generate_config.py` |
-| Include Proposed modules | `./avm.sh setup --include-proposed` | `.\avm.ps1 setup --include-proposed` | `scripts/generate_config.py` |
-| Clone repos | `./avm.sh clone` | `.\avm.ps1 clone` | `scripts/repos.py clone` |
-| Clone filtered | `./avm.sh clone --domains networking --types res` | `.\avm.ps1 clone --domains networking --types res` | `scripts/repos.py clone` |
-| Clone one module | `./avm.sh clone --modules avm-res-network-virtualnetwork` | `.\avm.ps1 clone --modules avm-res-network-virtualnetwork` | `scripts/repos.py clone` |
-| Update cloned repos | `./avm.sh update` | `.\avm.ps1 update` | `scripts/repos.py update` |
-| Update (parallel) | `./avm.sh update --parallel 10` | `.\avm.ps1 update --parallel 10` | `scripts/repos.py update` |
-| Fetch all remotes | `./avm.sh fetch --parallel 30` | `.\avm.ps1 fetch --parallel 30` | `scripts/repos.py fetch` |
-| Show dirty/behind repos | `./avm.sh status` | `.\avm.ps1 status` | `scripts/repos.py status` |
-| Status for one module | `./avm.sh status --modules avm-res-network-virtualnetwork` | `.\avm.ps1 status --modules avm-res-network-virtualnetwork` | `scripts/repos.py status` |
-| Remove orphaned repos | `./avm.sh cleanup` | `.\avm.ps1 cleanup` | `scripts/repos.py cleanup` |
-| Cleanup (dry run) | `./avm.sh cleanup --dry-run` | `.\avm.ps1 cleanup --dry-run` | `scripts/repos.py cleanup` |
-| Cleanup (include dirty) | `./avm.sh cleanup --force` | `.\avm.ps1 cleanup --force` | `scripts/repos.py cleanup` |
-| Create branch | `./avm.sh branch create feature/x` | `.\avm.ps1 branch create feature/x` | `scripts/repos.py branch create` |
-| Create branch (filtered) | `./avm.sh branch create feature/x --domains networking` | `.\avm.ps1 branch create feature/x --domains networking` | `scripts/repos.py branch create` |
-| Checkout branch | `./avm.sh branch checkout feature/x --fallback` | `.\avm.ps1 branch checkout feature/x --fallback` | `scripts/repos.py branch checkout` |
-| Delete branch | `./avm.sh branch delete feature/x` | `.\avm.ps1 branch delete feature/x` | `scripts/repos.py branch delete` |
-| Stash changes | `./avm.sh stash` | `.\avm.ps1 stash` | `scripts/repos.py stash` |
-| Pop stash | `./avm.sh stash pop` | `.\avm.ps1 stash pop` | `scripts/repos.py stash pop` |
-| Hard reset | `./avm.sh reset --hard` | `.\avm.ps1 reset --hard` | `scripts/repos.py reset` |
-| Run arbitrary command | `./avm.sh run git log --oneline -3` | `.\avm.ps1 run git log --oneline -3` | `scripts/repos.py run` |
-| Sync AVM catalog | `./avm.sh sync` | `.\avm.ps1 sync` | `scripts/sync_catalog.py` |
-| Sync (dry run) | `./avm.sh sync --dry-run` | `.\avm.ps1 sync --dry-run` | `scripts/sync_catalog.py` |
-| Sync (force rewrite all) | `./avm.sh sync --force` | `.\avm.ps1 sync --force` | `scripts/sync_catalog.py` |
-| Sync with Proposed modules | `./avm.sh sync --include-proposed` | `.\avm.ps1 sync --include-proposed` | `scripts/sync_catalog.py` |
-| Scrape TF metadata (alias) | `./avm.sh scrape` | `.\avm.ps1 scrape` | `scripts/analyze_module.py --dimension terraform-metadata` |
-| Scrape one module | `./avm.sh scrape --modules NAME` | `.\avm.ps1 scrape --modules NAME` | `scripts/analyze_module.py` |
-| Scrape by domain | `./avm.sh scrape --domains networking --types res` | `.\avm.ps1 scrape --domains networking --types res` | `scripts/analyze_module.py` |
-| Run all analysis | `./avm.sh check --modules NAME` | `.\avm.ps1 check --modules NAME` | `scripts/analyze_module.py` |
-| Run one dimension | `./avm.sh check --dimension DIM` | `.\avm.ps1 check --dimension DIM` | `scripts/analyze_module.py` |
-| Check by domain | `./avm.sh check --domains networking --dimension test-coverage` | `.\avm.ps1 check --domains networking --dimension test-coverage` | `scripts/analyze_module.py` |
-| Dry-run analysis | `./avm.sh check --dry-run` | `.\avm.ps1 check --dry-run` | `scripts/analyze_module.py` |
+> **Interactive** ✓ — command prompts for input when key arguments are omitted (domain/type menu for `setup`, git identity for `clone`).  
+> **Assistant** — Copilot skill invocation (invoke with `/skill-name` in chat).
+
+| Command | Description | Interactive | Bash | PowerShell | Assistant | Script |
+|---|---|:---:|---|---|---|---|
+| `setup` | Generate modules.yaml for all domains | ✓ | `./avm.sh setup --domains all` | `.\avm.ps1 setup --domains all` | — | `generate_config.py` |
+| `setup` | Filter by domain and type | | `./avm.sh setup --domains networking --types res` | `.\avm.ps1 setup --domains networking --types res` | — | `generate_config.py` |
+| `setup` | Include Proposed-status modules | | `./avm.sh setup --include-proposed` | `.\avm.ps1 setup --include-proposed` | — | `generate_config.py` |
+| `clone` | Clone all repos from modules.yaml | ✓ | `./avm.sh clone` | `.\avm.ps1 clone` | — | `repos.py clone` |
+| `clone` | Clone filtered by domain/type | | `./avm.sh clone --domains networking --types res` | `.\avm.ps1 clone --domains networking --types res` | — | `repos.py clone` |
+| `clone` | Clone a single module | | `./avm.sh clone --modules avm-res-network-virtualnetwork` | `.\avm.ps1 clone --modules avm-res-network-virtualnetwork` | — | `repos.py clone` |
+| `update` | Pull latest changes (ff-only) | | `./avm.sh update` | `.\avm.ps1 update` | — | `repos.py update` |
+| `update` | Pull latest changes in parallel | | `./avm.sh update --parallel 10` | `.\avm.ps1 update --parallel 10` | — | `repos.py update` |
+| `fetch` | Fetch remotes without merging | | `./avm.sh fetch --parallel 30` | `.\avm.ps1 fetch --parallel 30` | — | `repos.py fetch` |
+| `status` | Show dirty/ahead/behind repos | | `./avm.sh status` | `.\avm.ps1 status` | — | `repos.py status` |
+| `status` | Status for a single module | | `./avm.sh status --modules avm-res-network-virtualnetwork` | `.\avm.ps1 status --modules avm-res-network-virtualnetwork` | — | `repos.py status` |
+| `cleanup` | Remove repos not in modules.yaml | | `./avm.sh cleanup` | `.\avm.ps1 cleanup` | — | `repos.py cleanup` |
+| `cleanup` | Preview orphaned repos (dry run) | | `./avm.sh cleanup --dry-run` | `.\avm.ps1 cleanup --dry-run` | — | `repos.py cleanup` |
+| `cleanup` | Remove even dirty orphaned repos | | `./avm.sh cleanup --force` | `.\avm.ps1 cleanup --force` | — | `repos.py cleanup` |
+| `branch` | Create branch in all repos | | `./avm.sh branch create feature/x` | `.\avm.ps1 branch create feature/x` | — | `repos.py branch create` |
+| `branch` | Create branch (filtered) | | `./avm.sh branch create feature/x --domains networking` | `.\avm.ps1 branch create feature/x --domains networking` | — | `repos.py branch create` |
+| `branch` | Checkout branch (stay put if missing) | | `./avm.sh branch checkout feature/x --fallback` | `.\avm.ps1 branch checkout feature/x --fallback` | — | `repos.py branch checkout` |
+| `branch` | Delete branch in all repos | | `./avm.sh branch delete feature/x` | `.\avm.ps1 branch delete feature/x` | — | `repos.py branch delete` |
+| `stash` | Stash all changes | | `./avm.sh stash` | `.\avm.ps1 stash` | — | `repos.py stash` |
+| `stash` | Pop stash in all repos | | `./avm.sh stash pop` | `.\avm.ps1 stash pop` | — | `repos.py stash pop` |
+| `reset` | Hard reset all repos to HEAD | | `./avm.sh reset --hard` | `.\avm.ps1 reset --hard` | — | `repos.py reset` |
+| `run` | Run arbitrary git command in all repos | | `./avm.sh run git log --oneline -3` | `.\avm.ps1 run git log --oneline -3` | — | `repos.py run` |
+| `sync` | Refresh catalog from upstream AVM CSVs | | `./avm.sh sync` | `.\avm.ps1 sync` | `/avm-sync` | `sync_catalog.py` |
+| `sync` | Preview catalog changes (dry run) | | `./avm.sh sync --dry-run` | `.\avm.ps1 sync --dry-run` | — | `sync_catalog.py` |
+| `sync` | Force-rewrite all module files | | `./avm.sh sync --force` | `.\avm.ps1 sync --force` | — | `sync_catalog.py` |
+| `sync` | Include Proposed-status modules | | `./avm.sh sync --include-proposed` | `.\avm.ps1 sync --include-proposed` | — | `sync_catalog.py` |
+| `scrape` | Scrape TF metadata (terraform-metadata dim) | | `./avm.sh scrape` | `.\avm.ps1 scrape` | `/avm-check-metadata` | `analyze_module.py` |
+| `scrape` | Scrape a single module | | `./avm.sh scrape --modules NAME` | `.\avm.ps1 scrape --modules NAME` | `/avm-check-metadata` | `analyze_module.py` |
+| `scrape` | Scrape filtered by domain/type | | `./avm.sh scrape --domains networking --types res` | `.\avm.ps1 scrape --domains networking --types res` | — | `analyze_module.py` |
+| `check` | Full analysis — all 6 dimensions | | `./avm.sh check --modules NAME` | `.\avm.ps1 check --modules NAME` | `/avm-audit` | `analyze_module.py` |
+| `check` | Single dimension across all modules | | `./avm.sh check --dimension test-coverage` | `.\avm.ps1 check --dimension test-coverage` | `/avm-check-tests` | `analyze_module.py` |
+| `check` | Single dimension, filtered scope | | `./avm.sh check --domains networking --dimension doc-quality` | `.\avm.ps1 check --domains networking --dimension doc-quality` | `/avm-check-docs` | `analyze_module.py` |
+| `check` | Preview analysis changes (dry run) | | `./avm.sh check --dry-run` | `.\avm.ps1 check --dry-run` | — | `analyze_module.py` |
 
 ### Typical operator session
 
