@@ -4,6 +4,7 @@
 .config/modules.yaml
 .config/workspaces.yaml
 # *.code-workspace
+# AGENTS.md
 
 # =============================================================================
 # data/ is intentionally committed — it is the module enrichment inventory.

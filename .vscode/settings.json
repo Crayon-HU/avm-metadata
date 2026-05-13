@@ -1,0 +1,40 @@
+{
+  // Automatically detect git repositories in subdirectories of the workspace root
+  // so all terraform-* child repos appear in the Source Control panel
+  "files.eol": "\n",
+  "git.autoRepositoryDetection": "subFolders",
+  "git.autofetch": true,
+  "git.autofetchPeriod": 120,
+  "chat.agent.maxRequests": 500,
+  "chat.math.enabled": true,
+  "chat.todoListTool.enabled": true,
+  "github.copilot.chat.agent.thinkingTool": true,
+
+  // Exclude cloned module repos and generated files from search/quick-open
+  "search.exclude": {
+    "**/terraform-azurerm-avm-*": true,
+    "**/terraform-azure-avm-*": true,
+    "**/terraform-azapi-avm-*": true,
+    "**/.config/modules.yaml": true
+  },
+
+  // Suppress file watcher events inside cloned repo .git directories
+  "files.watcherExclude": {
+    "**/terraform-azurerm-avm-*/.git/**": true,
+    "**/terraform-azure-avm-*/.git/**": true,
+    "**/terraform-azapi-avm-*/.git/**": true
+  },
+
+  // Hide noise from Explorer sidebar
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/.terraform": true
+  },
+
+  // YAML schema associations for catalog module files
+  "yaml.schemas": {
+    "./schemas/avm-module-res.schema.json": "data/modules/res/*.yaml",
+    "./schemas/avm-module-ptn.schema.json": "data/modules/ptn/*.yaml",
+    "./schemas/avm-module-utl.schema.json": "data/modules/utl/*.yaml"
+  }
+}
