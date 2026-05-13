@@ -150,6 +150,45 @@ def _extract_last_synced(content: str) -> str:
     return m.group(1)[:10] if m else ""
 
 
+def _extract_owners(content: str) -> dict[str, dict[str, str]]:
+    """Parse the catalog owners block.
+
+    Returns {'primary': {'handle': ..., 'name': ...}, 'secondary': {'handle': ..., 'name': ...}}.
+    """
+    owners: dict[str, dict[str, str]] = {
+        "primary":   {"handle": "", "name": ""},
+        "secondary": {"handle": "", "name": ""},
+    }
+    in_catalog  = False
+    in_owners   = False
+    current_key = ""
+    for line in content.splitlines():
+        stripped = line.strip()
+        if stripped == "# BEGIN CATALOG":
+            in_catalog = True
+            continue
+        if stripped == "# END CATALOG":
+            break
+        if not in_catalog:
+            continue
+        if stripped == "owners:":
+            in_owners = True
+            continue
+        if in_owners:
+            if re.match(r"^  \w", line) and not line.startswith("    "):
+                # back to catalog-level key — owners block ended
+                in_owners = False
+                continue
+            m_key = re.match(r"^\s{4}(primary|secondary):", line)
+            if m_key:
+                current_key = m_key.group(1)
+                continue
+            m_val = re.match(r'^\s{6}(handle|name):\s*"?([^"#\n]*)"?', line)
+            if m_val and current_key in owners:
+                owners[current_key][m_val.group(1)] = m_val.group(2).strip().strip('"')
+    return owners
+
+
 # ---------------------------------------------------------------------------
 # Module loader
 # ---------------------------------------------------------------------------
@@ -192,6 +231,7 @@ def load_modules(
                 "last_synced":   _extract_last_synced(content),
                 "version_pinned": _extract_version_pinned(content),
                 "analysis":      analysis,
+                "owners":        _extract_owners(content),
             })
     return modules
 
@@ -318,6 +358,27 @@ td.name a:hover { text-decoration: underline; }
 .type-badge  { font-size: 11px; padding: 1px 5px; border-radius: 4px; background: rgba(188,140,255,.15); color: var(--purple); }
 .version     { font-size: 12px; color: var(--muted); font-family: monospace; }
 footer       { margin-top: 32px; color: var(--muted); font-size: 12px; text-align: center; }
+/* --- Heatmap --- */
+.heatmap { border-collapse: collapse; margin-bottom: 0; border-radius: 0 0 8px 8px; }
+.heatmap th, .heatmap td { padding: 6px 10px; text-align: center; border: 1px solid var(--border); font-size: 12px; }
+.heatmap th { background: var(--bg3); color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+.heatmap td.dom-name { text-align: left; font-weight: 500; min-width: 140px; white-space: nowrap; }
+.hm-green  { background: rgba(63,185,80,.18);  color: var(--green);  font-weight: 600; }
+.hm-orange { background: rgba(210,153,34,.18); color: var(--orange); font-weight: 600; }
+.hm-red    { background: rgba(248,81,73,.18);  color: var(--red);    font-weight: 600; }
+.hm-grey   { background: transparent;          color: var(--muted);  }
+/* --- Owner map --- */
+.owner-handle { font-family: monospace; font-size: 12px; color: var(--blue); }
+.owner-name   { font-size: 12px; color: var(--muted); }
+.no-secondary { color: var(--red); font-size: 11px; }
+.mod-chip {
+  display: inline-block; font-family: monospace; font-size: 11px;
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 4px; padding: 1px 5px; margin: 1px 2px;
+  color: var(--text); white-space: nowrap;
+}
+.mod-chip a { color: var(--blue); text-decoration: none; }
+.mod-chip a:hover { text-decoration: underline; }
 """
 
 _DIM_ORDER = [
@@ -429,6 +490,164 @@ def _render_domain(domain: str, mods: list[dict]) -> str:
 """
 
 
+def _render_coverage_heatmap(by_domain: dict[str, list[dict]]) -> str:
+    """Render a domain × dimension heatmap panel.
+
+    Each cell shows how many modules in the domain have pass/partial/fail for
+    a given dimension and is colour-coded accordingly.
+    """
+    dim_headers = "".join(
+        f'<th title="{escape(d)}">{escape(_DIM_ABBREV[d])}</th>'
+        for d in _DIM_ORDER
+    )
+
+    rows_html = ""
+    for domain in sorted(by_domain.keys()):
+        mods = by_domain[domain]
+        dom_label = escape(domain.replace("-", " ").title())
+        scores = [compute_score(m["analysis"])[0] for m in mods if m["analysis"]]
+        avg = (sum(scores) / len(scores)) if scores else 0.0
+        avg_cls = _score_class(avg, bool(scores))
+        avg_html = f'<span class="score {avg_cls}" style="font-size:11px">{avg:.0f}%</span>'
+
+        cells_html = ""
+        for dim in _DIM_ORDER:
+            counts = {"pass": 0, "partial": 0, "fail": 0, "unchecked": 0, "missing": 0, "other": 0}
+            total_with_data = 0
+            for m in mods:
+                dim_data = m["analysis"].get(dim)
+                if dim_data is None:
+                    continue
+                total_with_data += 1
+                st = dim_data.get("status", "")
+                if st == "pass":
+                    counts["pass"] += 1
+                elif st in ("partial", "unchecked", "skip"):
+                    counts["partial"] += 1
+                elif st in ("fail", "failed", "missing"):
+                    counts["fail"] += 1
+                else:
+                    counts["other"] += 1
+
+            if total_with_data == 0:
+                cells_html += '<td class="hm-grey">—</td>'
+            elif counts["fail"] > 0:
+                cells_html += f'<td class="hm-red" title="{counts["fail"]} fail · {counts["partial"]} partial · {counts["pass"]} pass">{counts["pass"]}/{total_with_data}</td>'
+            elif counts["partial"] > 0:
+                cells_html += f'<td class="hm-orange" title="{counts["partial"]} partial · {counts["pass"]} pass">{counts["pass"]}/{total_with_data}</td>'
+            else:
+                cells_html += f'<td class="hm-green" title="all pass">{counts["pass"]}/{total_with_data}</td>'
+
+        rows_html += (
+            f"<tr>"
+            f'<td class="dom-name">{dom_label} {avg_html}</td>'
+            f"{cells_html}"
+            f"</tr>\n"
+        )
+
+    return f"""
+<details open>
+  <summary>Domain × Dimension Heatmap<span class="domain-stats"><span>pass count / analyzed</span></span></summary>
+  <table class="heatmap">
+    <thead>
+      <tr>
+        <th style="text-align:left">Domain</th>
+        {dim_headers}
+      </tr>
+    </thead>
+    <tbody>
+{rows_html}    </tbody>
+  </table>
+</details>
+"""
+
+
+def _render_owner_map(modules: list[dict]) -> str:
+    """Render a collapsible owner map panel.
+
+    Groups modules by primary owner; highlights those missing a secondary owner.
+    """
+    # Build owner → [module, ...] map
+    by_owner: dict[str, list[dict]] = {}
+    for m in modules:
+        owners = m.get("owners", {})
+        primary = owners.get("primary", {})
+        handle  = primary.get("handle", "").strip()
+        if not handle:
+            handle = "unassigned"
+        by_owner.setdefault(handle, []).append(m)
+
+    # Sort by module count descending, then by handle alphabetically
+    sorted_owners = sorted(by_owner.keys(), key=lambda h: (-len(by_owner[h]), h))
+
+    rows_html = ""
+    for handle in sorted_owners:
+        owner_mods = by_owner[handle]
+        # Primary owner name from first module that has it
+        primary_name = ""
+        for m in owner_mods:
+            name = m.get("owners", {}).get("primary", {}).get("name", "").strip()
+            if name:
+                primary_name = name
+                break
+
+        handle_html = (
+            f'<a href="https://github.com/{escape(handle)}" target="_blank">{escape(handle)}</a>'
+            if handle != "unassigned"
+            else '<span style="color:var(--muted)">unassigned</span>'
+        )
+
+        chips_html = ""
+        for m in sorted(owner_mods, key=lambda x: x["name"]):
+            sec_handle = m.get("owners", {}).get("secondary", {}).get("handle", "").strip()
+            missing    = not sec_handle
+            chip_title = "" if not missing else ' title="No secondary owner"'
+            chip_style = ' style="border-color:rgba(248,81,73,.4)"' if missing else ""
+            repo_url   = m.get("repo_url", "")
+            short_name = m["name"].replace("avm-res-", "").replace("avm-ptn-", "").replace("avm-utl-", "")
+            mod_link   = (
+                f'<a href="{escape(repo_url)}" target="_blank">{escape(short_name)}</a>'
+                if repo_url
+                else escape(short_name)
+            )
+            chips_html += f'<span class="mod-chip"{chip_style}{chip_title}>{mod_link}</span>'
+
+        no_sec_count = sum(
+            1 for m in owner_mods
+            if not m.get("owners", {}).get("secondary", {}).get("handle", "").strip()
+        )
+        no_sec_html = (
+            f'<span class="no-secondary">{no_sec_count} missing</span>'
+            if no_sec_count > 0
+            else '<span style="color:var(--muted)">—</span>'
+        )
+
+        rows_html += (
+            f"<tr>"
+            f'<td><span class="owner-handle">{handle_html}</span><br>'
+            f'<span class="owner-name">{escape(primary_name)}</span></td>'
+            f"<td>{len(owner_mods)}</td>"
+            f"<td>{no_sec_html}</td>"
+            f"<td>{chips_html}</td>"
+            f"</tr>\n"
+        )
+
+    return f"""
+<details>
+  <summary>Owner Map<span class="domain-stats"><span>{len(modules)} modules · {len(sorted_owners)} owners</span></span></summary>
+  <table>
+    <thead>
+      <tr>
+        <th>Owner</th><th>Modules</th><th>No 2nd owner</th><th>Module list</th>
+      </tr>
+    </thead>
+    <tbody>
+{rows_html}    </tbody>
+  </table>
+</details>
+"""
+
+
 def generate_site(
     filter_domains: list[str] | None = None,
     filter_types:   list[str] | None = None,
@@ -455,6 +674,11 @@ def generate_site(
     avg_overall = (sum(all_scores) / len(all_scores)) if all_scores else 0.0
     analyzed_n  = sum(1 for m in modules if m["analysis"])
 
+    no_secondary_n = sum(
+        1 for m in modules
+        if not m.get("owners", {}).get("secondary", {}).get("handle", "").strip()
+    )
+
     now_str = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
 
     stats_html = f"""
@@ -465,7 +689,11 @@ def generate_site(
     <div class="stat-card"><div class="val">{by_type.get('utl', 0)}</div><div class="lbl">utl</div></div>
     <div class="stat-card"><div class="val">{analyzed_n}</div><div class="lbl">Analyzed</div></div>
     <div class="stat-card"><div class="val">{avg_overall:.0f}%</div><div class="lbl">Avg score</div></div>
+    <div class="stat-card"><div class="val" style="color:var(--orange)">{no_secondary_n}</div><div class="lbl">No 2nd owner</div></div>
 """
+
+    heatmap_html  = _render_coverage_heatmap(by_domain)
+    owner_map_html = _render_owner_map(modules)
 
     domains_html = "".join(
         _render_domain(dom, mods)
@@ -496,6 +724,8 @@ def generate_site(
   <p class="subtitle">Generated: {escape(now_str)} &nbsp;·&nbsp; {legend_html}</p>
   <div class="stats">{stats_html}</div>
   <p style="font-size:12px;color:var(--muted);margin-bottom:16px">{dim_legend}</p>
+  {heatmap_html}
+  {owner_map_html}
   {domains_html}
   <footer>Auto-generated by <code>scripts/generate_site.py</code> · Crayon-HU/avm-metadata</footer>
 </body>

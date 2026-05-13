@@ -28,6 +28,7 @@ scripts/
   fetch_provider_changes.py     Fetch provider GitHub Releases → write provider_updates findings to stubs
   harvest_module_issues.py      Fetch open GitHub issues from AVM module repos → write module_issues blocks
   generate_site.py              Static HTML health dashboard generator → docs/site/index.html
+                                  Panels: stats, domain×dimension heatmap, owner map, per-domain module tables
 
 avm.sh                          Unified operator entry point — delegates to scripts/
 .github/skills/                 Copilot skill procedures — also delegate to scripts/

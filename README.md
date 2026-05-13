@@ -130,6 +130,7 @@ code avm.code-workspace    # all modules
 
 ./avm.sh site                                             # generate HTML dashboard (docs/site/index.html)
 ./avm.sh site --open                                      # generate + open in browser
+# Dashboard panels: stats · domain×dimension heatmap · owner map · per-domain module tables
 ```
 
 Run `./avm.sh help` or `./avm.sh <command> --help` for full flag reference.

@@ -1,49 +1,17 @@
 # Ideas
 
 > **Status legend:** ✅ Done · ⏳ Planned · 💡 Idea
-
 ---
-
-## Architecture Reference
-
-### Issues & Changelog Data
-
-Four distinct tracking keys — each has a unique location, source, and command:
-
-| # | Key | Location | Source | Command | Status |
-|---|---|---|---|---|---|
-| 1 | `enrichment.known_issues` | `data/modules/*.yaml` | Hand-typed by operator | `avm report --issues` / `/avm-issues` | ✅ |
-| 2 | `module_issues` | `data/modules/*.yaml` | AVM module GitHub issues | `avm harvest` | ✅ |
-| 3 | `provider_issues` | `data/{resources,datasources,…}/*.yaml` | Terraform provider GitHub issues | `avm providers --mode issues` | ✅ |
-| 4 | `provider_updates` | `data/{resources,datasources,…}/*.yaml` | Terraform provider GitHub Releases | `avm providers` | ✅ |
-
-> `/avm-issues` reads `enrichment.known_issues` only (hand-curated). Shows 0 on a fresh repo — correct.
-
-### Analysis Dimensions (7)
-
-| Shorthand | Dimension | YAML block | Status |
-|---|---|---|---|
-| `metadata` | `terraform-metadata` | `analysis_terraform_metadata` | ✅ |
-| `compliance` | `avm-interface-compliance` | `analysis_avm_interface_compliance` | ✅ |
-| `security` | `security-hardening` | `analysis_security_hardening` | ✅ |
-| `tests` | `test-coverage` | `analysis_test_coverage` | ✅ |
-| `docs` | `doc-quality` | `analysis_doc_quality` | ✅ |
-| `deps` | `dependency-health` | `analysis_dependency_health` | ✅ |
-| `currency` | `provider-currency` | `analysis_provider_currency` | ✅ |
-
----
-
 ## Open Ideas
 
 ### Visualization
 
-- 💡 **Domain coverage heatmap** — show which domains have fresh analysis data and which are gaps; expose as a dashboard panel in `generate_site.py`
-- 💡 **Owner map** — who owns what across all modules; highlight modules with no secondary owner
+- ✅ **Domain coverage heatmap** — domain × dimension grid panel in `generate_site.py`; cells colour-coded green/orange/red by pass/partial/fail ratio
+- ✅ **Owner map** — collapsible panel showing primary owner → module list; flags modules missing a secondary owner; stat card shows total count
 
 ### Enrichment Automation
 
 - 💡 **Use-case tagging** — infer `enrichment.use_cases` from `analysis_terraform_metadata.resources_managed` using a lookup table (e.g. `azurerm_key_vault` → `"security"`, `azurerm_virtual_network` → `"networking"`)
-- 💡 **Multi-repo CHANGELOG** — aggregate recent commits across a domain into a weekly digest (feed from `avm activity`)
 
 ### GitHub Pages — AVM Intelligence Portal
 
