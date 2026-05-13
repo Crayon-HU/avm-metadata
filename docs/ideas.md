@@ -1,32 +1,36 @@
 # Ideas
 
+> **Status legend:** ✅ Done · ⏳ Planned · 💡 Idea
+
 ## Reporting & Visualization
 
-- **Health dashboard** — generate a static HTML/markdown scorecard from all `analysis_*` blocks: per-domain pass/fail table, staleness indicator (`checked_at` age), overall quality score
-- **Domain coverage heatmap** — which domains have analysis data, which are gaps
-- **Owner map** — who owns what across all modules; highlight modules with no secondary owner
+- 💡 **Health dashboard** — generate a static HTML/markdown scorecard from all `analysis_*` blocks: per-domain pass/fail table, staleness indicator (`checked_at` age), overall quality score
+- 💡 **Domain coverage heatmap** — which domains have analysis data, which are gaps
+- 💡 **Owner map** — who owns what across all modules; highlight modules with no secondary owner
 
 ## Quality & Compliance
 
-- **Stale analysis detector** — flag modules where any `analysis_*` block hasn't been refreshed in N days; add this as an `avm status` output column
-- **Cross-module issue rollup** — aggregate all `enrichment.known_issues` with `status: open` into a single triage table, grouped by severity
-- **Compliance scorecard** — rank all modules by how many of the 6 analysis dimensions pass; expose as a sorted table
+- ✅ **Stale analysis detector** — `avm status` now annotates modules with `[stale Nd]` when oldest `analysis_*` block exceeds threshold (default 14d); `--stale-threshold DAYS` flag added. _Implemented in `scripts/manage_repos.py`._
+- ✅ **Cross-module issue rollup** — `./avm.sh report --issues` aggregates all `enrichment.known_issues[status: open]` into a severity-sorted triage table. _Implemented in `scripts/report.py`._
+- ✅ **Compliance scorecard** — `./avm.sh report --scores` ranks all modules by a weighted 0–100% score across all 6 analysis dimensions (security=4, compliance/deps=3, tests/docs=2, metadata=1). _Implemented in `scripts/report.py`. Severity weights defined in `scripts/analyze_module.py`._
 
 ## Enrichment Automation
 
-- **Auto version-pin** — for each cloned repo, read the latest git tag and pre-fill `enrichment.version_pinned` where it's missing
-- **GitHub issue import** — new script that fetches open issues from each module's GitHub repo and populates `enrichment.known_issues` automatically
-- **Use-case tagging** — infer `use_cases` from `analysis_terraform_metadata.resources_managed` using a lookup table
+- ✅ **Auto version-pin** — when `./avm.sh check --dimension terraform-metadata` runs, it reads the latest git tag and auto-fills `enrichment.version_pinned` if currently empty. _Implemented as a side-effect in `scripts/analyze_module.py`._
+- 💡 **GitHub issue import** — new script that fetches open issues from each module's GitHub repo and populates `enrichment.known_issues` automatically
+- 💡 **Use-case tagging** — infer `use_cases` from `analysis_terraform_metadata.resources_managed` using a lookup table
 
 ## New Skills / Commands
 
-- **`/avm-issues`** — surface open enrichment issues across a domain in one call
-- **`avm report`** — new CLI command that dumps a markdown/HTML quality report for a domain or all modules
+- ✅ **`/avm-issues`** — surfaces open enrichment issues across a domain; wraps `report.py --issues`. _Implemented in `.github/skills/avm-issues/SKILL.md`._
+- ✅ **`avm report`** — new CLI command: `--scores`, `--issues`, `--json` subcommands with `--domains`, `--types`, `--severity`, `--min-score`, `--output` filters. _Implemented in `avm.sh` + `scripts/report.py`._
+
+> **Export to JSON** (was an inline idea) — ✅ `./avm.sh report --json` exports the full catalog to `data/catalog.json`. _Implemented in `scripts/report.py`._
 
 ## Cross-repo Git Intelligence
 
-- **Activity monitor** — `avm run git log --since="30 days ago" --oneline` across all repos; identify which modules are actively maintained vs stagnant
-- **Multi-repo CHANGELOG** — aggregate recent commits across a domain into a digest
+- 💡 **Activity monitor** — `avm run git log --since="30 days ago" --oneline` across all repos; identify which modules are actively maintained vs stagnant
+- 💡 **Multi-repo CHANGELOG** — aggregate recent commits across a domain into a digest
 
 ## Provider Change Intelligence
 
@@ -135,9 +139,9 @@ Currently `analyze_module.py` only collects `resources_managed` under `analysis_
 
 
 
-- **Export to JSON** — dump `data/modules/` into a single `catalog.json` for consumption by external tools (Grafana, Power BI, a web UI)
+- ✅ **Export to JSON** — ~~dump `data/modules/` into a single `catalog.json` for consumption by external tools (Grafana, Power BI, a web UI)~~ `./avm.sh report --json` → `data/catalog.json`. _Implemented in `scripts/report.py`._
 
-## GitHub Pages — AVM Intelligence Portal
+## GitHub Pages — AVM Intelligence Portal 💡
 
 Not just a table. A full interactive intelligence portal auto-published on every `sync` or `check` run via GitHub Actions.
 
@@ -192,7 +196,7 @@ on:
 
 ---
 
-## GitHub Projects Integration — Issue Triage & Bulk Remediation
+## GitHub Projects Integration — Issue Triage & Bulk Remediation 💡
 
 Use the GitHub Projects API (v2) and Issues as the operational surface for everything discovered by the analysis pipeline. Instead of findings living only in YAML files, they become trackable, assignable, closable work items.
 
@@ -234,7 +238,7 @@ Both Operators (terminal) and Assistants (Copilot agent on a PR) can query the b
 
 ---
 
-## Upstream Module Issue Harvesting (via GitHub MCP)
+## Upstream Module Issue Harvesting (via GitHub MCP) 💡
 
 Query open issues directly from each upstream module's GitHub repository using the GitHub MCP server, and write a structured snapshot into a dedicated `upstream_issues:` block in each `data/modules/*.yaml` file.
 
@@ -273,7 +277,7 @@ upstream_issues:
 ### Integration points
 
 - **GitHub Pages** — "Known Issues" page gains a second tab: _Upstream Issues_ alongside _Enrichment Issues_; shows open count badge per module in the catalog table
-- **GitHub Projects sync** — `sync_issues.py` can optionally mirror high-signal upstream issues (labelled `bug` or `breaking-change`) into the local triage board as linked items
+- **GitHub Projects Integration** — high-signal upstream issues (labelled `bug` or `breaking-change`) can be fed into the triage board as linked items; see the _GitHub Projects Integration_ section for the board mechanics
 - **Copilot skill** — **`/avm-upstream-issues [module]`** — harvests on demand and summarises findings; useful when starting work on a module
 
 ### CLI
@@ -289,4 +293,58 @@ upstream_issues:
 
 ---
 
-> **Highest-ROI starting points:** health dashboard (all analysis data is already there, just needs rendering) and stale analysis detector (trivial to add to `avm status`, immediately useful).
+## Schema Refactoring — Shared Definitions 💡
+
+The three module schemas (`avm-module-res.schema.json`, `avm-module-ptn.schema.json`, `avm-module-utl.schema.json`) share a large amount of duplicated `$defs`. Every time a shared definition is added or changed (as happened with `upstream_issues_block`, `upstream_issue`, `upstream_issues_block` etc.) it must be applied identically to all three files. This is error-prone and already caused drift during this session.
+
+### What is duplicated today
+
+| `$def` | Duplicated across |
+|---|---|
+| `analysis_dimension` | res, ptn, utl |
+| `analysis_check_result` | res, ptn, utl |
+| `upstream_issues_block` | res, ptn, utl |
+| `upstream_issue` | res, ptn, utl |
+| `resources_map` | res, ptn, utl |
+| `terraform_constraints` | res, ptn, utl |
+| `provider_requirement` | res, ptn, utl |
+| `owners` / `owner` | res, ptn, utl |
+| `known_issue` | res, ptn, utl |
+| `note` | res, ptn, utl |
+| `domain` / `provider` enums | res, ptn, utl |
+
+Only `analysis_terraform_metadata` differs meaningfully between schemas (res/utl have `resources_managed`; ptn has `modules_called`). The `catalog` block differs in `name` pattern and `type` const. Everything else is identical.
+
+### Refactoring options
+
+**Option A — Shared definitions file (JSON Schema `$ref` to external URI)**
+
+Extract all shared `$defs` into `schemas/avm-module-shared.schema.json`. Each per-type schema uses `"$ref": "./avm-module-shared.schema.json#/$defs/analysis_dimension"` for shared defs, keeping only type-specific properties inline.
+
+- Pros: single source of truth; add once, applies everywhere
+- Cons: requires JSON Schema draft 2020-12 `$ref` resolution; VS Code YAML extension and most validators handle it, but tooling must be tested
+
+**Option B — Code-generate the schemas from a Python template**
+
+Add `scripts/generate_schemas.py` that reads a shared definitions dict and per-type overrides, then writes all three `.schema.json` files. Run as `./avm.sh generate-schemas` or as a pre-commit hook.
+
+- Pros: full control, no validator compatibility concerns; schemas remain self-contained
+- Cons: schemas are no longer hand-editable; requires discipline to run after any shared def change
+
+**Option C — JSON Schema `$defs` + `allOf` composition**
+
+Keep three files but make each `allOf` a base schema (`avm-module-base.schema.json`) that contains all shared properties and defs, then each type schema extends it with only the type-specific overrides.
+
+- Pros: validators that support `allOf` composition work out of the box (draft 2020-12 standard)
+- Cons: `additionalProperties: false` interacts badly with `allOf` in some validators; needs careful testing
+
+### Recommendation
+
+**Option B** (code-generation) is the safest path given the existing Python toolchain. The generator can be invoked automatically in CI whenever `scripts/generate_schemas.py` is modified. The output `.schema.json` files remain committed and self-contained, so schema consumers (VS Code, CI validators) need no changes.
+
+Priority: low — only worth doing once the schema stabilises (i.e., after `analysis_provider_currency` is added).
+
+---
+
+> ~~**Highest-ROI starting points:** health dashboard (all analysis data is already there, just needs rendering) and stale analysis detector (trivial to add to `avm status`, immediately useful).~~
+> ✅ **Done (2026-05-13):** stale analysis detector, compliance scorecard (weighted), cross-module issue rollup, JSON export, `avm report` command, `/avm-issues` skill, auto version-pin, and `DIMENSION_SEVERITY`/`CHECK_SEVERITY` weight constants. Health dashboard (HTML/static site) is the next highest-ROI item.
