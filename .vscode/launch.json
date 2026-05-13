@@ -26,10 +26,10 @@
 			"console": "integratedTerminal"
 		},
 		{
-			"name": "Debug: repos.py",
+			"name": "Debug: manage_repos.py",
 			"type": "debugpy",
 			"request": "launch",
-			"program": "${workspaceFolder}/scripts/repos.py",
+			"program": "${workspaceFolder}/scripts/manage_repos.py",
 			"cwd": "${workspaceFolder}",
 			"console": "integratedTerminal"
 		}

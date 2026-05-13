@@ -394,7 +394,7 @@ cmd_setup() {
 # ---------------------------------------------------------------------------
 cmd_clone() {
   for a in "$@"; do [[ "$a" == "--help" || "$a" == "-h" ]] && { _usage_clone; return 0; }; done
-  python3 "${SCRIPTS_DIR}/repos.py" clone "$@"
+  python3 "${SCRIPTS_DIR}/manage_repos.py" clone "$@"
 }
 
 # ---------------------------------------------------------------------------
@@ -402,7 +402,7 @@ cmd_clone() {
 # ---------------------------------------------------------------------------
 cmd_update() {
   for a in "$@"; do [[ "$a" == "--help" || "$a" == "-h" ]] && { _usage_update; return 0; }; done
-  python3 "${SCRIPTS_DIR}/repos.py" update "$@"
+  python3 "${SCRIPTS_DIR}/manage_repos.py" update "$@"
 }
 
 # ---------------------------------------------------------------------------
@@ -410,7 +410,7 @@ cmd_update() {
 # ---------------------------------------------------------------------------
 cmd_fetch() {
   for a in "$@"; do [[ "$a" == "--help" || "$a" == "-h" ]] && { _usage_fetch; return 0; }; done
-  python3 "${SCRIPTS_DIR}/repos.py" fetch "$@"
+  python3 "${SCRIPTS_DIR}/manage_repos.py" fetch "$@"
 }
 
 # ---------------------------------------------------------------------------
@@ -418,7 +418,7 @@ cmd_fetch() {
 # ---------------------------------------------------------------------------
 cmd_status() {
   for a in "$@"; do [[ "$a" == "--help" || "$a" == "-h" ]] && { _usage_status; return 0; }; done
-  python3 "${SCRIPTS_DIR}/repos.py" status "$@"
+  python3 "${SCRIPTS_DIR}/manage_repos.py" status "$@"
 }
 
 # ---------------------------------------------------------------------------
@@ -426,7 +426,7 @@ cmd_status() {
 # ---------------------------------------------------------------------------
 cmd_branch() {
   for a in "$@"; do [[ "$a" == "--help" || "$a" == "-h" ]] && { _usage_branch; return 0; }; done
-  python3 "${SCRIPTS_DIR}/repos.py" branch "$@"
+  python3 "${SCRIPTS_DIR}/manage_repos.py" branch "$@"
 }
 
 # ---------------------------------------------------------------------------
@@ -434,7 +434,7 @@ cmd_branch() {
 # ---------------------------------------------------------------------------
 cmd_stash() {
   for a in "$@"; do [[ "$a" == "--help" || "$a" == "-h" ]] && { _usage_stash; return 0; }; done
-  python3 "${SCRIPTS_DIR}/repos.py" stash "$@"
+  python3 "${SCRIPTS_DIR}/manage_repos.py" stash "$@"
 }
 
 # ---------------------------------------------------------------------------
@@ -442,7 +442,7 @@ cmd_stash() {
 # ---------------------------------------------------------------------------
 cmd_reset() {
   for a in "$@"; do [[ "$a" == "--help" || "$a" == "-h" ]] && { _usage_reset; return 0; }; done
-  python3 "${SCRIPTS_DIR}/repos.py" reset "$@"
+  python3 "${SCRIPTS_DIR}/manage_repos.py" reset "$@"
 }
 
 # ---------------------------------------------------------------------------
@@ -452,7 +452,7 @@ cmd_reset() {
 # ---------------------------------------------------------------------------
 cmd_run() {
   [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]] && { _usage_run; return 0; }
-  python3 "${SCRIPTS_DIR}/repos.py" run "$@"
+  python3 "${SCRIPTS_DIR}/manage_repos.py" run "$@"
 }
 
 # ---------------------------------------------------------------------------
@@ -460,7 +460,7 @@ cmd_run() {
 # ---------------------------------------------------------------------------
 cmd_cleanup() {
   for a in "$@"; do [[ "$a" == "--help" || "$a" == "-h" ]] && { _usage_cleanup; return 0; }; done
-  python3 "${SCRIPTS_DIR}/repos.py" cleanup "$@"
+  python3 "${SCRIPTS_DIR}/manage_repos.py" cleanup "$@"
 }
 
 # ---------------------------------------------------------------------------

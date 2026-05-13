@@ -19,7 +19,7 @@ data/modules/                   Source of truth for the module catalog (committe
 
 scripts/
   generate_config.py            Reads data/modules/ → writes .config/modules.yaml
-  repos.py                      Multi-repo git ops: clone/update/fetch/status/branch/stash/reset/run/cleanup
+  manage_repos.py                      Multi-repo git ops: clone/update/fetch/status/branch/stash/reset/run/cleanup
   sync_catalog.py               Fetches upstream AVM CSVs → refreshes data/modules/ catalog sections
   analyze_module.py             Multi-dimensional analysis → populates analysis_* blocks in data/modules/
 

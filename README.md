@@ -134,7 +134,7 @@ data/modules/                  ← one YAML per module (source of truth for cata
 
 scripts/
   generate_config.py           ← data/modules/ → .config/modules.yaml
-  repos.py                     ← multi-repo git ops (clone/update/fetch/…)
+  manage_repos.py                     ← multi-repo git ops (clone/update/fetch/…)
   sync_catalog.py              ← upstream AVM CSVs → data/modules/ catalog sections
   analyze_module.py            ← multi-dimensional analysis → analysis_* blocks
 

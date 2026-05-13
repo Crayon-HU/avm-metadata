@@ -315,43 +315,43 @@ switch ($Command.ToLowerInvariant()) {
     'clone' {
         if (Test-HelpFlag $RemainingArgs) { Show-CloneUsage; exit 0 }
         $pyArgs = @('clone') + $RemainingArgs
-        & python3 (Join-Path $ScriptsDir 'repos.py') @pyArgs
+        & python3 (Join-Path $ScriptsDir 'manage_repos.py') @pyArgs
         if (-not $?) { exit 1 }
     }
     'update' {
         if (Test-HelpFlag $RemainingArgs) { Show-UpdateUsage; exit 0 }
         $pyArgs = @('update') + $RemainingArgs
-        & python3 (Join-Path $ScriptsDir 'repos.py') @pyArgs
+        & python3 (Join-Path $ScriptsDir 'manage_repos.py') @pyArgs
         if (-not $?) { exit 1 }
     }
     'fetch' {
         if (Test-HelpFlag $RemainingArgs) { Show-FetchUsage; exit 0 }
         $pyArgs = @('fetch') + $RemainingArgs
-        & python3 (Join-Path $ScriptsDir 'repos.py') @pyArgs
+        & python3 (Join-Path $ScriptsDir 'manage_repos.py') @pyArgs
         if (-not $?) { exit 1 }
     }
     'status' {
         if (Test-HelpFlag $RemainingArgs) { Show-StatusUsage; exit 0 }
         $pyArgs = @('status') + $RemainingArgs
-        & python3 (Join-Path $ScriptsDir 'repos.py') @pyArgs
+        & python3 (Join-Path $ScriptsDir 'manage_repos.py') @pyArgs
         if (-not $?) { exit 1 }
     }
     'branch' {
         if (Test-HelpFlag $RemainingArgs) { Show-BranchUsage; exit 0 }
         $pyArgs = @('branch') + $RemainingArgs
-        & python3 (Join-Path $ScriptsDir 'repos.py') @pyArgs
+        & python3 (Join-Path $ScriptsDir 'manage_repos.py') @pyArgs
         if (-not $?) { exit 1 }
     }
     'stash' {
         if (Test-HelpFlag $RemainingArgs) { Show-StashUsage; exit 0 }
         $pyArgs = @('stash') + $RemainingArgs
-        & python3 (Join-Path $ScriptsDir 'repos.py') @pyArgs
+        & python3 (Join-Path $ScriptsDir 'manage_repos.py') @pyArgs
         if (-not $?) { exit 1 }
     }
     'reset' {
         if (Test-HelpFlag $RemainingArgs) { Show-ResetUsage; exit 0 }
         $pyArgs = @('reset') + $RemainingArgs
-        & python3 (Join-Path $ScriptsDir 'repos.py') @pyArgs
+        & python3 (Join-Path $ScriptsDir 'manage_repos.py') @pyArgs
         if (-not $?) { exit 1 }
     }
     'run' {
@@ -361,7 +361,7 @@ switch ($Command.ToLowerInvariant()) {
             Show-RunUsage; exit 0
         }
         $pyArgs = @('run') + $RemainingArgs
-        & python3 (Join-Path $ScriptsDir 'repos.py') @pyArgs
+        & python3 (Join-Path $ScriptsDir 'manage_repos.py') @pyArgs
         if (-not $?) { exit 1 }
     }
     'sync' {
