@@ -24,7 +24,7 @@ scripts/
   analyze_module.py             Multi-dimensional analysis → populates analysis_* blocks in data/modules/
   report.py                     Read-only reports: compliance scores (weighted), issue rollup, JSON export
   activity.py                   Git commit activity monitor across cloned repos
-  build_resource_index.py       Resource-to-module index builder → data/resources/{provider}.yaml
+  build_resource_index.py       Per-resource-type stub inventory builder → data/{resources,datasources,…}/
   generate_site.py              Static HTML health dashboard generator → docs/site/index.html
 
 avm.sh                          Unified operator entry point — delegates to scripts/
@@ -170,8 +170,8 @@ modules:
 ./avm.sh activity --stagnant-only                        # repos with no commits in window
 ./avm.sh activity --domains networking --top 10          # top 10 most active in networking
 
-# Resource index (reads data/modules/, writes data/resources/)
-./avm.sh index                                           # build provider-grouped resource index
+# Resource index (reads data/modules/, writes data/{resources,datasources,functions,ephemerals,actions}/)
+./avm.sh index                                           # create stubs for all symbol types (no overwrite)
 ./avm.sh index --dry-run                                 # preview without writing
 ./avm.sh index --domains networking --types res          # filtered index
 

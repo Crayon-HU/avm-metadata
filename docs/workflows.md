@@ -25,7 +25,7 @@ The repo uses a layered architecture where `scripts/` is the single shared autom
 │   analyze_module.py        Python  ← catalog/data ops          │
 │   report.py                Python  ← read-only reports         │
 │   activity.py              Python  ← git activity monitor      │
-│   build_resource_index.py  Python  ← resource-to-module index  │
+│   build_resource_index.py  Python  ← per-resource-type stub inventory │
 │   generate_site.py         Python  ← static HTML dashboard     │
 │   manage_repos.py          Python  ← git ops (clone/update/...) │
 └─────────────────────────────────────────────────────────────────┘
@@ -119,7 +119,7 @@ Operators run commands from a terminal using the top-level wrapper for their she
 | `activity` | Activity for specific look-back window | | `./avm.sh activity --since 7d` | `.\avm.ps1 activity --since 7d` | — | `activity.py` |
 | `activity` | Stagnant repos only | | `./avm.sh activity --stagnant-only` | `.\avm.ps1 activity --stagnant-only` | — | `activity.py` |
 | `activity` | Active repos only, filtered | | `./avm.sh activity --domains networking --no-stagnant` | `.\avm.ps1 activity --domains networking --no-stagnant` | — | `activity.py` |
-| `index` | Build provider-grouped resource index | | `./avm.sh index` | `.\avm.ps1 index` | `/avm-index` | `build_resource_index.py` |
+| `index` | Build per-resource-type stub inventory | | `./avm.sh index` | `.\avm.ps1 index` | `/avm-index` | `build_resource_index.py` |
 | `index` | Dry-run index build | | `./avm.sh index --dry-run` | `.\avm.ps1 index --dry-run` | — | `build_resource_index.py` |
 | `index` | Filtered index build | | `./avm.sh index --domains networking --types res` | `.\avm.ps1 index --domains networking --types res` | — | `build_resource_index.py` |
 | `site` | Generate static HTML health dashboard | | `./avm.sh site` | `.\avm.ps1 site` | — | `generate_site.py` |
@@ -178,8 +178,8 @@ Operators run commands from a terminal using the top-level wrapper for their she
 ./avm.sh activity                                 # commit activity, last 30 days
 ./avm.sh activity --since 7d --stagnant-only      # stagnant repos only
 
-# Build resource-to-module index (Phase 1 of Provider Change Intelligence)
-./avm.sh index                                    # writes data/resources/{provider}.yaml
+# Build per-resource-type stub inventory (Phase 1 of Provider Change Intelligence)
+./avm.sh index                                    # creates stubs in data/{resources,datasources,...}/
 ./avm.sh index --dry-run                          # preview
 
 # Generate static HTML health dashboard
@@ -236,7 +236,7 @@ Brief description of what the skill does.
 | `avm-check` | `/avm-check --domains DOMAIN --types TYPE [--dimension DIM]` | `scripts/analyze_module.py` | Bulk check across a domain/type filter |
 | `avm-sync` | `/avm-sync [domain]` | `scripts/sync_catalog.py` | Sync AVM module catalog from upstream CSVs |
 | `avm-issues` | `/avm-issues [--domains DOMAIN] [--severity LEVEL]` | `scripts/report.py` | Surface open issues and low-scoring modules across the catalog |
-| `avm-index` | `/avm-index [--domains DOMAIN] [--types TYPE] [--dry-run]` | `scripts/build_resource_index.py` | Build/rebuild the provider-grouped resource-to-module index |
+| `avm-index` | `/avm-index [--domains DOMAIN] [--types TYPE] [--dry-run]` | `scripts/build_resource_index.py` | Build/rebuild the per-resource-type stub inventory |
 
 ---
 

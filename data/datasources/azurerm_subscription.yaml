@@ -1,0 +1,16 @@
+resource:
+  type: azurerm_subscription
+  provider: azurerm
+  symbol_type: datasource
+  registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subscription"
+
+provider_changelog:
+  last_checked: null
+  findings: []
+
+upstream_issues:
+  last_checked: null
+  items: []
+
+enrichment:
+  notes: []

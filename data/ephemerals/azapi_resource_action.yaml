@@ -1,0 +1,16 @@
+resource:
+  type: azapi_resource_action
+  provider: azapi
+  symbol_type: ephemeral
+  registry_url: "https://registry.terraform.io/providers/azure/azapi/latest/docs/ephemeral-resources/resource_action"
+
+provider_changelog:
+  last_checked: null
+  findings: []
+
+upstream_issues:
+  last_checked: null
+  items: []
+
+enrichment:
+  notes: []

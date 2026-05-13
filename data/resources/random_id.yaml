@@ -1,0 +1,16 @@
+resource:
+  type: random_id
+  provider: random
+  symbol_type: resource
+  registry_url: "https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id"
+
+provider_changelog:
+  last_checked: null
+  findings: []
+
+upstream_issues:
+  last_checked: null
+  items: []
+
+enrichment:
+  notes: []

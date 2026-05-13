@@ -1,0 +1,16 @@
+resource:
+  type: azurerm_backup_protected_vm
+  provider: azurerm
+  symbol_type: resource
+  registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/backup_protected_vm"
+
+provider_changelog:
+  last_checked: null
+  findings: []
+
+upstream_issues:
+  last_checked: null
+  items: []
+
+enrichment:
+  notes: []

@@ -1,0 +1,15 @@
+resource:
+  type: terraform_data
+  provider: terraform
+  symbol_type: resource
+
+provider_changelog:
+  last_checked: null
+  findings: []
+
+upstream_issues:
+  last_checked: null
+  items: []
+
+enrichment:
+  notes: []

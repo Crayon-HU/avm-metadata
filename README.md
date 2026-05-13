@@ -109,7 +109,7 @@ code avm.code-workspace    # all modules
 # Activity & intelligence (read-only, needs cloned repos)
 ./avm.sh activity                                         # commit activity, last 30 days
 ./avm.sh activity --since 7d --stagnant-only              # repos with no commits
-./avm.sh index                                            # build resource-to-module index (data/resources/)
+./avm.sh index                                            # create per-resource-type stubs (data/resources/, data/datasources/, …)
 ./avm.sh index --dry-run                                  # preview without writing
 ./avm.sh site                                             # generate HTML dashboard (docs/site/index.html)
 ./avm.sh site --open                                      # generate + open in browser
@@ -154,7 +154,7 @@ scripts/
   analyze_module.py            ← multi-dimensional analysis → analysis_* blocks
   report.py                    ← read-only reports: scores, issues, JSON export
   activity.py                  ← git commit activity monitor
-  build_resource_index.py      ← resource-to-module index → data/resources/
+  build_resource_index.py      ← per-resource-type stub inventory → data/{resources,datasources,…}/
   generate_site.py             ← static HTML health dashboard → docs/site/
 
 avm.sh                         ← unified operator entry point

@@ -1,0 +1,16 @@
+resource:
+  type: azurerm_mssql_managed_instance
+  provider: azurerm
+  symbol_type: resource
+  registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_managed_instance"
+
+provider_changelog:
+  last_checked: null
+  findings: []
+
+upstream_issues:
+  last_checked: null
+  items: []
+
+enrichment:
+  notes: []

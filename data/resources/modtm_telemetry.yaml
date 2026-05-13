@@ -1,0 +1,16 @@
+resource:
+  type: modtm_telemetry
+  provider: modtm
+  symbol_type: resource
+  registry_url: "https://registry.terraform.io/providers/azure/modtm/latest/docs/resources/telemetry"
+
+provider_changelog:
+  last_checked: null
+  findings: []
+
+upstream_issues:
+  last_checked: null
+  items: []
+
+enrichment:
+  notes: []

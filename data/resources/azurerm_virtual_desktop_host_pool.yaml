@@ -1,0 +1,16 @@
+resource:
+  type: azurerm_virtual_desktop_host_pool
+  provider: azurerm
+  symbol_type: resource
+  registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_desktop_host_pool"
+
+provider_changelog:
+  last_checked: null
+  findings: []
+
+upstream_issues:
+  last_checked: null
+  items: []
+
+enrichment:
+  notes: []

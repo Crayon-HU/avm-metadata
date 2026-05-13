@@ -75,6 +75,9 @@ _usage() {
     scrape    Alias for: check --dimension terraform-metadata
     check     Run one or more analysis dimensions on module(s)
     report    Compliance scorecard, open issues rollup, and JSON catalog export
+    activity  Git commit activity monitor across cloned repos
+    index     Build provider-grouped resource-to-module index (data/resources/)
+    site      Generate static HTML health dashboard (docs/site/index.html)
     help      Show this message
 
   Run './avm.sh <command> --help' for flags and examples.
@@ -529,6 +532,107 @@ cmd_report() {
   python3 "${SCRIPTS_DIR}/report.py" "$@"
 }
 
+_usage_activity() {
+  _header
+  cat <<'EOF'
+
+  activity — Git commit activity monitor across cloned module repos.
+             Ranks modules by recent commit count; flags stagnant repos.
+
+  Usage:
+    ./avm.sh activity [options]
+
+  Options:
+    --since PERIOD       Look-back window (default: 30d). Examples: 7d, 90d, 1y.
+    --top N              Show only the top N most active modules (0 = all).
+    --stagnant-only      Only show modules with 0 commits.
+    --no-stagnant        Exclude modules with 0 commits.
+    --domains DOMAINS    Comma-separated domain slugs.
+    --types TYPES        Comma-separated module types: res, ptn, utl.
+    --output FILE        Write output to FILE instead of stdout.
+
+  Examples:
+    ./avm.sh activity
+    ./avm.sh activity --since 7d --no-stagnant
+    ./avm.sh activity --stagnant-only
+    ./avm.sh activity --domains networking --top 10
+
+EOF
+}
+
+cmd_activity() {
+  for a in "$@"; do [[ "$a" == "--help" || "$a" == "-h" ]] && { _usage_activity; return 0; }; done
+  python3 "${SCRIPTS_DIR}/activity.py" "$@"
+}
+
+_usage_index() {
+  _header
+  cat <<'EOF'
+
+  index — Build a per-resource-type stub inventory from all analysis data.
+          Collects all 5 symbol types (resources, datasources, functions,
+          ephemeral, actions) from analysis_terraform_metadata blocks and
+          creates stub YAML files at:
+            data/resources/    azurerm_virtual_network.yaml
+            data/datasources/  azurerm_subnet.yaml
+            data/functions/    ...
+            data/ephemerals/   ...
+            data/actions/      ...
+          Stubs are created once and NEVER overwritten. Phase 2/3 scripts
+          populate provider_changelog.findings and upstream_issues.items.
+
+  Usage:
+    ./avm.sh index [options]
+
+  Options:
+    --dry-run             Preview without writing files.
+    --domains DOMAINS     Comma-separated domain slugs.
+    --types TYPES         Comma-separated module types: res, ptn, utl.
+
+  Examples:
+    ./avm.sh index
+    ./avm.sh index --dry-run
+    ./avm.sh index --domains networking --types res
+
+EOF
+}
+
+cmd_index() {
+  for a in "$@"; do [[ "$a" == "--help" || "$a" == "-h" ]] && { _usage_index; return 0; }; done
+  python3 "${SCRIPTS_DIR}/build_resource_index.py" "$@"
+}
+
+_usage_site() {
+  _header
+  cat <<'EOF'
+
+  site — Generate a static HTML health dashboard from all analysis data.
+         Produces a single self-contained HTML file (inline CSS, no CDN).
+         Per-domain tables with colour-coded scores, dimension badges,
+         staleness indicators, and version pin status.
+
+  Usage:
+    ./avm.sh site [options]
+
+  Options:
+    --output FILE         Output path (default: docs/site/index.html).
+    --domains DOMAINS     Comma-separated domain slugs.
+    --types TYPES         Comma-separated module types: res, ptn, utl.
+    --open                Open the output in the default browser after generation.
+
+  Examples:
+    ./avm.sh site
+    ./avm.sh site --domains networking,compute
+    ./avm.sh site --output /tmp/avm-health.html --open
+
+EOF
+}
+
+cmd_site() {
+  for a in "$@"; do [[ "$a" == "--help" || "$a" == "-h" ]] && { _usage_site; return 0; }; done
+  python3 "${SCRIPTS_DIR}/generate_site.py" "$@"
+}
+
 # ---------------------------------------------------------------------------
 # Dispatch
 # ---------------------------------------------------------------------------
@@ -550,6 +654,9 @@ case "${COMMAND}" in
   scrape)     cmd_scrape     "$@" ;;
   check)      cmd_check      "$@" ;;
   report)     cmd_report     "$@" ;;
+  activity)   cmd_activity   "$@" ;;
+  index)      cmd_index      "$@" ;;
+  site)       cmd_site       "$@" ;;
   help|--help|-h) _usage ;;
   "")
     _usage

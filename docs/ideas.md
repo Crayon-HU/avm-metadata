@@ -27,7 +27,7 @@
 - ✅ **`/avm-index`** — Copilot skill for building/rebuilding the resource-to-module index; wraps `build_resource_index.py`. _Implemented in `.github/skills/avm-index/SKILL.md`._
 - ✅ **`avm report`** — new CLI command: `--scores`, `--issues`, `--json` subcommands with `--domains`, `--types`, `--severity`, `--min-score`, `--output` filters. _Implemented in `avm.sh` + `scripts/report.py`._
 - ✅ **`avm activity`** — git commit activity monitor across all cloned repos with `--since`, `--stagnant-only`, `--no-stagnant`, `--top`, `--domains` flags. _Implemented in `avm.sh` + `scripts/activity.py`._
-- ✅ **`avm index`** — build provider-grouped resource-to-module index with `--dry-run`, `--domains`, `--types` flags. _Implemented in `avm.sh` + `scripts/build_resource_index.py`._
+- ✅ **`avm index`** — build per-resource-type stub inventory (`data/{resources,datasources,functions,ephemerals,actions}/{type}.yaml`); stubs never overwritten; `--dry-run`, `--domains`, `--types` flags. _Implemented in `avm.sh` + `scripts/build_resource_index.py`._
 - ✅ **`avm site`** — generate static HTML health dashboard with `--domains`, `--output`, `--open` flags. _Implemented in `avm.sh` + `scripts/generate_site.py`._
 
 > **Export to JSON** (was an inline idea) — ✅ `./avm.sh report --json` exports the full catalog to `data/catalog.json`. _Implemented in `scripts/report.py`._
@@ -41,34 +41,43 @@
 
 **Goal:** for every module that manages Azure resources, determine whether the provider version it requires is outdated relative to the latest release, and surface which of those gaps contain changes relevant to the resources the module actually uses.
 
-### Phase 1 — Build a resource-to-module index ✅
+### Phase 1 — Build a per-resource-type stub inventory ✅
 
-Collect all five terraform symbol types (`resources_managed`, `datasources_managed`, `functions_used`, `ephemeral_managed`, `actions_managed`) from all `data/modules/{res,ptn,utl}/*.yaml` and build a provider-grouped dataset:
+Collect all five terraform symbol types (`resources_managed`, `datasources_managed`, `functions_used`, `ephemeral_managed`, `actions_managed`) from all `data/modules/{res,ptn,utl}/*.yaml` and create a stub YAML file for each unique symbol encountered:
 
 ```
-data/resources/
-  azurerm.yaml    # all symbol types managed via azurerm, grouped by resource type → [module list]
-  azapi.yaml      # same for azapi
-  azuread.yaml    # etc.
+data/
+  resources/    azurerm_virtual_network.yaml
+                azapi_resource.yaml
+  datasources/  azurerm_subnet.yaml      ← separate folder avoids name collision
+                azurerm_public_ip.yaml
+  functions/    assert_cidrv4.yaml
+  ephemerals/   azapi_resource_action.yaml
+  actions/      ...
 ```
 
-Each entry uses a unified `symbol_type` field:
+Each stub is small, resource-centric, and **never overwritten** — it is the future home for provider changelog findings and upstream issues. The module↔resource relationship is a runtime lookup at check time, not stored in the stub.
 
 ```yaml
-- symbol_type: resource
-  resource_type: "azurerm_virtual_network"
-  modules:
-    - name: avm-res-network-virtualnetwork
-      type: res
-      domain: networking
-      version_constraint: "~> 4.0"
-      version_pinned: "0.7.0"
-- symbol_type: datasource
-  resource_type: "azurerm_subnet"
-  modules: [...]
+resource:
+  type: azurerm_virtual_network
+  provider: azurerm
+  symbol_type: resource
+  registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network"
+
+provider_changelog:
+  last_checked: null
+  findings: []      # populated by Phase 2 (fetch_provider_changes.py)
+
+upstream_issues:
+  last_checked: null
+  items: []         # populated by Phase 3
+
+enrichment:
+  notes: []         # hand-maintained
 ```
 
-Script: `scripts/build_resource_index.py` — reads all module YAMLs, collects all 5 symbol types, writes `data/resources/{provider}.yaml`. _Implemented. Run `./avm.sh index`._
+Script: `scripts/build_resource_index.py` — reads all module YAMLs, collects all 5 symbol types, creates stubs only for new resource types. _Implemented. Run `./avm.sh index`._
 
 ---
 
