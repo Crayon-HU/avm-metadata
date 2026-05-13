@@ -84,6 +84,7 @@ _usage() {
     index     Build per-resource-type stub inventory (data/resources/ etc.)
     providers Fetch provider changelog/issues → write to provider_updates/provider_issues stubs
     harvest   Harvest open GitHub issues from AVM module repos → write module_issues blocks
+    tag       Infer use-case tags → write analysis_use_cases blocks in module YAMLs
     site      Generate static HTML health dashboard (docs/site/index.html)
     help      Show this message
 
@@ -741,6 +742,47 @@ cmd_harvest() {
 }
 
 # ---------------------------------------------------------------------------
+# tag — Infer use-case tags
+# ---------------------------------------------------------------------------
+_usage_tag() {
+  _header
+  cat <<'EOHELP'
+
+  tag — Infer functional use-case tags for AVM modules.
+
+  Uses a three-tier signal model to classify modules:
+    1. catalog.domain             → base functional tags
+    2. provider_namespace/resource_type → resource-specific tags (res modules)
+    3. resources_managed list     → extra tags (helpers ignored)
+
+  Writes a # BEGIN ANALYSIS:use-cases block into each module YAML.
+  Does NOT modify enrichment.use_cases unless --promote is given.
+
+  Global filters: --domains, --types, --modules
+
+  Flags:
+    --force             Re-tag even if analysis_use_cases block already exists
+    --dry-run           Preview inferred tags without writing
+    --promote           Also seed enrichment.use_cases when it is currently []
+    --tags-file PATH    Custom tag lookup YAML (default: data/use_case_tags.yaml)
+
+  Examples:
+    ./avm.sh tag                                      # tag all untagged modules
+    ./avm.sh tag --domains networking --types res     # filtered
+    ./avm.sh tag --modules avm-res-network-virtualnetwork
+    ./avm.sh tag --dry-run                            # preview all inferred tags
+    ./avm.sh tag --force                              # re-classify all modules
+    ./avm.sh tag --promote                            # also seed enrichment.use_cases
+
+EOHELP
+}
+
+cmd_tag() {
+  for a in "$@"; do [[ "$a" == "--help" || "$a" == "-h" ]] && { _usage_tag; return 0; }; done
+  python3 "${SCRIPTS_DIR}/tag_use_cases.py" "$@"
+}
+
+# ---------------------------------------------------------------------------
 # Dispatch
 # ---------------------------------------------------------------------------
 COMMAND="${1:-}"
@@ -766,6 +808,7 @@ case "${COMMAND}" in
   site)       cmd_site       "$@" ;;
   providers)  cmd_providers  "$@" ;;
   harvest)    cmd_harvest    "$@" ;;
+  tag)        cmd_tag        "$@" ;;
   help|--help|-h) _usage ;;
   "")
     _usage

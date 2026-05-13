@@ -27,6 +27,7 @@ scripts/
   build_resource_index.py       Per-resource-type stub inventory builder → data/{resources,datasources,…}/
   fetch_provider_changes.py     Fetch provider GitHub Releases → write provider_updates findings to stubs
   harvest_module_issues.py      Fetch open GitHub issues from AVM module repos → write module_issues blocks
+  tag_use_cases.py              Infer functional use-case tags → write analysis_use_cases blocks
   generate_site.py              Static HTML health dashboard generator → docs/site/index.html
                                   Panels: stats, domain×dimension heatmap, owner map, per-domain module tables
 
@@ -196,6 +197,13 @@ modules:
 ./avm.sh harvest --modules avm-res-network-virtualnetwork  # single module
 ./avm.sh harvest --since 7d                              # skip if harvested within 7 days
 ./avm.sh harvest --force --dry-run                       # preview forced re-harvest
+
+# Use-case tagging (infers functional tags from catalog metadata + resources_managed)
+./avm.sh tag                                             # tag all untagged modules
+./avm.sh tag --domains networking --types res            # filtered
+./avm.sh tag --dry-run                                   # preview all inferred tags
+./avm.sh tag --force                                     # re-classify all modules
+./avm.sh tag --promote                                   # also seed enrichment.use_cases when empty
 
 # Health dashboard (reads data/modules/, writes docs/site/index.html)
 ./avm.sh site                                            # generate static HTML dashboard

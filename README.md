@@ -128,6 +128,12 @@ code avm.code-workspace    # all modules
 ./avm.sh harvest --modules avm-res-network-virtualnetwork  # single module
 ./avm.sh harvest --since 7d                               # skip if fresh
 
+# Use-case tagging (analysis_use_cases block; no enrichment touch unless --promote)
+./avm.sh tag                                              # tag all untagged modules
+./avm.sh tag --dry-run                                    # preview inferred tags
+./avm.sh tag --force                                      # re-classify all modules
+./avm.sh tag --promote                                    # also seed enrichment.use_cases when empty
+
 ./avm.sh site                                             # generate HTML dashboard (docs/site/index.html)
 ./avm.sh site --open                                      # generate + open in browser
 # Dashboard panels: stats · domain×dimension heatmap · owner map · per-domain module tables
