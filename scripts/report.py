@@ -9,9 +9,10 @@ Usage:
     ./avm.sh report [subcommand] [options]    # operator alias
 
 Subcommands:
-    --scores    Weighted compliance scorecard ranked by overall score.
-    --issues    Cross-module open issue rollup, grouped by severity.
-    --json      Export full catalog to a single JSON file.
+    --scores              Weighted compliance scorecard ranked by overall score.
+    --issues              Cross-module open issue rollup, grouped by severity.
+    --json                Export full catalog to a single JSON file.
+    --provider-findings   Triage table of provider update findings by module.
 
 Common options:
     --domain  DOMAIN[,…]   Filter by domain (comma-separated; or 'all').
@@ -25,11 +26,9 @@ Common options:
     --severity  LEVEL[,…]  Filter by severity: critical, high, medium, low.
     --open-only            Only show issues with status: open (default: True).
 
---json specific:
-    --output  FILE         Default: data/catalog.json
+--provider-findings specific:
+    --severity LEVEL[,…]   Filter by severity (default: critical,high).
 """
-
-import json
 import os
 import re
 import sys
@@ -52,6 +51,7 @@ DIMENSION_SEVERITY: dict[str, dict] = {
     "security-hardening":       {"level": "critical", "weight": 4},
     "avm-interface-compliance": {"level": "high",     "weight": 3},
     "dependency-health":        {"level": "high",     "weight": 3},
+    "provider-currency":        {"level": "high",     "weight": 3},
     "test-coverage":            {"level": "medium",   "weight": 2},
     "doc-quality":              {"level": "medium",   "weight": 2},
     "terraform-metadata":       {"level": "low",      "weight": 1},
@@ -76,6 +76,7 @@ _KEY_TO_DIM: dict[str, str] = {
     "analysis_test_coverage":            "test-coverage",
     "analysis_doc_quality":              "doc-quality",
     "analysis_dependency_health":        "dependency-health",
+    "analysis_provider_currency":        "provider-currency",
 }
 
 _SEVERITY_ORDER = ["critical", "high", "medium", "low"]
@@ -374,6 +375,7 @@ _DIM_ABBREV = {
     "test-coverage":            "tc",
     "doc-quality":              "dq",
     "dependency-health":        "dh",
+    "provider-currency":        "pc",
 }
 _STATUS_BADGE_PLAIN = {
     "pass":    "✓",
@@ -537,6 +539,149 @@ def cmd_issues(
 
 
 # ---------------------------------------------------------------------------
+# Subcommand: --provider-findings
+# ---------------------------------------------------------------------------
+
+_CRIT_ORDER = ["critical", "high", "medium", "low"]
+
+
+def _extract_provider_currency_data(content: str) -> dict | None:
+    """Extract analysis_provider_currency fields needed for triage report.
+
+    Returns a dict with status, worst_criticality, finding_counts, issue_counts,
+    or None if the block is absent.
+    """
+    in_block = False
+    block_lines: list[str] = []
+    for line in content.splitlines():
+        if line.strip() == "# BEGIN ANALYSIS:provider-currency":
+            in_block = True
+            block_lines = []
+            continue
+        if line.strip() == "# END ANALYSIS:provider-currency":
+            break
+        if in_block:
+            block_lines.append(line)
+
+    if not block_lines:
+        return None
+
+    result: dict = {}
+    in_finding_counts = False
+    finding_counts: dict[str, int] = {}
+
+    for line in block_lines:
+        m = re.match(r'^\s{2}status:\s+(\S+)', line)
+        if m:
+            result["status"] = m.group(1)
+            continue
+        m = re.match(r'^\s{2}worst_criticality:\s+(\S+)', line)
+        if m:
+            result["worst_criticality"] = m.group(1)
+            continue
+        if re.match(r'^\s{2}finding_counts:', line):
+            in_finding_counts = True
+            continue
+        if in_finding_counts:
+            m = re.match(r'^\s{4}(critical|high|medium|low):\s+(\d+)', line)
+            if m:
+                finding_counts[m.group(1)] = int(m.group(2))
+                continue
+            # End of finding_counts block
+            if re.match(r'^\s{2}\S', line):
+                in_finding_counts = False
+        m = re.match(r'^\s{4}total:\s+(\d+)', line)
+        if m and "issue_counts" not in result:
+            result["issue_counts_total"] = int(m.group(1))
+            continue
+
+    if finding_counts:
+        result["finding_counts"] = finding_counts
+    return result or None
+
+
+def cmd_provider_findings(
+    modules:         list[dict],
+    filter_severity: list[str] | None = None,
+    output:          str | None = None,
+) -> None:
+    """Print provider currency triage table sorted by worst criticality."""
+    default_severity = {"critical", "high"}
+    sev_filter = set(filter_severity) if filter_severity else default_severity
+
+    _sev_order = {s: i for i, s in enumerate(_CRIT_ORDER)}
+
+    rows: list[dict] = []
+    for mod in modules:
+        pf = _extract_provider_currency_data(mod["raw"])
+        if pf is None:
+            continue
+        worst = pf.get("worst_criticality", "none")
+        if worst in ("none", "unknown") and "pass" in (pf.get("status", "")):
+            continue
+        if worst not in sev_filter:
+            continue
+        fc = pf.get("finding_counts", {})
+        rows.append({
+            "module":   mod["name"],
+            "domain":   mod["domain"],
+            "worst":    worst,
+            "critical": fc.get("critical", 0),
+            "high":     fc.get("high", 0),
+            "medium":   fc.get("medium", 0),
+            "low":      fc.get("low", 0),
+            "issues":   pf.get("issue_counts_total", 0),
+            "status":   pf.get("status", ""),
+        })
+
+    rows.sort(key=lambda r: (_sev_order.get(r["worst"], 99), r["module"]))
+
+    max_name = max((len(r["module"]) for r in rows), default=35)
+    name_w   = min(max_name, 55)
+
+    _sev_color = {
+        "critical": _c_err,
+        "high":     _c_warn,
+        "medium":   lambda s: s,
+        "low":      _c_dim,
+        "none":     _c_dim,
+    }
+
+    header = (
+        f"  {'Worst':<10}  {'Crit':>4}  {'High':>4}  {'Med':>4}  {'Low':>4}  {'Issues':>6}"
+        f"  {'Module':<{name_w}}  Domain"
+    )
+    sep = "─" * len(header)
+
+    lines: list[str] = [
+        "",
+        _c_bold("AVM Provider Currency Findings"),
+        f"  Severity filter: {', '.join(sorted(sev_filter, key=lambda s: _sev_order.get(s, 99)))}",
+        f"  {len(rows)} module(s) with findings",
+        sep, header, sep,
+    ]
+
+    current_worst = ""
+    for row in rows:
+        worst = row["worst"]
+        if worst != current_worst:
+            current_worst = worst
+            lines.append(f"  {_c_bold(worst.upper())}")
+        color = _sev_color.get(worst, lambda s: s)
+        name  = row["module"][:name_w]
+        lines.append(
+            f"  {color(f'{worst:<10}')}  {row['critical']:>4}  {row['high']:>4}"
+            f"  {row['medium']:>4}  {row['low']:>4}  {row['issues']:>6}"
+            f"  {name:<{name_w}}  {row['domain']}"
+        )
+
+    lines += [sep, f"  Total: {len(rows)} module(s) with {'/'.join(sorted(sev_filter))} findings"]
+
+    text = "\n".join(lines) + "\n"
+    _write_output(text, output)
+
+
+# ---------------------------------------------------------------------------
 # Subcommand: --json
 # ---------------------------------------------------------------------------
 
@@ -612,7 +757,7 @@ def _parse_args() -> dict:
     i = 1
     while i < len(sys.argv):
         arg = sys.argv[i]
-        if arg in ("--scores", "--issues", "--json"):
+        if arg in ("--scores", "--issues", "--json", "--provider-findings"):
             args["subcommand"] = arg.lstrip("-")
             i += 1
         elif arg in ("--domain", "--domains") and i + 1 < len(sys.argv):
@@ -673,6 +818,12 @@ def main() -> None:
         )
     elif sub == "json":
         cmd_json(modules, output=args["output"])
+    elif sub == "provider-findings":
+        cmd_provider_findings(
+            modules,
+            filter_severity=args["filter_severity"] or None,
+            output=args["output"],
+        )
     else:
         print(f"Unknown subcommand: {sub}", file=sys.stderr)
         sys.exit(1)

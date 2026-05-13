@@ -371,6 +371,7 @@ _usage_check() {
     test-coverage            examples/, tests/, *.go / *.tftest.hcl presence
     doc-quality              README length and required section headers
     dependency-health        Version constraint style
+    provider-currency        Provider release findings + open issues (shorthand: currency)
 
   Global filters: --domains, --types, --modules
 
@@ -384,6 +385,7 @@ _usage_check() {
     ./avm.sh check
     ./avm.sh check --modules avm-res-network-virtualnetwork
     ./avm.sh check --domains networking --types res --dimension test-coverage
+    ./avm.sh check --dimension provider-currency
     ./avm.sh check --dimension avm-interface-compliance
     ./avm.sh check --force
     GITHUB_TOKEN=ghp_... ./avm.sh check
@@ -507,9 +509,10 @@ _usage_report() {
   report — Read-only catalog reports: compliance scores, open issues, JSON export.
 
   Subcommands:
-    --scores    Weighted compliance scorecard, ranked by overall score.
-    --issues    Cross-module open issue rollup, grouped by severity.
-    --json      Export the full catalog to data/catalog.json (or --output FILE).
+    --scores              Weighted compliance scorecard, ranked by overall score.
+    --issues              Cross-module open issue rollup, grouped by severity.
+    --json                Export the full catalog to data/catalog.json (or --output FILE).
+    --provider-findings   Provider currency triage: modules with critical/high release findings.
 
   Global filters: --domains, --types
 
@@ -519,6 +522,9 @@ _usage_report() {
   --issues flags:
     --severity LEVEL[,…]  Filter by severity: critical, high, medium, low
 
+  --provider-findings flags:
+    --severity LEVEL[,…]  Filter by severity (default: critical,high)
+
   Common flags:
     --output FILE    Write output to FILE instead of stdout
 
@@ -527,6 +533,8 @@ _usage_report() {
     ./avm.sh report --scores --domains networking --min-score 80
     ./avm.sh report --issues
     ./avm.sh report --issues --severity critical,high
+    ./avm.sh report --provider-findings
+    ./avm.sh report --provider-findings --severity critical
     ./avm.sh report --json
     ./avm.sh report --json --output docs/catalog.json
 

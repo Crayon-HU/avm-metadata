@@ -166,16 +166,16 @@ provider_issues:
     created_at: "2026-04-09"
 ```
 
-### Phase 4 — Surface findings
+### Phase 4 — Surface findings ✅
 
-- **`avm check --dimension provider-currency`** — new analysis dimension; writes summary back to `analysis_provider_currency:` block in each module YAML
-- **`/avm-check-provider`** — new Copilot skill; wraps the above for a single module
+- **`avm check --dimension provider-currency`** — 7th analysis dimension added to `analyze_module.py`; writes `analysis_provider_currency:` block (worst_criticality, finding_counts, issue_counts, coverage_stats, checks) in each module YAML; no cloned repo needed
+- **No separate `/avm-check-provider` skill** — `avm-check` SKILL.md updated with `currency` shorthand and assessment guidance; using a separate skill was unnecessary
 - **`avm report --provider-findings`** — rolls up all `critical` and `high` findings across modules into a triage table sorted by criticality
-- **Health dashboard integration** — add a "Provider Currency" column to the dashboard showing worst-criticality finding per module
+- **Health dashboard integration** — "Provider Currency" (PC) column added to `generate_site.py` dashboard
 
 ---
 
-> **Implementation order:** Phase 1 ✅ → Phase 2 ✅ → Phase 3 ✅ → Phase 4 💡 (surface findings in `analysis_provider_currency:` blocks and dashboard).
+> **Implementation order:** Phase 1 ✅ → Phase 2 ✅ → Phase 3 ✅ → Phase 4 ✅
 
 ### Other Terraform symbol types (datasources, functions, ephemeral/actions) ✅
 

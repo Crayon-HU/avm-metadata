@@ -94,9 +94,10 @@ code avm.code-workspace    # all modules
 ./avm.sh run git log --oneline -3
 
 # Analysis
-./avm.sh check --module avm-res-network-virtualnetwork   # full analysis (all 6 dims)
+./avm.sh check --module avm-res-network-virtualnetwork   # full analysis (all 7 dims)
 ./avm.sh check --dimension test-coverage                  # one dim, all modules
 ./avm.sh check --domains networking --dimension doc-quality
+./avm.sh check --dimension provider-currency              # no clone needed
 ./avm.sh scrape --module avm-res-network-virtualnetwork   # terraform-metadata alias
 
 # Reporting (read-only)
@@ -104,6 +105,8 @@ code avm.code-workspace    # all modules
 ./avm.sh report --scores --domains networking --min-score 80  # show modules scoring < 80
 ./avm.sh report --issues                                  # cross-module open issue rollup
 ./avm.sh report --issues --severity critical,high         # filter by severity
+./avm.sh report --provider-findings                       # modules with critical/high provider release findings
+./avm.sh report --provider-findings --severity critical   # critical only
 ./avm.sh report --json                                    # export catalog → data/catalog.json
 
 # Activity & intelligence (read-only, needs cloned repos)

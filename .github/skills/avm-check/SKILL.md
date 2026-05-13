@@ -1,12 +1,12 @@
 ---
 name: avm-check
-description: 'All-in-one AVM module analysis. Use when: check module, any single dimension, full audit, comprehensive review, pre-publish checklist, module health check, terraform metadata, provider versions, resources managed, AVM interface compliance, required variables missing, security hardening, hardcoded locations, sensitive outputs, test coverage, examples directory, terratest, tftest, documentation quality, README missing, dependency health, version constraints, open-ended constraint.'
-argument-hint: '[--modules NAME] [--domains DOMAIN] [--types res|ptn|utl] [--dimension metadata|compliance|security|tests|docs|deps|all]'
+description: 'All-in-one AVM module analysis. Use when: check module, any single dimension, full audit, comprehensive review, pre-publish checklist, module health check, terraform metadata, provider versions, resources managed, AVM interface compliance, required variables missing, security hardening, hardcoded locations, sensitive outputs, test coverage, examples directory, terratest, tftest, documentation quality, README missing, dependency health, version constraints, open-ended constraint, provider currency, provider findings, release findings, open issues.'
+argument-hint: '[--modules NAME] [--domains DOMAIN] [--types res|ptn|utl] [--dimension metadata|compliance|security|tests|docs|deps|currency|all]'
 ---
 
 # AVM Module Check
 
-Runs one or all 6 analysis dimensions across one module or a filtered set of modules, and reports findings with LLM assessment.
+Runs one or all 7 analysis dimensions across one module or a filtered set of modules, and reports findings with LLM assessment.
 
 **Supported filters (same as `./avm.sh check`):**
 
@@ -15,7 +15,7 @@ Runs one or all 6 analysis dimensions across one module or a filtered set of mod
 | `--modules NAME` | `--modules avm-res-network-virtualnetwork` | Single module (short name) |
 | `--domains DOMAIN` | `--domains networking,compute` | One or more domains (comma-separated) |
 | `--types TYPE` | `--types res` | Module type: `res`, `ptn`, `utl` (comma-separated) |
-| `--dimension DIM` | `--dimension compliance` | Single dimension; omit for all 6 |
+| `--dimension DIM` | `--dimension compliance` | Single dimension; omit for all 7 |
 | `--force` | | Re-run even if results are fresh |
 | `--dry-run` | | Preview what would be analysed, no writes |
 
@@ -29,7 +29,8 @@ Runs one or all 6 analysis dimensions across one module or a filtered set of mod
 | `tests` | `test-coverage` | `analysis_test_coverage` | examples/, tests/, *.go / *.tftest.hcl |
 | `docs` | `doc-quality` | `analysis_doc_quality` | README existence, length, required section headers |
 | `deps` | `dependency-health` | `analysis_dependency_health` | Version constraint style (reads terraform-metadata) |
-| `all` _(default)_ | _(all six above)_ | _(all blocks)_ | Complete quality audit |
+| `currency` | `provider-currency` | `analysis_provider_currency` | Provider release findings + open issues per resource type |
+| `all` _(default)_ | _(all seven above)_ | _(all blocks)_ | Complete quality audit |
 
 ## When to Use
 
@@ -165,6 +166,13 @@ For every check with `status: partial`, `status: fail`, or `status: missing`:
 - `terraform_version_upper_bound` missing: suggest `">= 1.9, < 2.0"`.
 - `provider_constraint_style` fail: open-ended `>=`; AVM convention is `~>` (e.g. `~> 4.0`).
 
+**`currency`** — provider currency findings:
+- `critical_findings` fail: one or more **critical** severity provider release findings (security, breaking change) affect resource types managed by this module. Immediate action: review the specific provider release notes and test against the affected resource types. Check `data/resources/{type}.yaml` → `provider_updates.findings` for details.
+- `critical_findings` partial: no critical findings but `high` severity findings exist (bug fixes, regressions). Review during the next release cycle.
+- `open_issues` partial: open GitHub issues on the provider repo reference resource types this module manages. These may affect module behaviour — review the issues list in the stub files.
+- `stub_coverage` partial: some resource types have not been fetched yet. Run `./avm.sh providers` to populate provider data, then re-run `avm check --dimension currency`.
+- `status: unchecked`: `analysis_terraform_metadata` block is absent — run `avm check --dimension metadata` first, then re-run `currency`.
+
 ### Step 7 — Report
 
 **Single-module, specific dimension:**
@@ -198,6 +206,7 @@ security        ✓ pass     No hardcoded locations; validation blocks present
 tests           ✓ pass     examples/ (3 items); 2 .go test files
 docs            ⚠ partial  Missing ## Requirements section
 deps            ✓ pass     All providers use ~> constraints
+currency        ⚠ partial  3 high findings across azurerm_storage_account, azurerm_subnet
 
 OVERALL: PARTIAL ⚠
 
@@ -233,8 +242,9 @@ Modules with findings:
 
 ## Notes
 
-- All 6 dimensions write to the module YAML atomically — no partial writes.
+- All 7 dimensions write to the module YAML atomically — no partial writes.
 - `dependency-health` reads from `terraform-metadata`; both run together when using `all` or `deps` alone.
-- Analysis reads `.tf` files from the locally cloned repo — no network calls required.
+- `provider-currency` reads `data/resources/` stubs — no cloned repo required; runs even for uncloned modules.
+- Analysis reads `.tf` files from the locally cloned repo — no network calls required (except `currency`).
 - LLM assessment is only written for single-module runs; bulk runs produce a summary table only.
 - After writing `llm_assessment` fields, the module YAML is a complete audit record.

@@ -21,8 +21,8 @@ scripts/
   generate_config.py            Reads data/modules/ → writes .config/modules.yaml
   manage_repos.py               Multi-repo git ops: clone/update/fetch/status/branch/stash/reset/run/cleanup
   sync_catalog.py               Fetches upstream AVM CSVs → refreshes data/modules/ catalog sections
-  analyze_module.py             Multi-dimensional analysis → populates analysis_* blocks in data/modules/
-  report.py                     Read-only reports: compliance scores (weighted), issue rollup, JSON export
+  analyze_module.py             Multi-dimensional analysis (7 dimensions) → populates analysis_* blocks in data/modules/
+  report.py                     Read-only reports: compliance scores (weighted), issue rollup, provider-findings, JSON export
   activity.py                   Git commit activity monitor across cloned repos
   build_resource_index.py       Per-resource-type stub inventory builder → data/{resources,datasources,…}/
   fetch_provider_changes.py     Fetch provider GitHub Releases → write provider_updates findings to stubs
@@ -153,8 +153,9 @@ modules:
 # Analysis
 ./avm.sh scrape --domains networking --types res         # terraform-metadata for filtered repos
 ./avm.sh scrape --modules avm-res-network-virtualnetwork # scrape one module
-./avm.sh check --modules avm-res-network-virtualnetwork  # full analysis (all 6 dimensions)
+./avm.sh check --modules avm-res-network-virtualnetwork  # full analysis (all 7 dimensions)
 ./avm.sh check --domains networking --dimension avm-interface-compliance  # filtered
+./avm.sh check --domains networking --dimension provider-currency         # no clone needed
 ./avm.sh check --dry-run                                 # preview analysis changes
 
 # Reporting (read-only, no files modified)
@@ -162,6 +163,8 @@ modules:
 ./avm.sh report --scores --domains networking --min-score 80  # filter low scorers
 ./avm.sh report --issues                                 # cross-module open issue rollup
 ./avm.sh report --issues --severity critical,high        # filter by severity
+./avm.sh report --provider-findings                      # modules with critical/high provider release findings
+./avm.sh report --provider-findings --severity critical  # critical only
 ./avm.sh report --json                                   # export catalog → data/catalog.json
 ./avm.sh report --json --output docs/catalog.json        # custom output path
 

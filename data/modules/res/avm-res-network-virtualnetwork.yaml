@@ -125,6 +125,26 @@ analysis_dependency_health:
 #   #     labels: [bug, help wanted]
 #   #     url: "..."
 #   #     created_at: "2026-03-21"
+# BEGIN ANALYSIS:provider-currency
+analysis_provider_currency:
+  checked_at: "2026-05-13T06:57:56Z"
+  status: partial
+  worst_criticality: high
+  finding_counts:
+    critical: 0
+    high: 1
+    medium: 1
+    low: 0
+  issue_counts:
+    total: 0
+  coverage_stats:
+    checked: 5
+    total: 5
+  checks:
+    critical_findings: { status: partial, finding: "No critical findings; 1 high finding(s) across: azapi_client_config" }
+    open_issues: { status: pass, evidence: "0 open provider issues across 5 resource type(s)" }
+    stub_coverage: { status: pass, evidence: "All 5 resource type(s) have provider data" }
+# END ANALYSIS:provider-currency
 enrichment:
   version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
   terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"

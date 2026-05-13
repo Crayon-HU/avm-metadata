@@ -38,6 +38,7 @@ DIMENSION_SEVERITY: dict[str, dict] = {
     "security-hardening":       {"level": "critical", "weight": 4},
     "avm-interface-compliance": {"level": "high",     "weight": 3},
     "dependency-health":        {"level": "high",     "weight": 3},
+    "provider-currency":        {"level": "high",     "weight": 3},
     "test-coverage":            {"level": "medium",   "weight": 2},
     "doc-quality":              {"level": "medium",   "weight": 2},
     "terraform-metadata":       {"level": "low",      "weight": 1},
@@ -60,6 +61,7 @@ _KEY_TO_DIM: dict[str, str] = {
     "analysis_test_coverage":            "test-coverage",
     "analysis_doc_quality":              "doc-quality",
     "analysis_dependency_health":        "dependency-health",
+    "analysis_provider_currency":        "provider-currency",
 }
 
 _DIM_ABBREV: dict[str, str] = {
@@ -69,6 +71,7 @@ _DIM_ABBREV: dict[str, str] = {
     "test-coverage":            "TC",
     "doc-quality":              "DQ",
     "dependency-health":        "DH",
+    "provider-currency":        "PC",
 }
 
 # ---------------------------------------------------------------------------
@@ -321,6 +324,7 @@ _DIM_ORDER = [
     "security-hardening",
     "avm-interface-compliance",
     "dependency-health",
+    "provider-currency",
     "test-coverage",
     "doc-quality",
     "terraform-metadata",
@@ -414,7 +418,7 @@ def _render_domain(domain: str, mods: list[dict]) -> str:
     <thead>
       <tr>
         <th>Module</th><th>Type</th><th>Score</th>
-        <th style="font-size:11px">SH&nbsp;AI&nbsp;DH&nbsp;TC&nbsp;DQ&nbsp;TM</th>
+        <th style="font-size:11px">SH&nbsp;AI&nbsp;DH&nbsp;PC&nbsp;TC&nbsp;DQ&nbsp;TM</th>
         <th>Version</th><th>Synced</th>
       </tr>
     </thead>

@@ -7,16 +7,18 @@ All tool-owned analysis results are stored in per-dimension marker blocks:
       ...
     # END ANALYSIS:{dimension}
 
-Six built-in dimensions:
+Seven built-in dimensions:
     terraform-metadata       Terraform version + provider constraints + resources/modules.
     avm-interface-compliance Required AVM interface variables (lock, role_assignments, …)
     security-hardening       Hardcoded values, validation blocks, sensitive outputs.
     test-coverage            examples/, tests/, *.go / *.tftest.hcl file presence.
     doc-quality              README length, required section headers.
     dependency-health        Version constraint style (derived from terraform-metadata).
+    provider-currency        Provider release findings + open issues per resource type.
 
-All analysis reads from locally cloned repos — no GitHub API or network calls.
+Most dimensions read from locally cloned repos — no GitHub API or network calls.
 Repos must be cloned first: ./avm.sh clone
+provider-currency is the exception: reads data/resources/ stubs directly (no clone needed).
 
 Usage:
     python3 scripts/analyze_module.py [options]
@@ -80,6 +82,7 @@ DIMENSION_SEVERITY: dict[str, dict] = {
     "security-hardening":       {"level": "critical", "weight": 4},
     "avm-interface-compliance": {"level": "high",     "weight": 3},
     "dependency-health":        {"level": "high",     "weight": 3},
+    "provider-currency":        {"level": "high",     "weight": 3},
     "test-coverage":            {"level": "medium",   "weight": 2},
     "doc-quality":              {"level": "medium",   "weight": 2},
     "terraform-metadata":       {"level": "low",      "weight": 1},
@@ -118,6 +121,11 @@ CHECK_SEVERITY: dict[str, dict[str, str]] = {
     "terraform-metadata": {
         "terraform_constraints": "low",
         "resources_managed":     "low",
+    },
+    "provider-currency": {
+        "critical_findings": "critical",
+        "open_issues":       "medium",
+        "stub_coverage":     "low",
     },
 }
 
@@ -575,6 +583,27 @@ def _build_analysis_block(dim: str, yaml_key: str, payload: dict) -> str:
                 lines.append(f"    - {_q(e)}")
         else:
             lines.append("  errors: []")
+
+    # Provider-currency specific summary fields
+    if "worst_criticality" in payload:
+        lines.append(f"  worst_criticality: {payload['worst_criticality']}")
+
+    if "finding_counts" in payload:
+        fc = payload["finding_counts"]
+        lines.append("  finding_counts:")
+        for level in ("critical", "high", "medium", "low"):
+            lines.append(f"    {level}: {fc.get(level, 0)}")
+
+    if "issue_counts" in payload:
+        ic = payload["issue_counts"]
+        lines.append("  issue_counts:")
+        lines.append(f"    total: {ic.get('total', 0)}")
+
+    if "coverage_stats" in payload:
+        cs = payload["coverage_stats"]
+        lines.append("  coverage_stats:")
+        lines.append(f"    checked: {cs.get('checked', 0)}")
+        lines.append(f"    total: {cs.get('total', 0)}")
 
     if "terraform_constraints" in payload:
         constraints = payload["terraform_constraints"]
@@ -1064,12 +1093,268 @@ def check_dependency_health(ctx: ModuleContext, metadata_payload: dict | None = 
 
 
 # ---------------------------------------------------------------------------
+# Dimension: provider-currency
+# ---------------------------------------------------------------------------
+
+# Providers whose resource stubs we track.
+_TRACKED_PROVIDERS: frozenset[str] = frozenset({"azurerm", "azapi", "azuread"})
+
+# Criticality ranking (lowest index = most severe).
+_CRIT_ORDER: tuple[str, ...] = ("critical", "high", "medium", "low")
+
+
+def _parse_metadata_block(content: str) -> dict | None:
+    """Parse the existing analysis_terraform_metadata block from module YAML content.
+
+    Returns the inner analysis_terraform_metadata dict, or None if not present/parseable.
+    Used by check_provider_currency when terraform-metadata was not freshly computed.
+    """
+    span = extract_block(content, "terraform-metadata")
+    if span is None:
+        return None
+    block_text = content[span[0]:span[1]]
+    # Strip # BEGIN ANALYSIS:... (first line) and # END ANALYSIS:... (last line)
+    block_lines = block_text.splitlines()
+    inner = "\n".join(block_lines[1:-1])
+    try:
+        import yaml as _yaml  # type: ignore[import]
+        parsed = _yaml.safe_load(inner)
+        if isinstance(parsed, dict):
+            return parsed.get("analysis_terraform_metadata")
+    except Exception:
+        pass
+    return None
+
+
+def check_provider_currency(ctx: ModuleContext, metadata_payload: dict | None = None) -> dict:
+    """Cross-reference module's resource types against provider stub findings.
+
+    Does not require a locally cloned repo — reads data/resources/ and
+    data/datasources/ stubs alongside the analysis_terraform_metadata block.
+
+    metadata_payload: if terraform-metadata was just freshly run, pass its
+    payload dict directly. Otherwise, the caller should extract it from the
+    existing module YAML (see _parse_metadata_block).
+    """
+    now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    _unchecked_reason = "terraform-metadata not available; run that dimension first"
+
+    def _unchecked(reason: str) -> dict:
+        return {
+            "checked_at":     now,
+            "status":         "unchecked",
+            "worst_criticality": "unknown",
+            "finding_counts": {c: 0 for c in _CRIT_ORDER},
+            "issue_counts":   {"total": 0},
+            "coverage_stats": {"checked": 0, "total": 0},
+            "checks": {
+                "critical_findings": {"status": "unchecked", "finding": reason},
+                "open_issues":       {"status": "unchecked", "finding": reason},
+                "stub_coverage":     {"status": "unchecked", "finding": reason},
+            },
+        }
+
+    if metadata_payload is None:
+        return _unchecked(_unchecked_reason)
+
+    if metadata_payload.get("status") == "fail":
+        return _unchecked("terraform-metadata failed; cannot assess provider currency")
+
+    # Collect tracked resource types from resources_managed and datasources_managed.
+    resources_set: set[str] = set()
+    datasources_set: set[str] = set()
+
+    for rtype in (metadata_payload.get("resources_managed") or {}).values():
+        for name in (rtype or []):
+            if any(name.startswith(p + "_") for p in _TRACKED_PROVIDERS):
+                resources_set.add(name)
+
+    for rtype in (metadata_payload.get("datasources_managed") or {}).values():
+        for name in (rtype or []):
+            if any(name.startswith(p + "_") for p in _TRACKED_PROVIDERS):
+                datasources_set.add(name)
+
+    all_types: set[str] = resources_set | datasources_set
+    total_types = len(all_types)
+
+    if total_types == 0:
+        _no_types_ev = "No tracked provider resources managed by this module"
+        return {
+            "checked_at":     now,
+            "status":         "pass",
+            "worst_criticality": "none",
+            "finding_counts": {c: 0 for c in _CRIT_ORDER},
+            "issue_counts":   {"total": 0},
+            "coverage_stats": {"checked": 0, "total": 0},
+            "checks": {
+                "critical_findings": {"status": "pass", "evidence": _no_types_ev},
+                "open_issues":       {"status": "pass", "evidence": _no_types_ev},
+                "stub_coverage":     {"status": "pass", "evidence": _no_types_ev},
+            },
+        }
+
+    # Load stub files for each tracked resource type.
+    data_dir = os.path.join(REPO_ROOT, "data")
+    sym_dirs = {
+        "resources":  os.path.join(data_dir, "resources"),
+        "datasources": os.path.join(data_dir, "datasources"),
+    }
+
+    try:
+        import yaml as _yaml  # type: ignore[import]
+        _yaml_ok = True
+    except ImportError:
+        _yaml_ok = False
+
+    stubs: dict[str, dict] = {}  # resource_type → parsed stub dict
+
+    def _load_stub(rtype: str, sym_dir: str) -> None:
+        stub_path = os.path.join(sym_dir, f"{rtype}.yaml")
+        if not os.path.exists(stub_path) or not _yaml_ok:
+            return
+        try:
+            with open(stub_path, encoding="utf-8") as f:
+                data = _yaml.safe_load(f)  # type: ignore[possibly-undefined]
+            if isinstance(data, dict):
+                stubs[rtype] = data
+        except Exception:
+            pass
+
+    for rtype in resources_set:
+        _load_stub(rtype, sym_dirs["resources"])
+    for rtype in datasources_set:
+        _load_stub(rtype, sym_dirs["datasources"])
+
+    # Aggregate provider_updates.findings by criticality.
+    finding_counts: dict[str, int] = {c: 0 for c in _CRIT_ORDER}
+    critical_rtypes: list[str] = []
+    high_rtypes: list[str] = []
+    issue_total = 0
+
+    for rtype, stub_data in stubs.items():
+        pu = stub_data.get("provider_updates") or {}
+        for finding in (pu.get("findings") or []):
+            crit = (finding.get("criticality") or "low").lower()
+            if crit in finding_counts:
+                finding_counts[crit] += 1
+            if crit == "critical":
+                critical_rtypes.append(rtype)
+            elif crit == "high":
+                high_rtypes.append(rtype)
+
+        pi = stub_data.get("provider_issues") or {}
+        issue_total += len(pi.get("items") or [])
+
+    # Determine worst criticality level across all findings.
+    worst_criticality = "none"
+    for c in _CRIT_ORDER:
+        if finding_counts[c] > 0:
+            worst_criticality = c
+            break
+
+    # Build individual checks.
+    checks: dict = {}
+
+    # Check 1: critical/high release findings
+    if finding_counts["critical"] > 0:
+        unique_crit = list(dict.fromkeys(critical_rtypes))
+        checks["critical_findings"] = {
+            "status":  "fail",
+            "finding": (
+                f"{finding_counts['critical']} critical finding(s) across: "
+                + ", ".join(unique_crit[:5])
+                + ("…" if len(unique_crit) > 5 else "")
+            ),
+        }
+    elif finding_counts["high"] > 0:
+        unique_high = list(dict.fromkeys(high_rtypes))
+        checks["critical_findings"] = {
+            "status":  "partial",
+            "finding": (
+                f"No critical findings; {finding_counts['high']} high finding(s) across: "
+                + ", ".join(unique_high[:5])
+                + ("…" if len(unique_high) > 5 else "")
+            ),
+        }
+    else:
+        total_findings = sum(finding_counts.values())
+        if total_findings > 0:
+            checks["critical_findings"] = {
+                "status":   "pass",
+                "evidence": f"No critical/high findings; {total_findings} medium/low finding(s)",
+            }
+        else:
+            checks["critical_findings"] = {
+                "status":   "pass",
+                "evidence": "No provider update findings for managed resource types",
+            }
+
+    # Check 2: open provider issues count (informational — partial if any)
+    if issue_total > 0:
+        checks["open_issues"] = {
+            "status":  "partial",
+            "finding": f"{issue_total} open provider issue(s) across {len(stubs)} resource type(s)",
+        }
+    else:
+        checks["open_issues"] = {
+            "status":   "pass",
+            "evidence": f"0 open provider issues across {len(stubs)} resource type(s)",
+        }
+
+    # Check 3: stub coverage — how many types have been fetched?
+    checked_types = len(stubs)
+    unchecked_types = all_types - set(stubs.keys())
+    if checked_types == total_types:
+        checks["stub_coverage"] = {
+            "status":   "pass",
+            "evidence": f"All {total_types} resource type(s) have provider data",
+        }
+    elif checked_types == 0:
+        checks["stub_coverage"] = {
+            "status":  "partial",
+            "finding": (
+                f"No stubs fetched yet for {total_types} resource type(s); "
+                "run: ./avm.sh providers"
+            ),
+        }
+    else:
+        sample = sorted(unchecked_types)[:3]
+        checks["stub_coverage"] = {
+            "status":  "partial",
+            "finding": (
+                f"{checked_types}/{total_types} resource type(s) have provider data; "
+                f"missing: {', '.join(sample)}"
+                + ("…" if len(unchecked_types) > 3 else "")
+            ),
+        }
+
+    # Overall status: fail if critical findings; partial if high/open issues/coverage gap; pass otherwise.
+    check_statuses = [c["status"] for c in checks.values()]
+    if "fail" in check_statuses:
+        overall = "fail"
+    elif "partial" in check_statuses:
+        overall = "partial"
+    else:
+        overall = "pass"
+
+    return {
+        "checked_at":        now,
+        "status":            overall,
+        "worst_criticality": worst_criticality,
+        "finding_counts":    finding_counts,
+        "issue_counts":      {"total": issue_total},
+        "coverage_stats":    {"checked": checked_types, "total": total_types},
+        "checks":            checks,
+    }
+
+
+# ---------------------------------------------------------------------------
 # Dimension registry
 # ---------------------------------------------------------------------------
 
 # Maps dimension slug → (yaml_key, check_function)
-# Functions receive (ctx: ModuleContext) except dependency-health which also takes
-# an optional in-memory metadata_payload.
+# Functions receive (ctx: ModuleContext) except dependency-health and
+# provider-currency which also take an optional in-memory metadata_payload.
 DIMENSIONS: dict[str, tuple[str, object]] = {
     "terraform-metadata":       ("analysis_terraform_metadata",       check_terraform_metadata),
     "avm-interface-compliance": ("analysis_avm_interface_compliance", check_avm_interface_compliance),
@@ -1077,7 +1362,13 @@ DIMENSIONS: dict[str, tuple[str, object]] = {
     "test-coverage":            ("analysis_test_coverage",            check_test_coverage),
     "doc-quality":              ("analysis_doc_quality",              check_doc_quality),
     "dependency-health":        ("analysis_dependency_health",        check_dependency_health),
+    "provider-currency":        ("analysis_provider_currency",        check_provider_currency),
 }
+
+# Dimensions that require a locally cloned module repo.
+# provider-currency reads data/resources/ stubs instead — no clone needed.
+_REPO_REQUIRED_DIMS: frozenset[str] = frozenset(k for k in DIMENSIONS if k != "provider-currency")
+
 
 
 def _yaml_key(dim: str) -> str:
@@ -1127,13 +1418,24 @@ def analyze_module(filepath: str, mod_type: str, dims: list[str], opts: dict) ->
     payloads: dict[str, dict] = {}
     statuses: list[str] = []
 
-    metadata_payload: dict | None = None  # passed to dependency-health if freshly computed
+    metadata_payload: dict | None = None  # passed to dependency-health/provider-currency if freshly computed
+
+    # Pre-compute metadata from existing block for provider-currency if not being freshly run.
+    # This avoids auto-triggering terraform-metadata just for provider-currency (unlike dep-health,
+    # provider-currency works fine with a slightly stale resource list).
+    currency_metadata_pre: dict | None = None
+    if "provider-currency" in dims_to_run and "terraform-metadata" not in dims_to_run:
+        currency_metadata_pre = _parse_metadata_block(content)
 
     for dim in dims_to_run:
         yaml_key, check_fn = DIMENSIONS[dim]
         try:
             if dim == "dependency-health":
                 payload = check_dependency_health(ctx, metadata_payload=metadata_payload)
+            elif dim == "provider-currency":
+                # Use freshly computed payload if terraform-metadata just ran; else use pre-parsed block.
+                _meta = metadata_payload if metadata_payload is not None else currency_metadata_pre
+                payload = check_provider_currency(ctx, metadata_payload=_meta)
             else:
                 payload = check_fn(ctx)  # type: ignore[call-arg]
             if dim == "terraform-metadata":
@@ -1358,9 +1660,11 @@ def main() -> None:
                 _m = re.search(r'domain:\s+"([^"]+)"', _content)
                 if not _m or _m.group(1) not in filter_domains:
                     continue
-            # Skip modules whose repo has not been cloned yet
+            # Skip modules whose repo has not been cloned — unless ALL requested
+            # dimensions are repo-independent (i.e. only provider-currency).
             repo_dir = os.path.join(REPO_ROOT, f"terraform-azurerm-{mod_name}")
-            if not os.path.isdir(os.path.join(repo_dir, ".git")):
+            _needs_repo = bool(set(dims) & _REPO_REQUIRED_DIMS)
+            if _needs_repo and not os.path.isdir(os.path.join(repo_dir, ".git")):
                 module_files_skipped.append(mod_name)
                 continue
             module_files.append((filepath, mod_type))
