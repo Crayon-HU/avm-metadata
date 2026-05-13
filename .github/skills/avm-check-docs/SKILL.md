@@ -29,10 +29,12 @@ Ask the user for the module name if not provided.
 ### Step 2 — Run the analyzer
 
 ```bash
-python3 scripts/analyze_module.py --module {name} --dimension doc-quality
+python3 scripts/analyze_module.py --modules {name} --dimension doc-quality
 ```
 
-Set `GITHUB_TOKEN` for higher rate limits. Add `--force` to bypass the staleness cache.
+Add `--force` to bypass the staleness cache.
+
+> **Requires the repo to be cloned.** Run `./avm.sh clone --modules {name}` first if needed.
 
 ### Step 3 — Read results
 

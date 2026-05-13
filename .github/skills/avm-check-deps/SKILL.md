@@ -34,13 +34,13 @@ Ask the user for the module name if not provided.
 ### Step 2 — Run the analyzer
 
 ```bash
-python3 scripts/analyze_module.py --module {name} --dimension dependency-health
+python3 scripts/analyze_module.py --modules {name} --dimension dependency-health
 ```
 
 The script automatically runs `terraform-metadata` first if the module's block is
-absent or stale, then derives dependency health without extra API calls.
+absent or stale, then derives dependency health — all from local files, no network calls.
 
-Set `GITHUB_TOKEN` for rate limits (needed if terraform-metadata is also being refreshed).
+> **Requires the repo to be cloned.** Run `./avm.sh clone --modules {name}` first if needed.
 
 ### Step 3 — Read results
 

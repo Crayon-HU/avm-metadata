@@ -34,11 +34,13 @@ Verify the module YAML exists: `data/modules/{res|ptn|utl}/{name}.yaml`
 ### Step 2 — Run the analyzer
 
 ```bash
-python3 scripts/analyze_module.py --module {name} --dimension terraform-metadata
+python3 scripts/analyze_module.py --modules {name} --dimension terraform-metadata
 ```
 
 Add `--force` to re-run even if recently checked. Add `--dry-run` to preview.
-Set `GITHUB_TOKEN` for higher rate limits (5000/hr vs 60/hr).
+
+> **Requires the repo to be cloned.** Run `./avm.sh clone --modules {name}` first if the
+> directory `terraform-azurerm-avm-*/{name}` does not exist locally.
 
 ### Step 3 — Read results
 
@@ -62,8 +64,8 @@ analysis_terraform_metadata:
 ### Step 4 — Assess and report
 
 If `status: partial` or `status: fail`:
-- Review `errors` for API failures (rate limit, 404)
-- Suggest setting `GITHUB_TOKEN` if rate limit is the cause
+- Review `errors` for filesystem read failures (module not cloned, missing `.tf` files)
+- Verify the module repo is cloned: `ls terraform-azurerm-avm-*/{name}/`
 - Note any missing constraints or empty resource lists
 
 Report a concise summary:
@@ -79,6 +81,6 @@ Status: pass ✓
 
 ## Notes
 
-- This is the `./avm.sh scrape` alias: `./avm.sh scrape --module NAME`
+- This is the `./avm.sh scrape` alias: `./avm.sh scrape --modules NAME`
 - The `dependency-health` dimension depends on this data being present
-- GITHUB_TOKEN dramatically improves reliability for bulk runs
+- Analysis reads `.tf` files from the locally cloned repo — no network calls required

@@ -41,10 +41,12 @@ Verify the module YAML exists: `data/modules/{res|ptn|utl}/{name}.yaml`
 ### Step 2 — Run the analyzer
 
 ```bash
-python3 scripts/analyze_module.py --module {name} --dimension avm-interface-compliance
+python3 scripts/analyze_module.py --modules {name} --dimension avm-interface-compliance
 ```
 
-Add `--force` to re-run even if recently checked. Set `GITHUB_TOKEN` for higher rate limits.
+Add `--force` to re-run even if recently checked.
+
+> **Requires the repo to be cloned.** Run `./avm.sh clone --modules {name}` first if needed.
 
 ### Step 3 — Read results
 
@@ -66,7 +68,7 @@ analysis_avm_interface_compliance:
 For each check:
 - `pass` — variable found; show file:line evidence
 - `missing` — variable not declared; this is a compliance gap
-- `unchecked` — .tf files could not be fetched (API issue)
+- `unchecked` — `.tf` files could not be read from the local repo (check the module is cloned)
 
 **LLM assessment for `status: partial`:**
 - Explain which required variables are missing and their purpose

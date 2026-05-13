@@ -28,10 +28,12 @@ Ask the user for the module name if not provided.
 ### Step 2 — Run the analyzer
 
 ```bash
-python3 scripts/analyze_module.py --module {name} --dimension test-coverage
+python3 scripts/analyze_module.py --modules {name} --dimension test-coverage
 ```
 
-Set `GITHUB_TOKEN` for higher rate limits (5000/hr vs 60/hr). Add `--force` to bypass cache.
+Add `--force` to bypass cache.
+
+> **Requires the repo to be cloned.** Run `./avm.sh clone --modules {name}` first if needed.
 
 ### Step 3 — Read results
 
@@ -81,5 +83,4 @@ Assessment: The module has usage examples but no automated tests. ...
 ## Notes
 
 - Only checks for file/directory presence, not quality or executability of tests
-- Checks the default branch (`main`) via the GitHub Contents API
-- Rate limiting is the most common failure cause — use GITHUB_TOKEN
+- Reads `examples/` and `tests/` from the locally cloned repo — no network calls required
