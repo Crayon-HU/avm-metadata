@@ -8,6 +8,13 @@ argument-hint: '[--domains DOMAIN] [--types res|ptn|utl] [--severity critical|hi
 
 Surfaces all open `enrichment.known_issues` entries across modules, grouped by severity. Produces a triage table without modifying any files.
 
+> **⚠️ Scope:** This skill reads `enrichment.known_issues` **only** — hand-curated entries added by operators.
+> On a fresh repo with no manual enrichment it will correctly show **0 open issues**.
+>
+> For automated issue data, see:
+> - `module_issues` (written by `avm harvest`) — open GitHub issues on AVM module repos
+> - `provider_issues` and `provider_updates` (written by Phase 2/3 scripts) — Terraform provider changelog and issues
+
 **Supported filters:**
 
 | Flag | Example | Description |

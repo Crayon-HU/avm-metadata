@@ -2,6 +2,23 @@
 
 > **Status legend:** ✅ Done · ⏳ Planned · 💡 Idea
 
+---
+
+## Issues & Changelog Data Architecture
+
+Four distinct tracking keys — each has a unique location, source, and automation command:
+
+| # | Key | File location | Source | Direction | Command |
+|---|---|---|---|---|---|
+| 1 | `enrichment.known_issues` | `data/modules/*.yaml` | **Hand-typed** by operator | n/a (read by `report --issues`, `/avm-issues`) | ✅ Done |
+| 2 | `module_issues` | `data/modules/*.yaml` | GitHub issues on AVM module repos (`Azure/terraform-azurerm-avm-*`) | ⬇ pull | `avm harvest` 💡 |
+| 3 | `provider_issues` | `data/{resources,datasources,…}/*.yaml` | GitHub issues on Terraform provider repos (`hashicorp/terraform-provider-azurerm`, `Azure/terraform-provider-azapi`) | ⬇ pull | Phase 3 (provider-currency) 💡 |
+| 4 | `provider_updates` | `data/{resources,datasources,…}/*.yaml` | GitHub Releases / CHANGELOG of Terraform provider | ⬇ pull | Phase 2 (provider-currency) 💡 |
+
+**`/avm-issues` shows 0 on a fresh repo** — correct. It reads `enrichment.known_issues` only. No operator has typed entries yet.
+
+---
+
 ## Reporting & Visualization
 
 - ✅ **Health dashboard** — `./avm.sh site` generates a single-file static HTML scorecard from all `analysis_*` blocks: per-domain collapsible tables, colour-coded scores, dimension badges, staleness indicators, version pin column. _Implemented in `scripts/generate_site.py`. Output: `docs/site/index.html`._
@@ -56,7 +73,7 @@ data/
   actions/      ...
 ```
 
-Each stub is small, resource-centric, and **never overwritten** — it is the future home for provider changelog findings and upstream issues. The module↔resource relationship is a runtime lookup at check time, not stored in the stub.
+Each stub is small, resource-centric, and **never overwritten** — it is the future home for provider changelog findings and provider issues. The module↔resource relationship is a runtime lookup at check time, not stored in the stub.
 
 ```yaml
 resource:
@@ -65,13 +82,25 @@ resource:
   symbol_type: resource
   registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network"
 
-provider_changelog:
+provider_updates:          # populated by Phase 2 (fetch_provider_changes.py)
   last_checked: null
-  findings: []      # populated by Phase 2 (fetch_provider_changes.py)
+  findings: []
+  # finding shape:
+  #   - version: "4.15.0"
+  #     criticality: high   # critical | high | medium | low
+  #     type: bug_fix       # bug_fix | security | enhancement | breaking_change | new_feature | deprecated
+  #     summary: "..."
+  #     url: "..."
 
-upstream_issues:
+provider_issues:           # populated by Phase 3
   last_checked: null
-  items: []         # populated by Phase 3
+  items: []
+  # item shape:
+  #   - number: 1234
+  #     title: "..."
+  #     labels: [bug]
+  #     url: "..."
+  #     created_at: "2026-01-01"
 
 enrichment:
   notes: []         # hand-maintained
@@ -259,9 +288,9 @@ Both Operators (terminal) and Assistants (Copilot agent on a PR) can query the b
 
 ---
 
-## Upstream Module Issue Harvesting (via GitHub MCP) 💡
+## Module Issue Harvesting — `module_issues` (via GitHub MCP) 💡
 
-Query open issues directly from each upstream module's GitHub repository using the GitHub MCP server, and write a structured snapshot into a dedicated `upstream_issues:` block in each `data/modules/*.yaml` file.
+Query open issues directly from each AVM module's GitHub repository using the GitHub MCP server, and write a structured snapshot into a dedicated `module_issues:` block in each `data/modules/*.yaml` file.
 
 ### Why this matters
 
@@ -269,15 +298,15 @@ The `enrichment.known_issues` block is hand-maintained — it captures what _we_
 
 ### How it works
 
-- **`scripts/harvest_upstream_issues.py`** — for each module in `data/modules/`, calls the GitHub MCP tool (`github-pull-request_doSearch` or equivalent) to fetch open issues from `catalog.repo_url`
+- **`scripts/harvest_module_issues.py`** — for each module in `data/modules/`, calls the GitHub MCP tool to fetch open issues from `catalog.repo_url`
 - Filters by useful labels: `bug`, `enhancement`, `breaking-change`, `help wanted`, `good first issue`
-- Writes a new `upstream_issues:` block in the module YAML (never merges with `enrichment.known_issues` — kept strictly separate)
+- Writes a new `module_issues:` block in the module YAML (never merges with `enrichment.known_issues` — kept strictly separate)
 - Tracks `last_harvested` timestamp; skips modules where it is fresh (default: 24 h)
 
-### YAML schema
+### YAML schema (`data/modules/*.yaml`)
 
 ```yaml
-upstream_issues:
+module_issues:
   last_harvested: "2026-05-13T10:00:00Z"
   open_count: 7
   issues:
@@ -297,9 +326,9 @@ upstream_issues:
 
 ### Integration points
 
-- **GitHub Pages** — "Known Issues" page gains a second tab: _Upstream Issues_ alongside _Enrichment Issues_; shows open count badge per module in the catalog table
-- **GitHub Projects Integration** — high-signal upstream issues (labelled `bug` or `breaking-change`) can be fed into the triage board as linked items; see the _GitHub Projects Integration_ section for the board mechanics
-- **Copilot skill** — **`/avm-upstream-issues [module]`** — harvests on demand and summarises findings; useful when starting work on a module
+- **GitHub Pages** — "Known Issues" page gains a second tab: _Module Issues_ alongside _Enrichment Issues_; shows open count badge per module in the catalog table
+- **GitHub Projects Integration** — high-signal module issues (labelled `bug` or `breaking-change`) can be fed into the triage board as linked items; see the _GitHub Projects Integration_ section for the board mechanics
+- **Copilot skill** — **`/avm-harvest [module]`** — harvests on demand and summarises findings; useful when starting work on a module
 
 ### CLI
 

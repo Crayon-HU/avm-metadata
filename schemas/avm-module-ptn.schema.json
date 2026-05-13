@@ -206,9 +206,9 @@
       "description": "Dependency health checks. Managed by analyze_module.py. Never hand-edit.",
       "$ref": "#/$defs/analysis_dimension"
     },
-    "upstream_issues": {
-      "description": "Open GitHub issues harvested from the upstream module repo. Written by scripts/harvest_upstream_issues.py (./avm.sh harvest). Never hand-edit — use enrichment.known_issues for hand-curated entries.",
-      "$ref": "#/$defs/upstream_issues_block"
+    "module_issues": {
+      "description": "Open GitHub issues harvested from the AVM module repo (e.g., Azure/terraform-azurerm-avm-res-*). Written by scripts/harvest_module_issues.py (./avm.sh harvest). Never hand-edit — use enrichment.known_issues for hand-curated entries.",
+      "$ref": "#/$defs/module_issues_block"
     },
     "enrichment": {
       "description": "Hand-maintained by contributors. Never overwritten by ./avm.sh sync or ./avm.sh check.",
@@ -437,8 +437,8 @@
         }
       }
     },
-    "upstream_issues_block": {
-      "description": "Snapshot of open GitHub issues harvested from the upstream module repository.",
+    "module_issues_block": {
+      "description": "Snapshot of open GitHub issues harvested from the AVM module repo (e.g., Azure/terraform-azurerm-avm-res-*)sitory.",
       "type": "object",
       "required": [
         "last_harvested",
@@ -465,8 +465,8 @@
         }
       }
     },
-    "upstream_issue": {
-      "description": "A single open GitHub issue from the upstream module repository.",
+    "module_issue": {
+      "description": "A single open GitHub issue from the AVM module repo (e.g., Azure/terraform-azurerm-avm-res-*)sitory.",
       "type": "object",
       "required": [
         "number",

@@ -10,9 +10,9 @@ creates stub YAML files for each Terraform symbol type encountered:
   data/ephemerals/   ...
   data/actions/      ...
 
-Each stub is the future home for provider changelog findings and upstream issues.
+Each stub is the future home for provider changelog findings and provider issues.
 Stubs are created once and NEVER overwritten — run Phase 2/3 scripts to populate
-provider_changelog.findings and upstream_issues.items.
+provider_updates.findings and provider_issues.items.
 
 Usage:
     python3 scripts/build_resource_index.py [options]
@@ -24,7 +24,7 @@ Options:
     --modules LIST   Comma-separated module names (short form or full name).
     --dry-run        Print what would be created/skipped without writing.
     --force          Overwrite existing stubs (regenerates the stub header;
-                     safe to run — provider_changelog/upstream_issues content
+                     safe to run — provider_updates/provider_issues content
                      would be reset to empty, so use with care).
 """
 
@@ -241,13 +241,25 @@ def _stub_content(symbol_type: str, provider: str, resource_type: str) -> str:
         lines.append(f'  registry_url: "{registry_url}"')
     lines += [
         f"",
-        f"provider_changelog:",
+        f"provider_updates:",
         f"  last_checked: null",
         f"  findings: []",
+        f"  # finding shape:",
+        f"  #   - version: \"4.15.0\"",
+        f"  #     criticality: high   # critical | high | medium | low",
+        f"  #     type: bug_fix       # bug_fix | security | enhancement | breaking_change | new_feature | deprecated",
+        f"  #     summary: \"...\"",
+        f"  #     url: \"...\"",
         f"",
-        f"upstream_issues:",
+        f"provider_issues:",
         f"  last_checked: null",
         f"  items: []",
+        f"  # item shape:",
+        f"  #   - number: 1234",
+        f"  #     title: \"...\"",
+        f"  #     labels: [bug]",
+        f"  #     url: \"...\"",
+        f"  #     created_at: \"2026-01-01\"",
         f"",
         f"enrichment:",
         f"  notes: []",
@@ -260,7 +272,7 @@ def _write_stub(symbol_type: str, provider: str, resource_type: str, dry_run: bo
 
     By default, existing stubs are skipped (no overwrite). Pass force=True to
     regenerate stubs even if they already exist (safe — only recreates the stub
-    header, not provider_changelog or upstream_issues content).
+    header, not provider_updates or provider_issues content).
     """
     folder = os.path.join(DATA_DIR, _SYMBOL_DIR[symbol_type])
     os.makedirs(folder, exist_ok=True)
