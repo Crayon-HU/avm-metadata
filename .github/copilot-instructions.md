@@ -23,6 +23,9 @@ scripts/
   sync_catalog.py               Fetches upstream AVM CSVs → refreshes data/modules/ catalog sections
   analyze_module.py             Multi-dimensional analysis → populates analysis_* blocks in data/modules/
   report.py                     Read-only reports: compliance scores (weighted), issue rollup, JSON export
+  activity.py                   Git commit activity monitor across cloned repos
+  build_resource_index.py       Resource-to-module index builder → data/resources/{provider}.yaml
+  generate_site.py              Static HTML health dashboard generator → docs/site/index.html
 
 avm.sh                          Unified operator entry point — delegates to scripts/
 .github/skills/                 Copilot skill procedures — also delegate to scripts/
@@ -160,6 +163,22 @@ modules:
 ./avm.sh report --issues --severity critical,high        # filter by severity
 ./avm.sh report --json                                   # export catalog → data/catalog.json
 ./avm.sh report --json --output docs/catalog.json        # custom output path
+
+# Activity (read-only, needs cloned repos)
+./avm.sh activity                                        # commit activity for all modules (last 30d)
+./avm.sh activity --since 7d --no-stagnant               # active modules only, last 7 days
+./avm.sh activity --stagnant-only                        # repos with no commits in window
+./avm.sh activity --domains networking --top 10          # top 10 most active in networking
+
+# Resource index (reads data/modules/, writes data/resources/)
+./avm.sh index                                           # build provider-grouped resource index
+./avm.sh index --dry-run                                 # preview without writing
+./avm.sh index --domains networking --types res          # filtered index
+
+# Health dashboard (reads data/modules/, writes docs/site/index.html)
+./avm.sh site                                            # generate static HTML dashboard
+./avm.sh site --domains networking,compute               # dashboard for specific domains
+./avm.sh site --output /tmp/avm-health.html --open       # custom path + open in browser
 ```
 
 **Syntax validation** (run before committing any script change):

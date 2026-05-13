@@ -4,7 +4,8 @@
 
 ## Reporting & Visualization
 
-- 💡 **Health dashboard** — generate a static HTML/markdown scorecard from all `analysis_*` blocks: per-domain pass/fail table, staleness indicator (`checked_at` age), overall quality score
+- ✅ **Health dashboard** — `./avm.sh site` generates a single-file static HTML scorecard from all `analysis_*` blocks: per-domain collapsible tables, colour-coded scores, dimension badges, staleness indicators, version pin column. _Implemented in `scripts/generate_site.py`. Output: `docs/site/index.html`._
+- 💡 **`/avm-index`** — Copilot skill for building/rebuilding the resource-to-module index. _Skill stub in `.github/skills/avm-index/SKILL.md`._
 - 💡 **Domain coverage heatmap** — which domains have analysis data, which are gaps
 - 💡 **Owner map** — who owns what across all modules; highlight modules with no secondary owner
 
@@ -23,42 +24,51 @@
 ## New Skills / Commands
 
 - ✅ **`/avm-issues`** — surfaces open enrichment issues across a domain; wraps `report.py --issues`. _Implemented in `.github/skills/avm-issues/SKILL.md`._
+- ✅ **`/avm-index`** — Copilot skill for building/rebuilding the resource-to-module index; wraps `build_resource_index.py`. _Implemented in `.github/skills/avm-index/SKILL.md`._
 - ✅ **`avm report`** — new CLI command: `--scores`, `--issues`, `--json` subcommands with `--domains`, `--types`, `--severity`, `--min-score`, `--output` filters. _Implemented in `avm.sh` + `scripts/report.py`._
+- ✅ **`avm activity`** — git commit activity monitor across all cloned repos with `--since`, `--stagnant-only`, `--no-stagnant`, `--top`, `--domains` flags. _Implemented in `avm.sh` + `scripts/activity.py`._
+- ✅ **`avm index`** — build provider-grouped resource-to-module index with `--dry-run`, `--domains`, `--types` flags. _Implemented in `avm.sh` + `scripts/build_resource_index.py`._
+- ✅ **`avm site`** — generate static HTML health dashboard with `--domains`, `--output`, `--open` flags. _Implemented in `avm.sh` + `scripts/generate_site.py`._
 
 > **Export to JSON** (was an inline idea) — ✅ `./avm.sh report --json` exports the full catalog to `data/catalog.json`. _Implemented in `scripts/report.py`._
 
 ## Cross-repo Git Intelligence
 
-- 💡 **Activity monitor** — `avm run git log --since="30 days ago" --oneline` across all repos; identify which modules are actively maintained vs stagnant
+- ✅ **Activity monitor** — `./avm.sh activity` reads `.config/modules.yaml`, runs `git log --since` per cloned repo, outputs a sorted commit-count table with `[stagnant]` labels. _Implemented in `scripts/activity.py`._
 - 💡 **Multi-repo CHANGELOG** — aggregate recent commits across a domain into a digest
 
 ## Provider Change Intelligence
 
 **Goal:** for every module that manages Azure resources, determine whether the provider version it requires is outdated relative to the latest release, and surface which of those gaps contain changes relevant to the resources the module actually uses.
 
-### Phase 1 — Build a resource-to-module index
+### Phase 1 — Build a resource-to-module index ✅
 
-Collect `analysis_terraform_metadata.resources_managed` from all `data/modules/res/*.yaml` and `data/modules/utl/*.yaml` and build a flat dataset:
+Collect all five terraform symbol types (`resources_managed`, `datasources_managed`, `functions_used`, `ephemeral_managed`, `actions_managed`) from all `data/modules/{res,ptn,utl}/*.yaml` and build a provider-grouped dataset:
 
 ```
 data/resources/
-  azurerm.yaml    # all resource types managed via azurerm, grouped by resource type → [module list]
+  azurerm.yaml    # all symbol types managed via azurerm, grouped by resource type → [module list]
   azapi.yaml      # same for azapi
   azuread.yaml    # etc.
 ```
 
-Each entry:
+Each entry uses a unified `symbol_type` field:
 
 ```yaml
-- resource_type: "azurerm_virtual_network"
-  provider: azurerm
+- symbol_type: resource
+  resource_type: "azurerm_virtual_network"
   modules:
     - name: avm-res-network-virtualnetwork
-      min_provider_version: "~> 4.0"   # from terraform_constraints.required_providers
-      enrichment_version_pinned: "0.7.0"
+      type: res
+      domain: networking
+      version_constraint: "~> 4.0"
+      version_pinned: "0.7.0"
+- symbol_type: datasource
+  resource_type: "azurerm_subnet"
+  modules: [...]
 ```
 
-Script: `scripts/build_resource_index.py` — reads all module YAMLs, merges `resources_managed` + `required_providers` version constraints, writes `data/resources/{provider}.yaml`.
+Script: `scripts/build_resource_index.py` — reads all module YAMLs, collects all 5 symbol types, writes `data/resources/{provider}.yaml`. _Implemented. Run `./avm.sh index`._
 
 ---
 
@@ -125,17 +135,19 @@ Store findings in `data/resources/azurerm_findings.yaml`:
 
 > **Implementation order:** Phase 1 (pure YAML → YAML transform, no network) → Phase 4 dashboard column (immediate value) → Phase 2+3 (network-dependent, needs GitHub token and Registry MCP).
 
-### Other Terraform symbol types (datasources, functions, ephemeral/actions)
+### Other Terraform symbol types (datasources, functions, ephemeral/actions) ✅
 
-Currently `analyze_module.py` only collects `resources_managed` under `analysis_terraform_metadata`. To support full coverage in the resource index, it needs to be extended to also scrape and record:
+All five symbol types are already scraped by `scripts/analyze_module.py` (terraform-metadata dimension) and written as sibling keys in `analysis_terraform_metadata`:
 
-| Symbol type | Terraform block | Example | Action |
-|---|---|---|---|
-| **Data sources** | `data "<provider>_<type>"` | `data "azurerm_subnet"` | Add `datasources_managed` key alongside `resources_managed` |
-| **Provider functions** | `provider::<ns>::<fn>()` | `provider::azurerm::normalize_resource_id()` | Add `functions_used` key |
-| **Ephemeral resources / actions** | `ephemeral "<provider>_<type>"` | `ephemeral "azurerm_key_vault_secret"` | Add `ephemeral_managed` key |
+| Symbol type | Terraform block | YAML key |
+|---|---|---|
+| **Resources** | `resource "<provider>_<type>"` | `resources_managed` |
+| **Data sources** | `data "<provider>_<type>"` | `datasources_managed` |
+| **Provider functions** | `provider::<ns>::<fn>()` | `functions_used` |
+| **Ephemeral resources** | `ephemeral "<provider>_<type>"` | `ephemeral_managed` |
+| **Actions** | `actions "<provider>_<type>"` | `actions_managed` |
 
-**Required change:** `scripts/analyze_module.py` — in the `terraform-metadata` dimension scraper, extend the `.tf` file walker to also collect these three block types and write them as separate sibling keys in the `analysis_terraform_metadata` block. The changelog fetch pipeline (Phase 2) can then filter on all four keys, not just `resources_managed`.
+_All five parsers (`parse_resources`, `parse_datasources`, `parse_functions_used`, `parse_ephemeral_managed`, `parse_actions_managed`) are implemented in `scripts/analyze_module.py`. The resource index builder (Phase 1) uses all five._
 
 
 

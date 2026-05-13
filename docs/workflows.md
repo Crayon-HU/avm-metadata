@@ -24,6 +24,9 @@ The repo uses a layered architecture where `scripts/` is the single shared autom
 │   generate_config.py       Python  ← catalog/data ops          │
 │   analyze_module.py        Python  ← catalog/data ops          │
 │   report.py                Python  ← read-only reports         │
+│   activity.py              Python  ← git activity monitor      │
+│   build_resource_index.py  Python  ← resource-to-module index  │
+│   generate_site.py         Python  ← static HTML dashboard     │
 │   manage_repos.py          Python  ← git ops (clone/update/...) │
 └─────────────────────────────────────────────────────────────────┘
 ```
@@ -112,6 +115,16 @@ Operators run commands from a terminal using the top-level wrapper for their she
 | `report` | Issue rollup filtered by severity | | `./avm.sh report --issues --severity critical,high` | `.\avm.ps1 report --issues --severity critical,high` | — | `report.py` |
 | `report` | Export full catalog to JSON | | `./avm.sh report --json` | `.\avm.ps1 report --json` | — | `report.py` |
 | `report` | Export catalog JSON to custom path | | `./avm.sh report --json --output docs/catalog.json` | `.\avm.ps1 report --json --output docs/catalog.json` | — | `report.py` |
+| `activity` | Git commit activity monitor (last 30d) | | `./avm.sh activity` | `.\avm.ps1 activity` | — | `activity.py` |
+| `activity` | Activity for specific look-back window | | `./avm.sh activity --since 7d` | `.\avm.ps1 activity --since 7d` | — | `activity.py` |
+| `activity` | Stagnant repos only | | `./avm.sh activity --stagnant-only` | `.\avm.ps1 activity --stagnant-only` | — | `activity.py` |
+| `activity` | Active repos only, filtered | | `./avm.sh activity --domains networking --no-stagnant` | `.\avm.ps1 activity --domains networking --no-stagnant` | — | `activity.py` |
+| `index` | Build provider-grouped resource index | | `./avm.sh index` | `.\avm.ps1 index` | `/avm-index` | `build_resource_index.py` |
+| `index` | Dry-run index build | | `./avm.sh index --dry-run` | `.\avm.ps1 index --dry-run` | — | `build_resource_index.py` |
+| `index` | Filtered index build | | `./avm.sh index --domains networking --types res` | `.\avm.ps1 index --domains networking --types res` | — | `build_resource_index.py` |
+| `site` | Generate static HTML health dashboard | | `./avm.sh site` | `.\avm.ps1 site` | — | `generate_site.py` |
+| `site` | Dashboard for specific domains | | `./avm.sh site --domains networking,compute` | `.\avm.ps1 site --domains networking,compute` | — | `generate_site.py` |
+| `site` | Custom output path + open in browser | | `./avm.sh site --output /tmp/avm.html --open` | `.\avm.ps1 site --output /tmp/avm.html --open` | — | `generate_site.py` |
 
 ### Typical operator session
 
@@ -160,6 +173,18 @@ Operators run commands from a terminal using the top-level wrapper for their she
 ./avm.sh report --issues                          # open issue rollup across all modules
 ./avm.sh report --issues --severity critical,high # critical/high only
 ./avm.sh report --json                            # export to data/catalog.json
+
+# Activity monitor (needs cloned repos)
+./avm.sh activity                                 # commit activity, last 30 days
+./avm.sh activity --since 7d --stagnant-only      # stagnant repos only
+
+# Build resource-to-module index (Phase 1 of Provider Change Intelligence)
+./avm.sh index                                    # writes data/resources/{provider}.yaml
+./avm.sh index --dry-run                          # preview
+
+# Generate static HTML health dashboard
+./avm.sh site                                     # writes docs/site/index.html
+./avm.sh site --open                              # generate + open in browser
 
 # Run an arbitrary git command in all repos
 ./avm.sh run git log --oneline -3
@@ -211,6 +236,7 @@ Brief description of what the skill does.
 | `avm-check` | `/avm-check --domains DOMAIN --types TYPE [--dimension DIM]` | `scripts/analyze_module.py` | Bulk check across a domain/type filter |
 | `avm-sync` | `/avm-sync [domain]` | `scripts/sync_catalog.py` | Sync AVM module catalog from upstream CSVs |
 | `avm-issues` | `/avm-issues [--domains DOMAIN] [--severity LEVEL]` | `scripts/report.py` | Surface open issues and low-scoring modules across the catalog |
+| `avm-index` | `/avm-index [--domains DOMAIN] [--types TYPE] [--dry-run]` | `scripts/build_resource_index.py` | Build/rebuild the provider-grouped resource-to-module index |
 
 ---
 
@@ -235,7 +261,7 @@ Follow this checklist whenever you add a new `avm.sh` command (e.g., `validate`)
 
 | Language | Used for | Scripts |
 |---|---|---|
-| **Python 3** | All automation | `sync_catalog.py`, `generate_config.py`, `analyze_module.py`, `manage_repos.py`, `report.py` |
+| **Python 3** | All automation | `sync_catalog.py`, `generate_config.py`, `analyze_module.py`, `manage_repos.py`, `report.py`, `activity.py`, `build_resource_index.py`, `generate_site.py` |
 
 All scripts are Python only — no Bash/PowerShell pairs needed. `avm.sh` and `avm.ps1` are thin wrappers that call `python3 scripts/<script>.py`.  
 New scripts → Python only (stdlib preferred; document any third-party dep in the script header).
@@ -280,6 +306,11 @@ python3 scripts/analyze_module.py --dry-run --module avm-res-network-virtualnetw
 # Smoke-test the reporting script (read-only, safe to run at any time)
 python3 scripts/report.py --scores
 python3 scripts/report.py --issues
+
+# Smoke-test the activity/index/site scripts (read-only)
+python3 scripts/activity.py --top 5
+python3 scripts/build_resource_index.py --dry-run
+python3 scripts/generate_site.py --output /tmp/avm-test.html
 ```
 
 ---

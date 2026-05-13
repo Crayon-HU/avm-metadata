@@ -105,6 +105,14 @@ code avm.code-workspace    # all modules
 ./avm.sh report --issues                                  # cross-module open issue rollup
 ./avm.sh report --issues --severity critical,high         # filter by severity
 ./avm.sh report --json                                    # export catalog → data/catalog.json
+
+# Activity & intelligence (read-only, needs cloned repos)
+./avm.sh activity                                         # commit activity, last 30 days
+./avm.sh activity --since 7d --stagnant-only              # repos with no commits
+./avm.sh index                                            # build resource-to-module index (data/resources/)
+./avm.sh index --dry-run                                  # preview without writing
+./avm.sh site                                             # generate HTML dashboard (docs/site/index.html)
+./avm.sh site --open                                      # generate + open in browser
 ```
 
 Run `./avm.sh help` or `./avm.sh <command> --help` for full flag reference.
@@ -145,6 +153,9 @@ scripts/
   sync_catalog.py              ← upstream AVM CSVs → data/modules/ catalog sections
   analyze_module.py            ← multi-dimensional analysis → analysis_* blocks
   report.py                    ← read-only reports: scores, issues, JSON export
+  activity.py                  ← git commit activity monitor
+  build_resource_index.py      ← resource-to-module index → data/resources/
+  generate_site.py             ← static HTML health dashboard → docs/site/
 
 avm.sh                         ← unified operator entry point
 .github/skills/                ← Copilot skill procedures
