@@ -23,6 +23,9 @@ Options:
     --types LIST     Comma-separated module types: res, ptn, utl (or 'all').
     --modules LIST   Comma-separated module names (short form or full name).
     --dry-run        Print what would be created/skipped without writing.
+    --force          Overwrite existing stubs (regenerates the stub header;
+                     safe to run — provider_changelog/upstream_issues content
+                     would be reset to empty, so use with care).
 """
 
 import os
@@ -252,15 +255,20 @@ def _stub_content(symbol_type: str, provider: str, resource_type: str) -> str:
     return "\n".join(lines) + "\n"
 
 
-def _write_stub(symbol_type: str, provider: str, resource_type: str, dry_run: bool) -> tuple[str, bool]:
-    """Write a stub file if it doesn't exist. Returns (path, was_created)."""
+def _write_stub(symbol_type: str, provider: str, resource_type: str, dry_run: bool, force: bool = False) -> tuple[str, bool]:
+    """Write a stub file. Returns (path, was_created_or_overwritten).
+
+    By default, existing stubs are skipped (no overwrite). Pass force=True to
+    regenerate stubs even if they already exist (safe — only recreates the stub
+    header, not provider_changelog or upstream_issues content).
+    """
     folder = os.path.join(DATA_DIR, _SYMBOL_DIR[symbol_type])
     os.makedirs(folder, exist_ok=True)
     filename = _safe_filename(resource_type) + ".yaml"
     filepath = os.path.join(folder, filename)
 
-    if os.path.exists(filepath):
-        return filepath, False  # already exists — never overwrite
+    if os.path.exists(filepath) and not force:
+        return filepath, False  # already exists — skip unless --force
 
     if not dry_run:
         content = _stub_content(symbol_type, provider, resource_type)
@@ -332,8 +340,13 @@ def cmd_index(
     filter_types:   list[str] | None = None,
     filter_modules: list[str] | None = None,
     dry_run:        bool = False,
+    force:          bool = False,
 ) -> None:
-    print(f"\nAVM index  {'[dry-run] ' if dry_run else ''}— building resource stub inventory")
+    flags = []
+    if dry_run: flags.append("dry-run")
+    if force:   flags.append("force")
+    flag_str = f"[{', '.join(flags)}] " if flags else ""
+    print(f"\nAVM index  {flag_str}— building resource stub inventory")
     print(SEP)
 
     inventory = build_inventory(filter_domains, filter_types, filter_modules)
@@ -347,12 +360,16 @@ def cmd_index(
     by_sym: dict[str, int] = {}
 
     for sym_type, provider, rtype in sorted(inventory):
-        filepath, was_created = _write_stub(sym_type, provider, rtype, dry_run)
-        if was_created:
+        filepath, was_written = _write_stub(sym_type, provider, rtype, dry_run, force)
+        if was_written:
             created += 1
             by_sym[sym_type] = by_sym.get(sym_type, 0) + 1
-            label = _dim("[dry-run] would create") if dry_run else _ok("✓")
-            rel   = os.path.relpath(filepath, REPO_ROOT)
+            if dry_run:
+                action = "would create" if not os.path.exists(filepath) else "would overwrite"
+                label  = _dim(f"[dry-run] {action}")
+            else:
+                label = _ok("✓")
+            rel = os.path.relpath(filepath, REPO_ROOT)
             print(f"  {label}  {rel}")
         else:
             skipped += 1
@@ -360,11 +377,12 @@ def cmd_index(
     print()
     sym_summary = "  ".join(f"{k}={v}" for k, v in sorted(by_sym.items()))
 
+    action_word = "Wrote" if force else "Created"
     if dry_run:
-        print(f"  {_dim('[dry-run]')} Would create {created} stub(s)  |  "
+        print(f"  {_dim('[dry-run]')} Would write {created} stub(s)  |  "
               f"skip {skipped} existing  |  ({sym_summary})")
     else:
-        print(f"  {_ok('Done.')}  Created {created}  |  "
+        print(f"  {_ok('Done.')}  {action_word} {created}  |  "
               f"Skipped {skipped} existing  |  ({sym_summary})")
     print(f"  Total known symbols: {len(inventory)}")
     print()
@@ -380,6 +398,7 @@ def _parse_args(argv: list[str]) -> dict:
         "types":   None,
         "modules": None,
         "dry_run": False,
+        "force":   False,
     }
     i = 0
     while i < len(argv):
@@ -398,6 +417,8 @@ def _parse_args(argv: list[str]) -> dict:
             args["modules"] = [m.strip() for m in argv[i].split(",") if m.strip()]
         elif tok == "--dry-run":
             args["dry_run"] = True
+        elif tok == "--force":
+            args["force"] = True
         i += 1
     return args
 
@@ -411,6 +432,7 @@ def main(argv: list[str] | None = None) -> None:
         filter_types   = a["types"]   or None,
         filter_modules = a["modules"] or None,
         dry_run        = a["dry_run"],
+        force          = a["force"],
     )
 
 

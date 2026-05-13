@@ -586,12 +586,15 @@ _usage_index() {
 
   Options:
     --dry-run             Preview without writing files.
+    --force               Overwrite existing stubs (use with care — resets
+                          provider_changelog and upstream_issues to empty).
     --domains DOMAINS     Comma-separated domain slugs.
     --types TYPES         Comma-separated module types: res, ptn, utl.
 
   Examples:
     ./avm.sh index
     ./avm.sh index --dry-run
+    ./avm.sh index --force
     ./avm.sh index --domains networking --types res
 
 EOF
