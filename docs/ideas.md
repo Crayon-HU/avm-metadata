@@ -5,7 +5,7 @@
 ## Reporting & Visualization
 
 - ✅ **Health dashboard** — `./avm.sh site` generates a single-file static HTML scorecard from all `analysis_*` blocks: per-domain collapsible tables, colour-coded scores, dimension badges, staleness indicators, version pin column. _Implemented in `scripts/generate_site.py`. Output: `docs/site/index.html`._
-- 💡 **`/avm-index`** — Copilot skill for building/rebuilding the resource-to-module index. _Skill stub in `.github/skills/avm-index/SKILL.md`._
+- ✅ **`/avm-index`** — Copilot skill for building/rebuilding the resource-to-module index. _Implemented in `.github/skills/avm-index/SKILL.md`._
 - 💡 **Domain coverage heatmap** — which domains have analysis data, which are gaps
 - 💡 **Owner map** — who owns what across all modules; highlight modules with no secondary owner
 
