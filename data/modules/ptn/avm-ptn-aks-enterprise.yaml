@@ -27,7 +27,7 @@ catalog:
 # END SCRAPED
 # BEGIN ANALYSIS:terraform-metadata
 analysis_terraform_metadata:
-  checked_at: "2026-05-12T23:34:41Z"
+  checked_at: "2026-05-13T04:02:35Z"
   status: pass
   errors: []
   terraform_constraints:
@@ -45,10 +45,46 @@ analysis_terraform_metadata:
       random:
         source: "hashicorp/random"
         version_constraint: "~> 3.5"
+  resources_managed:
+    azapi:
+      - "azapi_update_resource"
+    azurerm:
+      - "azurerm_container_registry"
+      - "azurerm_firewall"
+      - "azurerm_firewall_application_rule_collection"
+      - "azurerm_firewall_network_rule_collection"
+      - "azurerm_kubernetes_cluster"
+      - "azurerm_kubernetes_cluster_node_pool"
+      - "azurerm_log_analytics_workspace"
+      - "azurerm_log_analytics_workspace_table"
+      - "azurerm_management_lock"
+      - "azurerm_monitor_diagnostic_setting"
+      - "azurerm_public_ip"
+      - "azurerm_role_assignment"
+      - "azurerm_route_table"
+      - "azurerm_subnet"
+      - "azurerm_subnet_route_table_association"
+      - "azurerm_user_assigned_identity"
+      - "azurerm_virtual_network"
+    modtm:
+      - "modtm_telemetry"
+    random:
+      - "random_string"
+      - "random_uuid"
+    terraform:
+      - "terraform_data"
+  datasources_managed:
+    azapi:
+      - "azapi_client_config"
+      - "azapi_resource_list"
+    azurerm:
+      - "azurerm_subscription"
+    modtm:
+      - "modtm_module_source"
 # END ANALYSIS:terraform-metadata
 # BEGIN ANALYSIS:avm-interface-compliance
 analysis_avm_interface_compliance:
-  checked_at: "2026-05-12T23:34:41Z"
+  checked_at: "2026-05-13T04:02:35Z"
   status: pass
   checks:
     tags: { status: pass, evidence: "variables.tf:213" }
@@ -56,7 +92,7 @@ analysis_avm_interface_compliance:
 # END ANALYSIS:avm-interface-compliance
 # BEGIN ANALYSIS:security-hardening
 analysis_security_hardening:
-  checked_at: "2026-05-12T23:34:41Z"
+  checked_at: "2026-05-13T04:02:35Z"
   status: pass
   checks:
     hardcoded_locations: { status: pass, evidence: "No hardcoded locations found" }
@@ -65,7 +101,7 @@ analysis_security_hardening:
 # END ANALYSIS:security-hardening
 # BEGIN ANALYSIS:test-coverage
 analysis_test_coverage:
-  checked_at: "2026-05-12T23:34:41Z"
+  checked_at: "2026-05-13T04:02:35Z"
   status: partial
   checks:
     examples_dir: { status: pass, evidence: "examples/ contains 3 item(s)" }
@@ -73,7 +109,7 @@ analysis_test_coverage:
 # END ANALYSIS:test-coverage
 # BEGIN ANALYSIS:doc-quality
 analysis_doc_quality:
-  checked_at: "2026-05-12T23:34:41Z"
+  checked_at: "2026-05-13T04:02:35Z"
   status: partial
   checks:
     readme_exists: { status: pass, evidence: "README.md found" }
@@ -82,7 +118,7 @@ analysis_doc_quality:
 # END ANALYSIS:doc-quality
 # BEGIN ANALYSIS:dependency-health
 analysis_dependency_health:
-  checked_at: "2026-05-12T23:34:41Z"
+  checked_at: "2026-05-13T04:02:35Z"
   status: pass
   checks:
     terraform_version_upper_bound: { status: pass, evidence: "required_version = \">= 1.9, < 2.0\"" }

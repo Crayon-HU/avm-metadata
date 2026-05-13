@@ -187,6 +187,59 @@ def parse_resources(content: str) -> dict[str, list[str]]:
     return {k: sorted(v) for k, v in sorted(resources.items())}
 
 
+def parse_datasources(content: str) -> dict[str, list[str]]:
+    """Extract Terraform data source types from HCL, grouped by provider prefix."""
+    clean = _strip_hcl_comments(content)
+    datasources: dict[str, set] = {}
+    for m in re.finditer(r'^data\s+"([^"]+)"\s+"[^"]+"', clean, re.MULTILINE):
+        ds_type = m.group(1)
+        prefix = ds_type.split("_")[0]
+        datasources.setdefault(prefix, set()).add(ds_type)
+    return {k: sorted(v) for k, v in sorted(datasources.items())}
+
+
+def parse_functions_used(content: str) -> dict[str, list[str]]:
+    """Extract provider function calls (provider::<ns>::<fn>()) from HCL.
+
+    Groups by provider namespace. Value stored as "<ns>::<fn>" for uniqueness.
+    Example: provider::azurerm::normalize_resource_id() -> key 'azurerm',
+             value 'azurerm::normalize_resource_id'.
+    """
+    clean = _strip_hcl_comments(content)
+    functions: dict[str, set] = {}
+    for m in re.finditer(r'provider::([a-zA-Z0-9_-]+)::([a-zA-Z0-9_-]+)\s*\(', clean):
+        ns = m.group(1)
+        fn = f"{ns}::{m.group(2)}"
+        functions.setdefault(ns, set()).add(fn)
+    return {k: sorted(v) for k, v in sorted(functions.items())}
+
+
+def parse_ephemeral_managed(content: str) -> dict[str, list[str]]:
+    """Extract ephemeral resource types from HCL, grouped by provider prefix."""
+    clean = _strip_hcl_comments(content)
+    ephemerals: dict[str, set] = {}
+    for m in re.finditer(r'^ephemeral\s+"([^"]+)"\s+"[^"]+"', clean, re.MULTILINE):
+        eph_type = m.group(1)
+        prefix = eph_type.split("_")[0]
+        ephemerals.setdefault(prefix, set()).add(eph_type)
+    return {k: sorted(v) for k, v in sorted(ephemerals.items())}
+
+
+def parse_actions_managed(content: str) -> dict[str, list[str]]:
+    """Extract Terraform action invocation types from HCL, grouped by provider prefix.
+
+    Terraform Actions (provider framework) use:
+        action "<provider>_<type>" "<label>" { ... }
+    """
+    clean = _strip_hcl_comments(content)
+    actions: dict[str, set] = {}
+    for m in re.finditer(r'^action\s+"([^"]+)"\s+"[^"]+"', clean, re.MULTILINE):
+        action_type = m.group(1)
+        prefix = action_type.split("_")[0]
+        actions.setdefault(prefix, set()).add(action_type)
+    return {k: sorted(v) for k, v in sorted(actions.items())}
+
+
 def parse_module_calls(content: str) -> list[dict]:
     """Extract module call blocks from HCL content."""
     clean = _strip_hcl_comments(content)
@@ -459,14 +512,15 @@ def _build_analysis_block(dim: str, yaml_key: str, payload: dict) -> str:
                     if "version_constraint" in pdata:
                         lines.append(f"        version_constraint: {_q(pdata['version_constraint'])}")
 
-    if "resources_managed" in payload:
-        rm = payload["resources_managed"]
-        if rm:
-            lines.append("  resources_managed:")
-            for prefix, res_list in sorted(rm.items()):
-                lines.append(f"    {prefix}:")
-                for r in res_list:
-                    lines.append(f"      - {_q(r)}")
+    for _sym_key in ("resources_managed", "datasources_managed", "functions_used", "ephemeral_managed", "actions_managed"):
+        if _sym_key in payload:
+            _sym_map = payload[_sym_key]
+            if _sym_map:
+                lines.append(f"  {_sym_key}:")
+                for prefix, sym_list in sorted(_sym_map.items()):
+                    lines.append(f"    {prefix}:")
+                    for s in sym_list:
+                        lines.append(f"      - {_q(s)}")
 
     if "modules_called" in payload:
         mc = payload["modules_called"]
@@ -505,14 +559,22 @@ def check_terraform_metadata(ctx: ModuleContext) -> dict:
         errors.append("no .tf files fetched from repo root")
 
     combined = ctx.combined_tf()
-    constraints = parse_terraform_constraints(combined) if combined else {}
-    resources_managed: dict = {}
-    modules_called:    list = []
+    constraints          = parse_terraform_constraints(combined) if combined else {}
+    resources_managed:   dict = {}
+    datasources_managed: dict = {}
+    functions_used:      dict = {}
+    ephemeral_managed:   dict = {}
+    actions_managed:     dict = {}
+    modules_called:      list = []
 
-    if ctx.mod_type in ("res", "utl"):
-        resources_managed = parse_resources(combined) if combined else {}
-    elif ctx.mod_type == "ptn":
-        modules_called = parse_module_calls(combined) if combined else []
+    if combined:
+        resources_managed   = parse_resources(combined)
+        datasources_managed = parse_datasources(combined)
+        functions_used      = parse_functions_used(combined)
+        ephemeral_managed   = parse_ephemeral_managed(combined)
+        actions_managed     = parse_actions_managed(combined)
+        if ctx.mod_type == "ptn":
+            modules_called  = parse_module_calls(combined)
 
     if errors and not tf_files:
         status = "fail"
@@ -534,6 +596,14 @@ def check_terraform_metadata(ctx: ModuleContext) -> dict:
         payload["terraform_constraints"] = constraints
     if resources_managed:
         payload["resources_managed"] = resources_managed
+    if datasources_managed:
+        payload["datasources_managed"] = datasources_managed
+    if functions_used:
+        payload["functions_used"] = functions_used
+    if ephemeral_managed:
+        payload["ephemeral_managed"] = ephemeral_managed
+    if actions_managed:
+        payload["actions_managed"] = actions_managed
     if modules_called:
         payload["modules_called"] = modules_called
 

@@ -27,7 +27,7 @@ catalog:
 # END SCRAPED
 # BEGIN ANALYSIS:terraform-metadata
 analysis_terraform_metadata:
-  checked_at: "2026-05-12T23:34:41Z"
+  checked_at: "2026-05-13T04:02:35Z"
   status: pass
   errors: []
   terraform_constraints:
@@ -48,6 +48,33 @@ analysis_terraform_metadata:
       random:
         source: "hashicorp/random"
         version_constraint: ">= 3.5.0"
+  resources_managed:
+    azapi:
+      - "azapi_update_resource"
+    azurerm:
+      - "azurerm_kubernetes_cluster"
+      - "azurerm_kubernetes_cluster_node_pool"
+      - "azurerm_log_analytics_workspace"
+      - "azurerm_log_analytics_workspace_table"
+      - "azurerm_management_lock"
+      - "azurerm_monitor_diagnostic_setting"
+      - "azurerm_role_assignment"
+      - "azurerm_user_assigned_identity"
+    modtm:
+      - "modtm_telemetry"
+    null:
+      - "null_resource"
+    random:
+      - "random_uuid"
+  datasources_managed:
+    azapi:
+      - "azapi_client_config"
+      - "azapi_resource_list"
+    azurerm:
+      - "azurerm_subscription"
+      - "azurerm_user_assigned_identity"
+    modtm:
+      - "modtm_module_source"
   modules_called:
     - local_name: "avm_res_containerregistry_registry"
       source: "Azure/avm-res-containerregistry-registry/azurerm"
@@ -55,7 +82,7 @@ analysis_terraform_metadata:
 # END ANALYSIS:terraform-metadata
 # BEGIN ANALYSIS:avm-interface-compliance
 analysis_avm_interface_compliance:
-  checked_at: "2026-05-12T23:34:41Z"
+  checked_at: "2026-05-13T04:02:35Z"
   status: pass
   checks:
     tags: { status: pass, evidence: "variables.tf:283" }
@@ -63,7 +90,7 @@ analysis_avm_interface_compliance:
 # END ANALYSIS:avm-interface-compliance
 # BEGIN ANALYSIS:security-hardening
 analysis_security_hardening:
-  checked_at: "2026-05-12T23:34:41Z"
+  checked_at: "2026-05-13T04:02:35Z"
   status: fail
   checks:
     hardcoded_locations: { status: pass, evidence: "No hardcoded locations found" }
@@ -72,7 +99,7 @@ analysis_security_hardening:
 # END ANALYSIS:security-hardening
 # BEGIN ANALYSIS:test-coverage
 analysis_test_coverage:
-  checked_at: "2026-05-12T23:34:41Z"
+  checked_at: "2026-05-13T04:02:35Z"
   status: partial
   checks:
     examples_dir: { status: pass, evidence: "examples/ contains 5 item(s)" }
@@ -80,7 +107,7 @@ analysis_test_coverage:
 # END ANALYSIS:test-coverage
 # BEGIN ANALYSIS:doc-quality
 analysis_doc_quality:
-  checked_at: "2026-05-12T23:34:41Z"
+  checked_at: "2026-05-13T04:02:35Z"
   status: partial
   checks:
     readme_exists: { status: pass, evidence: "README.md found" }
@@ -89,7 +116,7 @@ analysis_doc_quality:
 # END ANALYSIS:doc-quality
 # BEGIN ANALYSIS:dependency-health
 analysis_dependency_health:
-  checked_at: "2026-05-12T23:34:41Z"
+  checked_at: "2026-05-13T04:02:35Z"
   status: fail
   checks:
     terraform_version_upper_bound: { status: pass, evidence: "required_version = \">= 1.9, < 2.0\"" }
