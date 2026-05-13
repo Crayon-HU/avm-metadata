@@ -29,6 +29,7 @@ Common options:
 --provider-findings specific:
     --severity LEVEL[,…]   Filter by severity (default: critical,high).
 """
+import json
 import os
 import re
 import sys
