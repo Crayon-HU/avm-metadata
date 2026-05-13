@@ -132,6 +132,17 @@ module_issues:
   #     created_at: "2026-03-21"
   #     comments: 4
 
+# BEGIN ANALYSIS:use-cases
+analysis_use_cases:
+  checked_at: "2026-05-13T09:56:33Z"
+  status: pass
+  inferred_tags: ["arc", "cloud-native", "containers", "hybrid", "kubernetes"]
+  evidence:
+    catalog_domain: containers
+    catalog_resource_type: Microsoft.HybridContainerService/provisionedClusterInstances
+    resources_managed: [azurerm_key_vault_secret, terraform_data, tls_private_key]
+# END ANALYSIS:use-cases
+
 enrichment:
   version_pinned: "v2.0.4"         # latest version you have tested/pinned, e.g. "0.7.0"
   terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"

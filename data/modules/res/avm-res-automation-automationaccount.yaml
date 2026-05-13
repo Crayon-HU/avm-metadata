@@ -141,6 +141,17 @@ module_issues:
   #     created_at: "2026-03-21"
   #     comments: 4
 
+# BEGIN ANALYSIS:use-cases
+analysis_use_cases:
+  checked_at: "2026-05-13T09:56:33Z"
+  status: pass
+  inferred_tags: ["automation", "devops", "governance", "management", "private-connectivity", "security"]
+  evidence:
+    catalog_domain: management
+    catalog_resource_type: Microsoft.Automation/automationAccounts
+    resources_managed: [azurerm_automation_account, azurerm_automation_certificate, azurerm_automation_connection, azurerm_automation_connection_certificate, azurerm_automation_connection_classic_certificate]
+# END ANALYSIS:use-cases
+
 enrichment:
   version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
   terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"

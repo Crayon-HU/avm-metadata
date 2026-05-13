@@ -29,7 +29,7 @@ catalog:
 # END SCRAPED
 # BEGIN ANALYSIS:terraform-metadata
 analysis_terraform_metadata:
-  checked_at: "2026-05-12T23:34:41Z"
+  checked_at: "2026-05-13T09:38:43Z"
   status: pass
   errors: []
   terraform_constraints:
@@ -51,10 +51,16 @@ analysis_terraform_metadata:
       - "modtm_telemetry"
     random:
       - "random_uuid"
+  datasources_managed:
+    azapi:
+      - "azapi_client_config"
+      - "azapi_resource_list"
+    modtm:
+      - "modtm_module_source"
 # END ANALYSIS:terraform-metadata
 # BEGIN ANALYSIS:avm-interface-compliance
 analysis_avm_interface_compliance:
-  checked_at: "2026-05-12T23:34:41Z"
+  checked_at: "2026-05-13T09:38:43Z"
   status: pass
   checks:
     lock: { status: pass, evidence: "variables.tf:251" }
@@ -67,7 +73,7 @@ analysis_avm_interface_compliance:
 # END ANALYSIS:avm-interface-compliance
 # BEGIN ANALYSIS:security-hardening
 analysis_security_hardening:
-  checked_at: "2026-05-12T23:34:41Z"
+  checked_at: "2026-05-13T09:38:43Z"
   status: pass
   checks:
     hardcoded_locations: { status: pass, evidence: "No hardcoded locations found" }
@@ -76,7 +82,7 @@ analysis_security_hardening:
 # END ANALYSIS:security-hardening
 # BEGIN ANALYSIS:test-coverage
 analysis_test_coverage:
-  checked_at: "2026-05-12T23:34:41Z"
+  checked_at: "2026-05-13T09:38:43Z"
   status: partial
   checks:
     examples_dir: { status: pass, evidence: "examples/ contains 4 item(s)" }
@@ -84,7 +90,7 @@ analysis_test_coverage:
 # END ANALYSIS:test-coverage
 # BEGIN ANALYSIS:doc-quality
 analysis_doc_quality:
-  checked_at: "2026-05-12T23:34:41Z"
+  checked_at: "2026-05-13T09:38:43Z"
   status: partial
   checks:
     readme_exists: { status: pass, evidence: "README.md found" }
@@ -93,7 +99,7 @@ analysis_doc_quality:
 # END ANALYSIS:doc-quality
 # BEGIN ANALYSIS:dependency-health
 analysis_dependency_health:
-  checked_at: "2026-05-12T23:34:41Z"
+  checked_at: "2026-05-13T09:38:43Z"
   status: pass
   checks:
     terraform_version_upper_bound: { status: pass, evidence: "required_version = \">= 1.9, < 2.0\"" }
@@ -110,6 +116,36 @@ module_issues:
   #     url: "..."
   #     created_at: "2026-03-21"
   #     comments: 4
+
+# BEGIN ANALYSIS:provider-currency
+analysis_provider_currency:
+  checked_at: "2026-05-13T09:38:43Z"
+  status: fail
+  worst_criticality: critical
+  finding_counts:
+    critical: 1
+    high: 1
+    medium: 3
+    low: 0
+  issue_counts:
+    total: 0
+  coverage_stats:
+    checked: 3
+    total: 3
+  checks:
+    critical_findings: { status: fail, finding: "1 critical finding(s) across: azapi_resource_list" }
+    open_issues: { status: pass, evidence: "0 open provider issues across 3 resource type(s)" }
+    stub_coverage: { status: pass, evidence: "All 3 resource type(s) have provider data" }
+# END ANALYSIS:provider-currency
+# BEGIN ANALYSIS:use-cases
+analysis_use_cases:
+  checked_at: "2026-05-13T09:56:33Z"
+  status: pass
+  inferred_tags: ["data", "databases", "hybrid", "oracle"]
+  evidence:
+    catalog_domain: data-databases
+    catalog_resource_type: Oracle.Database/cloudvmclusters
+# END ANALYSIS:use-cases
 
 enrichment:
   version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"

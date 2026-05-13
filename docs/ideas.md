@@ -4,15 +4,6 @@
 ---
 ## Open Ideas
 
-### Visualization
-
-- ✅ **Domain coverage heatmap** — domain × dimension grid panel in `generate_site.py`; cells colour-coded green/orange/red by pass/partial/fail ratio
-- ✅ **Owner map** — collapsible panel showing primary owner → module list; flags modules missing a secondary owner; stat card shows total count
-
-### Enrichment Automation
-
-- ✅ **Use-case tagging** — `./avm.sh tag` infers functional tags from catalog domain, `provider_namespace/resource_type`, and filtered `resources_managed`; writes `analysis_use_cases` block; `--promote` seeds `enrichment.use_cases` when empty
-
 ### GitHub Pages — AVM Intelligence Portal
 
 Full interactive portal auto-published on every `sync`/`check` run via GitHub Actions.

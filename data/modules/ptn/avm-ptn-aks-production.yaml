@@ -139,6 +139,16 @@ module_issues:
     created_at: "2024-12-04"
     comments: 14
 
+# BEGIN ANALYSIS:use-cases
+analysis_use_cases:
+  checked_at: "2026-05-13T09:56:33Z"
+  status: pass
+  inferred_tags: ["aks", "cloud-native", "containers", "identity", "log-analytics", "monitoring"]
+  evidence:
+    catalog_domain: containers
+    resources_managed: [azurerm_kubernetes_cluster, azurerm_kubernetes_cluster_node_pool, azurerm_log_analytics_workspace, azurerm_log_analytics_workspace_table, azurerm_user_assigned_identity]
+# END ANALYSIS:use-cases
+
 enrichment:
   version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
   terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"

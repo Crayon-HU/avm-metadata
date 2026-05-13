@@ -125,6 +125,17 @@ module_issues:
     created_at: "2024-01-27"
     comments: 0
 
+# BEGIN ANALYSIS:use-cases
+analysis_use_cases:
+  checked_at: "2026-05-13T09:56:33Z"
+  status: pass
+  inferred_tags: ["governance", "identity", "rbac", "security"]
+  evidence:
+    catalog_domain: identity-security
+    catalog_resource_type: Microsoft.Authorization/roleAssignments
+    resources_managed: [azuread_directory_role, azuread_directory_role_assignment]
+# END ANALYSIS:use-cases
+
 enrichment:
   version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
   terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"

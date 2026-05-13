@@ -28,7 +28,7 @@ catalog:
 # END SCRAPED
 # BEGIN ANALYSIS:terraform-metadata
 analysis_terraform_metadata:
-  checked_at: "2026-05-12T23:34:42Z"
+  checked_at: "2026-05-13T09:38:43Z"
   status: pass
   errors: []
   terraform_constraints:
@@ -52,6 +52,24 @@ analysis_terraform_metadata:
       time:
         source: "hashicorp/time"
         version_constraint: "0.13.1"
+  resources_managed:
+    azurerm:
+      - "azurerm_role_assignment"
+      - "azurerm_virtual_desktop_host_pool_registration_info"
+      - "azurerm_virtual_desktop_workspace_application_group_association"
+    modtm:
+      - "modtm_telemetry"
+    random:
+      - "random_uuid"
+    time:
+      - "time_sleep"
+  datasources_managed:
+    azapi:
+      - "azapi_client_config"
+    azuread:
+      - "azuread_service_principal"
+    modtm:
+      - "modtm_module_source"
   modules_called:
     - local_name: "avm_res_desktopvirtualization_hostpool"
       source: "Azure/avm-res-desktopvirtualization-hostpool/azurerm"
@@ -68,7 +86,7 @@ analysis_terraform_metadata:
 # END ANALYSIS:terraform-metadata
 # BEGIN ANALYSIS:avm-interface-compliance
 analysis_avm_interface_compliance:
-  checked_at: "2026-05-12T23:34:42Z"
+  checked_at: "2026-05-13T09:38:43Z"
   status: partial
   checks:
     tags: { status: missing, finding: "No variable \"tags\" found in root .tf files" }
@@ -76,7 +94,7 @@ analysis_avm_interface_compliance:
 # END ANALYSIS:avm-interface-compliance
 # BEGIN ANALYSIS:security-hardening
 analysis_security_hardening:
-  checked_at: "2026-05-12T23:34:42Z"
+  checked_at: "2026-05-13T09:38:43Z"
   status: pass
   checks:
     hardcoded_locations: { status: pass, evidence: "No hardcoded locations found" }
@@ -85,7 +103,7 @@ analysis_security_hardening:
 # END ANALYSIS:security-hardening
 # BEGIN ANALYSIS:test-coverage
 analysis_test_coverage:
-  checked_at: "2026-05-12T23:34:42Z"
+  checked_at: "2026-05-13T09:38:43Z"
   status: partial
   checks:
     examples_dir: { status: pass, evidence: "examples/ contains 4 item(s)" }
@@ -93,7 +111,7 @@ analysis_test_coverage:
 # END ANALYSIS:test-coverage
 # BEGIN ANALYSIS:doc-quality
 analysis_doc_quality:
-  checked_at: "2026-05-12T23:34:42Z"
+  checked_at: "2026-05-13T09:38:43Z"
   status: partial
   checks:
     readme_exists: { status: pass, evidence: "README.md found" }
@@ -102,7 +120,7 @@ analysis_doc_quality:
 # END ANALYSIS:doc-quality
 # BEGIN ANALYSIS:dependency-health
 analysis_dependency_health:
-  checked_at: "2026-05-12T23:34:42Z"
+  checked_at: "2026-05-13T09:38:43Z"
   status: pass
   checks:
     terraform_version_upper_bound: { status: pass, evidence: "required_version = \">= 1.9, < 2.0\"" }
@@ -119,6 +137,36 @@ module_issues:
   #     url: "..."
   #     created_at: "2026-03-21"
   #     comments: 4
+
+# BEGIN ANALYSIS:provider-currency
+analysis_provider_currency:
+  checked_at: "2026-05-13T09:38:43Z"
+  status: partial
+  worst_criticality: high
+  finding_counts:
+    critical: 0
+    high: 1
+    medium: 1
+    low: 0
+  issue_counts:
+    total: 0
+  coverage_stats:
+    checked: 3
+    total: 5
+  checks:
+    critical_findings: { status: partial, finding: "No critical findings; 1 high finding(s) across: azapi_client_config" }
+    open_issues: { status: pass, evidence: "0 open provider issues across 3 resource type(s)" }
+    stub_coverage: { status: partial, finding: "3/5 resource type(s) have provider data; missing: azuread_service_principal, azurerm_virtual_desktop_workspace_application_group_association" }
+# END ANALYSIS:provider-currency
+# BEGIN ANALYSIS:use-cases
+analysis_use_cases:
+  checked_at: "2026-05-13T09:56:33Z"
+  status: pass
+  inferred_tags: ["avd", "virtual-desktop"]
+  evidence:
+    catalog_domain: avd
+    resources_managed: [azurerm_virtual_desktop_host_pool_registration_info, azurerm_virtual_desktop_workspace_application_group_association, time_sleep]
+# END ANALYSIS:use-cases
 
 enrichment:
   version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
