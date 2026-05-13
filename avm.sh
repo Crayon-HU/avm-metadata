@@ -83,6 +83,7 @@ _usage() {
     activity  Git commit activity monitor across cloned repos
     index     Build per-resource-type stub inventory (data/resources/ etc.)
     providers Fetch provider changelog/issues → write to provider_updates/provider_issues stubs
+    harvest   Harvest open GitHub issues from AVM module repos → write module_issues blocks
     site      Generate static HTML health dashboard (docs/site/index.html)
     help      Show this message
 
@@ -701,6 +702,44 @@ cmd_providers() {
   python3 "${SCRIPTS_DIR}/fetch_provider_changes.py" "$@"
 }
 
+_usage_harvest() {
+  _header
+  cat <<'EOHELP'
+
+  harvest — Harvest open GitHub issues from AVM module repos.
+
+  Fetches open issues from each module's upstream GitHub repository
+  (catalog.repo_url) and writes a module_issues: block into the module YAML.
+
+  Global filters: --domains, --types, --modules
+
+  Flags:
+    --labels  LABEL[,…]   Issue label filter; keep issues with ANY of these labels
+                          (default: bug,enhancement,breaking-change,help wanted,good first issue)
+    --max-issues N        Maximum issues to store per module (default: 50)
+    --since Nd            Skip modules harvested within N days (default: 1)
+    --force               Re-harvest even if last_harvested is fresh
+    --dry-run             Preview without writing
+
+  Environment:
+    GITHUB_TOKEN          GitHub personal access token (5 000 req/hr with token;
+                          60 req/hr without)
+
+  Examples:
+    ./avm.sh harvest
+    ./avm.sh harvest --domains networking --types res
+    ./avm.sh harvest --modules avm-res-network-virtualnetwork
+    ./avm.sh harvest --since 7d
+    ./avm.sh harvest --force --dry-run
+
+EOHELP
+}
+
+cmd_harvest() {
+  for a in "$@"; do [[ "$a" == "--help" || "$a" == "-h" ]] && { _usage_harvest; return 0; }; done
+  python3 "${SCRIPTS_DIR}/harvest_module_issues.py" "$@"
+}
+
 # ---------------------------------------------------------------------------
 # Dispatch
 # ---------------------------------------------------------------------------
@@ -726,6 +765,7 @@ case "${COMMAND}" in
   index)      cmd_index      "$@" ;;
   site)       cmd_site       "$@" ;;
   providers)  cmd_providers  "$@" ;;
+  harvest)    cmd_harvest    "$@" ;;
   help|--help|-h) _usage ;;
   "")
     _usage

@@ -26,6 +26,7 @@ scripts/
   activity.py                   Git commit activity monitor across cloned repos
   build_resource_index.py       Per-resource-type stub inventory builder → data/{resources,datasources,…}/
   fetch_provider_changes.py     Fetch provider GitHub Releases → write provider_updates findings to stubs
+  harvest_module_issues.py      Fetch open GitHub issues from AVM module repos → write module_issues blocks
   generate_site.py              Static HTML health dashboard generator → docs/site/index.html
 
 avm.sh                          Unified operator entry point — delegates to scripts/
@@ -187,6 +188,13 @@ modules:
 ./avm.sh providers --mode all                            # releases + issues in one pass
 ./avm.sh providers --dry-run                             # preview without writing
 ./avm.sh providers --force                               # re-fetch even if checked within 24 h
+
+# Module issue harvesting (fetches GitHub Issues from AVM module repos)
+./avm.sh harvest                                         # harvest all modules (default labels)
+./avm.sh harvest --domains networking --types res        # filtered harvest
+./avm.sh harvest --modules avm-res-network-virtualnetwork  # single module
+./avm.sh harvest --since 7d                              # skip if harvested within 7 days
+./avm.sh harvest --force --dry-run                       # preview forced re-harvest
 
 # Health dashboard (reads data/modules/, writes docs/site/index.html)
 ./avm.sh site                                            # generate static HTML dashboard

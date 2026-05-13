@@ -67,7 +67,25 @@ python3 scripts/report.py --issues --severity {severity}
 python3 scripts/report.py --issues --output {file}
 ```
 
-### Step 3 — Assess findings
+### Step 3 — Check module_issues (automated upstream data)
+
+If `module_issues` blocks are present (populated by `./avm.sh harvest`), also check
+for modules with open upstream bugs or breaking-change issues:
+
+```bash
+# Check module_issues for a specific module
+grep -A 30 "^module_issues:" data/modules/{type}/{name}.yaml
+
+# Count modules that have open module_issues
+grep -l "open_count:" data/modules/{res,ptn,utl}/*.yaml 2>/dev/null | while read f; do
+  count=$(grep "open_count:" "$f" | awk '{print $2}')
+  [[ "$count" -gt 0 ]] && echo "$count $(basename $f .yaml)"
+done | sort -rn | head -20
+```
+
+If `module_issues` data is stale or absent, suggest: `./avm.sh harvest --domains {domains}` to refresh.
+
+### Step 4 — Assess findings
 
 Review the output for patterns:
 
@@ -78,7 +96,7 @@ Review the output for patterns:
 
 For each `critical` or `high` issue, check if a workaround exists in the `workaround:` field. If the field is empty and the issue is critical, flag it.
 
-### Step 4 — Report to user
+### Step 5 — Report to user
 
 Present the rollup table from the script output, then add an LLM assessment summary:
 

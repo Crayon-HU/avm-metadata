@@ -122,6 +122,12 @@ code avm.code-workspace    # all modules
 ./avm.sh providers --mode all                             # releases + issues in one pass
 ./avm.sh providers --dry-run                              # preview without writing
 
+# Module issue harvesting (fetches GitHub Issues from AVM module repos)
+./avm.sh harvest                                          # all modules
+./avm.sh harvest --domains networking --types res         # filtered
+./avm.sh harvest --modules avm-res-network-virtualnetwork  # single module
+./avm.sh harvest --since 7d                               # skip if fresh
+
 ./avm.sh site                                             # generate HTML dashboard (docs/site/index.html)
 ./avm.sh site --open                                      # generate + open in browser
 ```

@@ -11,7 +11,7 @@ Four distinct tracking keys — each has a unique location, source, and automati
 | # | Key | File location | Source | Direction | Command |
 |---|---|---|---|---|---|
 | 1 | `enrichment.known_issues` | `data/modules/*.yaml` | **Hand-typed** by operator | n/a (read by `report --issues`, `/avm-issues`) | ✅ Done |
-| 2 | `module_issues` | `data/modules/*.yaml` | GitHub issues on AVM module repos (`Azure/terraform-azurerm-avm-*`) | ⬇ pull | `avm harvest` 💡 |
+| 2 | `module_issues` | `data/modules/*.yaml` | GitHub issues on AVM module repos (`Azure/terraform-azurerm-avm-*`) | ⬇ pull | `avm harvest` ✅ |
 | 3 | `provider_issues` | `data/{resources,datasources,…}/*.yaml` | GitHub issues on Terraform provider repos (`hashicorp/terraform-provider-azurerm`, `Azure/terraform-provider-azapi`) | ⬇ pull | `avm providers --mode issues` ✅ |
 | 4 | `provider_updates` | `data/{resources,datasources,…}/*.yaml` | GitHub Releases / CHANGELOG of Terraform provider | ⬇ pull | `avm providers` ✅ |
 
@@ -292,7 +292,7 @@ Both Operators (terminal) and Assistants (Copilot agent on a PR) can query the b
 
 ---
 
-## Module Issue Harvesting — `module_issues` (via GitHub MCP) 💡
+## Module Issue Harvesting — `module_issues` ✅
 
 Query open issues directly from each AVM module's GitHub repository using the GitHub MCP server, and write a structured snapshot into a dedicated `module_issues:` block in each `data/modules/*.yaml` file.
 
@@ -302,7 +302,7 @@ The `enrichment.known_issues` block is hand-maintained — it captures what _we_
 
 ### How it works
 
-- **`scripts/harvest_module_issues.py`** — for each module in `data/modules/`, calls the GitHub MCP tool to fetch open issues from `catalog.repo_url`
+- **`scripts/harvest_module_issues.py`** — for each module in `data/modules/`, calls the GitHub REST API (`urllib.request` + `GITHUB_TOKEN`) to fetch open issues from `catalog.repo_url`
 - Filters by useful labels: `bug`, `enhancement`, `breaking-change`, `help wanted`, `good first issue`
 - Writes a new `module_issues:` block in the module YAML (never merges with `enrichment.known_issues` — kept strictly separate)
 - Tracks `last_harvested` timestamp; skips modules where it is fresh (default: 24 h)
