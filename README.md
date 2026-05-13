@@ -175,12 +175,16 @@ scripts/
   generate_config.py           ← data/modules/ → .config/modules.yaml
   manage_repos.py              ← multi-repo git ops (clone/update/fetch/…)
   sync_catalog.py              ← upstream AVM CSVs → data/modules/ catalog sections
-  analyze_module.py            ← multi-dimensional analysis → analysis_* blocks
-  report.py                    ← read-only reports: scores, issues, JSON export
+  analyze_module.py            ← 7-dimension module analysis → analysis_* blocks
+  report.py                    ← read-only reports: scores, issues, provider-findings, JSON export
   activity.py                  ← git commit activity monitor
   build_resource_index.py      ← per-resource-type stub inventory → data/{resources,datasources,…}/
-  fetch_provider_changes.py   ← provider GitHub Releases → provider_updates findings in stubs
+  fetch_provider_changes.py    ← provider GitHub Releases + Issues → provider findings in stubs
+  harvest_module_issues.py     ← open GitHub issues from AVM module repos → module_issues blocks
+  tag_use_cases.py             ← use-case tag inference → analysis_use_cases blocks
   generate_site.py             ← static HTML health dashboard → docs/site/
+
+data/use_case_tags.yaml        ← operator-editable use-case lookup table (17 domains, ~100 resource types)
 
 avm.sh                         ← unified operator entry point
 .github/skills/                ← Copilot skill procedures

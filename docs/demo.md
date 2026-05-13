@@ -78,7 +78,7 @@ cat data/modules/res/avm-res-network-virtualnetwork.yaml
 
 > "Each file has three sections:
 > - `catalog:` — auto-generated from upstream AVM CSVs. Owner, status, registry URL, provider namespace.
-> - `analysis_*:` — populated by our analysis scripts. Six dimensions of quality data.
+> - `analysis_*:` — populated by our analysis scripts. Seven dimensions of quality data.
 > - `enrichment:` — hand-maintained. Your notes, known issues, version pins. *Never* overwritten by any tool.
 >
 > The catalog section was last synced..." *(point to `last_synced` field)*
@@ -109,7 +109,7 @@ cat data/modules/res/avm-res-network-virtualnetwork.yaml
 cat data/modules/catalog-manifest.yaml
 ```
 
-> "148 available modules across 10 domains."
+> "148 available modules across 17 domains."
 
 ---
 
@@ -153,7 +153,7 @@ code avm.code-workspace
 
 **Say:**
 
-> "Now for the interesting part — quality analysis. The `check` command runs up to six analysis dimensions against a module."
+> "Now for the interesting part — quality analysis. The `check` command runs up to seven analysis dimensions against a module."
 
 **Show the dimension table** (open `docs/workflows.md`, scroll to check section, or read from notes):
 
@@ -165,6 +165,7 @@ code avm.code-workspace
 | `tests` | examples/ dir, test files (.go / .tftest.hcl) |
 | `docs` | README exists, length, required sections |
 | `deps` | Provider version constraint style (~> vs >=) |
+| `provider-currency` | Module's pinned provider vs latest release; breaking-change detection |
 
 **Run a single module check:**
 
@@ -283,8 +284,8 @@ cat docs/ideas.md | head -30
 > "To summarise:
 > - **148 AVM modules**, organized into a single metadata workspace
 > - **Automatic catalog sync** from upstream AVM CSVs
-> - **Six-dimension quality analysis** written back to per-module YAML files
-> - **Two Copilot skills** — `/avm-sync` and `/avm-check` — that wrap everything with conversational interface and LLM assessment
+> - **Seven-dimension quality analysis** written back to per-module YAML files
+> - **Five Copilot skills** — `/avm-sync`, `/avm-check`, `/avm-issues`, `/avm-index`, `/avm-harvest` — that wrap everything with conversational interface and LLM assessment
 > - **Fully extensible** — new dimensions, new skills, same architecture
 >
 > The repo is at [github.com/Crayon-HU/avm-metadata](https://github.com/Crayon-HU/avm-metadata). Questions?"
@@ -337,7 +338,7 @@ find . -maxdepth 1 -type d -name "terraform-azurerm-avm-*" | wc -l
 |---|---|
 | Available AVM modules | 148 |
 | Cloned in this workspace | 54 |
-| Domains | 10 |
-| Analysis dimensions | 6 |
-| Copilot skills | 2 (`/avm-sync`, `/avm-check`) |
-| Python scripts | 4 |
+| Domains | 17 |
+| Analysis dimensions | 7 |
+| Copilot skills | 5 (`/avm-sync`, `/avm-check`, `/avm-issues`, `/avm-index`, `/avm-harvest`) |
+| Python scripts | 11 |

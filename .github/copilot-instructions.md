@@ -248,7 +248,8 @@ data/modules/
 
 Each module file has three sections:
 - **`catalog:`** — auto-generated, refreshed by `./avm.sh sync`. Never hand-edit. Includes `last_synced` timestamp.
-- **`analysis_*:`** — written by `./avm.sh check`. One block per dimension, never overwritten by sync.
+- **`analysis_*:`** — written by `./avm.sh check` (7 dimensions) and `./avm.sh tag` (use-cases). One block per dimension, never overwritten by sync.
+- **`module_issues:`** — written by `./avm.sh harvest`. Open GitHub issues from the upstream module repo. Never overwritten by sync.
 - **`enrichment:`** — hand-maintained, **never overwritten by any tool**. Add your notes here.
 
 ```yaml

@@ -20,14 +20,17 @@ The repo uses a layered architecture where `scripts/` is the single shared autom
 ┌─────────────────────────────────────────────────────────────────┐
 │                    scripts/   (shared layer)                    │
 │                                                                 │
-│   sync_catalog.py          Python  ← catalog/data ops          │
-│   generate_config.py       Python  ← catalog/data ops          │
-│   analyze_module.py        Python  ← catalog/data ops          │
-│   report.py                Python  ← read-only reports         │
-│   activity.py              Python  ← git activity monitor      │
-│   build_resource_index.py  Python  ← per-resource-type stub inventory │
-│   generate_site.py         Python  ← static HTML dashboard     │
-│   manage_repos.py          Python  ← git ops (clone/update/...) │
+│   sync_catalog.py            Python  ← catalog/data ops        │
+│   generate_config.py         Python  ← catalog/data ops        │
+│   analyze_module.py          Python  ← 7-dimension module analysis │
+│   report.py                  Python  ← read-only reports       │
+│   activity.py                Python  ← git activity monitor    │
+│   build_resource_index.py    Python  ← per-resource-type stub inventory │
+│   fetch_provider_changes.py  Python  ← provider releases + issues → stubs │
+│   harvest_module_issues.py   Python  ← upstream GitHub issues → module_issues blocks │
+│   tag_use_cases.py           Python  ← use-case tag inference → analysis_use_cases │
+│   generate_site.py           Python  ← static HTML dashboard   │
+│   manage_repos.py            Python  ← git ops (clone/update/...) │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -105,7 +108,7 @@ Operators run commands from a terminal using the top-level wrapper for their she
 | `scrape` | Scrape TF metadata (terraform-metadata dim) | | `./avm.sh scrape` | `.\avm.ps1 scrape` | `/avm-check --dimension metadata` | `analyze_module.py` |
 | `scrape` | Scrape a single module | | `./avm.sh scrape --modules NAME` | `.\avm.ps1 scrape --modules NAME` | `/avm-check --modules NAME --dimension metadata` | `analyze_module.py` |
 | `scrape` | Scrape filtered by domain/type | | `./avm.sh scrape --domains networking --types res` | `.\avm.ps1 scrape --domains networking --types res` | `/avm-check --domains networking --types res --dimension metadata` | `analyze_module.py` |
-| `check` | Full analysis — all 6 dimensions | | `./avm.sh check --modules NAME` | `.\avm.ps1 check --modules NAME` | `/avm-check --modules NAME` | `analyze_module.py` |
+| `check` | Full analysis — all 7 dimensions | | `./avm.sh check --modules NAME` | `.\avm.ps1 check --modules NAME` | `/avm-check --modules NAME` | `analyze_module.py` |
 | `check` | Single dimension, single module | | `./avm.sh check --modules NAME --dimension tests` | `.\avm.ps1 check --modules NAME --dimension tests` | `/avm-check --modules NAME --dimension tests` | `analyze_module.py` |
 | `check` | Single dimension, domain/type filter | | `./avm.sh check --domains networking --types res --dimension compliance` | `.\avm.ps1 check --domains networking --types res --dimension compliance` | `/avm-check --domains networking --types res --dimension compliance` | `analyze_module.py` |
 | `check` | Preview analysis changes (dry run) | | `./avm.sh check --dry-run` | `.\avm.ps1 check --dry-run` | `/avm-check --dry-run` | `analyze_module.py` |
@@ -125,6 +128,25 @@ Operators run commands from a terminal using the top-level wrapper for their she
 | `site` | Generate static HTML health dashboard | | `./avm.sh site` | `.\avm.ps1 site` | — | `generate_site.py` |
 | `site` | Dashboard for specific domains | | `./avm.sh site --domains networking,compute` | `.\avm.ps1 site --domains networking,compute` | — | `generate_site.py` |
 | `site` | Custom output path + open in browser | | `./avm.sh site --output /tmp/avm.html --open` | `.\avm.ps1 site --output /tmp/avm.html --open` | — | `generate_site.py` |
+| `providers` | Fetch provider releases, write findings to stubs | | `./avm.sh providers` | `.\avm.ps1 providers` | — | `fetch_provider_changes.py` |
+| `providers` | Only releases ≥ a given version | | `./avm.sh providers --since 4.0.0` | `.\avm.ps1 providers --since 4.0.0` | — | `fetch_provider_changes.py` |
+| `providers` | Fetch open GitHub Issues (not releases) | | `./avm.sh providers --mode issues` | `.\avm.ps1 providers --mode issues` | — | `fetch_provider_changes.py` |
+| `providers` | Releases + issues in one pass | | `./avm.sh providers --mode all` | `.\avm.ps1 providers --mode all` | — | `fetch_provider_changes.py` |
+| `providers` | Limit releases per provider | | `./avm.sh providers --provider azurerm --max-releases 10` | `.\avm.ps1 providers --provider azurerm --max-releases 10` | — | `fetch_provider_changes.py` |
+| `providers` | Force re-fetch (ignore 24 h TTL) | | `./avm.sh providers --force` | `.\avm.ps1 providers --force` | — | `fetch_provider_changes.py` |
+| `harvest` | Harvest open GitHub issues from AVM module repos | | `./avm.sh harvest` | `.\avm.ps1 harvest` | `/avm-harvest` | `harvest_module_issues.py` |
+| `harvest` | Harvest filtered by domain/type | | `./avm.sh harvest --domains networking --types res` | `.\avm.ps1 harvest --domains networking --types res` | — | `harvest_module_issues.py` |
+| `harvest` | Harvest a single module | | `./avm.sh harvest --modules avm-res-network-virtualnetwork` | `.\avm.ps1 harvest --modules avm-res-network-virtualnetwork` | — | `harvest_module_issues.py` |
+| `harvest` | Skip if harvested within N days | | `./avm.sh harvest --since 7d` | `.\avm.ps1 harvest --since 7d` | — | `harvest_module_issues.py` |
+| `harvest` | Custom label filter | | `./avm.sh harvest --labels bug,breaking-change` | `.\avm.ps1 harvest --labels bug,breaking-change` | — | `harvest_module_issues.py` |
+| `harvest` | Force re-harvest + preview | | `./avm.sh harvest --force --dry-run` | `.\avm.ps1 harvest --force --dry-run` | — | `harvest_module_issues.py` |
+| `tag` | Infer use-case tags for all untagged modules | | `./avm.sh tag` | `.\avm.ps1 tag` | — | `tag_use_cases.py` |
+| `tag` | Tag filtered by domain/type | | `./avm.sh tag --domains networking --types res` | `.\avm.ps1 tag --domains networking --types res` | — | `tag_use_cases.py` |
+| `tag` | Preview inferred tags (dry run) | | `./avm.sh tag --dry-run` | `.\avm.ps1 tag --dry-run` | — | `tag_use_cases.py` |
+| `tag` | Re-classify already tagged modules | | `./avm.sh tag --force` | `.\avm.ps1 tag --force` | — | `tag_use_cases.py` |
+| `tag` | Seed enrichment.use_cases when empty | | `./avm.sh tag --promote` | `.\avm.ps1 tag --promote` | — | `tag_use_cases.py` |
+| `report` | Provider findings rollup | | `./avm.sh report --provider-findings` | `.\avm.ps1 report --provider-findings` | — | `report.py` |
+| `report` | Provider findings filtered by severity | | `./avm.sh report --provider-findings --severity critical` | `.\avm.ps1 report --provider-findings --severity critical` | — | `report.py` |
 
 ### Typical operator session
 
@@ -186,6 +208,23 @@ Operators run commands from a terminal using the top-level wrapper for their she
 ./avm.sh site                                     # writes docs/site/index.html
 ./avm.sh site --open                              # generate + open in browser
 
+# Fetch provider release + issue intelligence (writes findings to resource stubs in data/)
+./avm.sh providers                                # azurerm + azapi, all releases
+./avm.sh providers --since 4.0.0                  # only releases >= 4.0.0
+./avm.sh providers --mode issues                  # open GitHub Issues only
+./avm.sh providers --dry-run                      # preview without writing
+
+# Harvest open GitHub issues from AVM module repos (requires GITHUB_TOKEN for best rate limits)
+./avm.sh harvest                                  # all modules, default labels
+./avm.sh harvest --domains networking --types res # filtered
+./avm.sh harvest --since 7d                       # skip if already harvested within 7 days
+
+# Infer and write use-case tags (writes analysis_use_cases blocks)
+./avm.sh tag                                      # tag all untagged modules
+./avm.sh tag --dry-run                            # preview tags without writing
+./avm.sh tag --force                              # re-classify all modules
+./avm.sh tag --promote                            # also seed enrichment.use_cases when empty
+
 # Run an arbitrary git command in all repos
 ./avm.sh run git log --oneline -3
 ```
@@ -226,17 +265,19 @@ Brief description of what the skill does.
 
 | Skill | Invocation | Script called | What it does |
 |---|---|---|---|
-| `avm-check` | `/avm-check --modules NAME` | `scripts/analyze_module.py` | Full audit — all 6 dimensions (default) |
+| `avm-check` | `/avm-check --modules NAME` | `scripts/analyze_module.py` | Full audit — all 7 dimensions (default) |
 | `avm-check` | `/avm-check --modules NAME --dimension metadata` | `scripts/analyze_module.py --dimension terraform-metadata` | TF version, providers, resource types |
 | `avm-check` | `/avm-check --modules NAME --dimension compliance` | `scripts/analyze_module.py --dimension avm-interface-compliance` | AVM interface variable requirements |
 | `avm-check` | `/avm-check --modules NAME --dimension security` | `scripts/analyze_module.py --dimension security-hardening` | Hardcoded values, validation blocks, sensitive outputs |
 | `avm-check` | `/avm-check --modules NAME --dimension tests` | `scripts/analyze_module.py --dimension test-coverage` | examples/ and test file presence |
 | `avm-check` | `/avm-check --modules NAME --dimension docs` | `scripts/analyze_module.py --dimension doc-quality` | README existence, length, required sections |
 | `avm-check` | `/avm-check --modules NAME --dimension deps` | `scripts/analyze_module.py --dimension dependency-health` | Version constraint style |
+| `avm-check` | `/avm-check --modules NAME --dimension provider-currency` | `scripts/analyze_module.py --dimension provider-currency` | Provider version against latest releases; breaking-change detection |
 | `avm-check` | `/avm-check --domains DOMAIN --types TYPE [--dimension DIM]` | `scripts/analyze_module.py` | Bulk check across a domain/type filter |
 | `avm-sync` | `/avm-sync [domain]` | `scripts/sync_catalog.py` | Sync AVM module catalog from upstream CSVs |
 | `avm-issues` | `/avm-issues [--domains DOMAIN] [--severity LEVEL]` | `scripts/report.py` | Surface open issues and low-scoring modules across the catalog |
 | `avm-index` | `/avm-index [--domains DOMAIN] [--types TYPE] [--dry-run]` | `scripts/build_resource_index.py` | Build/rebuild the per-resource-type stub inventory |
+| `avm-harvest` | `/avm-harvest [--modules NAME] [--domains DOMAIN] [--types TYPE]` | `scripts/harvest_module_issues.py` | Fetch open GitHub issues from AVM module repos into `module_issues:` blocks |
 
 ---
 
@@ -261,7 +302,7 @@ Follow this checklist whenever you add a new `avm.sh` command (e.g., `validate`)
 
 | Language | Used for | Scripts |
 |---|---|---|
-| **Python 3** | All automation | `sync_catalog.py`, `generate_config.py`, `analyze_module.py`, `manage_repos.py`, `report.py`, `activity.py`, `build_resource_index.py`, `generate_site.py` |
+| **Python 3** | All automation | `sync_catalog.py`, `generate_config.py`, `analyze_module.py`, `manage_repos.py`, `report.py`, `activity.py`, `build_resource_index.py`, `fetch_provider_changes.py`, `harvest_module_issues.py`, `tag_use_cases.py`, `generate_site.py` |
 
 All scripts are Python only — no Bash/PowerShell pairs needed. `avm.sh` and `avm.ps1` are thin wrappers that call `python3 scripts/<script>.py`.  
 New scripts → Python only (stdlib preferred; document any third-party dep in the script header).
@@ -306,11 +347,17 @@ python3 scripts/analyze_module.py --dry-run --module avm-res-network-virtualnetw
 # Smoke-test the reporting script (read-only, safe to run at any time)
 python3 scripts/report.py --scores
 python3 scripts/report.py --issues
+python3 scripts/report.py --provider-findings
 
 # Smoke-test the activity/index/site scripts (read-only)
 python3 scripts/activity.py --top 5
 python3 scripts/build_resource_index.py --dry-run
 python3 scripts/generate_site.py --output /tmp/avm-test.html
+
+# Smoke-test provider intelligence + harvest + tag
+python3 scripts/fetch_provider_changes.py --dry-run
+python3 scripts/harvest_module_issues.py --dry-run --modules avm-res-network-virtualnetwork
+python3 scripts/tag_use_cases.py --dry-run
 ```
 
 ---
@@ -355,6 +402,12 @@ analysis_avm_interface_compliance:
   llm_assessment: "6/7 AVM interfaces present. private_endpoints missing."  ← added by skill
 # END ANALYSIS:avm-interface-compliance
 
+# BEGIN ANALYSIS:use-cases                 ← tag_use_cases.py (./avm.sh tag)
+analysis_use_cases:
+  checked_at: "2026-05-12T20:00:00Z"
+  tags: ["connectivity", "hub-spoke", "landing-zone", "networking"]
+# END ANALYSIS:use-cases
+
 enrichment:   ← hand-maintained, never overwritten
   ...
 ```
@@ -364,9 +417,11 @@ enrichment:   ← hand-maintained, never overwritten
 - All other blocks are read, preserved, and written back unchanged.
 - The `enrichment:` section has no markers and is never touched by any tool.
 
-### The 6 built-in dimensions
+### The 7 built-in analysis dimensions
 
 Analysis runs **exclusively on cloned repos** — no GitHub API or network calls. Uncloned repos are skipped. Scope defaults to modules in `.config/modules.yaml` (not all `data/modules/` files).
+
+`provider-currency` is the exception: it reads `analysis_terraform_metadata` (already in the YAML) and calls the GitHub Releases API — no clone needed.
 
 | Dimension | Key | Source | Depends on |
 |---|---|---|---|
@@ -376,6 +431,7 @@ Analysis runs **exclusively on cloned repos** — no GitHub API or network calls
 | `test-coverage` | `analysis_test_coverage` | local `examples/` and `tests/` dirs | — |
 | `doc-quality` | `analysis_doc_quality` | local `README.md` | — |
 | `dependency-health` | `analysis_dependency_health` | reads in-memory terraform-metadata block | `terraform-metadata` |
+| `provider-currency` | `analysis_provider_currency` | `analysis_terraform_metadata` + GitHub Releases API | `terraform-metadata` |
 
 Each dimension carries a **severity weight** (defined as `DIMENSION_SEVERITY` in both `analyze_module.py` and `report.py`) used by `avm report --scores`:
 
@@ -384,6 +440,7 @@ Each dimension carries a **severity weight** (defined as `DIMENSION_SEVERITY` in
 | `security-hardening` | critical | 4 |
 | `avm-interface-compliance` | high | 3 |
 | `dependency-health` | high | 3 |
+| `provider-currency` | high | 3 |
 | `test-coverage` | medium | 2 |
 | `doc-quality` | medium | 2 |
 | `terraform-metadata` | low | 1 |
