@@ -1,0 +1,3762 @@
+[
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "fail",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "API Management Service",
+    "domain": "web-app-services",
+    "name": "avm-res-apimanagement-service",
+    "resources": [
+      "azurerm_api_management",
+      "azurerm_api_management_api",
+      "azurerm_api_management_api_operation",
+      "azurerm_api_management_api_operation_policy",
+      "azurerm_api_management_api_policy",
+      "azurerm_api_management_api_version_set",
+      "azurerm_api_management_backend",
+      "azurerm_api_management_named_value",
+      "azurerm_api_management_policy",
+      "azurerm_api_management_product",
+      "azurerm_api_management_product_api",
+      "azurerm_api_management_product_group",
+      "azurerm_api_management_subscription",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_private_endpoint",
+      "azurerm_private_endpoint_application_security_group_association",
+      "azurerm_role_assignment",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 60.0,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Container App",
+    "domain": "containers",
+    "name": "avm-res-app-containerapp",
+    "resources": [
+      "azapi_client_config",
+      "azapi_resource",
+      "azapi_resource_action",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid",
+      "terraform_data"
+    ],
+    "score": 76.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "App Job",
+    "domain": "containers",
+    "name": "avm-res-app-job",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_container_app_job",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 76.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "fail",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "App Managed Environment",
+    "domain": "containers",
+    "name": "avm-res-app-managedenvironment",
+    "resources": [
+      "azapi_client_config",
+      "azapi_resource",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_role_assignment",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 50.0,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "App Configuration Store",
+    "domain": "management",
+    "name": "avm-res-appconfiguration-configurationstore",
+    "resources": [
+      "azapi_resource",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 86.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "pass",
+      "provider-currency": "--",
+      "security-hardening": "partial",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Role Assignment",
+    "domain": "identity-security",
+    "name": "avm-res-authorization-roleassignment",
+    "resources": [
+      "azuread_directory_role",
+      "azuread_directory_role_assignment",
+      "azurerm_role_assignment",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 70.0,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "fail",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Automation Account",
+    "domain": "management",
+    "name": "avm-res-automation-automationaccount",
+    "resources": [
+      "azurerm_automation_account",
+      "azurerm_automation_certificate",
+      "azurerm_automation_connection",
+      "azurerm_automation_connection_certificate",
+      "azurerm_automation_connection_classic_certificate",
+      "azurerm_automation_connection_service_principal",
+      "azurerm_automation_credential",
+      "azurerm_automation_hybrid_runbook_worker",
+      "azurerm_automation_hybrid_runbook_worker_group",
+      "azurerm_automation_job_schedule",
+      "azurerm_automation_module",
+      "azurerm_automation_powershell72_module",
+      "azurerm_automation_python3_package",
+      "azurerm_automation_runbook",
+      "azurerm_automation_schedule",
+      "azurerm_automation_source_control",
+      "azurerm_automation_variable_bool",
+      "azurerm_automation_variable_datetime",
+      "azurerm_automation_variable_int",
+      "azurerm_automation_variable_object",
+      "azurerm_automation_variable_string",
+      "azurerm_automation_watcher",
+      "azurerm_automation_webhook",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_private_endpoint",
+      "azurerm_private_endpoint_application_security_group_association",
+      "azurerm_role_assignment",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 66.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "AVS Private Cloud",
+    "domain": "other",
+    "name": "avm-res-avs-privatecloud",
+    "resources": [
+      "azapi_resource",
+      "azapi_resource_action",
+      "azapi_update_resource",
+      "azurerm_express_route_connection",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_role_assignment",
+      "azurerm_vmware_express_route_authorization",
+      "azurerm_vmware_netapp_volume_attachment",
+      "modtm_telemetry",
+      "random_password",
+      "random_uuid",
+      "terraform_data",
+      "time_sleep"
+    ],
+    "score": 76.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "fail",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Azure Stack HCI Cluster",
+    "domain": "hybrid",
+    "name": "avm-res-azurestackhci-cluster",
+    "resources": [
+      "azapi_resource",
+      "azapi_update_resource",
+      "azurerm_key_vault",
+      "azurerm_key_vault_secret",
+      "azurerm_management_lock",
+      "azurerm_role_assignment",
+      "azurerm_storage_account",
+      "modtm_telemetry",
+      "random_integer",
+      "random_uuid"
+    ],
+    "score": 50.0,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "AzureStackHCI logical network",
+    "domain": "hybrid",
+    "name": "avm-res-azurestackhci-logicalnetwork",
+    "resources": [
+      "azapi_resource",
+      "azurerm_management_lock",
+      "azurerm_role_assignment",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 76.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Stack HCI Virtual Machine Instance",
+    "domain": "hybrid",
+    "name": "avm-res-azurestackhci-virtualmachineinstance",
+    "resources": [
+      "azapi_resource",
+      "azurerm_management_lock",
+      "azurerm_role_assignment",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 76.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "partial",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Batch Account",
+    "domain": "compute",
+    "name": "avm-res-batch-batchaccount",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_batch_account",
+      "azurerm_management_lock",
+      "azurerm_private_endpoint",
+      "azurerm_private_endpoint_application_security_group_association",
+      "azurerm_role_assignment",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 66.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Bot Service",
+    "domain": "ai-ml",
+    "name": "avm-res-botservice-botservice",
+    "resources": [
+      "azapi_resource",
+      "azapi_update_resource",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 76.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "fail",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Redis Cache",
+    "domain": "data-databases",
+    "name": "avm-res-cache-redis",
+    "resources": [
+      "azapi_client_config",
+      "azapi_resource",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_private_endpoint",
+      "azurerm_private_endpoint_application_security_group_association",
+      "azurerm_redis_cache",
+      "azurerm_redis_cache_access_policy",
+      "azurerm_redis_cache_access_policy_assignment",
+      "azurerm_redis_firewall_rule",
+      "azurerm_redis_linked_server",
+      "azurerm_role_assignment",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 72.2,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "fail",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Azure Managed Redis",
+    "domain": "data-databases",
+    "name": "avm-res-cache-redisenterprise",
+    "resources": [
+      "azapi_client_config",
+      "azapi_resource",
+      "azapi_update_resource",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 63.9,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "fail",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "CDN Profile",
+    "domain": "networking",
+    "name": "avm-res-cdn-profile",
+    "resources": [
+      "azapi_client_config",
+      "azapi_resource",
+      "azurerm_cdn_endpoint",
+      "azurerm_cdn_endpoint_custom_domain",
+      "azurerm_cdn_frontdoor_custom_domain",
+      "azurerm_cdn_frontdoor_custom_domain_association",
+      "azurerm_cdn_frontdoor_endpoint",
+      "azurerm_cdn_frontdoor_firewall_policy",
+      "azurerm_cdn_frontdoor_origin",
+      "azurerm_cdn_frontdoor_origin_group",
+      "azurerm_cdn_frontdoor_route",
+      "azurerm_cdn_frontdoor_rule",
+      "azurerm_cdn_frontdoor_rule_set",
+      "azurerm_cdn_frontdoor_secret",
+      "azurerm_cdn_frontdoor_security_policy",
+      "azurerm_dns_cname_record",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_monitor_metric_alert",
+      "azurerm_role_assignment",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 55.6,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Certificate Orders",
+    "domain": "web-app-services",
+    "name": "avm-res-certificateregistration-certificateorder",
+    "resources": [
+      "azapi_resource",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 76.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Cognitive Service",
+    "domain": "ai-ml",
+    "name": "avm-res-cognitiveservices-account",
+    "resources": [
+      "azapi_resource",
+      "azapi_update_resource",
+      "azurerm_cognitive_account_customer_managed_key",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_role_assignment",
+      "modtm_telemetry",
+      "random_string",
+      "random_uuid",
+      "terraform_data",
+      "time_sleep"
+    ],
+    "score": 86.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Email Communication Service",
+    "domain": "web-app-services",
+    "name": "avm-res-communication-emailservice",
+    "resources": [
+      "azapi_resource",
+      "azurerm_management_lock",
+      "azurerm_role_assignment",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 76.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "--",
+      "dependency-health": "--",
+      "doc-quality": "--",
+      "provider-currency": "--",
+      "security-hardening": "--",
+      "terraform-metadata": "--",
+      "test-coverage": "--"
+    },
+    "display_name": "Capacity Reservation Group",
+    "domain": "compute",
+    "name": "avm-res-compute-capacityreservationgroup",
+    "resources": [],
+    "score": 0.0,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "--",
+      "dependency-health": "--",
+      "doc-quality": "--",
+      "provider-currency": "--",
+      "security-hardening": "--",
+      "terraform-metadata": "--",
+      "test-coverage": "--"
+    },
+    "display_name": "Compute Disk",
+    "domain": "compute",
+    "name": "avm-res-compute-disk",
+    "resources": [],
+    "score": 0.0,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "--",
+      "dependency-health": "--",
+      "doc-quality": "--",
+      "provider-currency": "--",
+      "security-hardening": "--",
+      "terraform-metadata": "--",
+      "test-coverage": "--"
+    },
+    "display_name": "Disk Encryption Set",
+    "domain": "compute",
+    "name": "avm-res-compute-diskencryptionset",
+    "resources": [],
+    "score": 0.0,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "--",
+      "dependency-health": "--",
+      "doc-quality": "--",
+      "provider-currency": "--",
+      "security-hardening": "--",
+      "terraform-metadata": "--",
+      "test-coverage": "--"
+    },
+    "display_name": "Azure Compute Gallery",
+    "domain": "compute",
+    "name": "avm-res-compute-gallery",
+    "resources": [],
+    "score": 0.0,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "--",
+      "dependency-health": "--",
+      "doc-quality": "--",
+      "provider-currency": "--",
+      "security-hardening": "--",
+      "terraform-metadata": "--",
+      "test-coverage": "--"
+    },
+    "display_name": "Host Groups",
+    "domain": "compute",
+    "name": "avm-res-compute-hostgroup",
+    "resources": [],
+    "score": 0.0,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "--",
+      "dependency-health": "--",
+      "doc-quality": "--",
+      "provider-currency": "--",
+      "security-hardening": "--",
+      "terraform-metadata": "--",
+      "test-coverage": "--"
+    },
+    "display_name": "Proximity Placement Group",
+    "domain": "compute",
+    "name": "avm-res-compute-proximityplacementgroup",
+    "resources": [],
+    "score": 0.0,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "--",
+      "dependency-health": "--",
+      "doc-quality": "--",
+      "provider-currency": "--",
+      "security-hardening": "--",
+      "terraform-metadata": "--",
+      "test-coverage": "--"
+    },
+    "display_name": "Public SSH Key",
+    "domain": "compute",
+    "name": "avm-res-compute-sshpublickey",
+    "resources": [],
+    "score": 0.0,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "--",
+      "dependency-health": "--",
+      "doc-quality": "--",
+      "provider-currency": "--",
+      "security-hardening": "--",
+      "terraform-metadata": "--",
+      "test-coverage": "--"
+    },
+    "display_name": "Virtual Machine",
+    "domain": "compute",
+    "name": "avm-res-compute-virtualmachine",
+    "resources": [],
+    "score": 0.0,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "--",
+      "dependency-health": "--",
+      "doc-quality": "--",
+      "provider-currency": "--",
+      "security-hardening": "--",
+      "terraform-metadata": "--",
+      "test-coverage": "--"
+    },
+    "display_name": "Virtual Machine Scale Set",
+    "domain": "compute",
+    "name": "avm-res-compute-virtualmachinescaleset",
+    "resources": [],
+    "score": 0.0,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "partial",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Container Instance",
+    "domain": "containers",
+    "name": "avm-res-containerinstance-containergroup",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_container_group",
+      "azurerm_private_endpoint",
+      "azurerm_private_endpoint_application_security_group_association",
+      "azurerm_role_assignment",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 63.3,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "partial",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Azure Container Registry (ACR)",
+    "domain": "containers",
+    "name": "avm-res-containerregistry-registry",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_container_registry",
+      "azurerm_key_vault_key",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_private_endpoint",
+      "azurerm_private_endpoint_application_security_group_association",
+      "azurerm_role_assignment",
+      "azurerm_user_assigned_identity",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 76.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "fail",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "AKS Managed Cluster",
+    "domain": "containers",
+    "name": "avm-res-containerservice-managedcluster",
+    "resources": [
+      "azapi_client_config",
+      "azapi_resource",
+      "azapi_resource_action",
+      "azapi_update_resource",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_private_endpoint",
+      "azurerm_private_endpoint_application_security_group_association",
+      "azurerm_role_assignment",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_string",
+      "random_uuid"
+    ],
+    "score": 60.0,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "pass"
+    },
+    "display_name": "Azure Databricks Workspace",
+    "domain": "data-databases",
+    "name": "avm-res-databricks-workspace",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_databricks_access_connector",
+      "azurerm_databricks_virtual_network_peering",
+      "azurerm_databricks_workspace",
+      "azurerm_databricks_workspace_root_dbfs_customer_managed_key",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_private_endpoint",
+      "azurerm_private_endpoint_application_security_group_association",
+      "azurerm_resource_group",
+      "azurerm_role_assignment",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 77.8,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "partial",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Data Factory",
+    "domain": "data-databases",
+    "name": "avm-res-datafactory-factory",
+    "resources": [
+      "azapi_client_config",
+      "azapi_resource",
+      "azurerm_data_factory",
+      "azurerm_data_factory_credential_service_principal",
+      "azurerm_data_factory_credential_user_managed_identity",
+      "azurerm_data_factory_linked_service_azure_blob_storage",
+      "azurerm_data_factory_linked_service_azure_databricks",
+      "azurerm_data_factory_linked_service_azure_file_storage",
+      "azurerm_data_factory_linked_service_azure_sql_database",
+      "azurerm_data_factory_linked_service_cosmosdb_mongoapi",
+      "azurerm_data_factory_linked_service_data_lake_storage_gen2",
+      "azurerm_data_factory_linked_service_key_vault",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_private_endpoint",
+      "azurerm_private_endpoint_application_security_group_association",
+      "azurerm_role_assignment",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 72.2,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "fail",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "fail",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Data Protection Backup Vault",
+    "domain": "recovery-bcdr",
+    "name": "avm-res-dataprotection-backupvault",
+    "resources": [
+      "azapi_resource",
+      "azapi_update_resource",
+      "modtm_telemetry",
+      "random_uuid",
+      "time_sleep"
+    ],
+    "score": 30.0,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Data Protection Resource Guard",
+    "domain": "recovery-bcdr",
+    "name": "avm-res-dataprotection-resourceguard",
+    "resources": [
+      "azapi_resource",
+      "azurerm_management_lock",
+      "azurerm_role_assignment",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 76.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "DB for MySQL Flexible Server",
+    "domain": "data-databases",
+    "name": "avm-res-dbformysql-flexibleserver",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_mysql_flexible_database",
+      "azurerm_mysql_flexible_server",
+      "azurerm_mysql_flexible_server_active_directory_administrator",
+      "azurerm_mysql_flexible_server_configuration",
+      "azurerm_mysql_flexible_server_firewall_rule",
+      "azurerm_private_endpoint",
+      "azurerm_private_endpoint_application_security_group_association",
+      "azurerm_resource_group",
+      "azurerm_role_assignment",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid",
+      "time_sleep"
+    ],
+    "score": 80.6,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "DB for Postgre SQL Flexible Server",
+    "domain": "data-databases",
+    "name": "avm-res-dbforpostgresql-flexibleserver",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_postgresql_flexible_server",
+      "azurerm_postgresql_flexible_server_active_directory_administrator",
+      "azurerm_postgresql_flexible_server_configuration",
+      "azurerm_postgresql_flexible_server_firewall_rule",
+      "azurerm_postgresql_flexible_server_virtual_endpoint",
+      "azurerm_private_endpoint",
+      "azurerm_private_endpoint_application_security_group_association",
+      "azurerm_role_assignment",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 80.6,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Azure Virtual Desktop (AVD) Application Group",
+    "domain": "avd",
+    "name": "avm-res-desktopvirtualization-applicationgroup",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_role_assignment",
+      "azurerm_virtual_desktop_application_group",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 72.2,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Azure Virtual Desktop (AVD) Host Pool",
+    "domain": "avd",
+    "name": "avm-res-desktopvirtualization-hostpool",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_private_endpoint",
+      "azurerm_private_endpoint_application_security_group_association",
+      "azurerm_virtual_desktop_host_pool",
+      "azurerm_virtual_desktop_host_pool_registration_info",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 72.2,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Azure Virtual Desktop (AVD) Scaling Plan",
+    "domain": "avd",
+    "name": "avm-res-desktopvirtualization-scalingplan",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_role_assignment",
+      "azurerm_virtual_desktop_scaling_plan",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 72.2,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Azure Virtual Desktop (AVD) Workspace",
+    "domain": "avd",
+    "name": "avm-res-desktopvirtualization-workspace",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_virtual_desktop_workspace",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 72.2,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Dev Center",
+    "domain": "developer-tools",
+    "name": "avm-res-devcenter-devcenter",
+    "resources": [
+      "azurerm_dev_center",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_role_assignment",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 76.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "partial",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "DevOps Pools",
+    "domain": "hybrid",
+    "name": "avm-res-devopsinfrastructure-pool",
+    "resources": [
+      "azapi_resource",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_role_assignment",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 66.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "fail",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "CosmosDB Database Account",
+    "domain": "data-databases",
+    "name": "avm-res-documentdb-databaseaccount",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_cosmosdb_account",
+      "azurerm_cosmosdb_gremlin_database",
+      "azurerm_cosmosdb_gremlin_graph",
+      "azurerm_cosmosdb_mongo_collection",
+      "azurerm_cosmosdb_mongo_database",
+      "azurerm_cosmosdb_sql_container",
+      "azurerm_cosmosdb_sql_database",
+      "azurerm_cosmosdb_sql_dedicated_gateway",
+      "azurerm_cosmosdb_sql_function",
+      "azurerm_cosmosdb_sql_stored_procedure",
+      "azurerm_cosmosdb_sql_trigger",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_private_endpoint",
+      "azurerm_private_endpoint_application_security_group_association",
+      "azurerm_role_assignment",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid",
+      "time_sleep"
+    ],
+    "score": 58.3,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Cosmos DB for MongoDB (vCore)",
+    "domain": "data-databases",
+    "name": "avm-res-documentdb-mongocluster",
+    "resources": [
+      "azapi_client_config",
+      "azapi_resource",
+      "azurerm_management_lock",
+      "azurerm_private_endpoint",
+      "azurerm_private_endpoint_application_security_group_association",
+      "azurerm_role_assignment",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 80.6,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Azure Arc Site manager",
+    "domain": "hybrid",
+    "name": "avm-res-edge-site",
+    "resources": [
+      "azapi_resource",
+      "azurerm_management_lock",
+      "azurerm_role_assignment",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 76.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Event Grid Domain",
+    "domain": "iot",
+    "name": "avm-res-eventgrid-domain",
+    "resources": [
+      "azapi_resource",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 86.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Event Grid Namespace",
+    "domain": "iot",
+    "name": "avm-res-eventgrid-namespace",
+    "resources": [
+      "azapi_resource",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_private_endpoint",
+      "azurerm_private_endpoint_application_security_group_association",
+      "azurerm_role_assignment",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 86.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Event Grid Topic",
+    "domain": "iot",
+    "name": "avm-res-eventgrid-topic",
+    "resources": [
+      "azapi_resource",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_role_assignment",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 86.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Event Hub Namespace",
+    "domain": "data-databases",
+    "name": "avm-res-eventhub-namespace",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_eventhub",
+      "azurerm_eventhub_namespace",
+      "azurerm_management_lock",
+      "azurerm_private_endpoint",
+      "azurerm_private_endpoint_application_security_group_association",
+      "azurerm_resource_group",
+      "azurerm_role_assignment",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 80.6,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Azure Feature Exposure Control (AFEC)",
+    "domain": "management",
+    "name": "avm-res-features-feature",
+    "resources": [
+      "azapi_resource",
+      "azapi_resource_action",
+      "azapi_update_resource",
+      "modtm_telemetry",
+      "random_uuid",
+      "terraform_data"
+    ],
+    "score": 76.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "fail",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "AKS Arc",
+    "domain": "containers",
+    "name": "avm-res-hybridcontainerservice-provisionedclusterinstance",
+    "resources": [
+      "azapi_client_config",
+      "azapi_resource",
+      "azurerm_client_config",
+      "azurerm_key_vault_secret",
+      "azurerm_management_lock",
+      "azurerm_role_assignment",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid",
+      "terraform_data",
+      "tls_private_key"
+    ],
+    "score": 56.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "partial",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Auto scale settings",
+    "domain": "monitoring",
+    "name": "avm-res-insights-autoscalesetting",
+    "resources": [
+      "azurerm_monitor_autoscale_setting",
+      "azurerm_private_endpoint",
+      "azurerm_private_endpoint_application_security_group_association",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 63.3,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "fail",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Application Insight",
+    "domain": "monitoring",
+    "name": "avm-res-insights-component",
+    "resources": [
+      "azapi_resource",
+      "azurerm_application_insights",
+      "azurerm_management_lock",
+      "azurerm_role_assignment",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 50.0,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Data Collection Endpoint",
+    "domain": "monitoring",
+    "name": "avm-res-insights-datacollectionendpoint",
+    "resources": [
+      "azapi_resource",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 76.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Data Collection Rule",
+    "domain": "monitoring",
+    "name": "avm-res-insights-datacollectionrule",
+    "resources": [
+      "azapi_resource",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 76.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "fail",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Key Vault",
+    "domain": "identity-security",
+    "name": "avm-res-keyvault-vault",
+    "resources": [
+      "azurerm_key_vault",
+      "azurerm_key_vault_access_policy",
+      "azurerm_key_vault_certificate_contacts",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_private_endpoint",
+      "azurerm_private_endpoint_application_security_group_association",
+      "azurerm_role_assignment",
+      "modtm_telemetry",
+      "random_uuid",
+      "time_sleep"
+    ],
+    "score": 50.0,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "fail",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "pass"
+    },
+    "display_name": "Kusto Clusters",
+    "domain": "data-databases",
+    "name": "avm-res-kusto-cluster",
+    "resources": [
+      "azurerm_kusto_cluster",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_private_endpoint",
+      "azurerm_private_endpoint_application_security_group_association",
+      "azurerm_resource_group_template_deployment",
+      "azurerm_role_assignment",
+      "random_id"
+    ],
+    "score": 69.4,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Logic Apps (Workflow)",
+    "domain": "web-app-services",
+    "name": "avm-res-logic-workflow",
+    "resources": [
+      "azapi_resource",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_role_assignment",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 76.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Machine Learning Services Workspace",
+    "domain": "ai-ml",
+    "name": "avm-res-machinelearningservices-workspace",
+    "resources": [
+      "azapi_resource",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_private_endpoint",
+      "azurerm_private_endpoint_application_security_group_association",
+      "azurerm_role_assignment",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 86.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Maintenance Configuration",
+    "domain": "management",
+    "name": "avm-res-maintenance-maintenanceconfiguration",
+    "resources": [
+      "azapi_resource",
+      "azurerm_management_lock",
+      "azurerm_role_assignment",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 76.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "User Assigned Identity",
+    "domain": "identity-security",
+    "name": "avm-res-managedidentity-userassignedidentity",
+    "resources": [
+      "azurerm_federated_identity_credential",
+      "azurerm_management_lock",
+      "azurerm_role_assignment",
+      "azurerm_user_assigned_identity",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 76.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "partial",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Management Service Groups",
+    "domain": "management",
+    "name": "avm-res-management-servicegroup",
+    "resources": [
+      "azapi_resource",
+      "azurerm_role_assignment",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 63.3,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Azure NetApp File",
+    "domain": "storage",
+    "name": "avm-res-netapp-netappaccount",
+    "resources": [
+      "azapi_client_config",
+      "azapi_resource",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 72.2,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "fail",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "fail",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Application Gateway",
+    "domain": "networking",
+    "name": "avm-res-network-applicationgateway",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_application_gateway",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_public_ip",
+      "azurerm_role_assignment",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 33.3,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Application Gateway Web Application Firewall (WAF) Policy",
+    "domain": "networking",
+    "name": "avm-res-network-applicationgatewaywebapplicationfirewallpolicy",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_management_lock",
+      "azurerm_role_assignment",
+      "azurerm_web_application_firewall_policy",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 72.2,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Application Security Group (ASG)",
+    "domain": "networking",
+    "name": "avm-res-network-applicationsecuritygroup",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_application_security_group",
+      "azurerm_management_lock",
+      "azurerm_role_assignment",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 72.2,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Azure Firewall",
+    "domain": "networking",
+    "name": "avm-res-network-azurefirewall",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_firewall",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_role_assignment",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 72.2,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Bastion Host",
+    "domain": "networking",
+    "name": "avm-res-network-bastionhost",
+    "resources": [
+      "azapi_client_config",
+      "azapi_resource",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_public_ip",
+      "azurerm_role_assignment",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 72.2,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Virtual Network Gateway Connection",
+    "domain": "networking",
+    "name": "avm-res-network-connection",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_management_lock",
+      "azurerm_virtual_network_gateway_connection",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 72.2,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "partial",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "DDoS Protection",
+    "domain": "networking",
+    "name": "avm-res-network-ddosprotectionplan",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_management_lock",
+      "azurerm_network_ddos_protection_plan",
+      "azurerm_role_assignment",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 63.9,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "fail",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "DNS Resolver",
+    "domain": "networking",
+    "name": "avm-res-network-dnsresolver",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_management_lock",
+      "azurerm_private_dns_resolver",
+      "azurerm_private_dns_resolver_dns_forwarding_ruleset",
+      "azurerm_private_dns_resolver_forwarding_rule",
+      "azurerm_private_dns_resolver_inbound_endpoint",
+      "azurerm_private_dns_resolver_outbound_endpoint",
+      "azurerm_private_dns_resolver_virtual_network_link",
+      "azurerm_role_assignment",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid",
+      "terraform_data"
+    ],
+    "score": 55.6,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Public DNS Zone",
+    "domain": "networking",
+    "name": "avm-res-network-dnszone",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_dns_a_record",
+      "azurerm_dns_aaaa_record",
+      "azurerm_dns_caa_record",
+      "azurerm_dns_cname_record",
+      "azurerm_dns_mx_record",
+      "azurerm_dns_ns_record",
+      "azurerm_dns_ptr_record",
+      "azurerm_dns_srv_record",
+      "azurerm_dns_txt_record",
+      "azurerm_dns_zone",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 72.2,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "ExpressRoute Circuit",
+    "domain": "networking",
+    "name": "avm-res-network-expressroutecircuit",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_express_route_circuit",
+      "azurerm_express_route_circuit_authorization",
+      "azurerm_express_route_circuit_connection",
+      "azurerm_express_route_circuit_peering",
+      "azurerm_express_route_connection",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_role_assignment",
+      "azurerm_virtual_network_gateway_connection",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 72.2,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Azure Firewall Policy",
+    "domain": "networking",
+    "name": "avm-res-network-firewallpolicy",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_firewall_policy",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_role_assignment",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 72.2,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Front Door Web Application Firewall (WAF) Policy",
+    "domain": "networking",
+    "name": "avm-res-network-frontdoorwebapplicationfirewallpolicy",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_cdn_frontdoor_firewall_policy",
+      "azurerm_management_lock",
+      "azurerm_role_assignment",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 72.2,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "IP Group",
+    "domain": "networking",
+    "name": "avm-res-network-ipgroup",
+    "resources": [
+      "azapi_client_config",
+      "azapi_resource",
+      "azurerm_management_lock",
+      "azurerm_role_assignment",
+      "azurerm_subscription",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 72.2,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "fail",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Loadbalancer",
+    "domain": "networking",
+    "name": "avm-res-network-loadbalancer",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_lb",
+      "azurerm_lb_backend_address_pool",
+      "azurerm_lb_backend_address_pool_address",
+      "azurerm_lb_nat_pool",
+      "azurerm_lb_nat_rule",
+      "azurerm_lb_outbound_rule",
+      "azurerm_lb_probe",
+      "azurerm_lb_rule",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_network_interface_backend_address_pool_association",
+      "azurerm_public_ip",
+      "azurerm_role_assignment",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 55.6,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Local Network Gateway",
+    "domain": "networking",
+    "name": "avm-res-network-localnetworkgateway",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_local_network_gateway",
+      "azurerm_management_lock",
+      "azurerm_role_assignment",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 72.2,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "NAT Gateway",
+    "domain": "networking",
+    "name": "avm-res-network-natgateway",
+    "resources": [
+      "azapi_client_config",
+      "azapi_resource",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 72.2,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Network Interface",
+    "domain": "networking",
+    "name": "avm-res-network-networkinterface",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_management_lock",
+      "azurerm_network_interface",
+      "azurerm_network_interface_application_gateway_backend_address_pool_association",
+      "azurerm_network_interface_application_security_group_association",
+      "azurerm_network_interface_backend_address_pool_association",
+      "azurerm_network_interface_nat_rule_association",
+      "azurerm_network_interface_security_group_association",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 72.2,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Azure Virtual Network Manager",
+    "domain": "networking",
+    "name": "avm-res-network-networkmanager",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_network_manager",
+      "azurerm_role_assignment",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 72.2,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Network Security Group",
+    "domain": "networking",
+    "name": "avm-res-network-networksecuritygroup",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_network_security_group",
+      "azurerm_network_security_rule",
+      "azurerm_role_assignment",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 72.2,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Azure Network Watcher",
+    "domain": "networking",
+    "name": "avm-res-network-networkwatcher",
+    "resources": [
+      "azapi_client_config",
+      "azapi_resource",
+      "azurerm_management_lock",
+      "azurerm_network_connection_monitor",
+      "azurerm_network_watcher",
+      "azurerm_role_assignment",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 72.2,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "fail",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Private DNS Zone",
+    "domain": "networking",
+    "name": "avm-res-network-privatednszone",
+    "resources": [
+      "azapi_client_config",
+      "azapi_resource",
+      "azapi_update_resource",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid",
+      "time_sleep"
+    ],
+    "score": 63.9,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Private Endpoint",
+    "domain": "networking",
+    "name": "avm-res-network-privateendpoint",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_management_lock",
+      "azurerm_private_endpoint",
+      "azurerm_private_endpoint_application_security_group_association",
+      "azurerm_role_assignment",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 72.2,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "fail",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Public IP Address",
+    "domain": "networking",
+    "name": "avm-res-network-publicipaddress",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_public_ip",
+      "azurerm_role_assignment",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 55.6,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Public IP Prefix",
+    "domain": "networking",
+    "name": "avm-res-network-publicipprefix",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_management_lock",
+      "azurerm_public_ip_prefix",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 72.2,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Route Table",
+    "domain": "networking",
+    "name": "avm-res-network-routetable",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_management_lock",
+      "azurerm_role_assignment",
+      "azurerm_route",
+      "azurerm_route_table",
+      "azurerm_subnet_route_table_association",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 72.2,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Traffic Manager Profile",
+    "domain": "networking",
+    "name": "avm-res-network-trafficmanagerprofile",
+    "resources": [
+      "azapi_client_config",
+      "azapi_resource",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 72.2,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Virtual Network",
+    "domain": "networking",
+    "name": "avm-res-network-virtualnetwork",
+    "resources": [
+      "azapi_client_config",
+      "azapi_resource",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_role_assignment",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 72.2,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Log Analytics workspace",
+    "domain": "monitoring",
+    "name": "avm-res-operationalinsights-workspace",
+    "resources": [
+      "azapi_resource",
+      "azapi_update_resource",
+      "azurerm_log_analytics_linked_service",
+      "azurerm_log_analytics_linked_storage_account",
+      "azurerm_log_analytics_workspace",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_monitor_private_link_scoped_service",
+      "azurerm_private_endpoint",
+      "azurerm_private_endpoint_application_security_group_association",
+      "azurerm_role_assignment",
+      "modtm_telemetry",
+      "random_uuid",
+      "time_sleep"
+    ],
+    "score": 76.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Oracle Exadata Infrastructure",
+    "domain": "data-databases",
+    "name": "avm-res-oracledatabase-cloudexadatainfrastructure",
+    "resources": [
+      "azapi_client_config",
+      "azapi_resource",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 72.2,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "fail",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Oracle VM cluster",
+    "domain": "data-databases",
+    "name": "avm-res-oracledatabase-cloudvmcluster",
+    "resources": [
+      "azapi_client_config",
+      "azapi_resource",
+      "azapi_resource_list",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 72.2,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Azure Portal Dashboard",
+    "domain": "management",
+    "name": "avm-res-portal-dashboard",
+    "resources": [
+      "azurerm_portal_dashboard",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 76.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Recovery Services Vault",
+    "domain": "recovery-bcdr",
+    "name": "avm-res-recoveryservices-vault",
+    "resources": [
+      "azapi_resource",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_private_endpoint",
+      "azurerm_private_endpoint_application_security_group_association",
+      "azurerm_role_assignment",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 86.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "OpenShift Cluster",
+    "domain": "containers",
+    "name": "avm-res-redhatopenshift-openshiftcluster",
+    "resources": [
+      "azapi_client_config",
+      "azapi_resource",
+      "azurerm_private_endpoint",
+      "azurerm_private_endpoint_application_security_group_association",
+      "azurerm_role_assignment",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 76.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Relay Namespace",
+    "domain": "web-app-services",
+    "name": "avm-res-relay-namespace",
+    "resources": [
+      "azapi_resource",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 76.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Resource Graph Query",
+    "domain": "management",
+    "name": "avm-res-resourcegraph-query",
+    "resources": [
+      "azapi_resource",
+      "azurerm_management_lock",
+      "azurerm_role_assignment",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 76.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Resource Group",
+    "domain": "management",
+    "name": "avm-res-resources-resourcegroup",
+    "resources": [
+      "azapi_resource",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 76.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Search Service",
+    "domain": "data-databases",
+    "name": "avm-res-search-searchservice",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_private_endpoint",
+      "azurerm_private_endpoint_application_security_group_association",
+      "azurerm_role_assignment",
+      "azurerm_search_service",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 80.6,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Service Bus Namespace",
+    "domain": "data-databases",
+    "name": "avm-res-servicebus-namespace",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_private_endpoint",
+      "azurerm_private_endpoint_application_security_group_association",
+      "azurerm_role_assignment",
+      "azurerm_servicebus_namespace",
+      "azurerm_servicebus_namespace_authorization_rule",
+      "azurerm_servicebus_queue",
+      "azurerm_servicebus_queue_authorization_rule",
+      "azurerm_servicebus_subscription",
+      "azurerm_servicebus_topic",
+      "azurerm_servicebus_topic_authorization_rule",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 80.6,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "fail",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "SQL Managed Instance",
+    "domain": "data-databases",
+    "name": "avm-res-sql-managedinstance",
+    "resources": [
+      "azapi_client_config",
+      "azapi_resource",
+      "azapi_resource_action",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_mssql_managed_database",
+      "azurerm_mssql_managed_instance",
+      "azurerm_mssql_managed_instance_failover_group",
+      "azurerm_mssql_managed_instance_transparent_data_encryption",
+      "azurerm_private_endpoint",
+      "azurerm_private_endpoint_application_security_group_association",
+      "azurerm_role_assignment",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 72.2,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Azure SQL Server",
+    "domain": "data-databases",
+    "name": "avm-res-sql-server",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_key_vault_secret",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_mssql_firewall_rule",
+      "azurerm_mssql_server",
+      "azurerm_private_endpoint",
+      "azurerm_private_endpoint_application_security_group_association",
+      "azurerm_role_assignment",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_password",
+      "random_uuid"
+    ],
+    "score": 80.6,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Sql Virtual Machine",
+    "domain": "data-databases",
+    "name": "avm-res-sqlvirtualmachine-sqlvirtualmachine",
+    "resources": [
+      "azapi_client_config",
+      "azapi_resource",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 72.2,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "partial",
+      "doc-quality": "partial",
+      "provider-currency": "fail",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Storage Account",
+    "domain": "storage",
+    "name": "avm-res-storage-storageaccount",
+    "resources": [
+      "azapi_client_config",
+      "azapi_resource",
+      "azapi_update_resource",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 55.6,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "API Connection",
+    "domain": "web-app-services",
+    "name": "avm-res-web-connection",
+    "resources": [
+      "azurerm_api_connection",
+      "azurerm_management_lock",
+      "azurerm_role_assignment",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 76.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "App Service Environment",
+    "domain": "web-app-services",
+    "name": "avm-res-web-hostingenvironment",
+    "resources": [
+      "azapi_resource",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 76.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "App Service Plan",
+    "domain": "web-app-services",
+    "name": "avm-res-web-serverfarm",
+    "resources": [
+      "azapi_resource",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 76.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Web/Function App",
+    "domain": "web-app-services",
+    "name": "avm-res-web-site",
+    "resources": [
+      "azapi_resource",
+      "azapi_resource_action",
+      "modtm_telemetry",
+      "random_uuid",
+      "time_sleep"
+    ],
+    "score": 86.7,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "partial",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "fail",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Static Web App",
+    "domain": "web-app-services",
+    "name": "avm-res-web-staticsite",
+    "resources": [
+      "azapi_update_resource",
+      "azurerm_dns_cname_record",
+      "azurerm_dns_txt_record",
+      "azurerm_management_lock",
+      "azurerm_private_endpoint",
+      "azurerm_private_endpoint_application_security_group_association",
+      "azurerm_role_assignment",
+      "azurerm_static_web_app",
+      "azurerm_static_web_app_custom_domain",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 40.0,
+    "status": "Available",
+    "type": "res"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "fail",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Azure Container Apps Landing Zone Accelerator",
+    "domain": "containers",
+    "name": "avm-ptn-aca-lza-hosting-environment",
+    "resources": [
+      "azapi_client_config",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_string",
+      "random_uuid"
+    ],
+    "score": 60.0,
+    "status": "Available",
+    "type": "ptn"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "fail",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "AI-ML - AI Foundry",
+    "domain": "ai-ml",
+    "name": "avm-ptn-aiml-ai-foundry",
+    "resources": [],
+    "score": 60.0,
+    "status": "Available",
+    "type": "ptn"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "AI-ML - Landing Zone (LZ)",
+    "domain": "ai-ml",
+    "name": "avm-ptn-aiml-landing-zone",
+    "resources": [],
+    "score": 86.7,
+    "status": "Available",
+    "type": "ptn"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "AKS dev",
+    "domain": "containers",
+    "name": "avm-ptn-aks-dev",
+    "resources": [
+      "azapi_client_config",
+      "azapi_update_resource",
+      "azurerm_container_registry",
+      "azurerm_kubernetes_cluster",
+      "azurerm_management_lock",
+      "azurerm_role_assignment",
+      "azurerm_user_assigned_identity",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_string",
+      "random_uuid",
+      "terraform_data"
+    ],
+    "score": 86.7,
+    "status": "Available",
+    "type": "ptn"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "AKS economy",
+    "domain": "containers",
+    "name": "avm-ptn-aks-economy",
+    "resources": [
+      "azapi_client_config",
+      "azapi_update_resource",
+      "azurerm_container_registry",
+      "azurerm_kubernetes_cluster",
+      "azurerm_kubernetes_cluster_node_pool",
+      "azurerm_management_lock",
+      "azurerm_role_assignment",
+      "azurerm_user_assigned_identity",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_string",
+      "random_uuid",
+      "terraform_data"
+    ],
+    "score": 86.7,
+    "status": "Available",
+    "type": "ptn"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "AKS Enterprise",
+    "domain": "containers",
+    "name": "avm-ptn-aks-enterprise",
+    "resources": [
+      "azapi_client_config",
+      "azapi_resource_list",
+      "azapi_update_resource",
+      "azurerm_container_registry",
+      "azurerm_firewall",
+      "azurerm_firewall_application_rule_collection",
+      "azurerm_firewall_network_rule_collection",
+      "azurerm_kubernetes_cluster",
+      "azurerm_kubernetes_cluster_node_pool",
+      "azurerm_log_analytics_workspace",
+      "azurerm_log_analytics_workspace_table",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_public_ip",
+      "azurerm_role_assignment",
+      "azurerm_route_table",
+      "azurerm_subnet",
+      "azurerm_subnet_route_table_association",
+      "azurerm_subscription",
+      "azurerm_user_assigned_identity",
+      "azurerm_virtual_network",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_string",
+      "random_uuid",
+      "terraform_data"
+    ],
+    "score": 86.7,
+    "status": "Available",
+    "type": "ptn"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "fail",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "fail",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Azure Kubernetes Service",
+    "domain": "containers",
+    "name": "avm-ptn-aks-production",
+    "resources": [
+      "azapi_client_config",
+      "azapi_resource_list",
+      "azapi_update_resource",
+      "azurerm_kubernetes_cluster",
+      "azurerm_kubernetes_cluster_node_pool",
+      "azurerm_log_analytics_workspace",
+      "azurerm_log_analytics_workspace_table",
+      "azurerm_management_lock",
+      "azurerm_monitor_diagnostic_setting",
+      "azurerm_role_assignment",
+      "azurerm_subscription",
+      "azurerm_user_assigned_identity",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "null_resource",
+      "random_uuid"
+    ],
+    "score": 40.0,
+    "status": "Available",
+    "type": "ptn"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "ALZ Connectivity Hub and Spoke",
+    "domain": "platform-alz",
+    "name": "avm-ptn-alz-connectivity-hub-and-spoke-vnet",
+    "resources": [],
+    "score": 86.7,
+    "status": "Available",
+    "type": "ptn"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "ALZ Connectivity vWAN",
+    "domain": "platform-alz",
+    "name": "avm-ptn-alz-connectivity-virtual-wan",
+    "resources": [],
+    "score": 86.7,
+    "status": "Available",
+    "type": "ptn"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "pass"
+    },
+    "display_name": "ALZ Management",
+    "domain": "platform-alz",
+    "name": "avm-ptn-alz-management",
+    "resources": [],
+    "score": 93.3,
+    "status": "Available",
+    "type": "ptn"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "--",
+      "dependency-health": "--",
+      "doc-quality": "--",
+      "provider-currency": "--",
+      "security-hardening": "--",
+      "terraform-metadata": "--",
+      "test-coverage": "--"
+    },
+    "display_name": "ALZ Subscription vending",
+    "domain": "platform-alz",
+    "name": "avm-ptn-alz-sub-vending",
+    "resources": [],
+    "score": 0.0,
+    "status": "Available",
+    "type": "ptn"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Azure Landing Zone Management Groups and Policy",
+    "domain": "platform-alz",
+    "name": "avm-ptn-alz",
+    "resources": [],
+    "score": 76.7,
+    "status": "Available",
+    "type": "ptn"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "AVD Insights",
+    "domain": "avd",
+    "name": "avm-ptn-avd-lza-insights",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_monitor_data_collection_rule",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 72.2,
+    "status": "Available",
+    "type": "ptn"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "AVD Management Plane",
+    "domain": "avd",
+    "name": "avm-ptn-avd-lza-managementplane",
+    "resources": [
+      "azapi_client_config",
+      "azuread_service_principal",
+      "azurerm_role_assignment",
+      "azurerm_virtual_desktop_host_pool_registration_info",
+      "azurerm_virtual_desktop_workspace_application_group_association",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid",
+      "time_sleep"
+    ],
+    "score": 72.2,
+    "status": "Available",
+    "type": "ptn"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Azure Monitor Windows Agent",
+    "domain": "monitoring",
+    "name": "avm-ptn-azuremonitorwindowsagent",
+    "resources": [],
+    "score": 76.7,
+    "status": "Available",
+    "type": "ptn"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "partial",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "fail",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "CI CD Agents and Runners",
+    "domain": "developer-tools",
+    "name": "avm-ptn-cicd-agents-and-runners",
+    "resources": [],
+    "score": 50.0,
+    "status": "Available",
+    "type": "ptn"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "fail",
+      "terraform-metadata": "pass",
+      "test-coverage": "pass"
+    },
+    "display_name": "Commercial Marketplace SaaS Accelerator",
+    "domain": "other",
+    "name": "avm-ptn-commercial-marketplace",
+    "resources": [],
+    "score": 66.7,
+    "status": "Available",
+    "type": "ptn"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "--",
+      "dependency-health": "--",
+      "doc-quality": "--",
+      "provider-currency": "--",
+      "security-hardening": "--",
+      "terraform-metadata": "--",
+      "test-coverage": "--"
+    },
+    "display_name": "Ephemeral Credentials Generator",
+    "domain": "identity-security",
+    "name": "avm-ptn-ephemeral-credential",
+    "resources": [],
+    "score": 0.0,
+    "status": "Available",
+    "type": "ptn"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Function App and private endpoint-secured Storage",
+    "domain": "web-app-services",
+    "name": "avm-ptn-function-app-storage-private-endpoints",
+    "resources": [],
+    "score": 86.7,
+    "status": "Available",
+    "type": "ptn"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Arc for AD registration",
+    "domain": "hybrid",
+    "name": "avm-ptn-hci-ad-provisioner",
+    "resources": [],
+    "score": 76.7,
+    "status": "Available",
+    "type": "ptn"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Arc for Server registration",
+    "domain": "hybrid",
+    "name": "avm-ptn-hci-server-provisioner",
+    "resources": [],
+    "score": 76.7,
+    "status": "Available",
+    "type": "ptn"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "pass"
+    },
+    "display_name": "AMBA ALZ Pattern",
+    "domain": "monitoring",
+    "name": "avm-ptn-monitoring-amba-alz",
+    "resources": [],
+    "score": 93.3,
+    "status": "Available",
+    "type": "ptn"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Private Link Private DNS Zones",
+    "domain": "networking",
+    "name": "avm-ptn-network-private-link-private-dns-zones",
+    "resources": [
+      "azapi_client_config",
+      "azapi_resource",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 80.6,
+    "status": "Available",
+    "type": "ptn"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Azure Route Server",
+    "domain": "networking",
+    "name": "avm-ptn-network-routeserver",
+    "resources": [
+      "azapi_client_config",
+      "azapi_resource",
+      "azurerm_management_lock",
+      "azurerm_public_ip",
+      "azurerm_role_assignment",
+      "azurerm_virtual_hub",
+      "azurerm_virtual_hub_bgp_connection",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid",
+      "time_sleep"
+    ],
+    "score": 80.6,
+    "status": "Available",
+    "type": "ptn"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "pass",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "partial",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Oracle Exedata Workload",
+    "domain": "data-databases",
+    "name": "avm-ptn-odaa",
+    "resources": [
+      "azapi_client_config",
+      "azurerm_resource_group",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_string",
+      "random_uuid"
+    ],
+    "score": 69.4,
+    "status": "Available",
+    "type": "ptn"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Policy assignment",
+    "domain": "management",
+    "name": "avm-ptn-policyassignment",
+    "resources": [],
+    "score": 76.7,
+    "status": "Available",
+    "type": "ptn"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "--",
+      "dependency-health": "--",
+      "doc-quality": "--",
+      "provider-currency": "--",
+      "security-hardening": "--",
+      "terraform-metadata": "--",
+      "test-coverage": "--"
+    },
+    "display_name": "Linux VM AzRM to AzAPI Replicator",
+    "domain": "compute",
+    "name": "avm-utl-compute-linuxvirtualmachine-azapi-replicator",
+    "resources": [],
+    "score": 0.0,
+    "status": "Available",
+    "type": "utl"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "--",
+      "dependency-health": "--",
+      "doc-quality": "--",
+      "provider-currency": "--",
+      "security-hardening": "--",
+      "terraform-metadata": "--",
+      "test-coverage": "--"
+    },
+    "display_name": "VMSS AzRM to AzAPI Replicator",
+    "domain": "compute",
+    "name": "avm-utl-compute-orchestratedvirtualmachinescaleset-azapi-replicator",
+    "resources": [],
+    "score": 0.0,
+    "status": "Available",
+    "type": "utl"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "--",
+      "dependency-health": "--",
+      "doc-quality": "--",
+      "provider-currency": "--",
+      "security-hardening": "--",
+      "terraform-metadata": "--",
+      "test-coverage": "--"
+    },
+    "display_name": "Windows VM AzRM to AzAPI Replicator",
+    "domain": "compute",
+    "name": "avm-utl-compute-windowsvirtualmachine-azapi-replicator",
+    "resources": [],
+    "score": 0.0,
+    "status": "Available",
+    "type": "utl"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "--",
+      "dependency-health": "--",
+      "doc-quality": "--",
+      "provider-currency": "--",
+      "security-hardening": "--",
+      "terraform-metadata": "--",
+      "test-coverage": "--"
+    },
+    "display_name": "AVM Interfaces",
+    "domain": "platform-alz",
+    "name": "avm-utl-interfaces",
+    "resources": [],
+    "score": 0.0,
+    "status": "Available",
+    "type": "utl"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "partial",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "AVM Network IP Addresses",
+    "domain": "networking",
+    "name": "avm-utl-network-ip-addresses",
+    "resources": [
+      "azapi_client_config",
+      "modtm_module_source",
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 72.2,
+    "status": "Available",
+    "type": "utl"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "--",
+      "dependency-health": "--",
+      "doc-quality": "--",
+      "provider-currency": "--",
+      "security-hardening": "--",
+      "terraform-metadata": "--",
+      "test-coverage": "--"
+    },
+    "display_name": "Virtual Network AzRM to AzAPI Replicator",
+    "domain": "networking",
+    "name": "avm-utl-network-virtualnetwork-azapi-replicator",
+    "resources": [],
+    "score": 0.0,
+    "status": "Available",
+    "type": "utl"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "--",
+      "dependency-health": "--",
+      "doc-quality": "--",
+      "provider-currency": "--",
+      "security-hardening": "--",
+      "terraform-metadata": "--",
+      "test-coverage": "--"
+    },
+    "display_name": "Private DNS Zone AzRM to AzAPI Replicator",
+    "domain": "networking",
+    "name": "avm-utl-privatedns-privatednszone-azapi-replicator",
+    "resources": [],
+    "score": 0.0,
+    "status": "Available",
+    "type": "utl"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "partial",
+      "dependency-health": "pass",
+      "doc-quality": "partial",
+      "provider-currency": "--",
+      "security-hardening": "pass",
+      "terraform-metadata": "pass",
+      "test-coverage": "partial"
+    },
+    "display_name": "Azure Regions Data",
+    "domain": "management",
+    "name": "avm-utl-regions",
+    "resources": [
+      "modtm_telemetry",
+      "random_uuid"
+    ],
+    "score": 76.7,
+    "status": "Available",
+    "type": "utl"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "--",
+      "dependency-health": "--",
+      "doc-quality": "--",
+      "provider-currency": "--",
+      "security-hardening": "--",
+      "terraform-metadata": "--",
+      "test-coverage": "--"
+    },
+    "display_name": "Resource Group AzRM to AzAPI Replicator",
+    "domain": "management",
+    "name": "avm-utl-resources-resourcegroup-azapi-replicator",
+    "resources": [],
+    "score": 0.0,
+    "status": "Available",
+    "type": "utl"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "--",
+      "dependency-health": "--",
+      "doc-quality": "--",
+      "provider-currency": "--",
+      "security-hardening": "--",
+      "terraform-metadata": "--",
+      "test-coverage": "--"
+    },
+    "display_name": "Azure Role Definitions",
+    "domain": "identity-security",
+    "name": "avm-utl-roledefinitions",
+    "resources": [],
+    "score": 0.0,
+    "status": "Available",
+    "type": "utl"
+  },
+  {
+    "dimensions": {
+      "avm-interface-compliance": "--",
+      "dependency-health": "--",
+      "doc-quality": "--",
+      "provider-currency": "--",
+      "security-hardening": "--",
+      "terraform-metadata": "--",
+      "test-coverage": "--"
+    },
+    "display_name": "AVM SKU Finder",
+    "domain": "compute",
+    "name": "avm-utl-sku-finder",
+    "resources": [],
+    "score": 0.0,
+    "status": "Available",
+    "type": "utl"
+  }
+]

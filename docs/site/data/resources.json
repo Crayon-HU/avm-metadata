@@ -1,0 +1,3727 @@
+[
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azapi_resource.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "",
+    "provider": "azapi",
+    "registry_url": "https://registry.terraform.io/providers/azure/azapi/latest/docs/resources/resource",
+    "symbol_type": "resource",
+    "type": "azapi_resource",
+    "updates_last_checked": ""
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azapi_resource_action.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "",
+    "provider": "azapi",
+    "registry_url": "https://registry.terraform.io/providers/azure/azapi/latest/docs/resources/resource_action",
+    "symbol_type": "resource",
+    "type": "azapi_resource_action",
+    "updates_last_checked": ""
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azapi_update_resource.yaml",
+    "findings": [
+      {
+        "criticality": "medium",
+        "summary": "`azapi_update_resource` resource: Support `replace_triggers_external_values` argument to trigger resource replacement based on external values.",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.9.0",
+        "version": "2.9.0"
+      },
+      {
+        "criticality": "medium",
+        "summary": "`azapi_resource`, `azapi_update_resource` resources: Support `list_unique_id_property` and `ignore_other_items_in_list` fields, which are used to manage list properties with unique identifiers (GH-...",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.9.0",
+        "version": "2.9.0"
+      },
+      {
+        "criticality": "high",
+        "summary": "Fix `azapi_update_resource` state migration missing `replace_triggers_external_values` field (GH-1071).",
+        "type": "bug_fix",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.9.0",
+        "version": "2.9.0"
+      },
+      {
+        "criticality": "medium",
+        "summary": "`azapi_update_resource` resource: remove the readonly fields from `identity.userAssignedIdentities` in the request body.",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.5.0",
+        "version": "2.5.0"
+      },
+      {
+        "criticality": "high",
+        "summary": "Fix a bug that `azapi_update_resource` does not update the correct items in an array when the order of the items is different from the remote state.",
+        "type": "bug_fix",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.5.0",
+        "version": "2.5.0"
+      },
+      {
+        "criticality": "medium",
+        "summary": "`azapi_resource`, `azapi_update_resource` resources: Support `sensitive_body` field, which is used to specify the write-only properties in the request body.",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.4.0",
+        "version": "2.4.0"
+      },
+      {
+        "criticality": "high",
+        "summary": "Fix a bug that `azapi_update_resource` resource produced inconsistent results when only `error_message_regex` is changed.",
+        "type": "bug_fix",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.4.0",
+        "version": "2.4.0"
+      },
+      {
+        "criticality": "critical",
+        "summary": "`azapi_resource`, `azapi_update_resource` resources and data sources' `output` field defaults to the readonly fields when the `response_export_values` is not specified.",
+        "type": "breaking_change",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.0.1",
+        "version": "2.0.1"
+      },
+      {
+        "criticality": "medium",
+        "summary": "`azapi_resource`, `azapi_update_resource`, `azapi_resource_action`, `azapi_data_plane_resource` resources: Support `timeouts.update` field, which is used to specify the timeout for the update opera...",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.14.0",
+        "version": "1.14.0"
+      },
+      {
+        "criticality": "medium",
+        "summary": "`azapi_update_resource` resource: Improve the id build logic to honor user's input.",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.14.0",
+        "version": "1.14.0"
+      },
+      {
+        "criticality": "medium",
+        "summary": "`azapi_resource` resource, `azapi_update_resource` resource, `azapi_resource_action` resource, `azapi_data_plane_resource` resource, `azapi_resource_action` data source: The `body` field supports t...",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.13.0",
+        "version": "1.13.0"
+      },
+      {
+        "criticality": "medium",
+        "summary": "`azapi_resource` resource, `azapi_update_resource` resource, `azapi_resource_action` resource, `azapi_data_plane_resource` resource, `azapi_resource_action` data source, `azapi_resource` data sourc...",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.13.0",
+        "version": "1.13.0"
+      },
+      {
+        "criticality": "medium",
+        "summary": "`azapi_resource` resource, `azapi_update_resource` resource: Ignore the order of the elements in a list if the element has a `name` field as identifier.",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.13.0",
+        "version": "1.13.0"
+      },
+      {
+        "criticality": "low",
+        "summary": "Fix a bug that deploy time constants are not removed from the request body when using `azapi_update_resource` resource.",
+        "type": "documentation",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.10.0",
+        "version": "1.10.0"
+      },
+      {
+        "criticality": "low",
+        "summary": "`azapi_update_resource` resource: Support `ignore_body_changes` field, which is used to ignore some properties when comparing the resource with its current state.",
+        "type": "documentation",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.9.0",
+        "version": "1.9.0"
+      },
+      {
+        "criticality": "low",
+        "summary": "`azapi_update_resource`: `ignore_missing_property`'s default value changed from `false` to `true`.",
+        "type": "documentation",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.0.0",
+        "version": "1.0.0"
+      },
+      {
+        "criticality": "low",
+        "summary": "`azapi_update_resource`: Supports `locks` which used to prevent creating/modifying/deleting resources at the same time.",
+        "type": "documentation",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v0.4.0",
+        "version": "0.4.0"
+      },
+      {
+        "criticality": "low",
+        "summary": "Fix the modification is not working, when use `azapi_update_resource` to modify additional properties.",
+        "type": "documentation",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v0.2.1",
+        "version": "0.2.1"
+      },
+      {
+        "criticality": "low",
+        "summary": "Fix crash when use `azapi_update_resource` on a resource whose id is null",
+        "type": "documentation",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v0.2.1",
+        "version": "0.2.1"
+      }
+    ],
+    "issues": [
+      {
+        "created_at": "2026-04-05",
+        "labels": [],
+        "number": "1088",
+        "title": "azapi_update_resource' sends conflicting 'sharedKey' and 'sharedKeyLength' for VPN link shared keys",
+        "url": "https://github.com/Azure/terraform-provider-azapi/issues/1088"
+      },
+      {
+        "created_at": "2026-01-29",
+        "labels": [
+          "enhancement"
+        ],
+        "number": "1042",
+        "title": "Feature request: Add `azapi_data_plane_update_resource` (to support e.g. Key Vault key rotation policies)",
+        "url": "https://github.com/Azure/terraform-provider-azapi/issues/1042"
+      },
+      {
+        "created_at": "2026-01-27",
+        "labels": [
+          "enhancement"
+        ],
+        "number": "1039",
+        "title": "feature request: support ephemeral values on `azapi_resource_action` action and resource",
+        "url": "https://github.com/Azure/terraform-provider-azapi/issues/1039"
+      },
+      {
+        "created_at": "2025-08-20",
+        "labels": [
+          "enhancement"
+        ],
+        "number": "967",
+        "title": "Consider adding `when` to `azapi_update_resource` resource",
+        "url": "https://github.com/Azure/terraform-provider-azapi/issues/967"
+      },
+      {
+        "created_at": "2025-08-01",
+        "labels": [
+          "example"
+        ],
+        "number": "943",
+        "title": "`azapi_update_resource` with `Microsoft.App/managedEnvironments@2025-02-02-preview` doesn't set `headers` if using `sensitive_body`",
+        "url": "https://github.com/Azure/terraform-provider-azapi/issues/943"
+      },
+      {
+        "created_at": "2024-12-12",
+        "labels": [
+          "enhancement"
+        ],
+        "number": "693",
+        "title": "PATCH option for resource azapi_update_resource",
+        "url": "https://github.com/Azure/terraform-provider-azapi/issues/693"
+      },
+      {
+        "created_at": "2024-09-18",
+        "labels": [
+          "upstream-api"
+        ],
+        "number": "620",
+        "title": "Getting 404 with using azapi_update for Virtual Endpoints on Postgres Flexible Servers",
+        "url": "https://github.com/Azure/terraform-provider-azapi/issues/620"
+      }
+    ],
+    "issues_last_checked": "2026-05-13T06:39:29Z",
+    "provider": "azapi",
+    "registry_url": "https://registry.terraform.io/providers/azure/azapi/latest/docs/resources/update_resource",
+    "symbol_type": "resource",
+    "type": "azapi_update_resource",
+    "updates_last_checked": "2026-05-13T06:21:02Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azuread_directory_role.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "",
+    "provider": "azuread",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/directory_role",
+    "symbol_type": "resource",
+    "type": "azuread_directory_role",
+    "updates_last_checked": ""
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azuread_directory_role_assignment.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "",
+    "provider": "azuread",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/directory_role_assignment",
+    "symbol_type": "resource",
+    "type": "azuread_directory_role_assignment",
+    "updates_last_checked": ""
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_api_connection.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_connection",
+    "symbol_type": "resource",
+    "type": "azurerm_api_connection",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_api_management.yaml",
+    "findings": [],
+    "issues": [
+      {
+        "created_at": "2026-04-20",
+        "labels": [
+          "service/api-management",
+          "v/4.x"
+        ],
+        "number": "32208",
+        "title": "azurerm_api_management fails with 400 BadRequest against APIM credentials manager (system-assigned identity) \u2013 NotFound on credentials/v2/systemassigned",
+        "url": "https://github.com/hashicorp/terraform-provider-azurerm/issues/32208"
+      }
+    ],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management",
+    "symbol_type": "resource",
+    "type": "azurerm_api_management",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_api_management_api.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_api",
+    "symbol_type": "resource",
+    "type": "azurerm_api_management_api",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_api_management_api_operation.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_api_operation",
+    "symbol_type": "resource",
+    "type": "azurerm_api_management_api_operation",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_api_management_api_operation_policy.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_api_operation_policy",
+    "symbol_type": "resource",
+    "type": "azurerm_api_management_api_operation_policy",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_api_management_api_policy.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_api_policy",
+    "symbol_type": "resource",
+    "type": "azurerm_api_management_api_policy",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_api_management_api_version_set.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_api_version_set",
+    "symbol_type": "resource",
+    "type": "azurerm_api_management_api_version_set",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_api_management_backend.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_backend",
+    "symbol_type": "resource",
+    "type": "azurerm_api_management_backend",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_api_management_named_value.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_named_value",
+    "symbol_type": "resource",
+    "type": "azurerm_api_management_named_value",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_api_management_policy.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_policy",
+    "symbol_type": "resource",
+    "type": "azurerm_api_management_policy",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_api_management_product.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_product",
+    "symbol_type": "resource",
+    "type": "azurerm_api_management_product",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_api_management_product_api.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_product_api",
+    "symbol_type": "resource",
+    "type": "azurerm_api_management_product_api",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_api_management_product_group.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_product_group",
+    "symbol_type": "resource",
+    "type": "azurerm_api_management_product_group",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_api_management_subscription.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_subscription",
+    "symbol_type": "resource",
+    "type": "azurerm_api_management_subscription",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_application_gateway.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_gateway",
+    "symbol_type": "resource",
+    "type": "azurerm_application_gateway",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_application_insights.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_insights",
+    "symbol_type": "resource",
+    "type": "azurerm_application_insights",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_application_security_group.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_security_group",
+    "symbol_type": "resource",
+    "type": "azurerm_application_security_group",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_automation_account.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_account",
+    "symbol_type": "resource",
+    "type": "azurerm_automation_account",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_automation_certificate.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_certificate",
+    "symbol_type": "resource",
+    "type": "azurerm_automation_certificate",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_automation_connection.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_connection",
+    "symbol_type": "resource",
+    "type": "azurerm_automation_connection",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_automation_connection_certificate.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_connection_certificate",
+    "symbol_type": "resource",
+    "type": "azurerm_automation_connection_certificate",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_automation_connection_classic_certificate.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_connection_classic_certificate",
+    "symbol_type": "resource",
+    "type": "azurerm_automation_connection_classic_certificate",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_automation_connection_service_principal.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_connection_service_principal",
+    "symbol_type": "resource",
+    "type": "azurerm_automation_connection_service_principal",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_automation_credential.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_credential",
+    "symbol_type": "resource",
+    "type": "azurerm_automation_credential",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_automation_hybrid_runbook_worker.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_hybrid_runbook_worker",
+    "symbol_type": "resource",
+    "type": "azurerm_automation_hybrid_runbook_worker",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_automation_hybrid_runbook_worker_group.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_hybrid_runbook_worker_group",
+    "symbol_type": "resource",
+    "type": "azurerm_automation_hybrid_runbook_worker_group",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_automation_job_schedule.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_job_schedule",
+    "symbol_type": "resource",
+    "type": "azurerm_automation_job_schedule",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_automation_module.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_module",
+    "symbol_type": "resource",
+    "type": "azurerm_automation_module",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_automation_powershell72_module.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_powershell72_module",
+    "symbol_type": "resource",
+    "type": "azurerm_automation_powershell72_module",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_automation_python3_package.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_python3_package",
+    "symbol_type": "resource",
+    "type": "azurerm_automation_python3_package",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_automation_runbook.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_runbook",
+    "symbol_type": "resource",
+    "type": "azurerm_automation_runbook",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_automation_schedule.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_schedule",
+    "symbol_type": "resource",
+    "type": "azurerm_automation_schedule",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_automation_source_control.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_source_control",
+    "symbol_type": "resource",
+    "type": "azurerm_automation_source_control",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_automation_variable_bool.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_variable_bool",
+    "symbol_type": "resource",
+    "type": "azurerm_automation_variable_bool",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_automation_variable_datetime.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_variable_datetime",
+    "symbol_type": "resource",
+    "type": "azurerm_automation_variable_datetime",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_automation_variable_int.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_variable_int",
+    "symbol_type": "resource",
+    "type": "azurerm_automation_variable_int",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_automation_variable_object.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_variable_object",
+    "symbol_type": "resource",
+    "type": "azurerm_automation_variable_object",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_automation_variable_string.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_variable_string",
+    "symbol_type": "resource",
+    "type": "azurerm_automation_variable_string",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_automation_watcher.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_watcher",
+    "symbol_type": "resource",
+    "type": "azurerm_automation_watcher",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_automation_webhook.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_webhook",
+    "symbol_type": "resource",
+    "type": "azurerm_automation_webhook",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_backup_protected_vm.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/backup_protected_vm",
+    "symbol_type": "resource",
+    "type": "azurerm_backup_protected_vm",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_batch_account.yaml",
+    "findings": [],
+    "issues": [
+      {
+        "created_at": "2026-05-12",
+        "labels": [
+          "bug",
+          "service/storage",
+          "service/key-vault",
+          "service/mssql",
+          "service/batch",
+          "service/synapse",
+          "service/mssqlmanagedinstance",
+          "v/4.x"
+        ],
+        "number": "32382",
+        "title": "azurerm_mssql_managed_instance_transparent_data_encryption: persistent drift after Key Vault auto-rotation when auto_rotation_enabled = true",
+        "url": "https://github.com/hashicorp/terraform-provider-azurerm/issues/32382"
+      }
+    ],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/batch_account",
+    "symbol_type": "resource",
+    "type": "azurerm_batch_account",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_cdn_endpoint.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cdn_endpoint",
+    "symbol_type": "resource",
+    "type": "azurerm_cdn_endpoint",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_cdn_endpoint_custom_domain.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cdn_endpoint_custom_domain",
+    "symbol_type": "resource",
+    "type": "azurerm_cdn_endpoint_custom_domain",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_cdn_frontdoor_custom_domain.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cdn_frontdoor_custom_domain",
+    "symbol_type": "resource",
+    "type": "azurerm_cdn_frontdoor_custom_domain",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_cdn_frontdoor_custom_domain_association.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cdn_frontdoor_custom_domain_association",
+    "symbol_type": "resource",
+    "type": "azurerm_cdn_frontdoor_custom_domain_association",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_cdn_frontdoor_endpoint.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cdn_frontdoor_endpoint",
+    "symbol_type": "resource",
+    "type": "azurerm_cdn_frontdoor_endpoint",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_cdn_frontdoor_firewall_policy.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cdn_frontdoor_firewall_policy",
+    "symbol_type": "resource",
+    "type": "azurerm_cdn_frontdoor_firewall_policy",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_cdn_frontdoor_origin.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cdn_frontdoor_origin",
+    "symbol_type": "resource",
+    "type": "azurerm_cdn_frontdoor_origin",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_cdn_frontdoor_origin_group.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cdn_frontdoor_origin_group",
+    "symbol_type": "resource",
+    "type": "azurerm_cdn_frontdoor_origin_group",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_cdn_frontdoor_route.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cdn_frontdoor_route",
+    "symbol_type": "resource",
+    "type": "azurerm_cdn_frontdoor_route",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_cdn_frontdoor_rule.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cdn_frontdoor_rule",
+    "symbol_type": "resource",
+    "type": "azurerm_cdn_frontdoor_rule",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_cdn_frontdoor_rule_set.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cdn_frontdoor_rule_set",
+    "symbol_type": "resource",
+    "type": "azurerm_cdn_frontdoor_rule_set",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_cdn_frontdoor_secret.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cdn_frontdoor_secret",
+    "symbol_type": "resource",
+    "type": "azurerm_cdn_frontdoor_secret",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_cdn_frontdoor_security_policy.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cdn_frontdoor_security_policy",
+    "symbol_type": "resource",
+    "type": "azurerm_cdn_frontdoor_security_policy",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_cognitive_account_customer_managed_key.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cognitive_account_customer_managed_key",
+    "symbol_type": "resource",
+    "type": "azurerm_cognitive_account_customer_managed_key",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_container_app_job.yaml",
+    "findings": [],
+    "issues": [
+      {
+        "created_at": "2026-04-24",
+        "labels": [
+          "new-data-source",
+          "service/container-apps"
+        ],
+        "number": "32244",
+        "title": "Support for new data source for `azurerm_container_app_job`",
+        "url": "https://github.com/hashicorp/terraform-provider-azurerm/issues/32244"
+      }
+    ],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/container_app_job",
+    "symbol_type": "resource",
+    "type": "azurerm_container_app_job",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_container_group.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/container_group",
+    "symbol_type": "resource",
+    "type": "azurerm_container_group",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_container_registry.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/container_registry",
+    "symbol_type": "resource",
+    "type": "azurerm_container_registry",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_cosmosdb_account.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cosmosdb_account",
+    "symbol_type": "resource",
+    "type": "azurerm_cosmosdb_account",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_cosmosdb_gremlin_database.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cosmosdb_gremlin_database",
+    "symbol_type": "resource",
+    "type": "azurerm_cosmosdb_gremlin_database",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_cosmosdb_gremlin_graph.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cosmosdb_gremlin_graph",
+    "symbol_type": "resource",
+    "type": "azurerm_cosmosdb_gremlin_graph",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_cosmosdb_mongo_collection.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cosmosdb_mongo_collection",
+    "symbol_type": "resource",
+    "type": "azurerm_cosmosdb_mongo_collection",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_cosmosdb_mongo_database.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cosmosdb_mongo_database",
+    "symbol_type": "resource",
+    "type": "azurerm_cosmosdb_mongo_database",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_cosmosdb_sql_container.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cosmosdb_sql_container",
+    "symbol_type": "resource",
+    "type": "azurerm_cosmosdb_sql_container",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_cosmosdb_sql_database.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cosmosdb_sql_database",
+    "symbol_type": "resource",
+    "type": "azurerm_cosmosdb_sql_database",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_cosmosdb_sql_dedicated_gateway.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cosmosdb_sql_dedicated_gateway",
+    "symbol_type": "resource",
+    "type": "azurerm_cosmosdb_sql_dedicated_gateway",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_cosmosdb_sql_function.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cosmosdb_sql_function",
+    "symbol_type": "resource",
+    "type": "azurerm_cosmosdb_sql_function",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_cosmosdb_sql_stored_procedure.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cosmosdb_sql_stored_procedure",
+    "symbol_type": "resource",
+    "type": "azurerm_cosmosdb_sql_stored_procedure",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_cosmosdb_sql_trigger.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cosmosdb_sql_trigger",
+    "symbol_type": "resource",
+    "type": "azurerm_cosmosdb_sql_trigger",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_data_factory.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/data_factory",
+    "symbol_type": "resource",
+    "type": "azurerm_data_factory",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_data_factory_credential_service_principal.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/data_factory_credential_service_principal",
+    "symbol_type": "resource",
+    "type": "azurerm_data_factory_credential_service_principal",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_data_factory_credential_user_managed_identity.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/data_factory_credential_user_managed_identity",
+    "symbol_type": "resource",
+    "type": "azurerm_data_factory_credential_user_managed_identity",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_data_factory_linked_service_azure_blob_storage.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/data_factory_linked_service_azure_blob_storage",
+    "symbol_type": "resource",
+    "type": "azurerm_data_factory_linked_service_azure_blob_storage",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_data_factory_linked_service_azure_databricks.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/data_factory_linked_service_azure_databricks",
+    "symbol_type": "resource",
+    "type": "azurerm_data_factory_linked_service_azure_databricks",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_data_factory_linked_service_azure_file_storage.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/data_factory_linked_service_azure_file_storage",
+    "symbol_type": "resource",
+    "type": "azurerm_data_factory_linked_service_azure_file_storage",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_data_factory_linked_service_azure_sql_database.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/data_factory_linked_service_azure_sql_database",
+    "symbol_type": "resource",
+    "type": "azurerm_data_factory_linked_service_azure_sql_database",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_data_factory_linked_service_cosmosdb_mongoapi.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/data_factory_linked_service_cosmosdb_mongoapi",
+    "symbol_type": "resource",
+    "type": "azurerm_data_factory_linked_service_cosmosdb_mongoapi",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_data_factory_linked_service_data_lake_storage_gen2.yaml",
+    "findings": [
+      {
+        "criticality": "low",
+        "summary": "`azurerm_data_factory_linked_service_data_lake_storage_gen2` - set schema fields `service_principal_key` and `storage_account_key` as sensitive ()",
+        "type": "documentation",
+        "url": "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.72.0",
+        "version": "4.72.0"
+      }
+    ],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/data_factory_linked_service_data_lake_storage_gen2",
+    "symbol_type": "resource",
+    "type": "azurerm_data_factory_linked_service_data_lake_storage_gen2",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_data_factory_linked_service_key_vault.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/data_factory_linked_service_key_vault",
+    "symbol_type": "resource",
+    "type": "azurerm_data_factory_linked_service_key_vault",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_databricks_access_connector.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/databricks_access_connector",
+    "symbol_type": "resource",
+    "type": "azurerm_databricks_access_connector",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_databricks_virtual_network_peering.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/databricks_virtual_network_peering",
+    "symbol_type": "resource",
+    "type": "azurerm_databricks_virtual_network_peering",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_databricks_workspace.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/databricks_workspace",
+    "symbol_type": "resource",
+    "type": "azurerm_databricks_workspace",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_databricks_workspace_root_dbfs_customer_managed_key.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/databricks_workspace_root_dbfs_customer_managed_key",
+    "symbol_type": "resource",
+    "type": "azurerm_databricks_workspace_root_dbfs_customer_managed_key",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_dedicated_host.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/dedicated_host",
+    "symbol_type": "resource",
+    "type": "azurerm_dedicated_host",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_dedicated_host_group.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/dedicated_host_group",
+    "symbol_type": "resource",
+    "type": "azurerm_dedicated_host_group",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_dev_center.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/dev_center",
+    "symbol_type": "resource",
+    "type": "azurerm_dev_center",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_dev_test_global_vm_shutdown_schedule.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/dev_test_global_vm_shutdown_schedule",
+    "symbol_type": "resource",
+    "type": "azurerm_dev_test_global_vm_shutdown_schedule",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_disk_encryption_set.yaml",
+    "findings": [],
+    "issues": [
+      {
+        "created_at": "2026-05-12",
+        "labels": [
+          "bug",
+          "service/storage",
+          "service/key-vault",
+          "service/mssql",
+          "service/batch",
+          "service/synapse",
+          "service/mssqlmanagedinstance",
+          "v/4.x"
+        ],
+        "number": "32382",
+        "title": "azurerm_mssql_managed_instance_transparent_data_encryption: persistent drift after Key Vault auto-rotation when auto_rotation_enabled = true",
+        "url": "https://github.com/hashicorp/terraform-provider-azurerm/issues/32382"
+      }
+    ],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/disk_encryption_set",
+    "symbol_type": "resource",
+    "type": "azurerm_disk_encryption_set",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_dns_a_record.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/dns_a_record",
+    "symbol_type": "resource",
+    "type": "azurerm_dns_a_record",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_dns_aaaa_record.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/dns_aaaa_record",
+    "symbol_type": "resource",
+    "type": "azurerm_dns_aaaa_record",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_dns_caa_record.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/dns_caa_record",
+    "symbol_type": "resource",
+    "type": "azurerm_dns_caa_record",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_dns_cname_record.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/dns_cname_record",
+    "symbol_type": "resource",
+    "type": "azurerm_dns_cname_record",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_dns_mx_record.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/dns_mx_record",
+    "symbol_type": "resource",
+    "type": "azurerm_dns_mx_record",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_dns_ns_record.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/dns_ns_record",
+    "symbol_type": "resource",
+    "type": "azurerm_dns_ns_record",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_dns_ptr_record.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/dns_ptr_record",
+    "symbol_type": "resource",
+    "type": "azurerm_dns_ptr_record",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_dns_srv_record.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/dns_srv_record",
+    "symbol_type": "resource",
+    "type": "azurerm_dns_srv_record",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_dns_txt_record.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/dns_txt_record",
+    "symbol_type": "resource",
+    "type": "azurerm_dns_txt_record",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_dns_zone.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/dns_zone",
+    "symbol_type": "resource",
+    "type": "azurerm_dns_zone",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_eventhub.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub",
+    "symbol_type": "resource",
+    "type": "azurerm_eventhub",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_eventhub_namespace.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_namespace",
+    "symbol_type": "resource",
+    "type": "azurerm_eventhub_namespace",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_express_route_circuit.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/express_route_circuit",
+    "symbol_type": "resource",
+    "type": "azurerm_express_route_circuit",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_express_route_circuit_authorization.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/express_route_circuit_authorization",
+    "symbol_type": "resource",
+    "type": "azurerm_express_route_circuit_authorization",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_express_route_circuit_connection.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/express_route_circuit_connection",
+    "symbol_type": "resource",
+    "type": "azurerm_express_route_circuit_connection",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_express_route_circuit_peering.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/express_route_circuit_peering",
+    "symbol_type": "resource",
+    "type": "azurerm_express_route_circuit_peering",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_express_route_connection.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/express_route_connection",
+    "symbol_type": "resource",
+    "type": "azurerm_express_route_connection",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_federated_identity_credential.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/federated_identity_credential",
+    "symbol_type": "resource",
+    "type": "azurerm_federated_identity_credential",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_firewall.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/firewall",
+    "symbol_type": "resource",
+    "type": "azurerm_firewall",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_firewall_application_rule_collection.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/firewall_application_rule_collection",
+    "symbol_type": "resource",
+    "type": "azurerm_firewall_application_rule_collection",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_firewall_network_rule_collection.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/firewall_network_rule_collection",
+    "symbol_type": "resource",
+    "type": "azurerm_firewall_network_rule_collection",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_firewall_policy.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/firewall_policy",
+    "symbol_type": "resource",
+    "type": "azurerm_firewall_policy",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_key_vault.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault",
+    "symbol_type": "resource",
+    "type": "azurerm_key_vault",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_key_vault_access_policy.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_access_policy",
+    "symbol_type": "resource",
+    "type": "azurerm_key_vault_access_policy",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_key_vault_certificate_contacts.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_certificate_contacts",
+    "symbol_type": "resource",
+    "type": "azurerm_key_vault_certificate_contacts",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_key_vault_secret.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret",
+    "symbol_type": "resource",
+    "type": "azurerm_key_vault_secret",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_kubernetes_cluster.yaml",
+    "findings": [],
+    "issues": [
+      {
+        "created_at": "2026-05-06",
+        "labels": [
+          "enhancement",
+          "service/kubernetes-cluster"
+        ],
+        "number": "32330",
+        "title": "Support localDNSProfile on azurerm_kubernetes_cluster_node_pool",
+        "url": "https://github.com/hashicorp/terraform-provider-azurerm/issues/32330"
+      }
+    ],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kubernetes_cluster",
+    "symbol_type": "resource",
+    "type": "azurerm_kubernetes_cluster",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_kubernetes_cluster_node_pool.yaml",
+    "findings": [],
+    "issues": [
+      {
+        "created_at": "2026-05-06",
+        "labels": [
+          "enhancement",
+          "service/kubernetes-cluster"
+        ],
+        "number": "32330",
+        "title": "Support localDNSProfile on azurerm_kubernetes_cluster_node_pool",
+        "url": "https://github.com/hashicorp/terraform-provider-azurerm/issues/32330"
+      }
+    ],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kubernetes_cluster_node_pool",
+    "symbol_type": "resource",
+    "type": "azurerm_kubernetes_cluster_node_pool",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_kusto_cluster.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kusto_cluster",
+    "symbol_type": "resource",
+    "type": "azurerm_kusto_cluster",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_lb.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/lb",
+    "symbol_type": "resource",
+    "type": "azurerm_lb",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_lb_backend_address_pool.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/lb_backend_address_pool",
+    "symbol_type": "resource",
+    "type": "azurerm_lb_backend_address_pool",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_lb_backend_address_pool_address.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/lb_backend_address_pool_address",
+    "symbol_type": "resource",
+    "type": "azurerm_lb_backend_address_pool_address",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_lb_nat_pool.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/lb_nat_pool",
+    "symbol_type": "resource",
+    "type": "azurerm_lb_nat_pool",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_lb_nat_rule.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/lb_nat_rule",
+    "symbol_type": "resource",
+    "type": "azurerm_lb_nat_rule",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_lb_outbound_rule.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/lb_outbound_rule",
+    "symbol_type": "resource",
+    "type": "azurerm_lb_outbound_rule",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_lb_probe.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/lb_probe",
+    "symbol_type": "resource",
+    "type": "azurerm_lb_probe",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_lb_rule.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/lb_rule",
+    "symbol_type": "resource",
+    "type": "azurerm_lb_rule",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_linux_virtual_machine.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_virtual_machine",
+    "symbol_type": "resource",
+    "type": "azurerm_linux_virtual_machine",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_local_network_gateway.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/local_network_gateway",
+    "symbol_type": "resource",
+    "type": "azurerm_local_network_gateway",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_log_analytics_linked_service.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/log_analytics_linked_service",
+    "symbol_type": "resource",
+    "type": "azurerm_log_analytics_linked_service",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_log_analytics_linked_storage_account.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/log_analytics_linked_storage_account",
+    "symbol_type": "resource",
+    "type": "azurerm_log_analytics_linked_storage_account",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_log_analytics_workspace.yaml",
+    "findings": [
+      {
+        "criticality": "low",
+        "summary": "`azurerm_log_analytics_workspace` - add support for the `10000`, `25000` and `50000` values in the `reservation_capacity_in_gb_per_day` property ()",
+        "type": "documentation",
+        "url": "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.72.0",
+        "version": "4.72.0"
+      }
+    ],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/log_analytics_workspace",
+    "symbol_type": "resource",
+    "type": "azurerm_log_analytics_workspace",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_log_analytics_workspace_table.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/log_analytics_workspace_table",
+    "symbol_type": "resource",
+    "type": "azurerm_log_analytics_workspace_table",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_maintenance_assignment_virtual_machine.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/maintenance_assignment_virtual_machine",
+    "symbol_type": "resource",
+    "type": "azurerm_maintenance_assignment_virtual_machine",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_managed_disk.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/managed_disk",
+    "symbol_type": "resource",
+    "type": "azurerm_managed_disk",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_management_lock.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/management_lock",
+    "symbol_type": "resource",
+    "type": "azurerm_management_lock",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_monitor_autoscale_setting.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/monitor_autoscale_setting",
+    "symbol_type": "resource",
+    "type": "azurerm_monitor_autoscale_setting",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_monitor_data_collection_rule.yaml",
+    "findings": [
+      {
+        "criticality": "low",
+        "summary": "`azurerm_monitor_data_collection_rule` - improve validation for `data_sources.*.name` ()",
+        "type": "documentation",
+        "url": "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.49.0",
+        "version": "4.49.0"
+      },
+      {
+        "criticality": "low",
+        "summary": "`azurerm_monitor_data_collection_rule` - update `performance_counter.x.sampling_frequency_in_seconds` range `1` to `1800` ()",
+        "type": "documentation",
+        "url": "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.115.0",
+        "version": "3.115.0"
+      }
+    ],
+    "issues": [],
+    "issues_last_checked": "",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/monitor_data_collection_rule",
+    "symbol_type": "resource",
+    "type": "azurerm_monitor_data_collection_rule",
+    "updates_last_checked": "2026-05-13T09:54:43Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_monitor_diagnostic_setting.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/monitor_diagnostic_setting",
+    "symbol_type": "resource",
+    "type": "azurerm_monitor_diagnostic_setting",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_monitor_metric_alert.yaml",
+    "findings": [],
+    "issues": [
+      {
+        "created_at": "2026-04-29",
+        "labels": [
+          "enhancement",
+          "service/monitor",
+          "service/application-insights",
+          "sdk/requires-upgrade",
+          "service/resource"
+        ],
+        "number": "32274",
+        "title": "azurerm_monitor_scheduled_query_rules_alert_v2: support dynamic threshold criteria (DynamicThresholdCriterion)",
+        "url": "https://github.com/hashicorp/terraform-provider-azurerm/issues/32274"
+      }
+    ],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/monitor_metric_alert",
+    "symbol_type": "resource",
+    "type": "azurerm_monitor_metric_alert",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_monitor_private_link_scoped_service.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/monitor_private_link_scoped_service",
+    "symbol_type": "resource",
+    "type": "azurerm_monitor_private_link_scoped_service",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_mssql_firewall_rule.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_firewall_rule",
+    "symbol_type": "resource",
+    "type": "azurerm_mssql_firewall_rule",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_mssql_managed_database.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_managed_database",
+    "symbol_type": "resource",
+    "type": "azurerm_mssql_managed_database",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_mssql_managed_instance.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_managed_instance",
+    "symbol_type": "resource",
+    "type": "azurerm_mssql_managed_instance",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_mssql_managed_instance_failover_group.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_managed_instance_failover_group",
+    "symbol_type": "resource",
+    "type": "azurerm_mssql_managed_instance_failover_group",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_mssql_managed_instance_transparent_data_encryption.yaml",
+    "findings": [],
+    "issues": [
+      {
+        "created_at": "2026-05-12",
+        "labels": [
+          "bug",
+          "service/storage",
+          "service/key-vault",
+          "service/mssql",
+          "service/batch",
+          "service/synapse",
+          "service/mssqlmanagedinstance",
+          "v/4.x"
+        ],
+        "number": "32382",
+        "title": "azurerm_mssql_managed_instance_transparent_data_encryption: persistent drift after Key Vault auto-rotation when auto_rotation_enabled = true",
+        "url": "https://github.com/hashicorp/terraform-provider-azurerm/issues/32382"
+      }
+    ],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_managed_instance_transparent_data_encryption",
+    "symbol_type": "resource",
+    "type": "azurerm_mssql_managed_instance_transparent_data_encryption",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_mssql_server.yaml",
+    "findings": [],
+    "issues": [
+      {
+        "created_at": "2026-05-05",
+        "labels": [
+          "bug",
+          "service/mssql",
+          "v/4.x"
+        ],
+        "number": "32313",
+        "title": "`azurerm_mssql_server` fails to generate server and states  it could not create the `connection_policy`",
+        "url": "https://github.com/hashicorp/terraform-provider-azurerm/issues/32313"
+      },
+      {
+        "created_at": "2026-04-16",
+        "labels": [
+          "enhancement",
+          "new-resource",
+          "service/mssql",
+          "v/4.x"
+        ],
+        "number": "32182",
+        "title": "Support for [azurerm_mssql_server] : azuread_administrator to allow policy-managed Entra admin",
+        "url": "https://github.com/hashicorp/terraform-provider-azurerm/issues/32182"
+      }
+    ],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_server",
+    "symbol_type": "resource",
+    "type": "azurerm_mssql_server",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_mysql_flexible_database.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_flexible_database",
+    "symbol_type": "resource",
+    "type": "azurerm_mysql_flexible_database",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_mysql_flexible_server.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_flexible_server",
+    "symbol_type": "resource",
+    "type": "azurerm_mysql_flexible_server",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_mysql_flexible_server_active_directory_administrator.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_flexible_server_active_directory_administrator",
+    "symbol_type": "resource",
+    "type": "azurerm_mysql_flexible_server_active_directory_administrator",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_mysql_flexible_server_configuration.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_flexible_server_configuration",
+    "symbol_type": "resource",
+    "type": "azurerm_mysql_flexible_server_configuration",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_mysql_flexible_server_firewall_rule.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_flexible_server_firewall_rule",
+    "symbol_type": "resource",
+    "type": "azurerm_mysql_flexible_server_firewall_rule",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_network_connection_monitor.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_connection_monitor",
+    "symbol_type": "resource",
+    "type": "azurerm_network_connection_monitor",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_network_ddos_protection_plan.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_ddos_protection_plan",
+    "symbol_type": "resource",
+    "type": "azurerm_network_ddos_protection_plan",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_network_interface.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_interface",
+    "symbol_type": "resource",
+    "type": "azurerm_network_interface",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_network_interface_application_gateway_backend_address_pool_association.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_interface_application_gateway_backend_address_pool_association",
+    "symbol_type": "resource",
+    "type": "azurerm_network_interface_application_gateway_backend_address_pool_association",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_network_interface_application_security_group_association.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_interface_application_security_group_association",
+    "symbol_type": "resource",
+    "type": "azurerm_network_interface_application_security_group_association",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_network_interface_backend_address_pool_association.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_interface_backend_address_pool_association",
+    "symbol_type": "resource",
+    "type": "azurerm_network_interface_backend_address_pool_association",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_network_interface_nat_rule_association.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_interface_nat_rule_association",
+    "symbol_type": "resource",
+    "type": "azurerm_network_interface_nat_rule_association",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_network_interface_security_group_association.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_interface_security_group_association",
+    "symbol_type": "resource",
+    "type": "azurerm_network_interface_security_group_association",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_network_manager.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_manager",
+    "symbol_type": "resource",
+    "type": "azurerm_network_manager",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_network_security_group.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_group",
+    "symbol_type": "resource",
+    "type": "azurerm_network_security_group",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_network_security_rule.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_rule",
+    "symbol_type": "resource",
+    "type": "azurerm_network_security_rule",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_portal_dashboard.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/portal_dashboard",
+    "symbol_type": "resource",
+    "type": "azurerm_portal_dashboard",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_postgresql_flexible_server.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server",
+    "symbol_type": "resource",
+    "type": "azurerm_postgresql_flexible_server",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_postgresql_flexible_server_active_directory_administrator.yaml",
+    "findings": [],
+    "issues": [
+      {
+        "created_at": "2026-04-16",
+        "labels": [
+          "enhancement",
+          "new-resource",
+          "service/mssql",
+          "v/4.x"
+        ],
+        "number": "32182",
+        "title": "Support for [azurerm_mssql_server] : azuread_administrator to allow policy-managed Entra admin",
+        "url": "https://github.com/hashicorp/terraform-provider-azurerm/issues/32182"
+      }
+    ],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_active_directory_administrator",
+    "symbol_type": "resource",
+    "type": "azurerm_postgresql_flexible_server_active_directory_administrator",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_postgresql_flexible_server_configuration.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_configuration",
+    "symbol_type": "resource",
+    "type": "azurerm_postgresql_flexible_server_configuration",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_postgresql_flexible_server_firewall_rule.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_firewall_rule",
+    "symbol_type": "resource",
+    "type": "azurerm_postgresql_flexible_server_firewall_rule",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_postgresql_flexible_server_virtual_endpoint.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_virtual_endpoint",
+    "symbol_type": "resource",
+    "type": "azurerm_postgresql_flexible_server_virtual_endpoint",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_private_dns_resolver.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_dns_resolver",
+    "symbol_type": "resource",
+    "type": "azurerm_private_dns_resolver",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_private_dns_resolver_dns_forwarding_ruleset.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_dns_resolver_dns_forwarding_ruleset",
+    "symbol_type": "resource",
+    "type": "azurerm_private_dns_resolver_dns_forwarding_ruleset",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_private_dns_resolver_forwarding_rule.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_dns_resolver_forwarding_rule",
+    "symbol_type": "resource",
+    "type": "azurerm_private_dns_resolver_forwarding_rule",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_private_dns_resolver_inbound_endpoint.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_dns_resolver_inbound_endpoint",
+    "symbol_type": "resource",
+    "type": "azurerm_private_dns_resolver_inbound_endpoint",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_private_dns_resolver_outbound_endpoint.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_dns_resolver_outbound_endpoint",
+    "symbol_type": "resource",
+    "type": "azurerm_private_dns_resolver_outbound_endpoint",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_private_dns_resolver_virtual_network_link.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_dns_resolver_virtual_network_link",
+    "symbol_type": "resource",
+    "type": "azurerm_private_dns_resolver_virtual_network_link",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_private_endpoint.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_endpoint",
+    "symbol_type": "resource",
+    "type": "azurerm_private_endpoint",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_private_endpoint_application_security_group_association.yaml",
+    "findings": [],
+    "issues": [
+      {
+        "created_at": "2026-05-06",
+        "labels": [
+          "bug",
+          "service/dns",
+          "service/network",
+          "v/4.x"
+        ],
+        "number": "32334",
+        "title": "`azurerm_private_endpoint_application_security_group_association` Produced an unexpected new value: Root object was present, but now absent.",
+        "url": "https://github.com/hashicorp/terraform-provider-azurerm/issues/32334"
+      }
+    ],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_endpoint_application_security_group_association",
+    "symbol_type": "resource",
+    "type": "azurerm_private_endpoint_application_security_group_association",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_proximity_placement_group.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/proximity_placement_group",
+    "symbol_type": "resource",
+    "type": "azurerm_proximity_placement_group",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_public_ip.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/public_ip",
+    "symbol_type": "resource",
+    "type": "azurerm_public_ip",
+    "updates_last_checked": ""
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_public_ip_prefix.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/public_ip_prefix",
+    "symbol_type": "resource",
+    "type": "azurerm_public_ip_prefix",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_redis_cache.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/redis_cache",
+    "symbol_type": "resource",
+    "type": "azurerm_redis_cache",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_redis_cache_access_policy.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/redis_cache_access_policy",
+    "symbol_type": "resource",
+    "type": "azurerm_redis_cache_access_policy",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_redis_cache_access_policy_assignment.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/redis_cache_access_policy_assignment",
+    "symbol_type": "resource",
+    "type": "azurerm_redis_cache_access_policy_assignment",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_redis_firewall_rule.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/redis_firewall_rule",
+    "symbol_type": "resource",
+    "type": "azurerm_redis_firewall_rule",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_redis_linked_server.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/redis_linked_server",
+    "symbol_type": "resource",
+    "type": "azurerm_redis_linked_server",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_resource_group.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/resource_group",
+    "symbol_type": "resource",
+    "type": "azurerm_resource_group",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_resource_group_template_deployment.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/resource_group_template_deployment",
+    "symbol_type": "resource",
+    "type": "azurerm_resource_group_template_deployment",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_role_assignment.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment",
+    "symbol_type": "resource",
+    "type": "azurerm_role_assignment",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_route.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/route",
+    "symbol_type": "resource",
+    "type": "azurerm_route",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_route_table.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/route_table",
+    "symbol_type": "resource",
+    "type": "azurerm_route_table",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_search_service.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/search_service",
+    "symbol_type": "resource",
+    "type": "azurerm_search_service",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_servicebus_namespace.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/servicebus_namespace",
+    "symbol_type": "resource",
+    "type": "azurerm_servicebus_namespace",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_servicebus_namespace_authorization_rule.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/servicebus_namespace_authorization_rule",
+    "symbol_type": "resource",
+    "type": "azurerm_servicebus_namespace_authorization_rule",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_servicebus_queue.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/servicebus_queue",
+    "symbol_type": "resource",
+    "type": "azurerm_servicebus_queue",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_servicebus_queue_authorization_rule.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/servicebus_queue_authorization_rule",
+    "symbol_type": "resource",
+    "type": "azurerm_servicebus_queue_authorization_rule",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_servicebus_subscription.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/servicebus_subscription",
+    "symbol_type": "resource",
+    "type": "azurerm_servicebus_subscription",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_servicebus_topic.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/servicebus_topic",
+    "symbol_type": "resource",
+    "type": "azurerm_servicebus_topic",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_servicebus_topic_authorization_rule.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/servicebus_topic_authorization_rule",
+    "symbol_type": "resource",
+    "type": "azurerm_servicebus_topic_authorization_rule",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_shared_image.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/shared_image",
+    "symbol_type": "resource",
+    "type": "azurerm_shared_image",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_shared_image_gallery.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/shared_image_gallery",
+    "symbol_type": "resource",
+    "type": "azurerm_shared_image_gallery",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_ssh_public_key.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/ssh_public_key",
+    "symbol_type": "resource",
+    "type": "azurerm_ssh_public_key",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_static_web_app.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/static_web_app",
+    "symbol_type": "resource",
+    "type": "azurerm_static_web_app",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_static_web_app_custom_domain.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/static_web_app_custom_domain",
+    "symbol_type": "resource",
+    "type": "azurerm_static_web_app_custom_domain",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_storage_account.yaml",
+    "findings": [],
+    "issues": [
+      {
+        "created_at": "2026-04-28",
+        "labels": [
+          "enhancement",
+          "service/storage",
+          "service/network"
+        ],
+        "number": "32263",
+        "title": "Support for azurerm_storage_account filtering /31 and /32 CIDRs from network_rules ip_rules",
+        "url": "https://github.com/hashicorp/terraform-provider-azurerm/issues/32263"
+      },
+      {
+        "created_at": "2026-04-14",
+        "labels": [
+          "enhancement",
+          "service/storage"
+        ],
+        "number": "32162",
+        "title": "CORS policy for `azurerm_storage_account`",
+        "url": "https://github.com/hashicorp/terraform-provider-azurerm/issues/32162"
+      },
+      {
+        "created_at": "2026-04-09",
+        "labels": [
+          "enhancement",
+          "service/storage",
+          "service/resource"
+        ],
+        "number": "32143",
+        "title": "azurerm_storage_account: Support for Geo Priority Replication (geoPriorityReplicationStatus)",
+        "url": "https://github.com/hashicorp/terraform-provider-azurerm/issues/32143"
+      }
+    ],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account",
+    "symbol_type": "resource",
+    "type": "azurerm_storage_account",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_subnet.yaml",
+    "findings": [
+      {
+        "criticality": "low",
+        "summary": "New List Resource**: `azurerm_subnet` ()",
+        "type": "documentation",
+        "url": "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.72.0",
+        "version": "4.72.0"
+      },
+      {
+        "criticality": "low",
+        "summary": "`azurerm_subnet` - add support for the `Microsoft.MessagingConnectors/connectors` value in the `delegation.service_delegation.name` property ()",
+        "type": "documentation",
+        "url": "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.72.0",
+        "version": "4.72.0"
+      }
+    ],
+    "issues": [
+      {
+        "created_at": "2026-04-28",
+        "labels": [
+          "bug",
+          "service/subnets",
+          "v/4.x"
+        ],
+        "number": "32258",
+        "title": "Bug: `number_of_ip_addresses` in `ip_address_pool` uses string comparison instead of numeric, blocking valid increases",
+        "url": "https://github.com/hashicorp/terraform-provider-azurerm/issues/32258"
+      }
+    ],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet",
+    "symbol_type": "resource",
+    "type": "azurerm_subnet",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_subnet_route_table_association.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet_route_table_association",
+    "symbol_type": "resource",
+    "type": "azurerm_subnet_route_table_association",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_user_assigned_identity.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/user_assigned_identity",
+    "symbol_type": "resource",
+    "type": "azurerm_user_assigned_identity",
+    "updates_last_checked": ""
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_virtual_desktop_application_group.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_desktop_application_group",
+    "symbol_type": "resource",
+    "type": "azurerm_virtual_desktop_application_group",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_virtual_desktop_host_pool.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_desktop_host_pool",
+    "symbol_type": "resource",
+    "type": "azurerm_virtual_desktop_host_pool",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_virtual_desktop_host_pool_registration_info.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_desktop_host_pool_registration_info",
+    "symbol_type": "resource",
+    "type": "azurerm_virtual_desktop_host_pool_registration_info",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_virtual_desktop_scaling_plan.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_desktop_scaling_plan",
+    "symbol_type": "resource",
+    "type": "azurerm_virtual_desktop_scaling_plan",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_virtual_desktop_workspace.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_desktop_workspace",
+    "symbol_type": "resource",
+    "type": "azurerm_virtual_desktop_workspace",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_virtual_desktop_workspace_application_group_association.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_desktop_workspace_application_group_association",
+    "symbol_type": "resource",
+    "type": "azurerm_virtual_desktop_workspace_application_group_association",
+    "updates_last_checked": "2026-05-13T09:54:43Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_virtual_hub_bgp_connection.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_hub_bgp_connection",
+    "symbol_type": "resource",
+    "type": "azurerm_virtual_hub_bgp_connection",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_virtual_machine_data_disk_attachment.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_machine_data_disk_attachment",
+    "symbol_type": "resource",
+    "type": "azurerm_virtual_machine_data_disk_attachment",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_virtual_network.yaml",
+    "findings": [
+      {
+        "criticality": "low",
+        "summary": "`azurerm_virtual_network` - add support for the `Microsoft.MessagingConnectors/connectors` value in the `subnet.delegation.service_delegation.name` property ()",
+        "type": "documentation",
+        "url": "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.72.0",
+        "version": "4.72.0"
+      }
+    ],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network",
+    "symbol_type": "resource",
+    "type": "azurerm_virtual_network",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_virtual_network_gateway_connection.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network_gateway_connection",
+    "symbol_type": "resource",
+    "type": "azurerm_virtual_network_gateway_connection",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_vmware_express_route_authorization.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/vmware_express_route_authorization",
+    "symbol_type": "resource",
+    "type": "azurerm_vmware_express_route_authorization",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_vmware_netapp_volume_attachment.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/vmware_netapp_volume_attachment",
+    "symbol_type": "resource",
+    "type": "azurerm_vmware_netapp_volume_attachment",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_web_application_firewall_policy.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/web_application_firewall_policy",
+    "symbol_type": "resource",
+    "type": "azurerm_web_application_firewall_policy",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/azurerm_windows_virtual_machine.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/windows_virtual_machine",
+    "symbol_type": "resource",
+    "type": "azurerm_windows_virtual_machine",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/modtm_telemetry.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "",
+    "provider": "modtm",
+    "registry_url": "https://registry.terraform.io/providers/azure/modtm/latest/docs/resources/telemetry",
+    "symbol_type": "resource",
+    "type": "modtm_telemetry",
+    "updates_last_checked": ""
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/null_resource.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "",
+    "provider": "null",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource",
+    "symbol_type": "resource",
+    "type": "null_resource",
+    "updates_last_checked": ""
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/random_id.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "",
+    "provider": "random",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id",
+    "symbol_type": "resource",
+    "type": "random_id",
+    "updates_last_checked": ""
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/random_integer.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "",
+    "provider": "random",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/integer",
+    "symbol_type": "resource",
+    "type": "random_integer",
+    "updates_last_checked": ""
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/random_password.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "",
+    "provider": "random",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password",
+    "symbol_type": "resource",
+    "type": "random_password",
+    "updates_last_checked": ""
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/random_string.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "",
+    "provider": "random",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string",
+    "symbol_type": "resource",
+    "type": "random_string",
+    "updates_last_checked": ""
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/random_uuid.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "",
+    "provider": "random",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/uuid",
+    "symbol_type": "resource",
+    "type": "random_uuid",
+    "updates_last_checked": ""
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/terraform_data.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "",
+    "provider": "terraform",
+    "registry_url": "",
+    "symbol_type": "resource",
+    "type": "terraform_data",
+    "updates_last_checked": ""
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/time_sleep.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "",
+    "provider": "time",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep",
+    "symbol_type": "resource",
+    "type": "time_sleep",
+    "updates_last_checked": ""
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/resources/tls_private_key.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "",
+    "provider": "tls",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/tls/latest/docs/resources/private_key",
+    "symbol_type": "resource",
+    "type": "tls_private_key",
+    "updates_last_checked": ""
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/datasources/azapi_client_config.yaml",
+    "findings": [
+      {
+        "criticality": "high",
+        "summary": "`azapi_client_config` data source: Fix a bug that specified subscription ID should not be overridden by Azure CLI default subscription ID.",
+        "type": "bug_fix",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.7.0",
+        "version": "2.7.0"
+      },
+      {
+        "criticality": "medium",
+        "summary": "`azapi_client_config` data source: Support `object_id` field.",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.1.0",
+        "version": "2.1.0"
+      }
+    ],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:39:29Z",
+    "provider": "azapi",
+    "registry_url": "https://registry.terraform.io/providers/azure/azapi/latest/docs/data-sources/client_config",
+    "symbol_type": "datasource",
+    "type": "azapi_client_config",
+    "updates_last_checked": "2026-05-13T06:21:02Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/datasources/azapi_resource.yaml",
+    "findings": [
+      {
+        "criticality": "medium",
+        "summary": "`azapi_resource`, `azapi_update_resource` resources: Support `list_unique_id_property` and `ignore_other_items_in_list` fields, which are used to manage list properties with unique identifiers (GH-...",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.9.0",
+        "version": "2.9.0"
+      },
+      {
+        "criticality": "high",
+        "summary": "`azapi_resource` resource: Fix embedded schema validation failure when the discriminator property is unknown (GH-1038).",
+        "type": "bug_fix",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.9.0",
+        "version": "2.9.0"
+      },
+      {
+        "criticality": "medium",
+        "summary": "`azapi_resource` resource: Add support for identity-based import, enabling import via resource ID and type from list resource protocol.",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.8.0",
+        "version": "2.8.0"
+      },
+      {
+        "criticality": "medium",
+        "summary": "`azapi_resource` resource: Support listing resources via new ListResource protocol.",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.8.0",
+        "version": "2.8.0"
+      },
+      {
+        "criticality": "medium",
+        "summary": "`azapi_resource` resource: Support listing all resources in a resource group when `type` is omitted. Uses ARM API `/subscriptions/{sub}/resourceGroups/{rg}/resources` to enumerate all resources.",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.8.0",
+        "version": "2.8.0"
+      },
+      {
+        "criticality": "medium",
+        "summary": "`azapi_resource` resource: Refactor import logic to support identity block and multiple import scenarios (ID only, ID with API version, ID and type).",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.8.0",
+        "version": "2.8.0"
+      },
+      {
+        "criticality": "high",
+        "summary": "Fix `azapi_resource` resource move from `azurerm_storage_share` by converting `/fileshares/` to `/shares/` in resource ID.",
+        "type": "bug_fix",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.8.0",
+        "version": "2.8.0"
+      },
+      {
+        "criticality": "medium",
+        "summary": "`azapi_resource` resource: Refactor move-state logic to centrally derive ARM IDs from data-plane IDs for selected azurerm resources.",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.7.0",
+        "version": "2.7.0"
+      },
+      {
+        "criticality": "medium",
+        "summary": "`azapi_resource` data source: Support `ignore_not_found` argument and `exists` computed field to optionally suppress 404 errors and expose resource existence.",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.7.0",
+        "version": "2.7.0"
+      },
+      {
+        "criticality": "high",
+        "summary": "`azapi_resource` resource: Support moving from `azurerm_storage_container` whose `id` is a data-plane URL by leveraging the `resource_manager_id` attribute (GH-955).",
+        "type": "bug_fix",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.7.0",
+        "version": "2.7.0"
+      },
+      {
+        "criticality": "high",
+        "summary": "`azapi_resource` resource: Support moving from `azurerm_key_vault_secret` whose `id` is a data-plane URL by leveraging the `resource_versionless_id` attribute (GH-917).",
+        "type": "bug_fix",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.7.0",
+        "version": "2.7.0"
+      },
+      {
+        "criticality": "high",
+        "summary": "`azapi_resource` resource: Support moving from `azurerm_key_vault_key` whose `id` is a data-plane URL by leveraging the `resource_versionless_id` attribute.",
+        "type": "bug_fix",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.7.0",
+        "version": "2.7.0"
+      },
+      {
+        "criticality": "medium",
+        "summary": "`azapi_resource` resource: ignore the changes when the `body` field matches the remote state even if the `body` field or `api-version` field is changed.",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.5.0",
+        "version": "2.5.0"
+      },
+      {
+        "criticality": "medium",
+        "summary": "`azapi_resource` resource: ignore the order of the `identity_ids` array.",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.5.0",
+        "version": "2.5.0"
+      },
+      {
+        "criticality": "medium",
+        "summary": "`azapi_resource` resource: support `ignore_null_property` field, which is used to ignore the null properties in the `body` field.",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.5.0",
+        "version": "2.5.0"
+      },
+      {
+        "criticality": "medium",
+        "summary": "`azapi_resource` resource: support `sensitive_body_version` field, which is used to manually control the version of the sensitive body.",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.5.0",
+        "version": "2.5.0"
+      },
+      {
+        "criticality": "medium",
+        "summary": "`azapi_resource` resource: Support schema validation in `terraform validate`.",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.4.0",
+        "version": "2.4.0"
+      },
+      {
+        "criticality": "medium",
+        "summary": "`azapi_resource` resource: Preflight validation supports nested resources.",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.4.0",
+        "version": "2.4.0"
+      },
+      {
+        "criticality": "medium",
+        "summary": "`azapi_resource`, `azapi_update_resource` resources: Support `sensitive_body` field, which is used to specify the write-only properties in the request body.",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.4.0",
+        "version": "2.4.0"
+      },
+      {
+        "criticality": "high",
+        "summary": "Fix a bug that after moving resource from `azurerm` provider, the `azapi_resource` resource could not be updated correctly.",
+        "type": "bug_fix",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.4.0",
+        "version": "2.4.0"
+      },
+      {
+        "criticality": "high",
+        "summary": "Fix a bug that `azapi_resource` is replaced if the API returns a readonly location.",
+        "type": "bug_fix",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.4.0",
+        "version": "2.4.0"
+      },
+      {
+        "criticality": "medium",
+        "summary": "`azapi_resource` resource: Improved 403 handling for management group resources to include child resources",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.2.0",
+        "version": "2.2.0"
+      },
+      {
+        "criticality": "medium",
+        "summary": "`azapi_resource` resource: Support resource move operation, it allows moving resources from `azurerm` provider.",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.1.0",
+        "version": "2.1.0"
+      },
+      {
+        "criticality": "critical",
+        "summary": "`azapi_resource`, `azapi_update_resource` resources and data sources' `output` field defaults to the readonly fields when the `response_export_values` is not specified.",
+        "type": "breaking_change",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.0.1",
+        "version": "2.0.1"
+      },
+      {
+        "criticality": "critical",
+        "summary": "The `azapi_resource`'s `removing_special_chars` field is removed. Please specify the `name` field and remove the special characters in the `name` field instead.",
+        "type": "breaking_change",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.0.1",
+        "version": "2.0.1"
+      },
+      {
+        "criticality": "critical",
+        "summary": "The `azapi_resource`'s `removing_special_chars` field is removed. Please specify the `name` field and remove the special characters in the `name` field instead.",
+        "type": "breaking_change",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.0.0-beta",
+        "version": "2.0.0-beta"
+      },
+      {
+        "criticality": "medium",
+        "summary": "`azapi_resource` and `azapi_data_plane_resource` resource: Support `replace_triggers_external_values` field which is used to trigger a replacement of the resource.",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.0.0-beta",
+        "version": "2.0.0-beta"
+      },
+      {
+        "criticality": "medium",
+        "summary": "`azapi_resource` and `azapi_data_plane_resource` resource: Support `replace_triggers_refs` field which is used to trigger a replacement of the resource.",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.0.0-beta",
+        "version": "2.0.0-beta"
+      },
+      {
+        "criticality": "medium",
+        "summary": "`azapi_resource`, `azapi_update_resource`, `azapi_resource_action`, `azapi_data_plane_resource` resources: Support `timeouts.update` field, which is used to specify the timeout for the update opera...",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.14.0",
+        "version": "1.14.0"
+      },
+      {
+        "criticality": "high",
+        "summary": "Fix a bug that `azapi_resource` will crash when the `location` in GET response is null.",
+        "type": "bug_fix",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.14.0",
+        "version": "1.14.0"
+      },
+      {
+        "criticality": "high",
+        "summary": "Fix a bug that `azapi_resource` only supports extension resource on a resource group scoped resource.",
+        "type": "bug_fix",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.14.0",
+        "version": "1.14.0"
+      },
+      {
+        "criticality": "medium",
+        "summary": "`azapi_resource` data source: The `output` field changes from JSON string to HCL object. Users can use access the fields in the output as an HCL object. Please remove the `jsondecode` function when...",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.13.1",
+        "version": "1.13.1"
+      },
+      {
+        "criticality": "high",
+        "summary": "Fix a bug when upgrading from previous provider `azapi_resource` resource will set `tags` and `location` for resources that don't have `tags` or `location` in the configuration.",
+        "type": "bug_fix",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.13.1",
+        "version": "1.13.1"
+      },
+      {
+        "criticality": "high",
+        "summary": "Fix a bug that `azapi_resource` resource cannot handle tags with unknown values.",
+        "type": "bug_fix",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.13.1",
+        "version": "1.13.1"
+      },
+      {
+        "criticality": "critical",
+        "summary": "2. The `azapi_resource`'s `removing_special_chars` field is deprecated. It will not work in this release and will be removed in the next major release.",
+        "type": "breaking_change",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.13.0",
+        "version": "1.13.0"
+      },
+      {
+        "criticality": "critical",
+        "summary": "4. `azapi_resource` data source, azapi_resource_list` data source: The `output` field changes from JSON string to HCL object. Users can use access the fields in the output as an HCL object. Please ...",
+        "type": "breaking_change",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.13.0",
+        "version": "1.13.0"
+      },
+      {
+        "criticality": "medium",
+        "summary": "`azapi_resource` resource, `azapi_update_resource` resource, `azapi_resource_action` resource, `azapi_data_plane_resource` resource, `azapi_resource_action` data source: The `body` field supports t...",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.13.0",
+        "version": "1.13.0"
+      },
+      {
+        "criticality": "medium",
+        "summary": "`azapi_resource` resource, `azapi_update_resource` resource, `azapi_resource_action` resource, `azapi_data_plane_resource` resource, `azapi_resource_action` data source, `azapi_resource` data sourc...",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.13.0",
+        "version": "1.13.0"
+      },
+      {
+        "criticality": "medium",
+        "summary": "`azapi_resource` resource, `azapi_update_resource` resource, `azapi_resource_action` resource, `azapi_data_plane_resource` resource, `azapi_resource_action` data source, `azapi_resource` data sourc...",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.13.0",
+        "version": "1.13.0"
+      },
+      {
+        "criticality": "medium",
+        "summary": "`azapi_resource` resource, `azapi_update_resource` resource: Ignore the order of the elements in a list if the element has a `name` field as identifier.",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.13.0",
+        "version": "1.13.0"
+      },
+      {
+        "criticality": "low",
+        "summary": "Fix a bug that `azapi_resource` removes some required fields in the `body` when using `ignore_body_changes` feature.",
+        "type": "documentation",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.12.1",
+        "version": "1.12.1"
+      },
+      {
+        "criticality": "low",
+        "summary": "The `azapi_resource`'s `removing_special_chars` field is deprecated. It will not work in the next minor release and will be removed in the next major release.",
+        "type": "documentation",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.12.0",
+        "version": "1.12.0"
+      },
+      {
+        "criticality": "low",
+        "summary": "`azapi_resource` data source: When creating `Microsoft.Resources/subscriptions`, `resource_id` is optional and defaults to the ID of the default subscription.",
+        "type": "documentation",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.10.0",
+        "version": "1.10.0"
+      },
+      {
+        "criticality": "low",
+        "summary": "`azapi_resource` resource/data source: When creating `Microsoft.Resources/resourceGroups`, `parent_id` is optional and defaults to the ID of the default subscription.",
+        "type": "documentation",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.9.0",
+        "version": "1.9.0"
+      },
+      {
+        "criticality": "low",
+        "summary": "`azapi_resource` resource: Support `ignore_body_changes` field, which is used to ignore some properties when comparing the resource with its current state.",
+        "type": "documentation",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.9.0",
+        "version": "1.9.0"
+      },
+      {
+        "criticality": "low",
+        "summary": "Fix a bug that `azapi_resource` resource doesn't store the `id` in the state when error happens during the creation.",
+        "type": "documentation",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.9.0",
+        "version": "1.9.0"
+      },
+      {
+        "criticality": "low",
+        "summary": "`azapi_resource`: `ignore_missing_property` will also ignore the sensitive properties returned in asterisks.",
+        "type": "documentation",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.3.0",
+        "version": "1.3.0"
+      },
+      {
+        "criticality": "low",
+        "summary": "`azapi_resource`: `ignore_missing_property`'s default value changed from `false` to `true`.",
+        "type": "documentation",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.0.0",
+        "version": "1.0.0"
+      },
+      {
+        "criticality": "low",
+        "summary": "`azapi_resource`: Supports default api-version when importing existing resource into terraform state.",
+        "type": "documentation",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v0.4.0",
+        "version": "0.4.0"
+      },
+      {
+        "criticality": "low",
+        "summary": "`azapi_resource`: Supports `locks` which used to prevent creating/modifying/deleting resources at the same time.",
+        "type": "documentation",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v0.4.0",
+        "version": "0.4.0"
+      },
+      {
+        "criticality": "low",
+        "summary": "`azapi_resource` data source: Supports configuring `resource_id` as an alternative way to configure `name` and `parent_id`.",
+        "type": "documentation",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v0.4.0",
+        "version": "0.4.0"
+      },
+      {
+        "criticality": "low",
+        "summary": "Fix incorrect ID format in the imported `azapi_resource` resource.",
+        "type": "documentation",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v0.2.0",
+        "version": "0.2.0"
+      },
+      {
+        "criticality": "low",
+        "summary": "Fix incorrect `body` content in the imported `azapi_resource` resource.",
+        "type": "documentation",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v0.2.0",
+        "version": "0.2.0"
+      }
+    ],
+    "issues": [
+      {
+        "created_at": "2026-04-27",
+        "labels": [],
+        "number": "1110",
+        "title": "azapi_resource: in-flight Create not preserved in state when terraform receives SIGINT (resource left orphaned in Azure)",
+        "url": "https://github.com/Azure/terraform-provider-azapi/issues/1110"
+      },
+      {
+        "created_at": "2026-04-17",
+        "labels": [],
+        "number": "1098",
+        "title": "`azapi_resource` fails to read resources when Azure API returns UTF-8 BOM in JSON response",
+        "url": "https://github.com/Azure/terraform-provider-azapi/issues/1098"
+      },
+      {
+        "created_at": "2026-01-27",
+        "labels": [
+          "enhancement"
+        ],
+        "number": "1039",
+        "title": "feature request: support ephemeral values on `azapi_resource_action` action and resource",
+        "url": "https://github.com/Azure/terraform-provider-azapi/issues/1039"
+      },
+      {
+        "created_at": "2025-06-17",
+        "labels": [
+          "upstream-api"
+        ],
+        "number": "899",
+        "title": "`azapi_resource`: unable to manage `Microsoft.Marketplace/privateStores/collections/offers`",
+        "url": "https://github.com/Azure/terraform-provider-azapi/issues/899"
+      },
+      {
+        "created_at": "2025-05-21",
+        "labels": [
+          "upstream-api"
+        ],
+        "number": "880",
+        "title": "## Bug: 500 Internal Server Error when creating AzureFile Datastore via AzAPI \u2013 Works via CLI/YAML",
+        "url": "https://github.com/Azure/terraform-provider-azapi/issues/880"
+      },
+      {
+        "created_at": "2025-05-16",
+        "labels": [],
+        "number": "875",
+        "title": "`azapi_resource`: `sensitive_body` attributes are displayed in output attribute",
+        "url": "https://github.com/Azure/terraform-provider-azapi/issues/875"
+      },
+      {
+        "created_at": "2024-09-24",
+        "labels": [],
+        "number": "624",
+        "title": "Getting 400 Bad Request when creating PostgreSQL flexibleservers/migration using azapi_resource",
+        "url": "https://github.com/Azure/terraform-provider-azapi/issues/624"
+      },
+      {
+        "created_at": "2023-08-10",
+        "labels": [
+          "upstream-api"
+        ],
+        "number": "334",
+        "title": "`azapi_resource` for Policy Fragments yielding constant diff with `rawxml` submissions",
+        "url": "https://github.com/Azure/terraform-provider-azapi/issues/334"
+      }
+    ],
+    "issues_last_checked": "2026-05-13T06:39:29Z",
+    "provider": "azapi",
+    "registry_url": "https://registry.terraform.io/providers/azure/azapi/latest/docs/data-sources/resource",
+    "symbol_type": "datasource",
+    "type": "azapi_resource",
+    "updates_last_checked": "2026-05-13T06:21:02Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/datasources/azapi_resource_list.yaml",
+    "findings": [
+      {
+        "criticality": "critical",
+        "summary": "`azapi_resource_list` data source's `output` field defaults to the response when the `response_export_values` is not specified.",
+        "type": "breaking_change",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v2.0.1",
+        "version": "2.0.1"
+      },
+      {
+        "criticality": "medium",
+        "summary": "`azapi_resource_list` data source: The `output` field changes from JSON string to HCL object. Users can use access the fields in the output as an HCL object. Please remove the `jsondecode` function...",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.13.1",
+        "version": "1.13.1"
+      },
+      {
+        "criticality": "medium",
+        "summary": "`azapi_resource` resource, `azapi_update_resource` resource, `azapi_resource_action` resource, `azapi_data_plane_resource` resource, `azapi_resource_action` data source, `azapi_resource` data sourc...",
+        "type": "enhancement",
+        "url": "https://github.com/Azure/terraform-provider-azapi/releases/tag/v1.13.0",
+        "version": "1.13.0"
+      }
+    ],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:39:29Z",
+    "provider": "azapi",
+    "registry_url": "https://registry.terraform.io/providers/azure/azapi/latest/docs/data-sources/resource_list",
+    "symbol_type": "datasource",
+    "type": "azapi_resource_list",
+    "updates_last_checked": "2026-05-13T06:21:02Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/datasources/azuread_service_principal.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "",
+    "provider": "azuread",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/data-sources/service_principal",
+    "symbol_type": "datasource",
+    "type": "azuread_service_principal",
+    "updates_last_checked": ""
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/datasources/azurerm_client_config.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/client_config",
+    "symbol_type": "datasource",
+    "type": "azurerm_client_config",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/datasources/azurerm_eventhub_namespace.yaml",
+    "findings": [
+      {
+        "criticality": "low",
+        "summary": "`azurerm_eventhub_namespace` - `maximum_throughput_units` can be set to `0` when `auto_inflate_enabled` is disabled ()",
+        "type": "documentation",
+        "url": "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.48.0",
+        "version": "4.48.0"
+      },
+      {
+        "criticality": "low",
+        "summary": "`azurerm_eventhub_namespace` - remove max items from network/ip rules as they can be increased above upon request ()",
+        "type": "documentation",
+        "url": "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.27.0",
+        "version": "4.27.0"
+      },
+      {
+        "criticality": "low",
+        "summary": "`azurerm_eventhub_namespace` - deprecate the `zone_redundant` field in v4.0 ()",
+        "type": "documentation",
+        "url": "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.113.0",
+        "version": "3.113.0"
+      }
+    ],
+    "issues": [],
+    "issues_last_checked": "",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/eventhub_namespace",
+    "symbol_type": "datasource",
+    "type": "azurerm_eventhub_namespace",
+    "updates_last_checked": "2026-05-13T09:54:43Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/datasources/azurerm_key_vault_key.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault_key",
+    "symbol_type": "datasource",
+    "type": "azurerm_key_vault_key",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/datasources/azurerm_network_watcher.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/network_watcher",
+    "symbol_type": "datasource",
+    "type": "azurerm_network_watcher",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/datasources/azurerm_public_ip.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/public_ip",
+    "symbol_type": "datasource",
+    "type": "azurerm_public_ip",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/datasources/azurerm_resource_group.yaml",
+    "findings": [
+      {
+        "criticality": "low",
+        "summary": "`azurerm_resource_group` - fix parallelism issue in create_poller ()",
+        "type": "documentation",
+        "url": "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.68.0",
+        "version": "4.68.0"
+      },
+      {
+        "criticality": "low",
+        "summary": "New List Resource**: `azurerm_resource_group` ()",
+        "type": "documentation",
+        "url": "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.58.0",
+        "version": "4.58.0"
+      },
+      {
+        "criticality": "low",
+        "summary": "`azurerm_resource_group` - fix poller for the `prevent_deletion_if_contains_resources` feature, resolving an Azure eventual consistency issue ()",
+        "type": "documentation",
+        "url": "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.55.0",
+        "version": "4.55.0"
+      },
+      {
+        "criticality": "low",
+        "summary": "`azurerm_resource_group` - refactored from legacy SDK to use `go-azure-sdk` ()",
+        "type": "documentation",
+        "url": "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.54.0",
+        "version": "4.54.0"
+      },
+      {
+        "criticality": "low",
+        "summary": "`azurerm_resource_group` - work around sporadic eventual consistency errors ()",
+        "type": "documentation",
+        "url": "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.102.0",
+        "version": "3.102.0"
+      }
+    ],
+    "issues": [],
+    "issues_last_checked": "",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/resource_group",
+    "symbol_type": "datasource",
+    "type": "azurerm_resource_group",
+    "updates_last_checked": "2026-05-13T09:54:43Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/datasources/azurerm_subscription.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subscription",
+    "symbol_type": "datasource",
+    "type": "azurerm_subscription",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/datasources/azurerm_user_assigned_identity.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/user_assigned_identity",
+    "symbol_type": "datasource",
+    "type": "azurerm_user_assigned_identity",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/datasources/azurerm_virtual_hub.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "2026-05-13T06:34:31Z",
+    "provider": "azurerm",
+    "registry_url": "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/virtual_hub",
+    "symbol_type": "datasource",
+    "type": "azurerm_virtual_hub",
+    "updates_last_checked": "2026-05-13T06:16:10Z"
+  },
+  {
+    "_path": "/Users/cuki/Data/Projects/avm-metadata/data/datasources/modtm_module_source.yaml",
+    "findings": [],
+    "issues": [],
+    "issues_last_checked": "",
+    "provider": "modtm",
+    "registry_url": "https://registry.terraform.io/providers/azure/modtm/latest/docs/data-sources/module_source",
+    "symbol_type": "datasource",
+    "type": "modtm_module_source",
+    "updates_last_checked": ""
+  }
+]

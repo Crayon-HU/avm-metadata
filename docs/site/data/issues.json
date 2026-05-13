@@ -1,0 +1,216 @@
+[
+  {
+    "comments": "0",
+    "created_at": "2024-01-27",
+    "domain": "identity-security",
+    "labels": [
+      "enhancement",
+      "Status: Long Term :hourglass_flowing_sand:",
+      "Type: Feature Request :heavy_plus_sign:"
+    ],
+    "module": "avm-res-authorization-roleassignment",
+    "number": "13",
+    "severity": "medium",
+    "source": "module_issues",
+    "status": "open",
+    "title": "Feature Request: Add conditions to role assignments",
+    "type": "res",
+    "url": "https://github.com/Azure/terraform-azurerm-avm-res-authorization-roleassignment/issues/13"
+  },
+  {
+    "comments": "0",
+    "created_at": "2024-01-27",
+    "domain": "identity-security",
+    "labels": [
+      "enhancement",
+      "Status: Long Term :hourglass_flowing_sand:",
+      "Type: Feature Request :heavy_plus_sign:"
+    ],
+    "module": "avm-res-authorization-roleassignment",
+    "number": "11",
+    "severity": "medium",
+    "source": "module_issues",
+    "status": "open",
+    "title": "Feature Request: Add `skip_existence_checks` variable",
+    "type": "res",
+    "url": "https://github.com/Azure/terraform-azurerm-avm-res-authorization-roleassignment/issues/11"
+  },
+  {
+    "comments": "3",
+    "created_at": "2024-12-27",
+    "domain": "ai-ml",
+    "labels": [
+      "good first issue",
+      "Needs: Immediate Attention :bangbang:",
+      "Needs: Triage :mag:",
+      "Status: Response Overdue :triangular_flag_on_post:",
+      "Type: Question/Feedback :raising_hand:",
+      "Language: Terraform :globe_with_meridians:"
+    ],
+    "module": "avm-res-cognitiveservices-account",
+    "number": "95",
+    "severity": "medium",
+    "source": "module_issues",
+    "status": "open",
+    "title": "[AVM Question/Feedback]: Migration path from `terraform-azurerm-openai`?",
+    "type": "res",
+    "url": "https://github.com/Azure/terraform-azurerm-avm-res-cognitiveservices-account/issues/95"
+  },
+  {
+    "comments": "0",
+    "created_at": "2025-07-24",
+    "domain": "compute",
+    "labels": [
+      "enhancement",
+      "Language: Terraform :globe_with_meridians:"
+    ],
+    "module": "avm-res-compute-disk",
+    "number": "79",
+    "severity": "medium",
+    "source": "module_issues",
+    "status": "open",
+    "title": "[AVM Module Issue]: Convert `azurerm_managed_disk` resource to AzAPI resource",
+    "type": "res",
+    "url": "https://github.com/Azure/terraform-azurerm-avm-res-compute-disk/issues/79"
+  },
+  {
+    "comments": "3",
+    "created_at": "2023-11-29",
+    "domain": "identity-security",
+    "labels": [
+      "enhancement",
+      "Type: Feature Request :heavy_plus_sign:"
+    ],
+    "module": "avm-res-keyvault-vault",
+    "number": "37",
+    "severity": "medium",
+    "source": "module_issues",
+    "status": "open",
+    "title": "feat: release_policy support for keys",
+    "type": "res",
+    "url": "https://github.com/Azure/terraform-azurerm-avm-res-keyvault-vault/issues/37"
+  },
+  {
+    "comments": "1",
+    "created_at": "2024-03-28",
+    "domain": "data-databases",
+    "labels": [
+      "enhancement",
+      "Type: Feature Request :heavy_plus_sign:",
+      "Language: Terraform :globe_with_meridians:"
+    ],
+    "module": "avm-res-kusto-cluster",
+    "number": "12",
+    "severity": "medium",
+    "source": "module_issues",
+    "status": "open",
+    "title": "WAF Alignment - Analyze Usage and cost",
+    "type": "res",
+    "url": "https://github.com/Azure/terraform-azurerm-avm-res-kusto-cluster/issues/12"
+  },
+  {
+    "comments": "3",
+    "created_at": "2026-01-16",
+    "domain": "storage",
+    "labels": [
+      "bug",
+      "Needs: Immediate Attention :bangbang:",
+      "Needs: Triage :mag:",
+      "Status: Response Overdue :triangular_flag_on_post:"
+    ],
+    "module": "avm-res-storage-storageaccount",
+    "number": "319",
+    "severity": "medium",
+    "source": "module_issues",
+    "status": "open",
+    "title": "setting network_rules detects as change in plan/apply on 2.runs",
+    "type": "res",
+    "url": "https://github.com/Azure/terraform-azurerm-avm-res-storage-storageaccount/issues/319"
+  },
+  {
+    "comments": "2",
+    "created_at": "2026-01-27",
+    "domain": "containers",
+    "labels": [
+      "enhancement",
+      "Type: Feature Request :heavy_plus_sign:"
+    ],
+    "module": "avm-ptn-aca-lza-hosting-environment",
+    "number": "17",
+    "severity": "medium",
+    "source": "module_issues",
+    "status": "open",
+    "title": "Feature: Allow use of existing DDoS Protection Plan instead of creating IP-based rules",
+    "type": "ptn",
+    "url": "https://github.com/Azure/terraform-azurerm-avm-ptn-aca-lza-hosting-environment/issues/17"
+  },
+  {
+    "comments": "2",
+    "created_at": "2026-01-27",
+    "domain": "containers",
+    "labels": [
+      "enhancement",
+      "Type: Feature Request :heavy_plus_sign:"
+    ],
+    "module": "avm-ptn-aca-lza-hosting-environment",
+    "number": "16",
+    "severity": "medium",
+    "source": "module_issues",
+    "status": "open",
+    "title": "Feature: Make private DNS zone deployment optional for private endpoints",
+    "type": "ptn",
+    "url": "https://github.com/Azure/terraform-azurerm-avm-ptn-aca-lza-hosting-environment/issues/16"
+  },
+  {
+    "comments": "2",
+    "created_at": "2026-01-27",
+    "domain": "containers",
+    "labels": [
+      "enhancement",
+      "Type: Feature Request :heavy_plus_sign:"
+    ],
+    "module": "avm-ptn-aca-lza-hosting-environment",
+    "number": "15",
+    "severity": "medium",
+    "source": "module_issues",
+    "status": "open",
+    "title": "Feature: Make ACR deployment optional and allow use of existing ACR",
+    "type": "ptn",
+    "url": "https://github.com/Azure/terraform-azurerm-avm-ptn-aca-lza-hosting-environment/issues/15"
+  },
+  {
+    "comments": "9",
+    "created_at": "2024-12-04",
+    "domain": "containers",
+    "labels": [
+      "enhancement",
+      "Language: Terraform :globe_with_meridians:"
+    ],
+    "module": "avm-ptn-aks-production",
+    "number": "147",
+    "severity": "medium",
+    "source": "module_issues",
+    "status": "open",
+    "title": "[AVM Module Issue]: module consumers should be able to specify all naming conventions",
+    "type": "ptn",
+    "url": "https://github.com/Azure/terraform-azurerm-avm-ptn-aks-production/issues/147"
+  },
+  {
+    "comments": "14",
+    "created_at": "2024-12-04",
+    "domain": "containers",
+    "labels": [
+      "enhancement",
+      "Type: Bug :bug:",
+      "Language: Terraform :globe_with_meridians:"
+    ],
+    "module": "avm-ptn-aks-production",
+    "number": "146",
+    "severity": "medium",
+    "source": "module_issues",
+    "status": "open",
+    "title": "[AVM Module Issue]: `network` variable can be simplified, and needs a fix for resource group assumption",
+    "type": "ptn",
+    "url": "https://github.com/Azure/terraform-azurerm-avm-ptn-aks-production/issues/146"
+  }
+]

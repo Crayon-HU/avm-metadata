@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AVM Intelligence Portal for Azure Verified Modules metadata.">
+  <meta property="og:title" content="Known Issues - AVM Intelligence Portal">
+  <meta property="og:description" content="Catalog health, quality, provider currency, issues, and activity for AVM modules.">
+  <title>Known Issues - AVM Intelligence Portal</title>
+  <link rel="stylesheet" href="assets/style.css">
+
+</head>
+<body>
+
+<nav class="site-nav" role="navigation" aria-label="Main navigation">
+  <a href="index.html" class="nav-logo">AVM Intelligence</a>
+  <div class="nav-links"><a href="index.html" class="nav-link">Home</a><a href="catalog.html" class="nav-link">Catalog</a><a href="scoreboard.html" class="nav-link">Quality</a><a href="provider.html" class="nav-link">Currency</a><a href="resources.html" class="nav-link">Explorer</a><a href="issues.html" class="nav-link active" aria-current="page">Issues</a><a href="activity.html" class="nav-link">Activity</a></div>
+  <details class="mobile-menu">
+    <summary aria-label="Menu">Menu</summary>
+    <div class="mobile-nav-links"><a href="index.html">Home</a><a href="catalog.html">Catalog</a><a href="scoreboard.html">Quality</a><a href="provider.html">Currency</a><a href="resources.html">Explorer</a><a href="issues.html">Issues</a><a href="activity.html">Activity</a></div>
+  </details>
+  <div class="nav-search" id="search"></div>
+</nav>
+
+  <main class="page" data-pagefind-body>
+    
+<h1>Known Issues</h1>
+<p class="subtitle">Aggregated from <code>enrichment.known_issues</code> and harvested <code>module_issues</code>.</p>
+<div class="filter-bar">
+  <label>Domain<select id="issue-domain-filter"><option value="">All domains</option><option value="ai-ml">ai-ml</option><option value="compute">compute</option><option value="containers">containers</option><option value="data-databases">data-databases</option><option value="identity-security">identity-security</option><option value="storage">storage</option></select></label>
+</div>
+<div class="kanban">
+<section class="kanban-column">
+  <h2><span class="severity-badge severity-critical">critical</span> Critical <span class="muted">(0)</span></h2>
+  <div class="muted">No issues.</div>
+</section>
+
+<section class="kanban-column">
+  <h2><span class="severity-badge severity-high">high</span> High <span class="muted">(0)</span></h2>
+  <div class="muted">No issues.</div>
+</section>
+
+<section class="kanban-column">
+  <h2><span class="severity-badge severity-medium">medium</span> Medium <span class="muted">(12)</span></h2>
+  
+<details class="kanban-card" data-domain="ai-ml">
+  <summary><a href="https://github.com/Azure/terraform-azurerm-avm-res-cognitiveservices-account/issues/95" target="_blank" rel="noopener">[AVM Question/Feedback]: Migration path from `terraform-azurerm-openai`?</a></summary>
+  <div class="detail-row"><div class="detail-key">Module</div><div class="name">avm-res-cognitiveservices-account</div></div>
+  <div class="detail-row"><div class="detail-key">Domain</div><div>ai-ml <span class="type-badge">res</span></div></div>
+  <div class="detail-row"><div class="detail-key">Source</div><div>module_issues</div></div>
+  <div class="detail-row"><div class="detail-key">Status</div><div>open</div></div>
+  <div class="detail-row"><div class="detail-key">Workaround</div><div><span class="muted">--</span></div></div>
+</details>
+
+<details class="kanban-card" data-domain="compute">
+  <summary><a href="https://github.com/Azure/terraform-azurerm-avm-res-compute-disk/issues/79" target="_blank" rel="noopener">[AVM Module Issue]: Convert `azurerm_managed_disk` resource to AzAPI resource</a></summary>
+  <div class="detail-row"><div class="detail-key">Module</div><div class="name">avm-res-compute-disk</div></div>
+  <div class="detail-row"><div class="detail-key">Domain</div><div>compute <span class="type-badge">res</span></div></div>
+  <div class="detail-row"><div class="detail-key">Source</div><div>module_issues</div></div>
+  <div class="detail-row"><div class="detail-key">Status</div><div>open</div></div>
+  <div class="detail-row"><div class="detail-key">Workaround</div><div><span class="muted">--</span></div></div>
+</details>
+
+<details class="kanban-card" data-domain="containers">
+  <summary><a href="https://github.com/Azure/terraform-azurerm-avm-ptn-aca-lza-hosting-environment/issues/17" target="_blank" rel="noopener">Feature: Allow use of existing DDoS Protection Plan instead of creating IP-based rules</a></summary>
+  <div class="detail-row"><div class="detail-key">Module</div><div class="name">avm-ptn-aca-lza-hosting-environment</div></div>
+  <div class="detail-row"><div class="detail-key">Domain</div><div>containers <span class="type-badge">ptn</span></div></div>
+  <div class="detail-row"><div class="detail-key">Source</div><div>module_issues</div></div>
+  <div class="detail-row"><div class="detail-key">Status</div><div>open</div></div>
+  <div class="detail-row"><div class="detail-key">Workaround</div><div><span class="muted">--</span></div></div>
+</details>
+
+<details class="kanban-card" data-domain="containers">
+  <summary><a href="https://github.com/Azure/terraform-azurerm-avm-ptn-aca-lza-hosting-environment/issues/16" target="_blank" rel="noopener">Feature: Make private DNS zone deployment optional for private endpoints</a></summary>
+  <div class="detail-row"><div class="detail-key">Module</div><div class="name">avm-ptn-aca-lza-hosting-environment</div></div>
+  <div class="detail-row"><div class="detail-key">Domain</div><div>containers <span class="type-badge">ptn</span></div></div>
+  <div class="detail-row"><div class="detail-key">Source</div><div>module_issues</div></div>
+  <div class="detail-row"><div class="detail-key">Status</div><div>open</div></div>
+  <div class="detail-row"><div class="detail-key">Workaround</div><div><span class="muted">--</span></div></div>
+</details>
+
+<details class="kanban-card" data-domain="containers">
+  <summary><a href="https://github.com/Azure/terraform-azurerm-avm-ptn-aca-lza-hosting-environment/issues/15" target="_blank" rel="noopener">Feature: Make ACR deployment optional and allow use of existing ACR</a></summary>
+  <div class="detail-row"><div class="detail-key">Module</div><div class="name">avm-ptn-aca-lza-hosting-environment</div></div>
+  <div class="detail-row"><div class="detail-key">Domain</div><div>containers <span class="type-badge">ptn</span></div></div>
+  <div class="detail-row"><div class="detail-key">Source</div><div>module_issues</div></div>
+  <div class="detail-row"><div class="detail-key">Status</div><div>open</div></div>
+  <div class="detail-row"><div class="detail-key">Workaround</div><div><span class="muted">--</span></div></div>
+</details>
+
+<details class="kanban-card" data-domain="containers">
+  <summary><a href="https://github.com/Azure/terraform-azurerm-avm-ptn-aks-production/issues/147" target="_blank" rel="noopener">[AVM Module Issue]: module consumers should be able to specify all naming conventions</a></summary>
+  <div class="detail-row"><div class="detail-key">Module</div><div class="name">avm-ptn-aks-production</div></div>
+  <div class="detail-row"><div class="detail-key">Domain</div><div>containers <span class="type-badge">ptn</span></div></div>
+  <div class="detail-row"><div class="detail-key">Source</div><div>module_issues</div></div>
+  <div class="detail-row"><div class="detail-key">Status</div><div>open</div></div>
+  <div class="detail-row"><div class="detail-key">Workaround</div><div><span class="muted">--</span></div></div>
+</details>
+
+<details class="kanban-card" data-domain="containers">
+  <summary><a href="https://github.com/Azure/terraform-azurerm-avm-ptn-aks-production/issues/146" target="_blank" rel="noopener">[AVM Module Issue]: `network` variable can be simplified, and needs a fix for resource group assumption</a></summary>
+  <div class="detail-row"><div class="detail-key">Module</div><div class="name">avm-ptn-aks-production</div></div>
+  <div class="detail-row"><div class="detail-key">Domain</div><div>containers <span class="type-badge">ptn</span></div></div>
+  <div class="detail-row"><div class="detail-key">Source</div><div>module_issues</div></div>
+  <div class="detail-row"><div class="detail-key">Status</div><div>open</div></div>
+  <div class="detail-row"><div class="detail-key">Workaround</div><div><span class="muted">--</span></div></div>
+</details>
+
+<details class="kanban-card" data-domain="data-databases">
+  <summary><a href="https://github.com/Azure/terraform-azurerm-avm-res-kusto-cluster/issues/12" target="_blank" rel="noopener">WAF Alignment - Analyze Usage and cost</a></summary>
+  <div class="detail-row"><div class="detail-key">Module</div><div class="name">avm-res-kusto-cluster</div></div>
+  <div class="detail-row"><div class="detail-key">Domain</div><div>data-databases <span class="type-badge">res</span></div></div>
+  <div class="detail-row"><div class="detail-key">Source</div><div>module_issues</div></div>
+  <div class="detail-row"><div class="detail-key">Status</div><div>open</div></div>
+  <div class="detail-row"><div class="detail-key">Workaround</div><div><span class="muted">--</span></div></div>
+</details>
+
+<details class="kanban-card" data-domain="identity-security">
+  <summary><a href="https://github.com/Azure/terraform-azurerm-avm-res-authorization-roleassignment/issues/13" target="_blank" rel="noopener">Feature Request: Add conditions to role assignments</a></summary>
+  <div class="detail-row"><div class="detail-key">Module</div><div class="name">avm-res-authorization-roleassignment</div></div>
+  <div class="detail-row"><div class="detail-key">Domain</div><div>identity-security <span class="type-badge">res</span></div></div>
+  <div class="detail-row"><div class="detail-key">Source</div><div>module_issues</div></div>
+  <div class="detail-row"><div class="detail-key">Status</div><div>open</div></div>
+  <div class="detail-row"><div class="detail-key">Workaround</div><div><span class="muted">--</span></div></div>
+</details>
+
+<details class="kanban-card" data-domain="identity-security">
+  <summary><a href="https://github.com/Azure/terraform-azurerm-avm-res-authorization-roleassignment/issues/11" target="_blank" rel="noopener">Feature Request: Add `skip_existence_checks` variable</a></summary>
+  <div class="detail-row"><div class="detail-key">Module</div><div class="name">avm-res-authorization-roleassignment</div></div>
+  <div class="detail-row"><div class="detail-key">Domain</div><div>identity-security <span class="type-badge">res</span></div></div>
+  <div class="detail-row"><div class="detail-key">Source</div><div>module_issues</div></div>
+  <div class="detail-row"><div class="detail-key">Status</div><div>open</div></div>
+  <div class="detail-row"><div class="detail-key">Workaround</div><div><span class="muted">--</span></div></div>
+</details>
+
+<details class="kanban-card" data-domain="identity-security">
+  <summary><a href="https://github.com/Azure/terraform-azurerm-avm-res-keyvault-vault/issues/37" target="_blank" rel="noopener">feat: release_policy support for keys</a></summary>
+  <div class="detail-row"><div class="detail-key">Module</div><div class="name">avm-res-keyvault-vault</div></div>
+  <div class="detail-row"><div class="detail-key">Domain</div><div>identity-security <span class="type-badge">res</span></div></div>
+  <div class="detail-row"><div class="detail-key">Source</div><div>module_issues</div></div>
+  <div class="detail-row"><div class="detail-key">Status</div><div>open</div></div>
+  <div class="detail-row"><div class="detail-key">Workaround</div><div><span class="muted">--</span></div></div>
+</details>
+
+<details class="kanban-card" data-domain="storage">
+  <summary><a href="https://github.com/Azure/terraform-azurerm-avm-res-storage-storageaccount/issues/319" target="_blank" rel="noopener">setting network_rules detects as change in plan/apply on 2.runs</a></summary>
+  <div class="detail-row"><div class="detail-key">Module</div><div class="name">avm-res-storage-storageaccount</div></div>
+  <div class="detail-row"><div class="detail-key">Domain</div><div>storage <span class="type-badge">res</span></div></div>
+  <div class="detail-row"><div class="detail-key">Source</div><div>module_issues</div></div>
+  <div class="detail-row"><div class="detail-key">Status</div><div>open</div></div>
+  <div class="detail-row"><div class="detail-key">Workaround</div><div><span class="muted">--</span></div></div>
+</details>
+
+</section>
+
+<section class="kanban-column">
+  <h2><span class="severity-badge severity-low">low</span> Low <span class="muted">(0)</span></h2>
+  <div class="muted">No issues.</div>
+</section>
+</div>
+
+    <footer class="footer">Generated: 2026-05-13 11:18 UTC · Auto-generated by <code>scripts/generate_site.py</code> · Crayon-HU/avm-metadata</footer>
+  </main>
+
+<script>
+  (() => {
+    const filter = document.getElementById("issue-domain-filter");
+    if (!filter) return;
+    filter.addEventListener("input", () => {
+      const domain = filter.value;
+      document.querySelectorAll(".kanban-card").forEach(card => {
+        card.style.display = (!domain || card.dataset.domain === domain) ? "" : "none";
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>

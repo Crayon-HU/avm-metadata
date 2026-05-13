@@ -19,8 +19,10 @@ Options:
     --stagnant-only  Only show modules with 0 commits in the window.
     --no-stagnant    Exclude modules with 0 commits.
     --output FILE    Write output to FILE instead of stdout.
+    --json [FILE]    Write portal activity JSON (default: data/activity.json).
 """
 
+import json
 import os
 import re
 import subprocess
@@ -33,6 +35,7 @@ from datetime import datetime, timezone
 SCRIPT_DIR  = os.path.dirname(os.path.abspath(__file__))
 REPO_ROOT   = os.path.dirname(SCRIPT_DIR)
 MODULES_FILE = os.path.join(REPO_ROOT, ".config", "modules.yaml")
+DEFAULT_JSON_OUT = os.path.join(REPO_ROOT, "data", "activity.json")
 
 # ---------------------------------------------------------------------------
 # ANSI helpers
@@ -185,6 +188,7 @@ def cmd_activity(
     stagnant_only:  bool = False,
     no_stagnant:    bool = False,
     output:         str  | None = None,
+    json_output:    str  | None = None,
 ) -> None:
     since_git = _since_git_arg(since)
     print(f"\nAVM activity  [since: {since_git}, {len(modules)} modules]")
@@ -255,6 +259,35 @@ def cmd_activity(
 
     output_str = "\n".join(lines)
 
+    if json_output:
+        payload = {
+            "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "since": since,
+            "since_git": since_git,
+            "summary": {
+                "modules_checked": len(rows),
+                "active": active_n,
+                "stagnant": stagnant_n,
+                "total_commits": total_commits,
+                "not_cloned": not_cloned,
+            },
+            "modules": [
+                {
+                    "name": mod["name"],
+                    "domain": mod.get("domain", ""),
+                    "type": mod.get("type", ""),
+                    "commits": count,
+                    "last_commit": last,
+                }
+                for count, last, _label, mod in rows
+            ],
+        }
+        os.makedirs(os.path.dirname(os.path.abspath(json_output)), exist_ok=True)
+        with open(json_output, "w", encoding="utf-8") as f:
+            json.dump(payload, f, indent=2, sort_keys=True)
+            f.write("\n")
+        print(f"  JSON written to: {json_output}")
+
     if output:
         os.makedirs(os.path.dirname(os.path.abspath(output)), exist_ok=True)
         with open(output, "w", encoding="utf-8") as f:
@@ -280,6 +313,7 @@ def _parse_args(argv: list[str]) -> dict:
         "stagnant_only": False,
         "no_stagnant":   False,
         "output":        None,
+        "json_output":   None,
     }
     i = 0
     while i < len(argv):
@@ -309,6 +343,12 @@ def _parse_args(argv: list[str]) -> dict:
         elif tok == "--output" and i + 1 < len(argv):
             i += 1
             args["output"] = argv[i]
+        elif tok == "--json":
+            if i + 1 < len(argv) and not argv[i + 1].startswith("-"):
+                i += 1
+                args["json_output"] = argv[i]
+            else:
+                args["json_output"] = DEFAULT_JSON_OUT
         i += 1
     return args
 
@@ -332,6 +372,7 @@ def main(argv: list[str] | None = None) -> None:
         stagnant_only = a["stagnant_only"],
         no_stagnant   = a["no_stagnant"],
         output        = a["output"],
+        json_output   = a["json_output"],
     )
 
 
