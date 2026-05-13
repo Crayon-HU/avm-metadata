@@ -85,7 +85,7 @@ _usage() {
     providers Fetch provider changelog/issues → write to provider_updates/provider_issues stubs
     harvest   Harvest open GitHub issues from AVM module repos → write module_issues blocks
     tag       Infer use-case tags → write analysis_use_cases blocks in module YAMLs
-    site      Generate static HTML health dashboard (docs/site/index.html)
+    site      Generate static HTML intelligence portal (docs/site/)
     help      Show this message
 
   Run './avm.sh <command> --help' for flags and examples.
@@ -566,12 +566,14 @@ _usage_activity() {
     --domains DOMAINS    Comma-separated domain slugs.
     --types TYPES        Comma-separated module types: res, ptn, utl.
     --output FILE        Write output to FILE instead of stdout.
+    --json [FILE]        Write portal activity JSON (default: data/activity.json).
 
   Examples:
     ./avm.sh activity
     ./avm.sh activity --since 7d --no-stagnant
     ./avm.sh activity --stagnant-only
     ./avm.sh activity --domains networking --top 10
+    ./avm.sh activity --since 90d --json
 
 EOF
 }
@@ -625,22 +627,27 @@ cmd_index() {
 _usage_site() {
   _header
   cat <<'EOF'
-         Produces a single self-contained HTML file (inline CSS, no CDN).
-         Per-domain tables with colour-coded scores, dimension badges,
-         staleness indicators, and version pin status.
+  site — Generate the static AVM Intelligence Portal.
+         By default this writes a multi-page portal to docs/site/.
+         Use --output FILE for a legacy single-file dashboard.
 
   Usage:
     ./avm.sh site [options]
 
   Options:
-    --output FILE         Output path (default: docs/site/index.html).
+    --output-dir DIR      Multi-page output directory (default: docs/site/).
+    --output FILE         Legacy single-file output path.
     --domains DOMAINS     Comma-separated domain slugs.
     --types TYPES         Comma-separated module types: res, ptn, utl.
+    --pages PAGES         Comma-separated page slugs (index,catalog,...).
+    --pagefind           Include Pagefind UI asset tags after building the index.
+    --validate            Validate generated HTML and internal links.
     --open                Open the output in the default browser after generation.
 
   Examples:
     ./avm.sh site
     ./avm.sh site --domains networking,compute
+    ./avm.sh site --output-dir /tmp/avm-site --validate
     ./avm.sh site --output /tmp/avm-health.html --open
 
 EOF
