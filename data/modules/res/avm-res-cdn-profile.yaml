@@ -171,6 +171,26 @@ analysis_use_cases:
     resources_managed: [azurerm_cdn_endpoint, azurerm_cdn_endpoint_custom_domain, azurerm_cdn_frontdoor_custom_domain, azurerm_cdn_frontdoor_custom_domain_association, azurerm_cdn_frontdoor_endpoint]
 # END ANALYSIS:use-cases
 
+# BEGIN ANALYSIS:provider-currency
+analysis_provider_currency:
+  checked_at: "2026-05-19T10:02:16Z"
+  status: partial
+  worst_criticality: high
+  finding_counts:
+    critical: 0
+    high: 1
+    medium: 1
+    low: 30
+  issue_counts:
+    total: 1
+  coverage_stats:
+    checked: 20
+    total: 20
+  checks:
+    critical_findings: { status: partial, finding: "No critical findings; 1 high finding(s) across: azapi_client_config" }
+    open_issues: { status: partial, finding: "1 open provider issue(s) across 20 resource type(s)" }
+    stub_coverage: { status: pass, evidence: "All 20 resource type(s) have provider data" }
+# END ANALYSIS:provider-currency
 enrichment:
   version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
   terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"

@@ -153,6 +153,26 @@ analysis_use_cases:
     resources_managed: [azurerm_private_endpoint, azurerm_private_endpoint_application_security_group_association, azurerm_virtual_desktop_host_pool, azurerm_virtual_desktop_host_pool_registration_info]
 # END ANALYSIS:use-cases
 
+# BEGIN ANALYSIS:provider-currency
+analysis_provider_currency:
+  checked_at: "2026-05-19T10:02:16Z"
+  status: partial
+  worst_criticality: high
+  finding_counts:
+    critical: 0
+    high: 1
+    medium: 1
+    low: 12
+  issue_counts:
+    total: 1
+  coverage_stats:
+    checked: 6
+    total: 6
+  checks:
+    critical_findings: { status: partial, finding: "No critical findings; 1 high finding(s) across: azapi_client_config" }
+    open_issues: { status: partial, finding: "1 open provider issue(s) across 6 resource type(s)" }
+    stub_coverage: { status: pass, evidence: "All 6 resource type(s) have provider data" }
+# END ANALYSIS:provider-currency
 enrichment:
   version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
   terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"
