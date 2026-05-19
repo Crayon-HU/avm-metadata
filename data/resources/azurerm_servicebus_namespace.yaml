@@ -5,14 +5,28 @@ resource:
   registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/servicebus_namespace"
 
 provider_updates:
-  last_checked: "2026-05-13T06:16:10Z"
-  findings: []
-  # finding shape:
-  #   - version: "4.15.0"
-  #     criticality: high   # critical | high | medium | low
-  #     type: bug_fix       # bug_fix | security | enhancement | breaking_change | new_feature | deprecated
-  #     summary: "..."
-  #     url: "..."
+  last_checked: "2026-05-19T09:44:51Z"
+  findings:
+  - version: "4.21.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_servicebus_namespace` - split create/update functions ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.21.0"
+  - version: "3.116.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_servicebus_namespace` - fix panic reading encryption with versionless ids ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.116.0"
+  - version: "3.113.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_servicebus_namespace` - deprecate the `zone_redundant` field in v4.0 ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.113.0"
+  - version: "3.112.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_servicebus_namespace` - parse the identity returned by the API insensitively before setting into state ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.112.0"
 
 provider_issues:
   last_checked: "2026-05-13T06:34:31Z"

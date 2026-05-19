@@ -29,7 +29,7 @@ catalog:
 # END SCRAPED
 # BEGIN ANALYSIS:terraform-metadata
 analysis_terraform_metadata:
-  checked_at: "2026-05-12T23:34:41Z"
+  checked_at: "2026-05-19T09:26:48Z"
   status: pass
   errors: []
   terraform_constraints:
@@ -70,10 +70,16 @@ analysis_terraform_metadata:
       - "random_uuid"
     time:
       - "time_sleep"
+  datasources_managed:
+    azapi:
+      - "azapi_client_config"
+      - "azapi_resource"
+    modtm:
+      - "modtm_module_source"
 # END ANALYSIS:terraform-metadata
 # BEGIN ANALYSIS:avm-interface-compliance
 analysis_avm_interface_compliance:
-  checked_at: "2026-05-12T23:34:41Z"
+  checked_at: "2026-05-19T09:26:48Z"
   status: partial
   checks:
     lock: { status: pass, evidence: "variables.tf:95" }
@@ -86,7 +92,7 @@ analysis_avm_interface_compliance:
 # END ANALYSIS:avm-interface-compliance
 # BEGIN ANALYSIS:security-hardening
 analysis_security_hardening:
-  checked_at: "2026-05-12T23:34:41Z"
+  checked_at: "2026-05-19T09:26:48Z"
   status: pass
   checks:
     hardcoded_locations: { status: pass, evidence: "No hardcoded locations found" }
@@ -95,7 +101,7 @@ analysis_security_hardening:
 # END ANALYSIS:security-hardening
 # BEGIN ANALYSIS:test-coverage
 analysis_test_coverage:
-  checked_at: "2026-05-12T23:34:41Z"
+  checked_at: "2026-05-19T09:26:48Z"
   status: partial
   checks:
     examples_dir: { status: pass, evidence: "examples/ contains 6 item(s)" }
@@ -103,7 +109,7 @@ analysis_test_coverage:
 # END ANALYSIS:test-coverage
 # BEGIN ANALYSIS:doc-quality
 analysis_doc_quality:
-  checked_at: "2026-05-12T23:34:41Z"
+  checked_at: "2026-05-19T09:26:48Z"
   status: partial
   checks:
     readme_exists: { status: pass, evidence: "README.md found" }
@@ -112,14 +118,14 @@ analysis_doc_quality:
 # END ANALYSIS:doc-quality
 # BEGIN ANALYSIS:dependency-health
 analysis_dependency_health:
-  checked_at: "2026-05-12T23:34:41Z"
+  checked_at: "2026-05-19T09:26:48Z"
   status: pass
   checks:
     terraform_version_upper_bound: { status: pass, evidence: "required_version = \">= 1.9, < 2.0\"" }
     provider_constraint_style: { status: pass, evidence: "All 5 provider(s) use upper-bounded constraints" }
 # END ANALYSIS:dependency-health
 module_issues:
-  last_harvested: "2026-05-13T07:43:45Z"
+  last_harvested: "2026-05-19T09:48:26Z"
   open_count: 0
   issues: []
   # issue shape:
@@ -130,7 +136,6 @@ module_issues:
   #     created_at: "2026-03-21"
   #     comments: 4
 
-# BEGIN ANALYSIS:use-cases
 analysis_use_cases:
   checked_at: "2026-05-13T09:56:33Z"
   status: pass
@@ -141,6 +146,26 @@ analysis_use_cases:
     resources_managed: [azurerm_log_analytics_linked_service, azurerm_log_analytics_linked_storage_account, azurerm_log_analytics_workspace, azurerm_monitor_private_link_scoped_service, azurerm_private_endpoint]
 # END ANALYSIS:use-cases
 
+# BEGIN ANALYSIS:provider-currency
+analysis_provider_currency:
+  checked_at: "2026-05-19T09:26:48Z"
+  status: fail
+  worst_criticality: critical
+  finding_counts:
+    critical: 6
+    high: 15
+    medium: 34
+    low: 20
+  issue_counts:
+    total: 16
+  coverage_stats:
+    checked: 12
+    total: 12
+  checks:
+    critical_findings: { status: fail, finding: "6 critical finding(s) across: azapi_update_resource, azapi_resource" }
+    open_issues: { status: partial, finding: "16 open provider issue(s) across 12 resource type(s)" }
+    stub_coverage: { status: pass, evidence: "All 12 resource type(s) have provider data" }
+# END ANALYSIS:provider-currency
 enrichment:
   version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
   terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"

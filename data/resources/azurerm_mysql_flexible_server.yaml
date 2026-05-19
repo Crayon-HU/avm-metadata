@@ -5,14 +5,68 @@ resource:
   registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_flexible_server"
 
 provider_updates:
-  last_checked: "2026-05-13T06:16:10Z"
-  findings: []
-  # finding shape:
-  #   - version: "4.15.0"
-  #     criticality: high   # critical | high | medium | low
-  #     type: bug_fix       # bug_fix | security | enhancement | breaking_change | new_feature | deprecated
-  #     summary: "..."
-  #     url: "..."
+  last_checked: "2026-05-19T09:44:51Z"
+  findings:
+  - version: "4.55.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_mysql_flexible_server` - add support for MySQL version `8.4` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.55.0"
+  - version: "4.46.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_mysql_flexible_server` - add support for the `managed_hsm_key_id` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.46.0"
+  - version: "4.34.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_mysql_flexible_server` - reverted a change made to the validation of the `sku_name` property that caused errors for existing resources ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.34.0"
+  - version: "4.31.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_mysql_flexible_server` - add support for the `MO_Standard_E96ads_v5` value to the `sku_name` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.31.0"
+  - version: "4.27.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_mysql_flexible_server` - support for the `log_on_disk_enabled` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.27.0"
+  - version: "4.26.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_mysql_flexible_server` - deprecate `public_network_access_enabled` in favor of `public_network_access` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.26.0"
+  - version: "4.26.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_mysql_flexible_server` - prevent a panic when `customer_managed_key` is nil ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.26.0"
+  - version: "4.21.0"
+    criticality: low
+    type: documentation
+    summary: "The `azurerm_mysql_flexible_server` resource now supports the `administrator_password_wo` [write-only argument](https://developer.hashicorp.com/terraform/language/v1.11.x/resources/ephemeral#write-..."
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.21.0"
+  - version: "4.21.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_mysql_flexible_server` - add support for the `administrator_password_wo` and `administrator_password_wo_version` properties ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.21.0"
+  - version: "4.1.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_mysql_flexible_server` - correctly set `source_server_id` in the state file ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.1.0"
+  - version: "3.109.0"
+    criticality: low
+    type: documentation
+    summary: "Data Source: `azurerm_mariadb_server` - deprecated since the service is retiring. Please use `azurerm_mysql_flexible_server` instead ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.109.0"
+  - version: "3.109.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_mariadb_server` - deprecated since the service is retiring. Please use `azurerm_mysql_flexible_server` instead ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.109.0"
 
 provider_issues:
   last_checked: "2026-05-13T06:34:31Z"

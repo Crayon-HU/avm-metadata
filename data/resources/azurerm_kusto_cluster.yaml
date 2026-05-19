@@ -5,14 +5,38 @@ resource:
   registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kusto_cluster"
 
 provider_updates:
-  last_checked: "2026-05-13T06:16:10Z"
-  findings: []
-  # finding shape:
-  #   - version: "4.15.0"
-  #     criticality: high   # critical | high | medium | low
-  #     type: bug_fix       # bug_fix | security | enhancement | breaking_change | new_feature | deprecated
-  #     summary: "..."
-  #     url: "..."
+  last_checked: "2026-05-19T09:44:51Z"
+  findings:
+  - version: "4.42.0"
+    criticality: low
+    type: documentation
+    summary: "This release contains a state migration that fixes a resource state parsing error for `azurerm_kusto_cluster` when the `language_extensions` property is defined. Users upgrading from a version olde..."
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.42.0"
+  - version: "4.42.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kusto_cluster` - add a state migration for `language_extensions` to migrate from a list of strings to a list of objects (block) ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.42.0"
+  - version: "4.42.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kusto_cluster` - fix an issue where removal of the `language_extensions` property was not applied to the API request ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.42.0"
+  - version: "4.38.0"
+    criticality: low
+    type: documentation
+    summary: "Data Source: `azurerm_kusto_cluster` - fix returned error if cluster was not found ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.38.0"
+  - version: "4.38.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kusto_cluster` - resource is now removed from state if it no longer exists ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.38.0"
+  - version: "4.11.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kusto_cluster` - `allowed_fqdn` and `allowed_ip_ranges` can now be set to empty lists ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.11.0"
 
 provider_issues:
   last_checked: "2026-05-13T06:34:31Z"

@@ -100,7 +100,7 @@ analysis_dependency_health:
     provider_constraint_style: { status: pass, evidence: "All 3 provider(s) use upper-bounded constraints" }
 # END ANALYSIS:dependency-health
 module_issues:
-  last_harvested: "2026-05-13T07:39:16Z"
+  last_harvested: "2026-05-19T09:48:26Z"
   open_count: 0
   issues: []
   # issue shape:
@@ -111,7 +111,6 @@ module_issues:
   #     created_at: "2026-03-21"
   #     comments: 4
 
-# BEGIN ANALYSIS:use-cases
 analysis_use_cases:
   checked_at: "2026-05-13T09:56:33Z"
   status: pass

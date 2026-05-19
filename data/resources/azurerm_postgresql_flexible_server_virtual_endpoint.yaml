@@ -5,14 +5,43 @@ resource:
   registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_virtual_endpoint"
 
 provider_updates:
-  last_checked: "2026-05-13T06:16:10Z"
-  findings: []
-  # finding shape:
-  #   - version: "4.15.0"
-  #     criticality: high   # critical | high | medium | low
-  #     type: bug_fix       # bug_fix | security | enhancement | breaking_change | new_feature | deprecated
-  #     summary: "..."
-  #     url: "..."
+  last_checked: "2026-05-19T09:44:51Z"
+  findings:
+  - version: "4.48.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_postgresql_flexible_server_virtual_endpoint` - fix read error when in replica set in failover state ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.48.0"
+  - version: "4.38.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_postgresql_flexible_server_virtual_endpoint` - no longer causes an error when `replica_server_id` is from another subscription ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.38.0"
+  - version: "4.28.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_postgresql_flexible_server_virtual_endpoint` - is no longer removed from state when a fail-over occurs ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.28.0"
+  - version: "4.25.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_postgresql_flexible_server_virtual_endpoint` - add a lock on the replica server to prevent a race condition ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.25.0"
+  - version: "4.19.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_postgresql_flexible_server_virtual_endpoint` - allow `source_server_id` and `replica_server_id` to reference the same server ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.19.0"
+  - version: "4.7.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_postgresql_flexible_server_virtual_endpoint` - retrieve and parse `replica_server_id` for cross-region scenarios as well as remove custom poller for the delete operation ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.7.0"
+  - version: "3.116.0"
+    criticality: low
+    type: documentation
+    summary: "New Resource: `azurerm_postgresql_flexible_server_virtual_endpoint` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.116.0"
 
 provider_issues:
   last_checked: "2026-05-13T06:34:31Z"

@@ -5,14 +5,58 @@ resource:
   registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_managed_instance"
 
 provider_updates:
-  last_checked: "2026-05-13T06:16:10Z"
-  findings: []
-  # finding shape:
-  #   - version: "4.15.0"
-  #     criticality: high   # critical | high | medium | low
-  #     type: bug_fix       # bug_fix | security | enhancement | breaking_change | new_feature | deprecated
-  #     summary: "..."
-  #     url: "..."
+  last_checked: "2026-05-19T09:44:51Z"
+  findings:
+  - version: "4.68.0"
+    criticality: low
+    type: documentation
+    summary: "Data Source: `azurerm_mssql_managed_instance` - add support for the `general_purpose_v2_enabled` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.68.0"
+  - version: "4.68.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_mssql_managed_instance` - export the `general_purpose_v2_enabled` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.68.0"
+  - version: "4.58.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_mssql_managed_instance` - increase `storage_size_in_gb` maximum to `32768` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.58.0"
+  - version: "4.38.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_mssql_managed_instance` - `administrator_login` is now Computed, preventing resource recreation when `azure_active_directory_administrator.azuread_authentication_only_enabled` is `true` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.38.0"
+  - version: "4.22.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_mssql_managed_instance` - fix an issue that prevented using values only known during apply for `administrator_login_password` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.22.0"
+  - version: "4.21.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_mssql_managed_instance` - add support for the `database_format` and `hybrid_secondary_usage` properties ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.21.0"
+  - version: "4.15.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_mssql_managed_instance` - support for new property `azure_active_directory_administrator` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.15.0"
+  - version: "4.15.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_mssql_managed_instance` - allow system and user assigned identities, fix update failure ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.15.0"
+  - version: "4.7.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_mssql_managed_instance` - the `storage_account_type` property can now be updated ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.7.0"
+  - version: "3.110.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_mssql_managed_instance` - support the value `GZRS` for the `storage_account_type` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.110.0"
 
 provider_issues:
   last_checked: "2026-05-13T06:34:31Z"

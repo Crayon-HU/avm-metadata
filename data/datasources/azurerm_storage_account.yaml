@@ -1,0 +1,167 @@
+resource:
+  type: azurerm_storage_account
+  provider: azurerm
+  symbol_type: datasource
+  registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/storage_account"
+
+provider_updates:
+  last_checked: "2026-05-19T09:44:51Z"
+  findings:
+  - version: "4.71.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_storage_account` - add support for the `Smart` value to `access_tier` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.71.0"
+  - version: "4.71.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_storage_account` - add support for the `All` value to `allowed_copy_scope` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.71.0"
+  - version: "4.71.0"
+    criticality: low
+    type: documentation
+    summary: "List Resource: `azurerm_storage_account` - skip resource data retrieval when `include_resource` is `false` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.71.0"
+  - version: "4.68.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_storage_account` - the `is_hns_enabled` property is now validated at plan time ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.68.0"
+  - version: "4.68.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_storage_account` - Remove `TLS1_3` as a valid value for `min_tls_version` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.68.0"
+  - version: "4.58.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_storage_account` - can now update a Storage Standard ZRS account ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.58.0"
+  - version: "4.55.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_storage_account` - ensure Resource Identity data is set on create to avoid `Missing Resource Identity After Create` errors ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.55.0"
+  - version: "4.47.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_storage_account` - fix error that occurs around `queue_properties` when not specified ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.47.0"
+  - version: "4.45.0"
+    criticality: low
+    type: documentation
+    summary: "New List Resource**: `azurerm_storage_account` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.45.0"
+  - version: "4.45.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_storage_account` - `expiration_action` supports `Block` () ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.45.0"
+  - version: "4.37.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_storage_account` - add support for the `provisioned_billing_model_version` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.37.0"
+  - version: "4.22.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_storage_account` - now gets the parent account directly rather than searching the list of all accounts when the Resource Manager ID is available ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.22.0"
+  - version: "4.21.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_storage_account` - nested attributes in `immutability_policy` can now be updated ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.21.0"
+  - version: "4.15.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_storage_account` - fix error handling for `static_website` and `queue_properties` availability checks ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.15.0"
+  - version: "4.9.0"
+    criticality: low
+    type: documentation
+    summary: "`storage` - allow `azurerm_storage_account` to be used in Data Plane restrictive environments ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.9.0"
+  - version: "3.117.0"
+    criticality: low
+    type: documentation
+    summary: "SPECIAL NOTES**: This 3.x release is a special, one-off, back-port of functionality for `azurerm_storage_account` to enable users to deploy this resource in environments which block / are restricti..."
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.117.0"
+  - version: "3.117.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_storage_account` - can now be created and managed if Data Plane endpoints are blocked by a firewall ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.117.0"
+  - version: "4.0.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_storage_account` - support `queue_encryption_key_type` and `table_encryption_key_type` for more storage account kinds ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.0.0"
+  - version: "4.0.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_storage_account` - prevent API error by populating `infrastructure_encryption_enabled` when updating `customer_managed_key` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.0.0"
+  - version: "3.116.0"
+    criticality: low
+    type: documentation
+    summary: "Data Source: `azurerm_storage_account` - add `default_share_level_permission` to the `azure_files_authentication` to prevent invalid address errors ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.116.0"
+  - version: "3.115.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_storage_account` - add support for the property `default_share_level_permission` in the `azure_files_authentication` block ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.115.0"
+  - version: "3.114.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_storage_account` - the `enable_https_traffic_only` property has been superseded by `https_traffic_only_enabled` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.114.0"
+  - version: "3.113.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_storage_account` - fix a validation bug when replacing a StorageV2 account with a StorageV1 account ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.113.0"
+  - version: "3.113.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_storage_account` - resolve an issue refreshing blob or queue properties after recreation ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.113.0"
+  - version: "3.113.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_storage_account` - resolve an issue setting tags for an existing storage account where a policy mandates them ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.113.0"
+  - version: "3.113.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_storage_account` - fix a persistent diff with the `customer_managed_key` block ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.113.0"
+  - version: "3.113.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_storage_account` - resolve several consistency related issues when crreating a new storage account ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.113.0"
+  - version: "3.103.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_storage_account` - support for the `permanent_delete_enabled` property within retention policies ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.103.0"
+  - version: "3.102.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_storage_account` - support for the `managed_hsm_key_id` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.102.0"
+
+provider_issues:
+  last_checked: null
+  items: []
+  # item shape:
+  #   - number: 1234
+  #     title: "..."
+  #     labels: [bug]
+  #     url: "..."
+  #     created_at: "2026-01-01"
+
+enrichment:
+  notes: []

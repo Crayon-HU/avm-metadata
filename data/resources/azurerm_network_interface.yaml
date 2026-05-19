@@ -5,14 +5,33 @@ resource:
   registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_interface"
 
 provider_updates:
-  last_checked: "2026-05-13T06:16:10Z"
-  findings: []
-  # finding shape:
-  #   - version: "4.15.0"
-  #     criticality: high   # critical | high | medium | low
-  #     type: bug_fix       # bug_fix | security | enhancement | breaking_change | new_feature | deprecated
-  #     summary: "..."
-  #     url: "..."
+  last_checked: "2026-05-19T09:44:51Z"
+  findings:
+  - version: "4.54.0"
+    criticality: low
+    type: documentation
+    summary: "New List Resource**: `azurerm_network_interface` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.54.0"
+  - version: "4.45.1"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_network_interface` - ensure identity is set during non-refresh apply operations ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.45.1"
+  - version: "4.31.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_network_interface` - `tags` can now be updated when NIC is attached to a private endpoint ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.31.0"
+  - version: "3.108.0"
+    criticality: low
+    type: documentation
+    summary: "Data Source: `azurerm_network_interface` - the `enable_ip_forwarding` and `enable_accelerated_networking` properties have been deprecated and superseded by the `ip_forwarding_enabled` and `accelera..."
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.108.0"
+  - version: "3.108.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_network_interface` - the `enable_ip_forwarding` and `enable_accelerated_networking` properties have been deprecated and superseded by the `ip_forwarding_enabled` and `accelerated_networkin..."
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.108.0"
 
 provider_issues:
   last_checked: "2026-05-13T06:34:31Z"

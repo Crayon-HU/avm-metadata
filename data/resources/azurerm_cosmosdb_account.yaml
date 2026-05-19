@@ -5,14 +5,68 @@ resource:
   registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cosmosdb_account"
 
 provider_updates:
-  last_checked: "2026-05-13T06:16:10Z"
-  findings: []
-  # finding shape:
-  #   - version: "4.15.0"
-  #     criticality: high   # critical | high | medium | low
-  #     type: bug_fix       # bug_fix | security | enhancement | breaking_change | new_feature | deprecated
-  #     summary: "..."
-  #     url: "..."
+  last_checked: "2026-05-19T09:44:51Z"
+  findings:
+  - version: "4.68.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_cosmosdb_account` - add support for the `EnableFabricNetworkAclBypass` capability ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.68.0"
+  - version: "4.67.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_cosmosdb_account` - fix an API error caused by `backup.interval_in_minutes` and `backup.retention_in_hours` being set to `0` in the API payload when not defined in config ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.67.0"
+  - version: "4.25.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_cosmosdb_account` - add support for the `DeleteAllItemsByPartitionKey` value in the `capabilities` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.25.0"
+  - version: "4.12.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_cosmosdb_account` - add support for value `EnableNoSQLFullTextSearch` in the  `capabilities.name` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.12.0"
+  - version: "4.8.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_cosmosdb_account`: support for CMK through `managed_hsm_key_id` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.8.0"
+  - version: "4.8.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_cosmosdb_account` - support further versions for `mongo_server_version` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.8.0"
+  - version: "4.3.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_cosmosdb_account` - support for the capability `EnableNoSQLVectorSearch` ()azurerm_container_app_custom_domain - fix parsing the certificate ID error #25972"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.3.0"
+  - version: "4.2.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_cosmosdb_account` - fix crash during state migration ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.2.0"
+  - version: "4.1.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_cosmosdb_account` - the `ip_range_filter` property now supports IPV4 addresses ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.1.0"
+  - version: "4.1.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_cosmosdb_account` - added state migration for `ip_range_filter` underlying type change from `string` to `set` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.1.0"
+  - version: "3.116.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_cosmosdb_account` - add support for the property `burst_capacity_enabled` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.116.0"
+  - version: "3.115.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_cosmosdb_account` - avoid infinite diff to `default_identity_type` for legacy resources where an empty string is returned by the RP ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.115.0"
 
 provider_issues:
   last_checked: "2026-05-13T06:34:31Z"

@@ -5,14 +5,263 @@ resource:
   registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kubernetes_cluster"
 
 provider_updates:
-  last_checked: "2026-05-13T06:16:10Z"
-  findings: []
-  # finding shape:
-  #   - version: "4.15.0"
-  #     criticality: high   # critical | high | medium | low
-  #     type: bug_fix       # bug_fix | security | enhancement | breaking_change | new_feature | deprecated
-  #     summary: "..."
-  #     url: "..."
+  last_checked: "2026-05-19T09:44:51Z"
+  findings:
+  - version: "4.71.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - the `container_log_max_lines` property has been renamed to `container_log_max_files` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.71.0"
+  - version: "4.68.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - changing `oidc_issuer_enabled` from `true` to `false` now forces resource recreation as the API does not support this ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.68.0"
+  - version: "4.68.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - fix an issue that prevented `oidc_issuer_enabled = false` from being set on create ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.68.0"
+  - version: "4.68.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - fix a diff caused by Azure's default value for `oidc_issuer_enabled` changing in AKS 1.34+ ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.68.0"
+  - version: "4.67.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - add support for the `Ubuntu2404` OS SKU ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.67.0"
+  - version: "4.67.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - improve validation for `network_profile.0.advanced_networking` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.67.0"
+  - version: "4.66.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - add support for migration from Azure or Kubenet CNI to Azure CNI Overlay ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.66.0"
+  - version: "4.64.0"
+    criticality: low
+    type: documentation
+    summary: "Data Source: `azurerm_kubernetes_cluster` - export the `bootstrap_profile` and `network_profile.outbound_type` attributes ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.64.0"
+  - version: "4.60.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - fixed `capacity_reservation_group_id` loss during node pool cycling ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.60.0"
+  - version: "4.59.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` -  the`network_policy` property now allows updating from `calico` to `cilium` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.59.0"
+  - version: "4.58.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - `network_data_plane` and `network_policy` now support updating to `cilium` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.58.0"
+  - version: "4.57.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - support for the `node_provisioning_profile` block ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.57.0"
+  - version: "4.55.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - fix drift on `azure_policy_enabled` when updating cluster ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.55.0"
+  - version: "4.53.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - fix crash in use of `azure_active_directory_role_based_access_control` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.53.0"
+  - version: "4.48.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - add support for `AzureLinux3` and `Ubuntu2204` to the `default_node_pool.os_sku` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.48.0"
+  - version: "4.48.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - add support for the `ai_toolchain_operator_enabled` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.48.0"
+  - version: "4.46.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - add support for the `api_server_access_profile.virtual_network_integration_enabled` and `api_server_access_profile.subnet_id` properties ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.46.0"
+  - version: "4.45.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - add support for the `network_profile.advanced_networking` block ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.45.0"
+  - version: "4.44.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - add support for `bootstrap_profile` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.44.0"
+  - version: "4.44.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - add support for the `none` value for `network_profile.outbound_type` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.44.0"
+  - version: "4.43.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - remove read-only field `NodeImageVersion` when cycling node pool ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.43.0"
+  - version: "4.40.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - add support for `gpu_profile` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.40.0"
+  - version: "4.37.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - add support for the `Daily` value in the `maintenance_window_auto_upgrade.frequency` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.37.0"
+  - version: "4.36.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - add support for the `custom_ca_trust_certificates_base64` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.36.0"
+  - version: "4.36.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - support for the `web_app_routing.default_nginx_controller` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.36.0"
+  - version: "4.32.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - the `vm_size` property is now optional ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.32.0"
+  - version: "4.24.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - `fips_enabled` can be updated by cycling the default node pool ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.24.0"
+  - version: "4.21.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - add support for the `upgrade_override_setting` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.21.0"
+  - version: "4.17.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - parse `oms_agent.log_analytics_workspace_id` insensitively to handle inconsistent casing ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.17.0"
+  - version: "4.8.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - fix issue where`maintenance_window_auto_upgrade`/`maintenance_window_auto_upgrade`/`maintenance_window_node_os ` might not be read into state ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.8.0"
+  - version: "4.8.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - support for the `backend_pool_type` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.8.0"
+  - version: "4.8.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - support for the `daemonset_eviction_for_empty_nodes_enabled`, `daemonset_eviction_for_occupied_nodes_enabled`, and `ignore_daemonsets_utilization_enabled` properties ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.8.0"
+  - version: "4.6.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - remove lock on subnets ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.6.0"
+  - version: "4.1.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` -  the `host_encryption_enabled` and `node_public_ip_enabled` properties are now set correctly ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.1.0"
+  - version: "4.0.1"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - prevent a panic ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.0.1"
+  - version: "3.115.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - allow an empty list for `dns_zone_ids` in the `web_app_routing` block ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.115.0"
+  - version: "3.114.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - fix issue that prevented `max_count` from being updated ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.114.0"
+  - version: "3.112.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - support for the `certificate_authority` block under the `service_mesh_profile` block ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.112.0"
+  - version: "3.111.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - support updating `default_node_pool.os_sku` between `Ubuntu` and `AzureLinux` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.111.0"
+  - version: "3.111.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - prevent a panic ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.111.0"
+  - version: "3.111.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - prevent a diff in `upgrade_settings` when the API returns an empty object ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.111.0"
+  - version: "3.108.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - updating the `network_profile.network_policy` property to `azure` and `calico` when it hasn't been previously set is supported ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.108.0"
+  - version: "3.108.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - respect Pod Distruption Budgets when rotating the `default_node_pool` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.108.0"
+  - version: "3.108.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - the `ebpf_data_plane` property has been deprecated and superseded by the `network_data_plane` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.108.0"
+  - version: "3.107.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` -  support forthe  `dns_zone_ids` popperty in the `web_app_routing` block ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.107.0"
+  - version: "3.107.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - the property `dns_zone_id` has been superseded by the property `dns_zone_ids` in the `web_app_routing` block ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.107.0"
+  - version: "3.106.1"
+    criticality: low
+    type: documentation
+    summary: "Data Source: `azurerm_kubernetes_cluster` - fix a crash when reading/setting `upgrade_settings` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.106.1"
+  - version: "3.106.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - support for the `cost_analysis_enabled` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.106.0"
+  - version: "3.106.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - support for the `drain_timeout_in_minutes` and `node_soak_duration_in_minutes` properties in the `upgrade_settings` block ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.106.0"
+  - version: "3.105.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - the properties `workload_autoscaler_profile.vertical_pod_autoscaler_update_mode` and `workload_autoscaler_profile.vertical_pod_autoscaler_controlled_values` are no lo..."
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.105.0"
+  - version: "3.103.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster` - erase `load_balancer_profile` when changing `network_profile.outbound_type` from `loadBalancer` to another outbound type ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.103.0"
 
 provider_issues:
   last_checked: "2026-05-13T06:34:31Z"

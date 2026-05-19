@@ -5,14 +5,63 @@ resource:
   registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/container_app_job"
 
 provider_updates:
-  last_checked: "2026-05-13T06:16:10Z"
-  findings: []
-  # finding shape:
-  #   - version: "4.15.0"
-  #     criticality: high   # critical | high | medium | low
-  #     type: bug_fix       # bug_fix | security | enhancement | breaking_change | new_feature | deprecated
-  #     summary: "..."
-  #     url: "..."
+  last_checked: "2026-05-19T09:44:51Z"
+  findings:
+  - version: "4.73.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_container_app_job` - add support for `identity_id` property to `scaling.rules` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.73.0"
+  - version: "4.62.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_container_app_job` - fix an issue where `template.container.startup_probe.initial_delay` and `template.container.readiness_probe.initial_delay` were not set in the API request ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.62.0"
+  - version: "4.35.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_container_app_job` - add support for the `volume_mounts.sub_path` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.35.0"
+  - version: "4.22.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_container_app_job` - add support for the `template.volume.mount_options` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.22.0"
+  - version: "3.107.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_container_app_job` - support for the `key_vault_secret_id` and `identity`  properties in the  `secret` block ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.107.0"
+  - version: "3.105.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_container_app_job` - updating the validation for the `name` field ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.105.0"
+  - version: "3.105.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_container_app_job` - updating the validation for the `name` field within the `custom_scale_rule` block ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.105.0"
+  - version: "3.105.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_container_app_job` - updating the validation for the `name` field within the `rules` block ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.105.0"
+  - version: "3.104.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_container_app_job` - Allow `event_trigger_config.scale.min_executions` to be `0` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.104.0"
+  - version: "3.104.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_container_app_job` - update validation to allow the `replica_retry_limit` property to be set to `0` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.104.0"
+  - version: "3.103.0"
+    criticality: low
+    type: documentation
+    summary: "New Resource: `azurerm_container_app_job` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.103.0"
 
 provider_issues:
   last_checked: "2026-05-13T06:34:31Z"

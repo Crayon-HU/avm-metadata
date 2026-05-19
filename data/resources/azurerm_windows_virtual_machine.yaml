@@ -5,14 +5,43 @@ resource:
   registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/windows_virtual_machine"
 
 provider_updates:
-  last_checked: "2026-05-13T06:16:10Z"
-  findings: []
-  # finding shape:
-  #   - version: "4.15.0"
-  #     criticality: high   # critical | high | medium | low
-  #     type: bug_fix       # bug_fix | security | enhancement | breaking_change | new_feature | deprecated
-  #     summary: "..."
-  #     url: "..."
+  last_checked: "2026-05-19T09:44:51Z"
+  findings:
+  - version: "4.42.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_windows_virtual_machine` - add support for `os_managed_disk_id` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.42.0"
+  - version: "4.35.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_windows_virtual_machine`: `os_disk.0.diff_disk_settings.0.placement` now supports `NvmeDisk` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.35.0"
+  - version: "4.26.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_windows_virtual_machine` - the `vm_agent_platform_updates_enabled` property is now read-only due to a recent API breaking change ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.26.0"
+  - version: "4.15.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_windows_virtual_machine` - export the `os_disk.0.id` attribute ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.15.0"
+  - version: "4.14.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_windows_virtual_machine` - support hot patching for `2025-datacenter-azure-edition-core-smalldisk` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.14.0"
+  - version: "3.106.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_windows_virtual_machine` - the `hibernation_enabled` property can now be updated ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.106.0"
+  - version: "3.103.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_windows_virtual_machine` - support for the additional capability `hibernation_enabled` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.103.0"
 
 provider_issues:
   last_checked: "2026-05-13T06:34:31Z"
