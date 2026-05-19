@@ -165,6 +165,26 @@ analysis_use_cases:
     resources_managed: [azurerm_data_factory, azurerm_data_factory_credential_service_principal, azurerm_data_factory_credential_user_managed_identity, azurerm_data_factory_linked_service_azure_blob_storage, azurerm_data_factory_linked_service_azure_databricks]
 # END ANALYSIS:use-cases
 
+# BEGIN ANALYSIS:provider-currency
+analysis_provider_currency:
+  checked_at: "2026-05-19T10:02:16Z"
+  status: partial
+  worst_criticality: high
+  finding_counts:
+    critical: 0
+    high: 1
+    medium: 1
+    low: 22
+  issue_counts:
+    total: 1
+  coverage_stats:
+    checked: 17
+    total: 17
+  checks:
+    critical_findings: { status: partial, finding: "No critical findings; 1 high finding(s) across: azapi_client_config" }
+    open_issues: { status: partial, finding: "1 open provider issue(s) across 17 resource type(s)" }
+    stub_coverage: { status: pass, evidence: "All 17 resource type(s) have provider data" }
+# END ANALYSIS:provider-currency
 enrichment:
   version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
   terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"

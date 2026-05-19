@@ -146,6 +146,26 @@ analysis_use_cases:
     catalog_resource_type: Oracle.Database/cloudvmclusters
 # END ANALYSIS:use-cases
 
+# BEGIN ANALYSIS:provider-currency
+analysis_provider_currency:
+  checked_at: "2026-05-19T10:02:16Z"
+  status: fail
+  worst_criticality: critical
+  finding_counts:
+    critical: 1
+    high: 1
+    medium: 3
+    low: 0
+  issue_counts:
+    total: 0
+  coverage_stats:
+    checked: 3
+    total: 3
+  checks:
+    critical_findings: { status: fail, finding: "1 critical finding(s) across: azapi_resource_list" }
+    open_issues: { status: pass, evidence: "0 open provider issues across 3 resource type(s)" }
+    stub_coverage: { status: pass, evidence: "All 3 resource type(s) have provider data" }
+# END ANALYSIS:provider-currency
 enrichment:
   version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
   terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"

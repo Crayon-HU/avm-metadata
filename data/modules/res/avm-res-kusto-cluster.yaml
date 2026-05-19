@@ -141,6 +141,26 @@ analysis_use_cases:
     resources_managed: [azurerm_kusto_cluster, azurerm_private_endpoint, azurerm_private_endpoint_application_security_group_association, azurerm_resource_group_template_deployment, random_id]
 # END ANALYSIS:use-cases
 
+# BEGIN ANALYSIS:provider-currency
+analysis_provider_currency:
+  checked_at: "2026-05-19T10:02:16Z"
+  status: partial
+  worst_criticality: low
+  finding_counts:
+    critical: 0
+    high: 0
+    medium: 0
+    low: 21
+  issue_counts:
+    total: 1
+  coverage_stats:
+    checked: 7
+    total: 7
+  checks:
+    critical_findings: { status: pass, evidence: "No critical/high findings; 21 medium/low finding(s)" }
+    open_issues: { status: partial, finding: "1 open provider issue(s) across 7 resource type(s)" }
+    stub_coverage: { status: pass, evidence: "All 7 resource type(s) have provider data" }
+# END ANALYSIS:provider-currency
 enrichment:
   version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
   terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"

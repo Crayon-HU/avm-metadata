@@ -146,6 +146,26 @@ analysis_use_cases:
     catalog_resource_type: Microsoft.Storage/storageAccounts
 # END ANALYSIS:use-cases
 
+# BEGIN ANALYSIS:provider-currency
+analysis_provider_currency:
+  checked_at: "2026-05-19T10:02:16Z"
+  status: fail
+  worst_criticality: critical
+  finding_counts:
+    critical: 6
+    high: 15
+    medium: 34
+    low: 19
+  issue_counts:
+    total: 15
+  coverage_stats:
+    checked: 3
+    total: 3
+  checks:
+    critical_findings: { status: fail, finding: "6 critical finding(s) across: azapi_update_resource, azapi_resource" }
+    open_issues: { status: partial, finding: "15 open provider issue(s) across 3 resource type(s)" }
+    stub_coverage: { status: pass, evidence: "All 3 resource type(s) have provider data" }
+# END ANALYSIS:provider-currency
 enrichment:
   version_pinned: "v0.7.0"         # latest version you have tested/pinned, e.g. "0.7.0"
   terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"
