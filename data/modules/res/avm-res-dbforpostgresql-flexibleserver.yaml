@@ -29,7 +29,7 @@ catalog:
 # END SCRAPED
 # BEGIN ANALYSIS:terraform-metadata
 analysis_terraform_metadata:
-  checked_at: "2026-05-13T09:38:42Z"
+  checked_at: "2026-05-19T09:26:47Z"
   status: pass
   errors: []
   terraform_constraints:
@@ -71,7 +71,7 @@ analysis_terraform_metadata:
 # END ANALYSIS:terraform-metadata
 # BEGIN ANALYSIS:avm-interface-compliance
 analysis_avm_interface_compliance:
-  checked_at: "2026-05-13T09:38:42Z"
+  checked_at: "2026-05-19T09:26:47Z"
   status: pass
   checks:
     lock: { status: pass, evidence: "variables.tf:112" }
@@ -84,7 +84,7 @@ analysis_avm_interface_compliance:
 # END ANALYSIS:avm-interface-compliance
 # BEGIN ANALYSIS:security-hardening
 analysis_security_hardening:
-  checked_at: "2026-05-13T09:38:42Z"
+  checked_at: "2026-05-19T09:26:47Z"
   status: pass
   checks:
     hardcoded_locations: { status: pass, evidence: "No hardcoded locations found" }
@@ -93,7 +93,7 @@ analysis_security_hardening:
 # END ANALYSIS:security-hardening
 # BEGIN ANALYSIS:test-coverage
 analysis_test_coverage:
-  checked_at: "2026-05-13T09:38:42Z"
+  checked_at: "2026-05-19T09:26:47Z"
   status: partial
   checks:
     examples_dir: { status: pass, evidence: "examples/ contains 4 item(s)" }
@@ -101,7 +101,7 @@ analysis_test_coverage:
 # END ANALYSIS:test-coverage
 # BEGIN ANALYSIS:doc-quality
 analysis_doc_quality:
-  checked_at: "2026-05-13T09:38:42Z"
+  checked_at: "2026-05-19T09:26:47Z"
   status: partial
   checks:
     readme_exists: { status: pass, evidence: "README.md found" }
@@ -110,14 +110,14 @@ analysis_doc_quality:
 # END ANALYSIS:doc-quality
 # BEGIN ANALYSIS:dependency-health
 analysis_dependency_health:
-  checked_at: "2026-05-13T09:38:42Z"
+  checked_at: "2026-05-19T09:26:47Z"
   status: pass
   checks:
     terraform_version_upper_bound: { status: pass, evidence: "required_version = \">= 1.9, < 2.0\"" }
     provider_constraint_style: { status: pass, evidence: "All 4 provider(s) use upper-bounded constraints" }
 # END ANALYSIS:dependency-health
 module_issues:
-  last_harvested: "2026-05-13T07:39:16Z"
+  last_harvested: "2026-05-19T09:48:26Z"
   open_count: 0
   issues: []
   # issue shape:
@@ -128,9 +128,8 @@ module_issues:
   #     created_at: "2026-03-21"
   #     comments: 4
 
-# BEGIN ANALYSIS:provider-currency
 analysis_provider_currency:
-  checked_at: "2026-05-13T09:38:42Z"
+  checked_at: "2026-05-19T09:26:47Z"
   status: partial
   worst_criticality: high
   finding_counts:

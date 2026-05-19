@@ -29,7 +29,7 @@ catalog:
 # END SCRAPED
 # BEGIN ANALYSIS:terraform-metadata
 analysis_terraform_metadata:
-  checked_at: "2026-05-12T23:34:41Z"
+  checked_at: "2026-05-19T09:26:47Z"
   status: pass
   errors: []
   terraform_constraints:
@@ -57,10 +57,15 @@ analysis_terraform_metadata:
       - "modtm_telemetry"
     random:
       - "random_uuid"
+  datasources_managed:
+    azapi:
+      - "azapi_client_config"
+    modtm:
+      - "modtm_module_source"
 # END ANALYSIS:terraform-metadata
 # BEGIN ANALYSIS:avm-interface-compliance
 analysis_avm_interface_compliance:
-  checked_at: "2026-05-12T23:34:41Z"
+  checked_at: "2026-05-19T09:26:47Z"
   status: partial
   checks:
     lock: { status: pass, evidence: "variables.tf:61" }
@@ -73,7 +78,7 @@ analysis_avm_interface_compliance:
 # END ANALYSIS:avm-interface-compliance
 # BEGIN ANALYSIS:security-hardening
 analysis_security_hardening:
-  checked_at: "2026-05-12T23:34:41Z"
+  checked_at: "2026-05-19T09:26:47Z"
   status: pass
   checks:
     hardcoded_locations: { status: pass, evidence: "No hardcoded locations found" }
@@ -82,7 +87,7 @@ analysis_security_hardening:
 # END ANALYSIS:security-hardening
 # BEGIN ANALYSIS:test-coverage
 analysis_test_coverage:
-  checked_at: "2026-05-12T23:34:41Z"
+  checked_at: "2026-05-19T09:26:47Z"
   status: partial
   checks:
     examples_dir: { status: pass, evidence: "examples/ contains 3 item(s)" }
@@ -90,7 +95,7 @@ analysis_test_coverage:
 # END ANALYSIS:test-coverage
 # BEGIN ANALYSIS:doc-quality
 analysis_doc_quality:
-  checked_at: "2026-05-12T23:34:41Z"
+  checked_at: "2026-05-19T09:26:47Z"
   status: partial
   checks:
     readme_exists: { status: pass, evidence: "README.md found" }
@@ -99,14 +104,14 @@ analysis_doc_quality:
 # END ANALYSIS:doc-quality
 # BEGIN ANALYSIS:dependency-health
 analysis_dependency_health:
-  checked_at: "2026-05-12T23:34:41Z"
+  checked_at: "2026-05-19T09:26:47Z"
   status: pass
   checks:
     terraform_version_upper_bound: { status: pass, evidence: "required_version = \"~> 1.7\"" }
     provider_constraint_style: { status: pass, evidence: "All 4 provider(s) use upper-bounded constraints" }
 # END ANALYSIS:dependency-health
 module_issues:
-  last_harvested: "2026-05-13T07:39:16Z"
+  last_harvested: "2026-05-19T09:48:26Z"
   open_count: 0
   issues: []
   # issue shape:
@@ -117,7 +122,6 @@ module_issues:
   #     created_at: "2026-03-21"
   #     comments: 4
 
-# BEGIN ANALYSIS:use-cases
 analysis_use_cases:
   checked_at: "2026-05-13T09:56:33Z"
   status: pass
@@ -127,6 +131,26 @@ analysis_use_cases:
     catalog_resource_type: Microsoft.Edge/sites
 # END ANALYSIS:use-cases
 
+# BEGIN ANALYSIS:provider-currency
+analysis_provider_currency:
+  checked_at: "2026-05-19T09:26:47Z"
+  status: partial
+  worst_criticality: high
+  finding_counts:
+    critical: 0
+    high: 1
+    medium: 1
+    low: 0
+  issue_counts:
+    total: 0
+  coverage_stats:
+    checked: 4
+    total: 4
+  checks:
+    critical_findings: { status: partial, finding: "No critical findings; 1 high finding(s) across: azapi_client_config" }
+    open_issues: { status: pass, evidence: "0 open provider issues across 4 resource type(s)" }
+    stub_coverage: { status: pass, evidence: "All 4 resource type(s) have provider data" }
+# END ANALYSIS:provider-currency
 enrichment:
   version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
   terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"

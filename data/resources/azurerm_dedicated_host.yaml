@@ -5,7 +5,7 @@ resource:
   registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/dedicated_host"
 
 provider_updates:
-  last_checked: "2026-05-13T06:16:10Z"
+  last_checked: "2026-05-19T09:44:51Z"
   findings: []
   # finding shape:
   #   - version: "4.15.0"

@@ -5,7 +5,7 @@ resource:
   registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/eventhub_namespace"
 
 provider_updates:
-  last_checked: "2026-05-13T09:54:43Z"
+  last_checked: "2026-05-19T09:44:51Z"
   findings:
   - version: "4.48.0"
     criticality: low

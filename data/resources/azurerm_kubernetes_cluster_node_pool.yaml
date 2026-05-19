@@ -5,14 +5,108 @@ resource:
   registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kubernetes_cluster_node_pool"
 
 provider_updates:
-  last_checked: "2026-05-13T06:16:10Z"
-  findings: []
-  # finding shape:
-  #   - version: "4.15.0"
-  #     criticality: high   # critical | high | medium | low
-  #     type: bug_fix       # bug_fix | security | enhancement | breaking_change | new_feature | deprecated
-  #     summary: "..."
-  #     url: "..."
+  last_checked: "2026-05-19T09:44:51Z"
+  findings:
+  - version: "4.71.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster_node_pool` - the `container_log_max_lines` property has been renamed to `container_log_max_files` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.71.0"
+  - version: "4.69.0"
+    criticality: low
+    type: documentation
+    summary: "Data Source: `azurerm_kubernetes_cluster_node_pool` - export the `node_image_version` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.69.0"
+  - version: "4.69.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster_node_pool` - export the `node_image_version` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.69.0"
+  - version: "4.68.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster_node_pool` - lock on subnet ID instead of subnet name to prevent unnecessary serialization ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.68.0"
+  - version: "4.67.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster_node_pool` - add support for the `Ubuntu2404` OS SKU ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.67.0"
+  - version: "4.65.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster_node_pool` - `max_surge` and `max_unavailable` are no longer required  for spot node pools  ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.65.0"
+  - version: "4.53.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster_node_pool` - support for the `undrainable_node_behavior` and `max_unavailable` properties ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.53.0"
+  - version: "4.48.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster_node_pool` - add support for `AzureLinux3` and `Ubuntu2204` to the `os_sku` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.48.0"
+  - version: "4.43.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster_node_pool` - remove read-only field `NodeImageVersion` when cycling node pool ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.43.0"
+  - version: "4.39.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster_node_pool` - add locks on `vnet_subnet_id` and `pod_subnet_id` to prevent conflicts while updating multiple node pools in parallel ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.39.0"
+  - version: "4.32.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster_node_pool` - the `vm_size` property is now optional ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.32.0"
+  - version: "4.25.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster_node_pool` - fix issue where `kubelet_disk_type` couldn't be updated, updating this will now rotate the node pool ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.25.0"
+  - version: "4.24.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster_node_pool` - remove call to retrieve the parent cluster in the read ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.24.0"
+  - version: "4.16.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster_node_pool` - add support for the `temporary_name_for_rotation` property to allow node pool rotation ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.16.0"
+  - version: "4.0.1"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster_node_pool` - prevent a panic caused by renamed `enable_*` properties ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.0.1"
+  - version: "3.111.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster_node_pool` - support updating `os_sku` between `Ubuntu` and `AzureLinux` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.111.0"
+  - version: "3.111.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster_node_pool` - prevent a diff in `upgrade_settings` when the API returns an empty object ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.111.0"
+  - version: "3.110.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster_node_pool` - Pod Disruption Budgets are now respected when deleting a node pool ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.110.0"
+  - version: "3.106.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster_node_pool` - support for the `drain_timeout_in_minutes` and `node_soak_duration_in_minutes` properties in the `upgrade_settings` block ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.106.0"
+  - version: "3.104.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_kubernetes_cluster_node_pool` - prevent race condition by checking the virtual network status when creating a node pool with a subnet ID ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.104.0"
 
 provider_issues:
   last_checked: "2026-05-13T06:34:31Z"

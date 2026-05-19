@@ -1,0 +1,27 @@
+resource:
+  type: azurerm_management_group
+  provider: azurerm
+  symbol_type: datasource
+  registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/management_group"
+
+provider_updates:
+  last_checked: "2026-05-19T09:44:51Z"
+  findings:
+  - version: "4.14.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_management_group` - fix regression where subscription ID can't be parsed correctly anymore ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.14.0"
+
+provider_issues:
+  last_checked: null
+  items: []
+  # item shape:
+  #   - number: 1234
+  #     title: "..."
+  #     labels: [bug]
+  #     url: "..."
+  #     created_at: "2026-01-01"
+
+enrichment:
+  notes: []

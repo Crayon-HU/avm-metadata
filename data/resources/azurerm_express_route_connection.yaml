@@ -5,14 +5,13 @@ resource:
   registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/express_route_connection"
 
 provider_updates:
-  last_checked: "2026-05-13T06:16:10Z"
-  findings: []
-  # finding shape:
-  #   - version: "4.15.0"
-  #     criticality: high   # critical | high | medium | low
-  #     type: bug_fix       # bug_fix | security | enhancement | breaking_change | new_feature | deprecated
-  #     summary: "..."
-  #     url: "..."
+  last_checked: "2026-05-19T09:44:51Z"
+  findings:
+  - version: "3.116.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_express_route_connection` - prevent sending `private_link_fast_path_enabled` in the payload if it hasn't been explicitly set ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.116.0"
 
 provider_issues:
   last_checked: "2026-05-13T06:34:31Z"

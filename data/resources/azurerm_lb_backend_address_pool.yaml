@@ -5,14 +5,23 @@ resource:
   registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/lb_backend_address_pool"
 
 provider_updates:
-  last_checked: "2026-05-13T06:16:10Z"
-  findings: []
-  # finding shape:
-  #   - version: "4.15.0"
-  #     criticality: high   # critical | high | medium | low
-  #     type: bug_fix       # bug_fix | security | enhancement | breaking_change | new_feature | deprecated
-  #     summary: "..."
-  #     url: "..."
+  last_checked: "2026-05-19T09:44:51Z"
+  findings:
+  - version: "4.32.0"
+    criticality: low
+    type: documentation
+    summary: "Data Source: `azurerm_lb_backend_address_pool` - the `inbound_nat_rule_port_mapping.frontend_port` and `inbound_nat_rule_port_mapping.backend_port` are now set correctly ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.32.0"
+  - version: "3.108.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_lb_backend_address_pool` - support for the `synchronous_mode` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.108.0"
+  - version: "3.108.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_lb_backend_address_pool_address` - when using this resource, values are no longer reset on `azurerm_lb_backend_address_pool` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.108.0"
 
 provider_issues:
   last_checked: "2026-05-13T06:34:31Z"

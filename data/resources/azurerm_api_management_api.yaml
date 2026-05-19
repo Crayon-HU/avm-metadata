@@ -5,14 +5,33 @@ resource:
   registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_api"
 
 provider_updates:
-  last_checked: "2026-05-13T06:16:10Z"
-  findings: []
-  # finding shape:
-  #   - version: "4.15.0"
-  #     criticality: high   # critical | high | medium | low
-  #     type: bug_fix       # bug_fix | security | enhancement | breaking_change | new_feature | deprecated
-  #     summary: "..."
-  #     url: "..."
+  last_checked: "2026-05-19T09:44:51Z"
+  findings:
+  - version: "4.31.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_api_management_api` - add additional validation to catch when `api_type` is `websocket` but `service_url` is left empty ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.31.0"
+  - version: "4.29.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_api_management_api` - fix `import` of resources ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.29.0"
+  - version: "4.29.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_api_management_api` - no longer returns an error on the  `oauth2_authorization` and `openid_authentication` properties when updating ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.29.0"
+  - version: "4.22.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_api_management_api` - split create/update methods ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.22.0"
+  - version: "3.116.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_api_management_api` - update validation of `path` to allow single character strings ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.116.0"
 
 provider_issues:
   last_checked: "2026-05-13T06:34:31Z"

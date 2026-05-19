@@ -1,0 +1,32 @@
+resource:
+  type: azurerm_virtual_hub_connection
+  provider: azurerm
+  symbol_type: resource
+  registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_hub_connection"
+
+provider_updates:
+  last_checked: "2026-05-19T09:44:51Z"
+  findings:
+  - version: "4.25.0"
+    criticality: low
+    type: documentation
+    summary: "Data Source: `azurerm_virtual_hub_connection` - add support for the `static_vnet_propagate_static_routes` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.25.0"
+  - version: "4.25.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_virtual_hub_connection` - add support for the `static_vnet_propagate_static_routes` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.25.0"
+
+provider_issues:
+  last_checked: null
+  items: []
+  # item shape:
+  #   - number: 1234
+  #     title: "..."
+  #     labels: [bug]
+  #     url: "..."
+  #     created_at: "2026-01-01"
+
+enrichment:
+  notes: []

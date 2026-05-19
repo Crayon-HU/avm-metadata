@@ -5,14 +5,53 @@ resource:
   registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cdn_frontdoor_firewall_policy"
 
 provider_updates:
-  last_checked: "2026-05-13T06:16:10Z"
-  findings: []
-  # finding shape:
-  #   - version: "4.15.0"
-  #     criticality: high   # critical | high | medium | low
-  #     type: bug_fix       # bug_fix | security | enhancement | breaking_change | new_feature | deprecated
-  #     summary: "..."
-  #     url: "..."
+  last_checked: "2026-05-19T09:44:51Z"
+  findings:
+  - version: "4.73.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_cdn_frontdoor_firewall_policy` - add support for the `429`, `990`, `991`, `992`, `993`, `994`, `995`, `996`, `997`, `998`, and `999` values in the `custom_block_response_status_code` prope..."
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.73.0"
+  - version: "4.46.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_cdn_frontdoor_firewall_policy` - support for the `captcha_cookie_expiration_in_minutes` property and  the `CAPTCHA` value in the `custom_rule.action` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.46.0"
+  - version: "4.46.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_cdn_frontdoor_firewall_policy` - fix the read function so it now correctly marks the resource as gone ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.46.0"
+  - version: "4.22.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_cdn_frontdoor_firewall_policy` - add support for the `log_scrubbing` properties ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.22.0"
+  - version: "4.19.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_cdn_frontdoor_firewall_policy` - add support for `JSChallenge` for `custom` rules ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.19.0"
+  - version: "4.19.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_cdn_frontdoor_firewall_policy` - fixed issue where the `js_challenge_cookie_expiration_in_minutes` policies `default` value caused `Standard_AzureFrontDoor` skus to receive a `BadRequest` ..."
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.19.0"
+  - version: "4.18.0"
+    criticality: low
+    type: documentation
+    summary: "Data Source: `azurerm_cdn_frontdoor_firewall_policy` - add support for `js_challenge_cookie_expiration_in_minutes` policy ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.18.0"
+  - version: "4.18.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_cdn_frontdoor_firewall_policy` - add support for `js_challenge_cookie_expiration_in_minutes` policy ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.18.0"
+  - version: "4.18.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_cdn_frontdoor_firewall_policy` - add support for `JSChallenge` `action` type in the `managed_rule` `override` block ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.18.0"
 
 provider_issues:
   last_checked: "2026-05-13T06:34:31Z"

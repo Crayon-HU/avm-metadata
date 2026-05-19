@@ -5,14 +5,33 @@ resource:
   registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/public_ip"
 
 provider_updates:
-  last_checked: "2026-05-13T06:16:10Z"
-  findings: []
-  # finding shape:
-  #   - version: "4.15.0"
-  #     criticality: high   # critical | high | medium | low
-  #     type: bug_fix       # bug_fix | security | enhancement | breaking_change | new_feature | deprecated
-  #     summary: "..."
-  #     url: "..."
+  last_checked: "2026-05-19T09:44:51Z"
+  findings:
+  - version: "4.68.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_public_ip` - `domain_name_label`, `reverse_fqdn`, `domain_name_label_scope` can now be set to empty ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.68.0"
+  - version: "4.67.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_public_ip` - add support for the `StandardV2` SKU ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.67.0"
+  - version: "4.61.0"
+    criticality: low
+    type: documentation
+    summary: "New List Resource**: `azurerm_public_ip` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.61.0"
+  - version: "4.9.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_public_ip` - support for the `domain_name_label_scope` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.9.0"
+  - version: "3.114.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_public_ip` - fix panix when updating `idle_timeout_in_minutes`"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.114.0"
 
 provider_issues:
   last_checked: "2026-05-13T06:34:31Z"

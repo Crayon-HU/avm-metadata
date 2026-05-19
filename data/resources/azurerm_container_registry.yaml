@@ -5,14 +5,28 @@ resource:
   registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/container_registry"
 
 provider_updates:
-  last_checked: "2026-05-13T06:16:10Z"
-  findings: []
-  # finding shape:
-  #   - version: "4.15.0"
-  #     criticality: high   # critical | high | medium | low
-  #     type: bug_fix       # bug_fix | security | enhancement | breaking_change | new_feature | deprecated
-  #     summary: "..."
-  #     url: "..."
+  last_checked: "2026-05-19T09:44:51Z"
+  findings:
+  - version: "4.49.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_container_registry` - fix the `name` length validation to allow 50 rather than 49 ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.49.0"
+  - version: "4.36.0"
+    criticality: low
+    type: documentation
+    summary: "Data Source: `azurerm_container_registry` - add support for the `data_endpoint_host_names` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.36.0"
+  - version: "4.36.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_container_registry` - add support for the `data_endpoint_host_names` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.36.0"
+  - version: "3.106.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_container_registry` - validation to fail fast when setting `public_network_access_enabled` with an invalid SKU ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.106.0"
 
 provider_issues:
   last_checked: "2026-05-13T06:34:31Z"

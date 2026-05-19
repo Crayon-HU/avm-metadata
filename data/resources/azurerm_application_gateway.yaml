@@ -5,14 +5,63 @@ resource:
   registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_gateway"
 
 provider_updates:
-  last_checked: "2026-05-13T06:16:10Z"
-  findings: []
-  # finding shape:
-  #   - version: "4.15.0"
-  #     criticality: high   # critical | high | medium | low
-  #     type: bug_fix       # bug_fix | security | enhancement | breaking_change | new_feature | deprecated
-  #     summary: "..."
-  #     url: "..."
+  last_checked: "2026-05-19T09:44:51Z"
+  findings:
+  - version: "4.67.0"
+    criticality: low
+    type: documentation
+    summary: "Data Source: `azurerm_application_gateway` - export the `backend`, `listener`, and `routing_rule` properties ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.67.0"
+  - version: "4.67.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_application_gateway` - add support for the `backend`, `listener`, and `routing_rule` properties ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.67.0"
+  - version: "4.61.0"
+    criticality: low
+    type: documentation
+    summary: "New List Resource**: `azurerm_application_gateway` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.61.0"
+  - version: "4.60.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_application_gateway` - add support for `2.2` to `waf_configuration.rule_set_version` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.60.0"
+  - version: "4.60.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_application_gateway` - add support for `MS-ThreatIntel-XSS` to `waf_configuration.disabled_rule_group.rule_group_name` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.60.0"
+  - version: "4.52.0"
+    criticality: low
+    type: documentation
+    summary: "Data Source: `azurerm_application_gateway` - add support for the `backend_http_settings.dedicated_backend_connection_enabled` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.52.0"
+  - version: "4.52.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_application_gateway` - add support for the `backend_http_settings.dedicated_backend_connection_enabled` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.52.0"
+  - version: "4.11.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_application_gateway` - `1.1` is now accepted as a valid `rule_set_version` in the `waf_configuration` block ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.11.0"
+  - version: "4.11.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_application_gateway` - `rewrite_rule_set` can be supplied when using `Basic` sku ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.11.0"
+  - version: "4.10.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_application_gateway` - support more values for the `status_code` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.10.0"
+  - version: "4.7.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_application_gateway` - support for the new `Basic` SKU value ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.7.0"
 
 provider_issues:
   last_checked: "2026-05-13T06:34:31Z"

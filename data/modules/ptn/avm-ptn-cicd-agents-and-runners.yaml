@@ -27,7 +27,7 @@ catalog:
 # END SCRAPED
 # BEGIN ANALYSIS:terraform-metadata
 analysis_terraform_metadata:
-  checked_at: "2026-05-12T23:34:42Z"
+  checked_at: "2026-05-19T09:26:48Z"
   status: pass
   errors: []
   terraform_constraints:
@@ -36,9 +36,6 @@ analysis_terraform_metadata:
       azapi:
         source: "Azure/azapi"
         version_constraint: "~> 2.4"
-      azurerm:
-        source: "hashicorp/azurerm"
-        version_constraint: "~> 4.20"
       modtm:
         source: "azure/modtm"
         version_constraint: "~> 0.3"
@@ -48,6 +45,25 @@ analysis_terraform_metadata:
       time:
         source: "hashicorp/time"
         version_constraint: "~> 0.12"
+  resources_managed:
+    azapi:
+      - "azapi_resource"
+    modtm:
+      - "modtm_telemetry"
+    random:
+      - "random_uuid"
+    time:
+      - "time_sleep"
+  datasources_managed:
+    azapi:
+      - "azapi_client_config"
+      - "azapi_resource"
+      - "azapi_resource_action"
+    modtm:
+      - "modtm_module_source"
+  functions_used:
+    azapi:
+      - "azapi::parse_resource_id"
   modules_called:
     - local_name: "container_app_job"
       source: "./modules/container-app-job"
@@ -57,7 +73,7 @@ analysis_terraform_metadata:
       source: "./modules/container-registry"
     - local_name: "log_analytics_workspace"
       source: "Azure/avm-res-operationalinsights-workspace/azurerm"
-      version: "0.4.2"
+      version: "0.5.1"
     - local_name: "user_assigned_managed_identity"
       source: "Azure/avm-res-managedidentity-userassignedidentity/azurerm"
       version: "0.3.3"
@@ -67,48 +83,48 @@ analysis_terraform_metadata:
 # END ANALYSIS:terraform-metadata
 # BEGIN ANALYSIS:avm-interface-compliance
 analysis_avm_interface_compliance:
-  checked_at: "2026-05-12T23:34:42Z"
+  checked_at: "2026-05-19T09:26:48Z"
   status: pass
   checks:
-    tags: { status: pass, evidence: "variables.tf:91" }
+    tags: { status: pass, evidence: "variables.tf:123" }
     enable_telemetry: { status: pass, evidence: "variables.tf:37" }
 # END ANALYSIS:avm-interface-compliance
 # BEGIN ANALYSIS:security-hardening
 analysis_security_hardening:
-  checked_at: "2026-05-12T23:34:42Z"
+  checked_at: "2026-05-19T09:26:48Z"
   status: fail
   checks:
-    hardcoded_locations: { status: fail, finding: "Hardcoded location \"northcentralus\" in variables.tf:118" }
+    hardcoded_locations: { status: fail, finding: "Hardcoded location \"northcentralus\" in variables.tf:168" }
     validation_blocks: { status: pass, evidence: "validation block found in variables.tf" }
     sensitive_outputs: { status: pass, evidence: "All sensitive-named outputs declare sensitive = true (or none found)" }
 # END ANALYSIS:security-hardening
 # BEGIN ANALYSIS:test-coverage
 analysis_test_coverage:
-  checked_at: "2026-05-12T23:34:42Z"
+  checked_at: "2026-05-19T09:26:48Z"
   status: partial
   checks:
-    examples_dir: { status: pass, evidence: "examples/ contains 15 item(s)" }
+    examples_dir: { status: pass, evidence: "examples/ contains 18 item(s)" }
     test_files: { status: partial, finding: "tests/ exists but contains no .go or .tftest.hcl files" }
 # END ANALYSIS:test-coverage
 # BEGIN ANALYSIS:doc-quality
 analysis_doc_quality:
-  checked_at: "2026-05-12T23:34:42Z"
+  checked_at: "2026-05-19T09:26:48Z"
   status: partial
   checks:
     readme_exists: { status: pass, evidence: "README.md found" }
-    readme_length: { status: pass, evidence: "44556 characters" }
+    readme_length: { status: pass, evidence: "52923 characters" }
     required_sections: { status: partial, finding: "Missing sections: ## Usage, ## Examples" }
 # END ANALYSIS:doc-quality
 # BEGIN ANALYSIS:dependency-health
 analysis_dependency_health:
-  checked_at: "2026-05-12T23:34:42Z"
+  checked_at: "2026-05-19T09:26:48Z"
   status: partial
   checks:
     terraform_version_upper_bound: { status: partial, finding: "required_version = \">= 1.9.0\" has no upper bound" }
-    provider_constraint_style: { status: pass, evidence: "All 5 provider(s) use upper-bounded constraints" }
+    provider_constraint_style: { status: pass, evidence: "All 4 provider(s) use upper-bounded constraints" }
 # END ANALYSIS:dependency-health
 module_issues:
-  last_harvested: "2026-05-13T07:43:45Z"
+  last_harvested: "2026-05-19T09:48:26Z"
   open_count: 0
   issues: []
   # issue shape:
@@ -119,7 +135,6 @@ module_issues:
   #     created_at: "2026-03-21"
   #     comments: 4
 
-# BEGIN ANALYSIS:use-cases
 analysis_use_cases:
   checked_at: "2026-05-13T09:56:33Z"
   status: pass
@@ -128,8 +143,28 @@ analysis_use_cases:
     catalog_domain: developer-tools
 # END ANALYSIS:use-cases
 
+# BEGIN ANALYSIS:provider-currency
+analysis_provider_currency:
+  checked_at: "2026-05-19T09:26:48Z"
+  status: fail
+  worst_criticality: critical
+  finding_counts:
+    critical: 5
+    high: 12
+    medium: 25
+    low: 13
+  issue_counts:
+    total: 8
+  coverage_stats:
+    checked: 2
+    total: 3
+  checks:
+    critical_findings: { status: fail, finding: "5 critical finding(s) across: azapi_resource" }
+    open_issues: { status: partial, finding: "8 open provider issue(s) across 2 resource type(s)" }
+    stub_coverage: { status: partial, finding: "2/3 resource type(s) have provider data; missing: azapi_resource_action" }
+# END ANALYSIS:provider-currency
 enrichment:
-  version_pinned: ""         # latest version you have tested/pinned, e.g. "0.7.0"
+  version_pinned: "v0.6.0"         # latest version you have tested/pinned, e.g. "0.7.0"
   terraform_version: ""      # Terraform version tested with, e.g. "1.9.0"
   provider_version: ""       # azurerm/azapi provider version tested with
   use_cases: []              # short tags, e.g. ["alz", "hub-spoke", "landing-zone"]

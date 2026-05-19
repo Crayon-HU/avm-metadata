@@ -5,14 +5,53 @@ resource:
   registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/databricks_workspace"
 
 provider_updates:
-  last_checked: "2026-05-13T06:16:10Z"
-  findings: []
-  # finding shape:
-  #   - version: "4.15.0"
-  #     criticality: high   # critical | high | medium | low
-  #     type: bug_fix       # bug_fix | security | enhancement | breaking_change | new_feature | deprecated
-  #     summary: "..."
-  #     url: "..."
+  last_checked: "2026-05-19T09:44:51Z"
+  findings:
+  - version: "4.73.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_databricks_workspace` - add support for the values `FEDRAMP_MODERATE`, `IRAP_PROTECTED`, `FEDRAMP_HIGH`, `FEDRAMP_IL5`, `ITAR_EAR`, `CYBER_ESSENTIAL_PLUS`, `CANADA_PROTECTED_B`, `ISMAP`, `..."
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.73.0"
+  - version: "4.68.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_databricks_workspace` - fix the update behaviour for the `access_connector_id` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.68.0"
+  - version: "4.58.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_databricks_workspace` - removed a legacy workaround that prevented apply operations from succeeding when `managed_disk_cmk_rotation_to_latest_version_enabled` and `tags` were updated simul..."
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.58.0"
+  - version: "4.38.0"
+    criticality: low
+    type: documentation
+    summary: "Data Source: `azurerm_databricks_workspace` - add support for the `custom_parameters` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.38.0"
+  - version: "4.26.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_databricks_workspace` - resources using managed resource groups that contain UC can now be deleted with the `force_delete` Provider Feature flag ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.26.0"
+  - version: "4.16.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_databricks_workspace` - fix `ignore_changes` support ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.16.0"
+  - version: "4.12.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_databricks_workspace` - add support for the `enhanced_security_compliance` block ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.12.0"
+  - version: "3.109.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_databricks_workspace`- correctly allow disabling the default firewall ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.109.0"
+  - version: "3.104.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_databricks_workspace` - support for the `default_storage_firewall_enabled` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.104.0"
 
 provider_issues:
   last_checked: "2026-05-13T06:34:31Z"

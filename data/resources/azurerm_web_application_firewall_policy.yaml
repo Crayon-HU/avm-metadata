@@ -5,14 +5,63 @@ resource:
   registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/web_application_firewall_policy"
 
 provider_updates:
-  last_checked: "2026-05-13T06:16:10Z"
-  findings: []
-  # finding shape:
-  #   - version: "4.15.0"
-  #     criticality: high   # critical | high | medium | low
-  #     type: bug_fix       # bug_fix | security | enhancement | breaking_change | new_feature | deprecated
-  #     summary: "..."
-  #     url: "..."
+  last_checked: "2026-05-19T09:44:51Z"
+  findings:
+  - version: "4.61.0"
+    criticality: low
+    type: documentation
+    summary: "New List Resource**: `azurerm_web_application_firewall_policy` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.61.0"
+  - version: "4.60.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_web_application_firewall_policy` - add support for `2.2` to `managed_rules.managed_rule_set.version` and `managed_rules.exclusion.excluded_rule_set.version` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.60.0"
+  - version: "4.60.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_web_application_firewall_policy` - add support for `MS-ThreatIntel-XSS` to  `managed_rules.managed_rule_set.rule_group_override.rule_group_name` and `managed_rules.exclusion.excluded_rule_..."
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.60.0"
+  - version: "4.38.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_web_application_firewall_policy` - `js_challenge_cookie_expiration_in_minutes` is now set to default value if not returned from API ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.38.0"
+  - version: "4.29.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_web_application_firewall_policy` - add support for the `JSChallenge` in the `action` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.29.0"
+  - version: "4.11.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_web_application_firewall_policy` - `1.1` is now accepted as a valid `version` for `Microsoft_BotManagerRuleSet` rule types ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.11.0"
+  - version: "4.8.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_web_application_firewall_policy` - add support for `policy_settings.0.file_upload_enforcement` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.8.0"
+  - version: "4.0.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_web_application_firewall_policy` - add support for the `request_body_enforcement` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.0.0"
+  - version: "3.116.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_web_application_firewall_policy` - add support for the `js_challenge_cookie_expiration_in_minutes` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.116.0"
+  - version: "3.115.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_web_application_firewall_policy` - `excluded_rule_set.0.type` supports `Microsoft_BotManagerRuleSet` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.115.0"
+  - version: "3.112.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_web_application_firewall_policy` - support for the `JSChallenge` value for `managed_rules.managed_rule_set.rule_group_override.rule_action` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.112.0"
 
 provider_issues:
   last_checked: "2026-05-13T06:34:31Z"

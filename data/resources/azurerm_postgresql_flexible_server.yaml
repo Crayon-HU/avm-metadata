@@ -5,14 +5,108 @@ resource:
   registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server"
 
 provider_updates:
-  last_checked: "2026-05-13T06:16:10Z"
-  findings: []
-  # finding shape:
-  #   - version: "4.15.0"
-  #     criticality: high   # critical | high | medium | low
-  #     type: bug_fix       # bug_fix | security | enhancement | breaking_change | new_feature | deprecated
-  #     summary: "..."
-  #     url: "..."
+  last_checked: "2026-05-19T09:44:51Z"
+  findings:
+  - version: "4.70.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_postgresql_flexible_server` - add support for confidential compute server type SKU ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.70.0"
+  - version: "4.60.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_postgresql_flexible_server` - add support for `cluster` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.60.0"
+  - version: "4.55.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_postgresql_flexible_server` - update validation for `customer_managed_key.key_vault_key_id` and `customer_managed_key.geo_backup_key_vault_key_id` to allow managed HSM keys as input ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.55.0"
+  - version: "4.55.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_postgresql_flexible_server` - add support for PostgreSQL version `18` ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.55.0"
+  - version: "4.46.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_postgresql_flexible_server` - add support for the `17` value in the `version` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.46.0"
+  - version: "4.44.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_postgresql_flexible_server` - fix a bug when setting the `source_server_id` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.44.0"
+  - version: "4.39.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_postgresql_flexible_server` - the `customer_managed_key.geo_backup_key_vault_key_id` now supports versionless IDs ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.39.0"
+  - version: "4.39.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_postgresql_flexible_server` - fix an issue where `administrator_password_wo` was not set to the update request payload ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.39.0"
+  - version: "4.33.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_postgresql_flexible_server` - the `create_mode` property now supports the `ReviveDropped` value  ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.33.0"
+  - version: "4.33.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_postgresql_flexible_server` - add support for `SystemAssigned, UserAssigned` to the `identity.type` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.33.0"
+  - version: "4.32.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_postgresql_flexible_server` - add support for versionless key vault key IDs to the `customer_managed_key.key_vault_key_id` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.32.0"
+  - version: "4.31.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_postgresql_flexible_server` - lock the source server when creating a replica server ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.31.0"
+  - version: "4.27.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_postgresql_flexible_server` - downgrading `version` forces a new resource to be created ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.27.0"
+  - version: "4.27.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_postgresql_flexible_server` - downgrading `storage_mb` forces a new resource to be created ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.27.0"
+  - version: "4.23.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_postgresql_flexible_server` - fix validation for `customer_managed_key.key_vault_key_id` and `customer_managed_key.geo_backup_key_id` to disallow versionless keys preventing unclear error ..."
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.23.0"
+  - version: "4.21.0"
+    criticality: low
+    type: documentation
+    summary: "The `azurerm_postgresql_flexible_server` resource now supports the `administrator_password_wo` [write-only argument](https://developer.hashicorp.com/terraform/language/v1.11.x/resources/ephemeral#w..."
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.21.0"
+  - version: "4.21.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_postgresql_flexible_server` - add support for the `administrator_password_wo` and `administrator_password_wo_version` properties ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.21.0"
+  - version: "3.106.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_postgresql_flexible_server` - prevent premature check on updated `storage_mb` value that prevents the resource from being re-created ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.106.0"
+  - version: "3.105.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_postgresql_flexible_server` - the field `public_network_access_enabled` is now configurable (previously this was computed-only/not settable via the API) ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.105.0"
+  - version: "3.104.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_postgresql_flexible_server` - fix for default `storage_tier` value when `storage_mb` field has been changed ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v3.104.0"
 
 provider_issues:
   last_checked: "2026-05-13T06:34:31Z"

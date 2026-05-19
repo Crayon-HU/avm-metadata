@@ -5,14 +5,23 @@ resource:
   registry_url: "https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/static_web_app"
 
 provider_updates:
-  last_checked: "2026-05-13T06:16:10Z"
-  findings: []
-  # finding shape:
-  #   - version: "4.15.0"
-  #     criticality: high   # critical | high | medium | low
-  #     type: bug_fix       # bug_fix | security | enhancement | breaking_change | new_feature | deprecated
-  #     summary: "..."
-  #     url: "..."
+  last_checked: "2026-05-19T09:44:51Z"
+  findings:
+  - version: "4.15.0"
+    criticality: low
+    type: documentation
+    summary: "Data Source: `azurerm_static_web_app` - add  support for the `repository_url` and `repository_branch` properties ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.15.0"
+  - version: "4.15.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_static_web_app` - add  support for the `repository_url`, `repository_branch` and `repository_token` properties ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.15.0"
+  - version: "4.3.0"
+    criticality: low
+    type: documentation
+    summary: "`azurerm_static_web_app` - support for the `public_network_access_enabled` property ()"
+    url: "https://github.com/hashicorp/terraform-provider-azurerm/releases/tag/v4.3.0"
 
 provider_issues:
   last_checked: "2026-05-13T06:34:31Z"
